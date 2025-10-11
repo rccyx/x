@@ -9,7 +9,7 @@
     "env:validate:ci": "export VALIDATE_CI=true && pnpm tsx index.ts"
   },
   "dependencies": {
-    "envyx": "1.0.0",
+    "envyx": "1.0.1",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -24,4 +24,3 @@
   },
   "type": "module"
 }
-
