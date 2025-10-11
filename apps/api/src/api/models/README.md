@@ -1,15 +1,15 @@
 # REST models Naming convention
 
 ```bash
-<Resource><Action><Ro> => RO types
-<Resource><Action><Query/Path/Body/Headers><Dto> => DTO types
+<Resource><Action><Ro> => RO types (type)
+<Resource><Action><Query/Path/Body/Headers><Dto> => DTO types (type)
 
-<Resource><Action><Schema><Ro> => RO schema
-<Resource><Action><Query/Path/Body/Headers><Schema><Dto> => DTO schema
+<resource><Action><Schema><Ro> => RO schema (value)
+<resource><Action><Query/Path/Body/Headers><Schema><Dto> => DTO schema (value)
 
 
-<Resource><Action><SchemaResponses> => Response schemas
-<Resource><Action><Responses> => Response types
+<resource><Action><SchemaResponses> => Response schemas (value)
+<Resource><Action><Responses> => Response types (type)
 ```
 
 ## Schema strictness
