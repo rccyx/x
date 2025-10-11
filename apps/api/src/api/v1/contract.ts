@@ -15,12 +15,12 @@ import {
   reminderCreateHeadersSchemaDto,
   reminderCreateSchemaResponses,
 } from "~/api/v1/models";
-import { endpoints } from "~/api/v1/endpoints";
+import { v1endpoints } from "~/api/v1/endpoints";
 
 export const contract = createContract(c)({
   reminderCreate: {
     method: "POST",
-    path: endpoints.reminder,
+    path: v1endpoints.reminder,
     strictStatusCodes: true,
     summary: "Create reminder",
     description:
@@ -32,7 +32,7 @@ export const contract = createContract(c)({
 
   notificationCreate: {
     method: "POST",
-    path: endpoints.notification,
+    path: v1endpoints.notification,
     strictStatusCodes: true,
     summary: "Send notification",
     description:
@@ -44,7 +44,7 @@ export const contract = createContract(c)({
 
   postDeleteViewWindow: {
     method: "DELETE",
-    path: endpoints.post.viewWindow,
+    path: v1endpoints.post.viewWindow,
     strictStatusCodes: true,
     summary: "Purge view window data",
     description: "Deletes cached or temporary view window data from the blog.",
@@ -54,7 +54,7 @@ export const contract = createContract(c)({
 
   postDeleteTrash: {
     method: "DELETE",
-    path: endpoints.post.trash,
+    path: v1endpoints.post.trash,
     strictStatusCodes: true,
     summary: "Purge trashed posts",
     description: "Permanently deletes all posts currently in the trash bin.",
@@ -64,7 +64,7 @@ export const contract = createContract(c)({
 
   health: {
     method: "GET",
-    path: endpoints.health,
+    path: v1endpoints.health,
     strictStatusCodes: true,
     summary: "Health check",
     description: "Simple liveness probe to verify the API is running.",
@@ -73,7 +73,7 @@ export const contract = createContract(c)({
 
   bootstrap: {
     method: "GET",
-    path: endpoints.oss.bootstrap,
+    path: v1endpoints.oss.bootstrap,
     strictStatusCodes: true,
     summary: "Fetch bootstrap script",
     description:
@@ -84,7 +84,7 @@ export const contract = createContract(c)({
 
   gpg: {
     method: "GET",
-    path: endpoints.oss.gpg,
+    path: v1endpoints.oss.gpg,
     strictStatusCodes: true,
     summary: "Fetch public GPG key",
     description: "Returns my armored public GPG key as plain text.",
@@ -94,7 +94,7 @@ export const contract = createContract(c)({
 
   debion: {
     method: "GET",
-    path: endpoints.oss.debion,
+    path: v1endpoints.oss.debion,
     strictStatusCodes: true,
     summary: "Fetch Debion setup script",
     description:
@@ -105,7 +105,7 @@ export const contract = createContract(c)({
 
   whisper: {
     method: "GET",
-    path: endpoints.oss.whisper,
+    path: v1endpoints.oss.whisper,
     strictStatusCodes: true,
     summary: "Fetch Whisper setup script",
     description:
