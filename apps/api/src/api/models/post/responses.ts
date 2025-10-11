@@ -1,7 +1,7 @@
 import type { InferResponses } from "ts-rest-kit/core";
 import { createSchemaResponses } from "ts-rest-kit/core";
 import {
-  authedMiddlewareSchemaResponse,
+  tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
   noContentSchemaResponse,
@@ -9,14 +9,14 @@ import {
 
 export const postTrashDeleteSchemaResponses = createSchemaResponses({
   ...rateLimiterMiddlewareSchemaResponse,
-  ...authedMiddlewareSchemaResponse,
+  ...tokenAuthMiddlewareSchemaResponse,
   ...noContentSchemaResponse,
   ...internalErrorSchemaResponse,
 });
 
 export const postViewWindowDeleteSchemaResponses = createSchemaResponses({
   ...rateLimiterMiddlewareSchemaResponse,
-  ...authedMiddlewareSchemaResponse,
+  ...tokenAuthMiddlewareSchemaResponse,
   ...noContentSchemaResponse,
   ...internalErrorSchemaResponse,
 });

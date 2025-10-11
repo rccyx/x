@@ -1,9 +1,9 @@
-import { authedMiddlewareHeaderSchemaDto } from "~/api/models/shared/dtos";
+import { tokenAuthedMiddlewareHeaderSchemaDto } from "~/api/models/shared/dtos";
 import { z } from "zod";
 import { NotificationType } from "@ashgw/email";
 
 export const notificationCreateHeadersSchemaDto =
-  authedMiddlewareHeaderSchemaDto;
+  tokenAuthedMiddlewareHeaderSchemaDto;
 
 export const notificationCreateBodySchemaDto = z
   .object({

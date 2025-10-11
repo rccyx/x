@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { InferResponses } from "ts-rest-kit/core";
 import { createSchemaResponses } from "ts-rest-kit/core";
 import {
-  authedMiddlewareSchemaResponse,
+  tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
 } from "~/api/models/shared/responses";
@@ -13,7 +13,7 @@ export const reminderCreateSchemaResponses = createSchemaResponses({
     created: z.array(reminderMessageCreatedSchemaRo),
   }),
   ...rateLimiterMiddlewareSchemaResponse,
-  ...authedMiddlewareSchemaResponse,
+  ...tokenAuthMiddlewareSchemaResponse,
   ...internalErrorSchemaResponse,
 });
 

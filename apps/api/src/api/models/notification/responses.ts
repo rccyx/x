@@ -1,7 +1,7 @@
 import type { InferResponses } from "ts-rest-kit/core";
 import { createSchemaResponses } from "ts-rest-kit/core";
 import {
-  authedMiddlewareSchemaResponse,
+  tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,
   okSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
@@ -9,7 +9,7 @@ import {
 
 export const notificationCreateSchemaResponses = createSchemaResponses({
   ...rateLimiterMiddlewareSchemaResponse,
-  ...authedMiddlewareSchemaResponse,
+  ...tokenAuthMiddlewareSchemaResponse,
   ...okSchemaResponse,
   ...internalErrorSchemaResponse,
 });

@@ -1,13 +1,13 @@
 import type { z } from "zod";
-import { authedMiddlewareHeaderSchemaDto } from "../shared";
+import { tokenAuthMiddlewareHeaderSchemaDto } from "../shared";
 
 // ========== Schemas ==========
 
 export const postViewWindowDeleteHeadersSchemaDto =
-  authedMiddlewareHeaderSchemaDto.extend({});
+  tokenAuthMiddlewareHeaderSchemaDto.extend({});
 
 export const postTrashDeleteHeadersSchemaDto =
-  authedMiddlewareHeaderSchemaDto.extend({});
+  tokenAuthMiddlewareHeaderSchemaDto.extend({});
 
 // ========== Types ==========
 

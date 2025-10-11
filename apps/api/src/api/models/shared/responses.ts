@@ -9,7 +9,7 @@ export const noContentSchemaResponse = createSchemaResponses({
   204: c.noBody(),
 });
 
-export const authedMiddlewareSchemaResponse = createSchemaResponses({
+export const tokenAuthMiddlewareSchemaResponse = createSchemaResponses({
   401: httpErrorSchema
     .unauthorized()
     .describe("Missing or invalid x-api-token"),

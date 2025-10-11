@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { notificationCreateBodySchemaDto } from "../notification";
-import { authedMiddlewareHeaderSchemaDto } from "../shared";
+import { tokenAuthMiddlewareHeaderSchemaDto } from "../shared";
 import { isoDateTimeSchema } from "./shared";
 import { NotificationType } from "@ashgw/email";
 
@@ -86,7 +86,7 @@ export const reminderCreateBodySchemaDto = z
   .describe("The reminder to create.");
 
 export const reminderCreateHeadersSchemaDto =
-  authedMiddlewareHeaderSchemaDto.extend({});
+  tokenAuthMiddlewareHeaderSchemaDto.extend({});
 
 export type ReminderCreateBodyDto = z.infer<typeof reminderCreateBodySchemaDto>;
 export type ReminderCreateHeadersDto = z.infer<
