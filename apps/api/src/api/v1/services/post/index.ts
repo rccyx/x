@@ -4,7 +4,7 @@ import { monitor } from "@ashgw/monitor";
 import type {
   PostTrashDeleteResponses,
   PostViewWindowDeleteResponses,
-} from "~/api/models";
+} from "~/api/v1/models";
 
 export class PostService {
   private static readonly retentionDays = 30;

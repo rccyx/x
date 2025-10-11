@@ -3,7 +3,7 @@
 // - initTsrReactQuery: generates typed hooks + providers for React Query v5
 import { initTsrReactQuery } from "@ts-rest/react-query/v5";
 import { initClient } from "@ts-rest/core";
-import { contract } from "~/api/contract";
+import { contract } from "~/api/v1/contract";
 import { apiV1endpoint } from "~/ts-rest/endpoint";
 import type { InitClientArgs } from "@ts-rest/core";
 

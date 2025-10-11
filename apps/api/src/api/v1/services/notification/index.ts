@@ -1,8 +1,8 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { NotificationCreateResponses } from "~/api/models";
+import type { NotificationCreateResponses } from "~/api/v1/models";
 import { send } from "@ashgw/email";
-import type { NotificationCreateBodyDto } from "~/api/models/notification";
+import type { NotificationCreateBodyDto } from "~/api/v1/models/notification";
 import { env } from "@ashgw/env";
 
 export class NotificationService {

@@ -7,9 +7,9 @@ import type {
   ReminderCreateResponses,
   ReminderMessageCreatedRo,
   ReminderCreateHeadersDto,
-} from "~/api/models";
+} from "~/api/v1/models";
 import { scheduler } from "@ashgw/scheduler";
-import { endpoints } from "~/api/endpoints";
+import { endpoints } from "~/api/v1/endpoints";
 
 export class ReminderService {
   private static readonly notifyUrl =

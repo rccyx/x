@@ -1,4 +1,4 @@
-import { c } from "../ts-rest/root";
+import { c } from "../../ts-rest/root";
 import { createContract } from "ts-rest-kit/core";
 import {
   healthSchemaResponses,
@@ -14,8 +14,8 @@ import {
   reminderCreateBodySchemaDto,
   reminderCreateHeadersSchemaDto,
   reminderCreateSchemaResponses,
-} from "~/api/models";
-import { endpoints } from "./endpoints";
+} from "~/api/v1/models";
+import { endpoints } from "~/api/v1/endpoints";
 
 export const contract = createContract(c)({
   reminderCreate: {

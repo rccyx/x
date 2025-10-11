@@ -1,4 +1,4 @@
-import { tokenAuthMiddlewareHeaderSchemaDto } from "~/api/models/shared/dtos";
+import { tokenAuthMiddlewareHeaderSchemaDto } from "~/api/v1/models/shared/dtos";
 import { z } from "zod";
 import { NotificationType } from "@ashgw/email";
 

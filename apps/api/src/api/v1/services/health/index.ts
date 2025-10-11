@@ -1,4 +1,4 @@
-import type { HealthResponses } from "~/api/models";
+import type { HealthResponses } from "~/api/v1/models";
 
 export class HealthService {
   public static async check(): Promise<HealthResponses> {
