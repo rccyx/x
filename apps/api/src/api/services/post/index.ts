@@ -2,8 +2,8 @@ import type { DatabaseClient } from "@ashgw/db";
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type {
-  PurgeTrashPostsResponses,
-  PurgeViewWindowResponses,
+  PostTrashDeleteResponses,
+  PostViewWindowDeleteResponses,
 } from "~/api/models";
 
 export class PostService {
@@ -15,7 +15,7 @@ export class PostService {
     this.db = db;
   }
 
-  public async purgeTrashPosts(): Promise<PurgeTrashPostsResponses> {
+  public async purgeTrashPosts(): Promise<PostTrashDeleteResponses> {
     const cutoff = new Date(
       Date.now() - PostService.retentionDays * 24 * 60 * 60 * 1000,
     );
@@ -42,7 +42,7 @@ export class PostService {
     }
   }
 
-  public async purgeViewWindow(): Promise<PurgeViewWindowResponses> {
+  public async purgeViewWindow(): Promise<PostViewWindowDeleteResponses> {
     // compute cutoff per function run
     const cutoff = new Date(
       Date.now() - 1000 * 60 * 60 * 24 * PostService.retainDays,

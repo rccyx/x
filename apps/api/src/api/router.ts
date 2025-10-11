@@ -4,16 +4,15 @@ import { rateLimiter, authed } from "~/ts-rest/middlewares";
 import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 import {
-  purgeTrashPosts,
-  purgeViewWindow,
-  notify,
-  fetchTextFromUpstream,
-  healthCheck,
-  reminder,
+  HealthService,
+  NotificationService,
+  OssService,
+  PostService,
+  ReminderService,
 } from "./services";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
-  reminder: middleware()
+  reminderCreate: middleware()
     .use(
       rateLimiter({
         kind: "quota",
@@ -24,11 +23,12 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.reminder)(
-    async ({ body, headers }) => await reminder({ body, headers }),
+    .route(contract.reminderCreate)(
+    async ({ body, headers }) =>
+      await ReminderService.create({ body, headers }),
   ),
 
-  notify: middleware()
+  notificationCreate: middleware()
     .use(
       rateLimiter({
         kind: "quota",
@@ -39,9 +39,11 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.notify)(async ({ body }) => await notify({ body })),
+    .route(contract.notificationCreate)(
+    async ({ body }) => await NotificationService.create({ body }),
+  ),
 
-  purgeViewWindow: middleware()
+  postDeleteViewWindow: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -51,9 +53,12 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.purgeViewWindow)(async () => await purgeViewWindow()),
+    .route(contract.postDeleteViewWindow)(
+    async (_, { request: { ctx } }) =>
+      await new PostService({ db: ctx.db }).purgeViewWindow(),
+  ),
 
-  purgeTrashPosts: middleware()
+  postDeleteTrash: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -63,10 +68,13 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.purgeTrashPosts)(async () => await purgeTrashPosts()),
+    .route(contract.postDeleteTrash)(
+    async (_, { request: { ctx } }) =>
+      await new PostService({ db: ctx.db }).purgeTrashPosts(),
+  ),
 
   bootstrap: async ({ query }) =>
-    fetchTextFromUpstream({
+    await OssService.fetchTextFromUpstream({
       query,
       fetchUrl: {
         github: { repo: "dotfiles", scriptPath: "install/bootstrap" },
@@ -78,7 +86,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   debion: async ({ query }) =>
-    await fetchTextFromUpstream({
+    await OssService.fetchTextFromUpstream({
       query,
       fetchUrl: { github: { repo: "debion", scriptPath: "setup" } },
       opts: {
@@ -88,7 +96,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   whisper: async ({ query }) =>
-    await fetchTextFromUpstream({
+    await OssService.fetchTextFromUpstream({
       query,
       fetchUrl: { github: { repo: "whisper", scriptPath: "setup" } },
       opts: {
@@ -98,7 +106,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   gpg: async ({ query }) =>
-    await fetchTextFromUpstream({
+    await OssService.fetchTextFromUpstream({
       query,
       fetchUrl: { direct: { url: gpg.publicUrl } },
       opts: {
@@ -106,5 +114,5 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
         cacheControl: "s-maxage=86400, stale-while-revalidate=86400",
       },
     }),
-  healthCheck: async () => await healthCheck(),
+  health: async () => await HealthService.check(),
 });

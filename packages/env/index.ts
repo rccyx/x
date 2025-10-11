@@ -1,8 +1,8 @@
-import {createEnv} from "envyx";
-import {colors} from "./colors";
+import { createEnv } from "envyx";
+import { colors } from "./colors";
 
-import {envTuple} from "./env-tuple";
-import {ciVars, clientVars, serverVars} from "./vars";
+import { envTuple } from "./env-tuple";
+import { ciVars, clientVars, serverVars } from "./vars";
 
 const serverVarsTuple = envTuple(serverVars);
 const ciVarsTuple = envTuple(ciVars);
@@ -69,4 +69,3 @@ console.log(
     String(Object.keys(env).length),
   )} vars successfully.`,
 );
-
