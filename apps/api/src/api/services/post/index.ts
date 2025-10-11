@@ -15,7 +15,7 @@ export class PostService {
     this.db = db;
   }
 
-  public async purgeTrashPosts(): Promise<PostTrashDeleteResponses> {
+  public async deleteTrashPosts(): Promise<PostTrashDeleteResponses> {
     const cutoff = new Date(
       Date.now() - PostService.retentionDays * 24 * 60 * 60 * 1000,
     );
@@ -42,7 +42,7 @@ export class PostService {
     }
   }
 
-  public async purgeViewWindow(): Promise<PostViewWindowDeleteResponses> {
+  public async deleteViewWindow(): Promise<PostViewWindowDeleteResponses> {
     // compute cutoff per function run
     const cutoff = new Date(
       Date.now() - 1000 * 60 * 60 * 24 * PostService.retainDays,

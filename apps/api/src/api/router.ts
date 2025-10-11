@@ -55,7 +55,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     .use(authed())
     .route(contract.postDeleteViewWindow)(
     async (_, { request: { ctx } }) =>
-      await new PostService({ db: ctx.db }).purgeViewWindow(),
+      await new PostService({ db: ctx.db }).deleteViewWindow(),
   ),
 
   postDeleteTrash: middleware()
@@ -70,11 +70,11 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     .use(authed())
     .route(contract.postDeleteTrash)(
     async (_, { request: { ctx } }) =>
-      await new PostService({ db: ctx.db }).purgeTrashPosts(),
+      await new PostService({ db: ctx.db }).deleteTrashPosts(),
   ),
 
   bootstrap: async ({ query }) =>
-    await OssService.fetchTextFromUpstream({
+    await OssService.fetchText({
       query,
       fetchUrl: {
         github: { repo: "dotfiles", scriptPath: "install/bootstrap" },
@@ -86,7 +86,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   debion: async ({ query }) =>
-    await OssService.fetchTextFromUpstream({
+    await OssService.fetchText({
       query,
       fetchUrl: { github: { repo: "debion", scriptPath: "setup" } },
       opts: {
@@ -96,7 +96,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   whisper: async ({ query }) =>
-    await OssService.fetchTextFromUpstream({
+    await OssService.fetchText({
       query,
       fetchUrl: { github: { repo: "whisper", scriptPath: "setup" } },
       opts: {
@@ -106,7 +106,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   gpg: async ({ query }) =>
-    await OssService.fetchTextFromUpstream({
+    await OssService.fetchText({
       query,
       fetchUrl: { direct: { url: gpg.publicUrl } },
       opts: {

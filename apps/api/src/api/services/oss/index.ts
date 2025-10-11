@@ -27,7 +27,7 @@ type FetchUrl = ExclusiveUnion<
 >;
 
 export class OssService {
-  public static async fetchTextFromUpstream(input: {
+  public static async fetchText(input: {
     fetchUrl: FetchUrl;
     query?: OssGetTextQueryDto;
     opts: FetchOpts;
