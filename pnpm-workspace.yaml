@@ -57,4 +57,3 @@ catalogs:
   mobx:
     mobx: "6.13.7"
     mobx-react-lite: "4.1.0"
-

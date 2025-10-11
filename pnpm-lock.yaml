@@ -1032,8 +1032,8 @@ importers:
   packages/env:
     dependencies:
       envyx:
-        specifier: 1.0.1
-        version: 1.0.1(zod@3.23.8)
+        specifier: 1.1.0
+        version: 1.1.0(zod@3.23.8)
       zod:
         specifier: 'catalog:'
         version: 3.23.8
@@ -6887,8 +6887,8 @@ packages:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
 
-  envyx@1.0.1:
-    resolution: {integrity: sha512-xYfCi3sgWJyqadRsMyUIQOTRunnVVf4xwpP4qmc2xE9hk/x1fDAg4TwVe9apwZQoUR8mt5YJpmvm4FXC39Y1Vw==}
+  envyx@1.1.0:
+    resolution: {integrity: sha512-N+lQPTebxoVcl/E5hfnG6SbwYNca7ifHQ5m0QLcxNbGiESYHx+WukVhkd8sCiJZ2FDkPU231e0+Jw276usPCWQ==}
     peerDependencies:
       zod: '>=3.0.0'
 
@@ -17629,7 +17629,7 @@ snapshots:
 
   env-paths@2.2.1: {}
 
-  envyx@1.0.1(zod@3.23.8):
+  envyx@1.1.0(zod@3.23.8):
     dependencies:
       zod: 3.23.8
 
