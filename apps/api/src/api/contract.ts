@@ -1,6 +1,16 @@
 import { c } from "../ts-rest/root";
 import { createContract } from "ts-rest-kit/core";
 import {
+  healthSchemaResponses,
+  notificationCreateBodySchemaDto,
+  notificationCreateHeadersSchemaDto,
+  notificationCreateSchemaResponses,
+  ossGetTextQuerySchemaDto,
+  ossGetTextSchemaResponses,
+  postTrashDeleteHeadersSchemaDto,
+  postTrashDeleteSchemaResponses,
+  postViewWindowDeleteHeadersSchemaDto,
+  postViewWindowDeleteSchemaResponses,
   reminderCreateBodySchemaDto,
   reminderCreateHeadersSchemaDto,
   reminderCreateSchemaResponses,
@@ -38,8 +48,8 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Purge view window data",
     description: "Deletes cached or temporary view window data from the blog.",
-    headers: postDeleteViewWindowHeadersSchemaDto,
-    responses: purgeViewWindowSchemaResponses,
+    headers: postViewWindowDeleteHeadersSchemaDto,
+    responses: postViewWindowDeleteSchemaResponses,
   },
 
   postDeleteTrash: {
@@ -48,8 +58,8 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Purge trashed posts",
     description: "Permanently deletes all posts currently in the trash bin.",
-    headers: purgeTrashPostsHeadersSchemaDto,
-    responses: purgeTrashPostsSchemaResponses,
+    headers: postTrashDeleteHeadersSchemaDto,
+    responses: postTrashDeleteSchemaResponses,
   },
 
   health: {
@@ -68,8 +78,8 @@ export const contract = createContract(c)({
     summary: "Fetch bootstrap script",
     description:
       "Returns a raw text bootstrap script for initializing dotfiles setup.",
-    query: fetchTextFromUpstreamQuerySchemaDto.optional(),
-    responses: fetchTextFromUpstreamSchemaResponses,
+    query: ossGetTextQuerySchemaDto.optional(),
+    responses: ossGetTextSchemaResponses,
   },
 
   gpg: {
@@ -78,8 +88,8 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Fetch public GPG key",
     description: "Returns my armored public GPG key as plain text.",
-    query: fetchTextFromUpstreamQuerySchemaDto.optional(),
-    responses: fetchGpgFromUpstreamSchemaResponses,
+    query: ossGetTextQuerySchemaDto.optional(),
+    responses: ossGetTextSchemaResponses,
   },
 
   debion: {
@@ -89,8 +99,8 @@ export const contract = createContract(c)({
     summary: "Fetch Debion setup script",
     description:
       "Returns a raw text script for initializing the custom Debion login screen environment.",
-    query: fetchTextFromUpstreamQuerySchemaDto.optional(),
-    responses: fetchTextFromUpstreamSchemaResponses,
+    query: ossGetTextQuerySchemaDto.optional(),
+    responses: ossGetTextSchemaResponses,
   },
 
   whisper: {
@@ -100,7 +110,7 @@ export const contract = createContract(c)({
     summary: "Fetch Whisper setup script",
     description:
       "Returns a raw text script for configuring OpenAI's Whisper locally.",
-    query: fetchTextFromUpstreamQuerySchemaDto.optional(),
-    responses: fetchTextFromUpstreamSchemaResponses,
+    query: ossGetTextQuerySchemaDto.optional(),
+    responses: ossGetTextSchemaResponses,
   },
 });
