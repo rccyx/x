@@ -322,6 +322,9 @@ importers:
       '@ashgw/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@ashgw/api':
+        specifier: workspace:*
+        version: link:../api
       '@ashgw/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -506,6 +509,9 @@ importers:
       '@ashgw/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@ashgw/api':
+        specifier: workspace:*
+        version: link:../api
       '@ashgw/components':
         specifier: workspace:*
         version: link:../../packages/components
