@@ -27,7 +27,7 @@ import { UserService } from "../../services";
 
 const userService = (ctx: TrpcContext) =>
   new UserService({
-    ctx,
+    requestHeaders: ctx.req.headers,
   });
 
 export const userRouter = router({

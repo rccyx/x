@@ -12,10 +12,16 @@ export const viewRouter = router({
   })
     .input(trackViewSchemaDto)
     .output(trackViewSchemaRo)
-    .mutation(async ({ input: { slug }, ctx: { db, req } }) => {
-      return await new ViewService({
-        db,
-        req,
-      }).trackView({ slug });
-    }),
+    .mutation(
+      async ({
+        input: { slug },
+        ctx: {
+          req: { headers },
+        },
+      }) => {
+        return await new ViewService({
+          requestHeaders: headers,
+        }).trackView({ slug });
+      },
+    ),
 });
