@@ -36,13 +36,6 @@ export const init = ({
     // Performance & Profiling
     tracesSampleRate,
     profilesSampleRate,
-    // Only propagate tracing to our own hosts and local dev.
-    tracePropagationTargets: [
-      env.NEXT_PUBLIC_WWW_URL,
-      env.NEXT_PUBLIC_BLOG_URL,
-      "localhost",
-      "127.0.0.1",
-    ],
 
     // Replays (browser only)
     replaysSessionSampleRate,
