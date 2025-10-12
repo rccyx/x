@@ -3,7 +3,7 @@ import { monitor } from "@ashgw/monitor";
 import type {
   NotificationCreateBodyRequest,
   NotificationCreateResponses,
-} from "~/transports/v1/models";
+} from "../../models";
 import { send } from "@ashgw/email";
 import { env } from "@ashgw/env";
 

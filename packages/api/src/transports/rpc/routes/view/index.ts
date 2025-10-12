@@ -1,7 +1,7 @@
-import { publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
-import { trackViewSchemaRo, trackViewSchemaDto } from "~/core/models";
-import { ViewService } from "~/core/services";
+import { publicProcedure } from "../../../../trpc/procedures";
+import { router } from "../../../../trpc/root";
+import { trackViewSchemaRo, trackViewSchemaDto } from "../../models";
+import { ViewService } from "../../services";
 
 export const viewRouter = router({
   trackView: publicProcedure({

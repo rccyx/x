@@ -1,15 +1,15 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
-import { rootUri } from "~/uri";
+import { rootUri } from "../../../../uri";
 import type {
   ReminderCreateBodyRequest,
   ReminderCreateResponses,
   ReminderMessageCreatedRo,
   ReminderCreateHeadersRequest,
-} from "~/transports/v1/models";
+} from "../../models";
 import { scheduler } from "@ashgw/scheduler";
-import { v1endpoints } from "~/transports/v1/endpoints";
+import { v1endpoints } from "../../endpoints";
 
 const notifyUrl =
   env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { storage } from "@ashgw/storage";
-import { adminProcedure, publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
+import { adminProcedure, publicProcedure } from "../../../../trpc/procedures";
+import { router } from "../../../../trpc/root";
 import {
   postCardSchemaRo,
   postDeleteSchemaDto,
@@ -10,8 +10,8 @@ import {
   postGetSchemaDto,
   postUpdateSchemaDto,
   trashPostArticleSchemaRo,
-} from "~/core/models";
-import { BlogService } from "~/core/services";
+} from "../../models";
+import { BlogService } from "../../services";
 
 export const postRouter = router({
   getDetailedPublicPost: publicProcedure({

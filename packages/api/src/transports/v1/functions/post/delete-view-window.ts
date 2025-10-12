@@ -1,7 +1,7 @@
 import { db } from "@ashgw/db";
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { PostViewWindowDeleteResponses } from "~/transports/v1/models";
+import type { PostViewWindowDeleteResponses } from "../../models";
 
 const retainDays = 2;
 
