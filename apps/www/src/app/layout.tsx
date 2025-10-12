@@ -11,7 +11,7 @@ import { AnalyticsProvider } from "@ashgw/analytics/client";
 import { DesignSystemProvider } from "@ashgw/design/provider";
 
 import { env } from "@ashgw/env";
-import { TsrProvider } from "@ashgw/api";
+import { TsrProvider } from "@ashgw/api/ts-rest";
 
 const description = "Building the future.";
 
