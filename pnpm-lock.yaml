@@ -370,6 +370,9 @@ importers:
       '@ashgw/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@ashgw/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@ashgw/auth':
         specifier: workspace:*
         version: link:../../packages/auth

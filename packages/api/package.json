@@ -60,16 +60,38 @@
   "engines": {
     "node": "20.x"
   },
+  "exports": {
+    "./transports/v1/models": {
+      "import": "./src/transports/v1/models/index.ts",
+      "types": "./src/transports/v1/models/index.ts"
+    },
+    "./transports/v1/contract": {
+      "import": "./src/transports/v1/contract.ts",
+      "types": "./src/transports/v1/contract.ts"
+    },
+    "./transports/rpc/router": {
+      "import": "./src/transports/rpc/router/index.ts",
+      "types": "./src/transports/rpc/router/index.ts"
+    },
+    "./transports/rpc/models": {
+      "import": "./src/transports/rpc/models/index.ts",
+      "types": "./src/transports/rpc/models/index.ts"
+    },
+    "./ts-rest": {
+      "import": "./src/ts-rest/index.ts",
+      "types": "./src/ts-rest/index.ts"
+    },
+    "./trpc": {
+      "import": "./src/trpc/index.ts",
+      "types": "./src/trpc/index.ts"
+    },
+    "./uri": {
+      "import": "./src/uri.ts",
+      "types": "./src/uri.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "keywords": [],
   "license": "ISC",
-  "type": "module",
-  "exports": {
-    "transports/v1/models": "./src/transports/v1/models/index.ts",
-    "transports/v1/contract": "./src/transports/v1/contract.ts",
-    "transports/rpc/router": "./src/transports/rpc/router/index.ts",
-    "transports/rpc/models": "./src/transports/rpc/models/index.ts",
-    "ts-rest": "./src/ts-rest/index.ts",
-    "trpc": "./src/trpc/index.ts",
-    "uri": "./src/uri.ts"
-  }
+  "type": "module"
 }
