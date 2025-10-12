@@ -64,9 +64,10 @@
   "license": "ISC",
   "type": "module",
   "exports": {
-    "core": "./src/api/core/index.ts",
-    "transports/v1": "./src/transports/v1/index.ts",
-    "transports/rpc": "./src/transports/rpc/index.ts",
+    "transports/v1/models": "./src/transports/v1/models/index.ts",
+    "transports/v1/contract": "./src/transports/v1/contract.ts",
+    "transports/rpc/router": "./src/transports/rpc/router/index.ts",
+    "transports/rpc/models": "./src/transports/rpc/models/index.ts",
     "ts-rest": "./src/ts-rest/index.ts",
     "trpc": "./src/trpc/index.ts",
     "uri": "./src/uri.ts"
