@@ -19,6 +19,7 @@ export const AppCodes = {
   BAD_GATEWAY: "BAD_GATEWAY",
   SERVICE_UNAVAILABLE: "SERVICE_UNAVAILABLE",
   GATEWAY_TIMEOUT: "GATEWAY_TIMEOUT",
+  UPSTREAM_ERROR: "UPSTREAM_ERROR",
 } as const;
 
 export type AppCode = keyof typeof AppCodes;

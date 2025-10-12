@@ -29,4 +29,5 @@ export const E = {
   badGateway: make("BAD_GATEWAY"),
   serviceUnavailable: make("SERVICE_UNAVAILABLE"),
   gatewayTimeout: make("GATEWAY_TIMEOUT"),
+  upstreamError: make("UPSTREAM_ERROR"),
 } as const;
