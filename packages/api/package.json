@@ -61,27 +61,11 @@
     "node": "20.x"
   },
   "exports": {
-    "./v1": {
-      "import": "./src/transports/v1/index.ts",
-      "types": "./src/transports/v1/index.ts"
-    },
-    "./rpc": {
-      "import": "./src/transports/rpc/index.ts",
-      "types": "./src/transports/rpc/index.ts"
-    },
-    "./ts-rest": {
-      "import": "./src/ts-rest/index.ts",
-      "types": "./src/ts-rest/index.ts"
-    },
-    "./trpc": {
-      "import": "./src/trpc/index.ts",
-      "types": "./src/trpc/index.ts"
-    },
-    "./uri": {
-      "import": "./src/uri.ts",
-      "types": "./src/uri.ts"
-    },
-    "./package.json": "./package.json"
+    "./v1": "./src/transports/v1/index.ts",
+    "./rpc": "./src/transports/rpc/index.ts",
+    "./ts-rest": "./src/ts-rest/index.ts",
+    "./trpc": "./src/trpc/index.ts",
+    "./uri": "./src/uri.ts"
   },
   "keywords": [],
   "license": "ISC",
