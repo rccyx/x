@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { generateOpenApi } from "@ts-rest/open-api";
-import { contract } from "~/api/v1/contract";
+import { contract } from "~/api/transports/v1/contract";
 import { env } from "@ashgw/env";
 import { rootUri } from "~/api/uri";
 import { ossEmail } from "@ashgw/constants";
