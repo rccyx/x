@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const tokenAuthMiddlewareHeaderSchemaDto = z
+export const tokenAuthMiddlewareHeaderSchemaRequest = z
   .object({
     "x-api-token": z
       .string()
@@ -9,6 +9,6 @@ export const tokenAuthMiddlewareHeaderSchemaDto = z
   })
   .describe("Header required for any API-authenticated request");
 
-export type TokenAuthMiddlewareHeaderDto = z.infer<
-  typeof tokenAuthMiddlewareHeaderSchemaDto
+export type TokenAuthMiddlewareHeaderRequest = z.infer<
+  typeof tokenAuthMiddlewareHeaderSchemaRequest
 >;
