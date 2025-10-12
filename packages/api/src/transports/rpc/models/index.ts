@@ -1,1 +1,1 @@
-export * from "../../../core/models";
+export * from "@ashgw/core/models";
