@@ -11,8 +11,7 @@
     "lint:knip": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
     "lint:md": "markdownlint \"**/*.md\" --config=.markdownlint.json --ignore-path=.markdownlintignore",
     "lint:spelling": "cspell \"**\" \".github/**/*\"",
-    "lint:ts": "tsc --noEmit; eslint .",
-    "postbuild": "echo 'next-sitemap'"
+    "lint:ts": "tsc --noEmit; eslint ."
   },
   "author": "",
   "dependencies": {

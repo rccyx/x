@@ -7,12 +7,7 @@
       "@ts-rest/core": ["./node_modules/@ts-rest/core"], // checkout http://github.com/pnpm/pnpm/issues/5176
       "@ts-rest/serverless": ["./node_modules/@ts-rest/serverless"] // same
     },
-    "module": "esnext",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "module": "esnext"
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
