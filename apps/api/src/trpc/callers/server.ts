@@ -52,13 +52,7 @@ export const { trpc: trpcRpcServerSideClient, HydrateClient } =
   createHydrationHelpers<AppRouter>(serverSideCaller, getQueryClient);
 
 const getTrpcBaseUrl = (): string => {
-  if (env.NEXT_PUBLIC_CURRENT_ENV === "development") {
-    return env.NODE_ENV === "development"
-      ? "http://localhost:3001" // TODO: actually look at why I did this tho?
-      : "http://localhost:3000";
-  } else {
-    return env.NEXT_PUBLIC_BLOG_URL;
-  }
+  return env.NEXT_PUBLIC_API_URL;
 };
 
 /**

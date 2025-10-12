@@ -11,18 +11,6 @@ import {
 } from "./callers/client";
 import { transformer } from "./transformer";
 
-// // we need to send the CSRF token cookie with every request
-// const getCsrfTokenCookie = (): string => {
-//   if (isBrowser)
-//     return (
-//       document.cookie
-//         .split("; ")
-//         .find((row) => row.startsWith(COOKIE_NAMES.CSRF_TOKEN))
-//         ?.split("=")[1] ?? ""
-//     );
-//   return "";
-// };
-
 export function TRPCProvider(
   props: Readonly<{
     children: React.ReactNode;
@@ -43,7 +31,7 @@ export function TRPCProvider(
           fetch(url, options) {
             return fetch(url, {
               ...options,
-              // CORS & cookies included
+              // cookies included
               credentials: "include",
               headers: {
                 ...options?.headers,

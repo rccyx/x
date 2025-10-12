@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import type { UserRo, UserRoleEnum } from "~/api/models";
+import type { UserRo, UserRoleEnum } from "~/api/rpc/models";
 
 // role hierarchy: higher rank means more privilege!
 // DO NOT CHANGE THE RANKING OF THE ROLES
