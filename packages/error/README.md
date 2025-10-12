@@ -9,3 +9,27 @@ Usage reflects that simplicity. When you need to raise something, you don’t wr
 At the boundary, you pick the mapper. In REST handlers, you call `httpFrom(error)` and get back `{status, body}` ready to send. In tRPC, you call `trpcFrom(TRPCError, error)` and it hands you a proper TRPCError with the right code. That’s the only time you ever think about transport. Inside your services you never care if the request came from REST, RPC, GraphQL, or CLI. It’s always the same internal error flowing up the stack.
 
 This package has no dependencies. It works in Node, Deno, browser, serverless, wherever you want. The point is discipline: you never throw anything else in your codebase. Every error is consistent, every log line is predictable, and clients never get random shapes. It’s lean, it’s boring, and it saves you from the slow death of “whatever error feels right in the moment.”
+
+## boundary helpers
+
+`external()` wraps calls to third party sdks or apis and maps failures to `E.upstreamError` with `meta.upstream`.
+
+```ts
+import { external } from "@ashgw/error";
+
+const user = await external(() => sdk.users.get(id), {
+  service: "example-sdk",
+  operation: "users.get",
+});
+```
+
+`internal()` wraps calls to things you control like databases and internal services and maps failures to E.internal with meta.internal
+
+```ts
+import { internal } from "@ashgw/error";
+
+const row = await internal(() => db.user.findById(id), {
+  service: "db",
+  op: "user.findById",
+});
+```

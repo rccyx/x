@@ -7,7 +7,6 @@ import type { TRPCErrorCtor } from "./trpc";
 
 type Meta = Readonly<Record<string, unknown>>;
 
-/** quick way to make an apperror without importing the whole thing */
 export function err(
   code: AppCode,
   message?: string,
@@ -17,19 +16,45 @@ export function err(
   return new AppError({ code, message, meta, cause });
 }
 
-/** turns whatever error into http status + body. just call this in your rest handlers */
 export function httpFrom(u: unknown): ReturnType<typeof toHttpFromUnknown> {
   return toHttpFromUnknown(u);
 }
 
-/** converts unknown or apperror to trpc error using the ctor you give it */
 export function trpcFrom<TCtor extends TRPCErrorCtor<string>>(
   ctor: TCtor,
   u: unknown,
 ) {
-  // if its already an apperror just map it, otherwize normalize first
   return u instanceof AppError ? toTrpc(ctor, u) : toTrpcFromUnknown(ctor, u);
 }
 
-// re-export E so you dont have to import from multiple places
+export async function external<T>(
+  fn: () => Promise<T>,
+  ctx: { message?: string; service: string; operation: string },
+): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    throw E.upstreamError(
+      ctx.message ?? `${ctx.service} ${ctx.operation} failed`,
+      { upstream: { service: ctx.service, operation: ctx.operation } },
+      err,
+    );
+  }
+}
+
+export async function internal<T>(
+  fn: () => Promise<T>,
+  ctx: { message?: string; service: string; op: string },
+): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    throw E.internal(
+      ctx.message ?? `${ctx.service} ${ctx.op} failed`,
+      { internal: { service: ctx.service, op: ctx.op } },
+      err,
+    );
+  }
+}
+
 export { E, AppError };
