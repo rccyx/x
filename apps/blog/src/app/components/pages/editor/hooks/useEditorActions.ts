@@ -77,7 +77,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     },
   });
 
-  const purgePost = trpcClientSide.post.purgeTrash.useMutation({
+  const purgePost = trpcClientSide.post.purgeTrashPost.useMutation({
     onSuccess: (_, variables) => {
       toast.success("Post permanently deleted");
       store.editor.purgePostFromTrash(variables.trashId);

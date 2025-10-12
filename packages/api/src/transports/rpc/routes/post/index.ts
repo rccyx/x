@@ -10,7 +10,7 @@ import {
   postUpdateSchemaDto,
   trashPostArticleSchemaRo,
 } from "../../models";
-import { BlogService } from "../../services";
+import { PostService } from "../../services";
 
 export const postRouter = router({
   getDetailedPublicPost: publicProcedure({
@@ -22,7 +22,7 @@ export const postRouter = router({
     .input(postGetSchemaDto)
     .output(postArticleSchemaRo.nullable())
     .query(async ({ input: { slug } }) => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.getDetailedPublicPost({ slug });
     }),
 
@@ -35,7 +35,7 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(postCardSchemaRo))
     .query(async () => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.getPublicPostCards();
     }),
 
@@ -48,7 +48,7 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(postArticleSchemaRo))
     .query(async () => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.getAllAdminPosts();
     }),
 
@@ -61,7 +61,7 @@ export const postRouter = router({
     .input(postEditorSchemaDto)
     .output(postArticleSchemaRo)
     .mutation(async ({ input }) => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.createPost(input);
     }),
 
@@ -74,7 +74,7 @@ export const postRouter = router({
     .input(postUpdateSchemaDto)
     .output(postArticleSchemaRo)
     .mutation(async ({ input: { data, slug } }) => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.updatePost({ slug, data });
     }),
 
@@ -87,7 +87,7 @@ export const postRouter = router({
     .input(postDeleteSchemaDto)
     .output(z.void())
     .mutation(async ({ input: { slug } }) => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       await blogService.trashPost({ originalSlug: slug });
     }),
 
@@ -100,11 +100,11 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(trashPostArticleSchemaRo))
     .query(async () => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       return await blogService.getTrashedPosts();
     }),
 
-  purgeTrash: adminProcedure({
+  purgeTrashPost: adminProcedure({
     limiter: {
       hits: 3,
       every: "10s",
@@ -113,8 +113,8 @@ export const postRouter = router({
     .input(z.object({ trashId: z.string().min(1) }))
     .output(z.void())
     .mutation(async ({ input: { trashId } }) => {
-      const blogService = new BlogService();
-      await blogService.purgeTrash({ trashId });
+      const blogService = new PostService();
+      await blogService.purgeTrashPost({ trashId });
     }),
 
   restoreFromTrash: adminProcedure({
@@ -126,7 +126,7 @@ export const postRouter = router({
     .input(z.object({ trashId: z.string().min(1) }))
     .output(z.void())
     .mutation(async ({ input: { trashId } }) => {
-      const blogService = new BlogService();
+      const blogService = new PostService();
       await blogService.restoreFromTrash({ trashId });
     }),
 });

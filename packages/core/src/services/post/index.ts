@@ -204,8 +204,12 @@ export class PostService {
     logger.info("Post moved to trash", { originalSlug });
   }
 
-  public async purgeTrash({ trashId }: { trashId: string }): Promise<void> {
+  public async purgeTrashPost({ trashId }: { trashId: string }): Promise<void> {
     await db.trashPost.delete({ where: { id: trashId } });
+  }
+
+  public async purgeTrash(): Promise<void> {
+    await db.trashPost.deleteMany();
   }
 
   public async restoreFromTrash({
