@@ -1,13 +1,13 @@
 import { logger } from "@ashgw/logger";
 import { createNextHandler } from "@ts-rest/serverless/next";
 import { contract } from "~/api/v1/contract";
-import { apiV1endpoint } from "~/ts-rest/endpoint";
 import { monitor } from "@ashgw/monitor";
 import { router } from "~/api/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
 } from "~/ts-rest/middlewares";
+import { rootEndpoints } from "~/api/root-endpoints";
 
 export const runtime = "nodejs";
 
@@ -15,7 +15,7 @@ export const runtime = "nodejs";
 // - requestMiddleware/responseHandlers wired via local ts-rest-kit wrappers
 // - responsesValidation enabled to align with strictStatusCodes
 const handler = createNextHandler(contract, router, {
-  basePath: apiV1endpoint,
+  basePath: rootEndpoints.v1,
   handlerType: "app-router",
   responseValidation: true,
   jsonQuery: false,
