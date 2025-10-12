@@ -1,5 +1,5 @@
-import { nextJsHandler } from "~/lib/auth";
+import { auth } from "@ashgw/auth";
 
 export const runtime = "nodejs";
 
-export const { POST, GET } = nextJsHandler;
+export const { POST, GET } = auth.nextJsHandler;

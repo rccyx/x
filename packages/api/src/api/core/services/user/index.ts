@@ -19,7 +19,7 @@ import type {
 import { SessionMapper, UserMapper } from "~/api/core/mappers";
 import type { Optional } from "ts-roids";
 import type { TrpcContext } from "~/api/trpc/context";
-import { authApi } from "~/lib/auth";
+import { auth } from "@ashgw/auth";
 
 export class UserService {
   private readonly ctx: TrpcContext;
@@ -28,7 +28,7 @@ export class UserService {
   }
   // ======================= Login =======================
   public async login({ email, password }: UserLoginDto): Promise<void> {
-    await authApi.signInEmail({
+    await auth.api.signInEmail({
       body: {
         email,
         password,
@@ -42,7 +42,7 @@ export class UserService {
     password,
     name,
   }: UserRegisterDto): Promise<void> {
-    await authApi.signUpEmail({
+    await auth.api.signUpEmail({
       body: {
         email,
         password,
@@ -53,19 +53,19 @@ export class UserService {
   }
 
   public async logout(): Promise<void> {
-    await authApi.signOut({
+    await auth.api.signOut({
       headers: this.ctx.req.headers,
     });
   }
 
   public async terminateAllActiveSessions(): Promise<void> {
-    await authApi.revokeSessions({
+    await auth.api.revokeSessions({
       headers: this.ctx.req.headers,
     });
   }
 
   public async listSessions(): Promise<SessionRo[]> {
-    const sessions = await authApi.listSessions({
+    const sessions = await auth.api.listSessions({
       headers: this.ctx.req.headers,
     });
     return sessions.map((s) => SessionMapper.toRo({ session: s }));
@@ -74,7 +74,7 @@ export class UserService {
   public async terminateSpecificSession({
     sessionId,
   }: UserTerminateSpecificSessionDto): Promise<void> {
-    const sessions = await authApi.listSessions({
+    const sessions = await auth.api.listSessions({
       headers: this.ctx.req.headers,
     });
     const target = sessions.find((s) => s.id === sessionId);
@@ -84,7 +84,7 @@ export class UserService {
         message: "Invalid session ID",
       });
     }
-    await authApi.revokeSession({
+    await auth.api.revokeSession({
       body: {
         token: target.token,
       },
@@ -93,7 +93,7 @@ export class UserService {
   }
 
   public async changePassword(input: UserChangePasswordDto): Promise<void> {
-    await authApi.changePassword({
+    await auth.api.changePassword({
       body: {
         ...input,
         revokeOtherSessions: true,
@@ -112,7 +112,7 @@ export class UserService {
   }
 
   private async _getUserWithSession(): Promise<UserRo> {
-    const response = await authApi.getSession({
+    const response = await auth.api.getSession({
       headers: this.ctx.req.headers,
     });
     if (!response?.user) {
@@ -131,7 +131,7 @@ export class UserService {
   public async enableTwoFactor(
     input: TwoFactorEnableDto,
   ): Promise<TwoFactorEnableRo> {
-    return await authApi.enableTwoFactor({
+    return await auth.api.enableTwoFactor({
       body: {
         ...input,
       },
@@ -141,7 +141,7 @@ export class UserService {
   public async getTwoFactorTotpUri(
     input: TwoFactorGetTotpUriDto,
   ): Promise<TwoFactorGetTotpUriRo> {
-    return await authApi.getTOTPURI({
+    return await auth.api.getTOTPURI({
       body: input,
       headers: this.ctx.req.headers,
     });
@@ -149,13 +149,13 @@ export class UserService {
   public async verifyTwoFactorTotp(
     input: TwoFactorVerifyTotpDto,
   ): Promise<void> {
-    await authApi.verifyTOTP({
+    await auth.api.verifyTOTP({
       body: input,
       headers: this.ctx.req.headers,
     });
   }
   public async disableTwoFactor(input: TwoFactorDisableDto): Promise<void> {
-    await authApi.disableTwoFactor({
+    await auth.api.disableTwoFactor({
       body: input,
       headers: this.ctx.req.headers,
     });
@@ -163,7 +163,7 @@ export class UserService {
   public async generateTwoFactorBackupCodes(
     input: TwoFactorGenerateBackupCodesDto,
   ): Promise<TwoFactorGenerateBackupCodesRo> {
-    return await authApi.generateBackupCodes({
+    return await auth.api.generateBackupCodes({
       body: input,
       headers: this.ctx.req.headers,
     });
@@ -172,7 +172,7 @@ export class UserService {
   public async verifyTwoFactorBackupCode(
     input: TwoFactorVerifyBackupCodeDto,
   ): Promise<void> {
-    await authApi.verifyBackupCode({
+    await auth.api.verifyBackupCode({
       body: input,
       headers: this.ctx.req.headers,
     });

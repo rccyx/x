@@ -1,4 +1,4 @@
-import type { authApi } from "~/lib/auth";
+import type { auth } from "@ashgw/auth";
 
 type ExtractUser<T> = T extends { response: { user: infer U } }
   ? U
@@ -7,5 +7,5 @@ type ExtractUser<T> = T extends { response: { user: infer U } }
     : never;
 
 export type UserAuthQuery = ExtractUser<
-  Awaited<ReturnType<typeof authApi.getSession>>
+  Awaited<ReturnType<typeof auth.api.getSession>>
 >;

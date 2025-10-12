@@ -1,5 +1,5 @@
-import type { authApi } from "~/lib/auth";
+import type { auth } from "@ashgw/auth";
 
 export type SessionAuthQuery = Awaited<
-  ReturnType<typeof authApi.listSessions>
+  ReturnType<typeof auth.api.listSessions>
 >[number];
