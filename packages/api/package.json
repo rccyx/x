@@ -62,12 +62,12 @@
   },
   "exports": {
     "./v1": {
-      "import": "./src/transports/rpc/router/index.ts",
-      "types": "./src/transports/rpc/router/index.ts"
+      "import": "./src/transports/v1/index.ts",
+      "types": "./src/transports/v1/index.ts"
     },
     "./rpc": {
-      "import": "./src/transports/rpc/models/index.ts",
-      "types": "./src/transports/rpc/models/index.ts"
+      "import": "./src/transports/rpc/index.ts",
+      "types": "./src/transports/rpc/index.ts"
     },
     "./ts-rest": {
       "import": "./src/ts-rest/index.ts",
