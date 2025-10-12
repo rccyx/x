@@ -26,7 +26,7 @@ const scheduleAtSchema = withNotification({
   at: isoDateTimeSchema,
 });
 
-export const scheduleDelaySchema = withNotification({
+const scheduleDelaySchema = withNotification({
   kind: z.literal("delay").describe("Delay for a specific duration"),
   delay: z.discriminatedUnion("unit", [
     z.object({
