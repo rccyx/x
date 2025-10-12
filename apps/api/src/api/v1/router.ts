@@ -3,13 +3,9 @@ import { gpg } from "@ashgw/constants";
 import { rateLimiter, authed } from "~/ts-rest/middlewares";
 import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
-import {
-  NotificationService,
-  PostService,
-  ReminderService,
-} from "~/api/v1/services";
+import { PostService, ReminderService } from "~/api/v1/services";
 
-import { health, oss } from "~/api/v1/functions";
+import { health, oss, notification } from "~/api/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()
@@ -40,7 +36,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.notificationCreate)(
-    async ({ body }) => await NotificationService.create({ body }),
+    async ({ body }) => await notification.create({ body }),
   ),
 
   postDeleteViewWindow: middleware()
