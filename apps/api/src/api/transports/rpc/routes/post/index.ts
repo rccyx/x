@@ -10,8 +10,8 @@ import {
   postGetSchemaDto,
   postUpdateSchemaDto,
   trashPostArticleSchemaRo,
-} from "~/api/rpc/models";
-import { BlogService } from "~/api/rpc/services";
+} from "~/api/transports/rpc/models";
+import { BlogService } from "~/api/transports/rpc/services";
 
 export const postRouter = router({
   getDetailedPublicPost: publicProcedure({

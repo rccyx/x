@@ -19,9 +19,9 @@ import {
   twoFactorEnableSchemaRo,
   twoFactorGetTotpUriSchemaRo,
   twoFactorGenerateBackupCodesSchemaRo,
-} from "~/api/rpc/models";
+} from "~/api/transports/rpc/models";
 
-import { UserService } from "~/api/rpc/services";
+import { UserService } from "~/api/transports/rpc/services";
 
 const userService = (ctx: TrpcContext) =>
   new UserService({

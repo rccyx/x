@@ -13,10 +13,10 @@ import type {
   PostArticleRo,
   PostEditorDto,
   TrashPostArticleRo,
-} from "~/api/rpc/models";
-import { PostMapper } from "~/api/rpc/mappers";
-import { fontMatterMdxContentSchemaRo } from "~/api/rpc/models";
-import { PostQueryHelper } from "~/api/rpc/query-helpers";
+} from "~/api/transports/rpc/models";
+import { PostMapper } from "~/api/transports/rpc/mappers";
+import { fontMatterMdxContentSchemaRo } from "~/api/transports/rpc/models";
+import { PostQueryHelper } from "~/api/transports/rpc/query-helpers";
 
 export class BlogService {
   private readonly db: DatabaseClient;

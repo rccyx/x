@@ -4,7 +4,7 @@ import { createTRPCReact } from "@trpc/react-query";
 
 import { makeQueryClient } from "./query-client";
 import { rootUri } from "~/api/uri";
-import type { AppRouter } from "~/api/rpc/router";
+import type { AppRouter } from "~/api/transports/rpc/router";
 
 let clientQueryClientSingleton: Optional<QueryClient> = null;
 

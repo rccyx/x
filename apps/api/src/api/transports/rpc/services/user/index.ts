@@ -15,8 +15,8 @@ import type {
   UserRo,
   UserTerminateSpecificSessionDto,
   UserChangePasswordDto,
-} from "~/api/rpc/models";
-import { SessionMapper, UserMapper } from "~/api/rpc/mappers";
+} from "~/api/transports/rpc/models";
+import { SessionMapper, UserMapper } from "~/api/transports/rpc/mappers";
 import type { Optional } from "ts-roids";
 import type { TrpcContext } from "~/trpc/context";
 import { authApi } from "~/lib/auth";
