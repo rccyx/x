@@ -2,7 +2,7 @@ import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type {
   OssGetGpgResponses,
-  OssGetTextQueryDto,
+  OssGetTextQueryRequest,
   OssGetTextResponses,
 } from "~/api/v1/models";
 import type { ExclusiveUnion } from "ts-roids";
@@ -33,7 +33,7 @@ function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
 
 export async function fetchText(input: {
   fetchUrl: FetchUrl;
-  query?: OssGetTextQueryDto;
+  query?: OssGetTextQueryRequest;
   opts: FetchOpts;
 }): Promise<OssGetTextResponses | OssGetGpgResponses> {
   const { fetchUrl, opts } = input;

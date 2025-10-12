@@ -1,12 +1,14 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { NotificationCreateResponses } from "~/api/v1/models";
+import type {
+  NotificationCreateBodyRequest,
+  NotificationCreateResponses,
+} from "~/api/v1/models";
 import { send } from "@ashgw/email";
-import type { NotificationCreateBodyDto } from "~/api/v1/models/notification";
 import { env } from "@ashgw/env";
 
 export async function create(input: {
-  body: NotificationCreateBodyDto;
+  body: NotificationCreateBodyRequest;
 }): Promise<NotificationCreateResponses> {
   logger.info("Sending email notification...");
 

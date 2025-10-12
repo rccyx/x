@@ -3,10 +3,10 @@ import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
 import { rootUri } from "~/api/uri";
 import type {
-  ReminderCreateBodyDto,
+  ReminderCreateBodyRequest,
   ReminderCreateResponses,
   ReminderMessageCreatedRo,
-  ReminderCreateHeadersDto,
+  ReminderCreateHeadersRequest,
 } from "~/api/v1/models";
 import { scheduler } from "@ashgw/scheduler";
 import { v1endpoints } from "~/api/v1/endpoints";
@@ -18,8 +18,8 @@ export async function create({
   body: { schedule },
   headers,
 }: {
-  body: ReminderCreateBodyDto;
-  headers: ReminderCreateHeadersDto;
+  body: ReminderCreateBodyRequest;
+  headers: ReminderCreateHeadersRequest;
 }): Promise<ReminderCreateResponses> {
   try {
     if (schedule.kind === "at") {

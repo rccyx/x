@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { notificationCreateBodySchemaDto } from "../notification";
-import { tokenAuthMiddlewareHeaderSchemaDto } from "../shared";
+import { notificationCreateBodySchemaRequest } from "../notification";
+import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
 import { isoDateTimeSchema } from "./shared";
 import { NotificationType } from "@ashgw/email";
 
-const reminderNotificationSchema = notificationCreateBodySchemaDto
+const reminderNotificationSchemaRequest = notificationCreateBodySchemaRequest
   .omit({
     to: true,
     subject: true,
@@ -18,7 +18,7 @@ const reminderNotificationSchema = notificationCreateBodySchemaDto
 const withNotification = <T extends z.ZodRawShape>(shape: T) =>
   z.object({
     ...shape,
-    notification: reminderNotificationSchema,
+    notification: reminderNotificationSchemaRequest,
   });
 
 const scheduleAtSchema = withNotification({
@@ -66,7 +66,7 @@ const scheduleMultiAtSchema = z.object({
     .array(
       z.object({
         at: isoDateTimeSchema,
-        notification: reminderNotificationSchema,
+        notification: reminderNotificationSchemaRequest,
       }),
     )
     .describe(
@@ -74,7 +74,7 @@ const scheduleMultiAtSchema = z.object({
     ),
 });
 
-export const reminderCreateBodySchemaDto = z
+export const reminderCreateBodySchemaRequest = z
   .object({
     schedule: z.discriminatedUnion("kind", [
       scheduleAtSchema,
@@ -85,10 +85,12 @@ export const reminderCreateBodySchemaDto = z
   })
   .describe("The reminder to create.");
 
-export const reminderCreateHeadersSchemaDto =
-  tokenAuthMiddlewareHeaderSchemaDto.extend({});
+export const reminderCreateHeadersSchemaRequest =
+  tokenAuthMiddlewareHeaderSchemaRequest.extend({});
 
-export type ReminderCreateBodyDto = z.infer<typeof reminderCreateBodySchemaDto>;
-export type ReminderCreateHeadersDto = z.infer<
-  typeof reminderCreateHeadersSchemaDto
+export type ReminderCreateBodyRequest = z.infer<
+  typeof reminderCreateBodySchemaRequest
+>;
+export type ReminderCreateHeadersRequest = z.infer<
+  typeof reminderCreateHeadersSchemaRequest
 >;

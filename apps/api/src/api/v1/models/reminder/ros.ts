@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { isoDateTimeSchema } from "./shared";
 
+// TODO: move this to the RPC handler
 export const reminderMessageCreatedSchemaRo = z
   .object({
     kind: z.enum(["message", "schedule"]),
