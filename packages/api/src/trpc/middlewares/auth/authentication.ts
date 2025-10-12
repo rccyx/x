@@ -1,13 +1,15 @@
 import { TRPCError } from "@trpc/server";
 
-import type { UserRo } from "../../../core/models";
+import type { UserRo } from "@ashgw/core/models";
 import type { TrpcContext } from "../../../trpc/context";
-import { UserService } from "../../../core/services";
+import { UserService } from "@ashgw/core/services";
 
 export async function isAuthenticated(input: {
   ctx: TrpcContext;
 }): Promise<UserRo> {
-  const user = await new UserService({ ctx: input.ctx }).me();
+  const user = await new UserService({
+    requestHeaders: input.ctx.req.headers,
+  }).me();
 
   if (!user) {
     throw new TRPCError({

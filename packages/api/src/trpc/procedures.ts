@@ -1,4 +1,4 @@
-import { UserRoleEnum } from "../core/models";
+import { UserRoleEnum } from "@ashgw/core/models";
 import { authMiddleware } from "./middlewares/auth";
 import { timingMiddleware } from "./middlewares/timing";
 import { procedure } from "./root";

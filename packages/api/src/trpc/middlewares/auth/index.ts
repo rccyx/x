@@ -1,4 +1,4 @@
-import type { UserRoleEnum } from "../../../core/models";
+import type { UserRoleEnum } from "@ashgw/core/models";
 import { middleware } from "../../root";
 import { isAuthenticated } from "./authentication";
 import { isAuthorized } from "./authorization";
