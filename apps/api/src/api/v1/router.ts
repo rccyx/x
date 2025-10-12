@@ -5,12 +5,11 @@ import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 import {
   NotificationService,
-  OssService,
   PostService,
   ReminderService,
 } from "~/api/v1/services";
 
-import { health } from "~/api/v1/functions";
+import { health, oss } from "~/api/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()
@@ -75,7 +74,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
   ),
 
   bootstrap: async ({ query }) =>
-    await OssService.fetchText({
+    await oss.fetchText({
       query,
       fetchUrl: {
         github: { repo: "dotfiles", scriptPath: "install/bootstrap" },
@@ -87,7 +86,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   debion: async ({ query }) =>
-    await OssService.fetchText({
+    await oss.fetchText({
       query,
       fetchUrl: { github: { repo: "debion", scriptPath: "setup" } },
       opts: {
@@ -97,7 +96,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   whisper: async ({ query }) =>
-    await OssService.fetchText({
+    await oss.fetchText({
       query,
       fetchUrl: { github: { repo: "whisper", scriptPath: "setup" } },
       opts: {
@@ -107,7 +106,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     }),
 
   gpg: async ({ query }) =>
-    await OssService.fetchText({
+    await oss.fetchText({
       query,
       fetchUrl: { direct: { url: gpg.publicUrl } },
       opts: {
