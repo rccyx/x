@@ -21,9 +21,9 @@ import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
 
 export class UserService {
-  private readonly headers: Headers;
-  constructor({ headers }: { headers: Headers }) {
-    this.headers = headers;
+  private readonly requestHeaders: Headers;
+  constructor({ requestHeaders }: { requestHeaders: Headers }) {
+    this.requestHeaders = requestHeaders;
   }
   // ======================= Login =======================
   public async login({ email, password }: UserLoginDto): Promise<void> {
@@ -32,7 +32,7 @@ export class UserService {
         email,
         password,
       },
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
@@ -47,25 +47,25 @@ export class UserService {
         password,
         name,
       },
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
   public async logout(): Promise<void> {
     await auth.api.signOut({
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
   public async terminateAllActiveSessions(): Promise<void> {
     await auth.api.revokeSessions({
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
   public async listSessions(): Promise<SessionRo[]> {
     const sessions = await auth.api.listSessions({
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
     return sessions.map((s) => SessionMapper.toRo({ session: s }));
   }
@@ -74,7 +74,7 @@ export class UserService {
     sessionId,
   }: UserTerminateSpecificSessionDto): Promise<void> {
     const sessions = await auth.api.listSessions({
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
     const target = sessions.find((s) => s.id === sessionId);
     if (!target) {
@@ -87,7 +87,7 @@ export class UserService {
       body: {
         token: target.token,
       },
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
@@ -97,7 +97,7 @@ export class UserService {
         ...input,
         revokeOtherSessions: true,
       },
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
@@ -112,7 +112,7 @@ export class UserService {
 
   private async _getUserWithSession(): Promise<UserRo> {
     const response = await auth.api.getSession({
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
     if (!response?.user) {
       throw new AppError({
@@ -134,7 +134,7 @@ export class UserService {
       body: {
         ...input,
       },
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
   public async getTwoFactorTotpUri(
@@ -142,7 +142,7 @@ export class UserService {
   ): Promise<TwoFactorGetTotpUriRo> {
     return await auth.api.getTOTPURI({
       body: input,
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
   public async verifyTwoFactorTotp(
@@ -150,13 +150,13 @@ export class UserService {
   ): Promise<void> {
     await auth.api.verifyTOTP({
       body: input,
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
   public async disableTwoFactor(input: TwoFactorDisableDto): Promise<void> {
     await auth.api.disableTwoFactor({
       body: input,
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
   public async generateTwoFactorBackupCodes(
@@ -164,7 +164,7 @@ export class UserService {
   ): Promise<TwoFactorGenerateBackupCodesRo> {
     return await auth.api.generateBackupCodes({
       body: input,
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 
@@ -173,7 +173,7 @@ export class UserService {
   ): Promise<void> {
     await auth.api.verifyBackupCode({
       body: input,
-      headers: this.headers,
+      headers: this.requestHeaders,
     });
   }
 }

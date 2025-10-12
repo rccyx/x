@@ -4,14 +4,14 @@ import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
 import type { TrackViewRo } from "../../models/view";
 export class ViewService {
-  private readonly req: Request;
+  private readonly requestHeaders: Headers;
 
-  constructor({ req }: { req: Request }) {
-    this.req = req;
+  constructor({ requestHeaders }: { requestHeaders: Headers }) {
+    this.requestHeaders = requestHeaders;
   }
 
   public async trackView({ slug }: { slug: string }): Promise<TrackViewRo> {
-    const headersList = this.req.headers;
+    const headersList = this.requestHeaders;
     const ipAddress =
       headersList.get("x-forwarded-for") ??
       headersList.get("x-real-ip") ??
