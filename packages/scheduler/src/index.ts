@@ -16,6 +16,21 @@ import type {
 
 const qstashClient = new QstashClient({ token: env.QSTASH_TOKEN });
 
+async function external<T>(
+  fn: () => Promise<T>,
+  ctx: { service: string; operation: string; msg?: string },
+): Promise<T> {
+  try {
+    return await fn();
+  } catch (err) {
+    throw E.upstreamError(
+      ctx.msg ?? `${ctx.service} ${ctx.operation} failed`,
+      { upstream: { service: ctx.service, operation: ctx.operation } },
+      err,
+    );
+  }
+}
+
 class SchedulerService {
   constructor(
     private readonly _headers: Record<string, string> = {
@@ -71,25 +86,18 @@ class SchedulerService {
     atTime: string;
   }): Promise<ScheduleAtResult> {
     logger.info(`scheduling one-time job -> ${input.url}`);
-    try {
-      const response = await qstashClient.publish({
-        url: input.url,
-        body: input.payload,
-        headers: this._headers,
-        notBefore: SchedulerService._toUnixSecond(input.atTime),
-      });
-      logger.info(`scheduled at ${input.atTime} (id=${response.messageId})`);
-      return { messageId: response.messageId };
-    } catch (err) {
-      logger.error("scheduler: qstash publish failed (at)", err);
-      throw E.upstreamError(
-        "qstash publish failed",
-        {
-          upstream: { service: "upstash-qstash", operation: "publish-at" },
-        },
-        err,
-      );
-    }
+    const response = await external(
+      () =>
+        qstashClient.publish({
+          url: input.url,
+          body: input.payload,
+          headers: this._headers,
+          notBefore: SchedulerService._toUnixSecond(input.atTime),
+        }),
+      { service: "upstash-qstash", operation: "publish-at" },
+    );
+    logger.info(`scheduled at ${input.atTime} (id=${response.messageId})`);
+    return { messageId: response.messageId };
   }
 
   private async scheduleDelay({
@@ -110,27 +118,20 @@ class SchedulerService {
           : delay.seconds;
 
     logger.info(`scheduling delayed job -> ${url}`);
-    try {
-      const response = await qstashClient.publish({
-        url,
-        body: payload,
-        headers: this._headers,
-        delay: normalizedDelayInSeconds,
-      });
-      logger.info(
-        `scheduled after ${normalizedDelayInSeconds}s (id=${response.messageId})`,
-      );
-      return { messageId: response.messageId };
-    } catch (err) {
-      logger.error("scheduler: qstash publish failed (delay)", err);
-      throw E.upstreamError(
-        "qstash publish failed",
-        {
-          upstream: { service: "upstash-qstash", operation: "publish-delay" },
-        },
-        err,
-      );
-    }
+    const response = await external(
+      () =>
+        qstashClient.publish({
+          url,
+          body: payload,
+          headers: this._headers,
+          delay: normalizedDelayInSeconds,
+        }),
+      { service: "upstash-qstash", operation: "publish-delay" },
+    );
+    logger.info(
+      `scheduled after ${normalizedDelayInSeconds}s (id=${response.messageId})`,
+    );
+    return { messageId: response.messageId };
   }
 
   private async scheduleCron(input: {
@@ -139,25 +140,18 @@ class SchedulerService {
     expression: string;
   }): Promise<ScheduleCronResult> {
     logger.info(`scheduling cron -> ${input.expression} -> ${input.url}`);
-    try {
-      const response = await qstashClient.schedules.create({
-        destination: input.url,
-        cron: input.expression,
-        body: input.payload,
-        headers: this._headers,
-      });
-      logger.info(`cron created (id=${response.scheduleId})`);
-      return { scheduleId: response.scheduleId };
-    } catch (err) {
-      logger.error("scheduler: qstash schedule create failed (cron)", err);
-      throw E.upstreamError(
-        "qstash schedule create failed",
-        {
-          upstream: { service: "upstash-qstash", operation: "schedule-cron" },
-        },
-        err,
-      );
-    }
+    const response = await external(
+      () =>
+        qstashClient.schedules.create({
+          destination: input.url,
+          cron: input.expression,
+          body: input.payload,
+          headers: this._headers,
+        }),
+      { service: "upstash-qstash", operation: "schedule-cron" },
+    );
+    logger.info(`cron created (id=${response.scheduleId})`);
+    return { scheduleId: response.scheduleId };
   }
 
   private static _toUnixSecond(isoString: string): number {
