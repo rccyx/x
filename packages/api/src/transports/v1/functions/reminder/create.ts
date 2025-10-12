@@ -92,22 +92,6 @@ export async function create({
         body: { created: [{ kind: "message", id: result.messageId }] },
       };
     }
-    const result = await scheduler
-      .headers({
-        ...headers,
-      })
-      .schedule({
-        cron: {
-          expression: schedule.cron.expression,
-        },
-        url: notifyUrl,
-        payload: JSON.stringify(schedule.notification),
-      });
-
-    return {
-      status: 201,
-      body: { created: [{ kind: "schedule", id: result.scheduleId }] },
-    };
   } catch (error) {
     logger.error("reminder scheduling failed", { error });
     monitor.next.captureException({ error });

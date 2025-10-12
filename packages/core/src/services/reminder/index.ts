@@ -1,66 +1,55 @@
 import { scheduler } from "@ashgw/scheduler";
+import type {
+  ReminderSendEmailNotificationSchemaRo,
+  ReminderSendEmailNotificationSchemaDto,
+} from "../../models";
 
-async function remindMultiAt() {
-  const created: ReminderMessageCreatedRo[] = [];
-  for (const item of schedule.notifications) {
+async function remind({
+  headers,
+  schedule,
+  url,
+}: ReminderSendEmailNotificationSchemaDto): Promise<ReminderSendEmailNotificationSchemaRo> {
+  if (schedule.kind === "at") {
     const result = await scheduler
       .headers({
         ...headers,
       })
       .schedule({
         at: {
-          datetimeIso: item.at,
+          datetimeIso: schedule.at,
         },
-        url: notifyUrl,
-        payload: JSON.stringify(item.notification),
+        url,
+        payload: JSON.stringify(schedule.emailNotification),
       });
+    return [{ id: result.messageId, at: schedule.at }];
 
-    created.push({ kind: "message", id: result.messageId, at: item.at });
+    // delay
+  } else {
+    const delayObjectNormalizer = () => {
+      const value = schedule.delay.value;
+      const unitMap = {
+        days: { days: value },
+        hours: { hours: value },
+        minutes: { minutes: value },
+        seconds: { seconds: value },
+      } as const;
+
+      return unitMap[schedule.delay.unit];
+    };
+
+    const result = await scheduler
+      .headers({
+        ...headers,
+      })
+      .schedule({
+        delay: { ...delayObjectNormalizer() },
+        url,
+        payload: JSON.stringify(schedule.emailNotification),
+      });
+    return [{ id: result.messageId, at: schedule.delay.unit }];
   }
 }
 
-async function remindAt() {
-  const result = await scheduler
-    .headers({
-      ...headers,
-    })
-    .schedule({
-      at: {
-        datetimeIso: schedule.at,
-      },
-      payload: JSON.stringify(schedule.notification),
-      url: notifyUrl,
-    });
-  return result;
-}
-
-async function remindDelay() {
-  const delayObjectNormalizer = () => {
-    const value = schedule.delay.value;
-    const unitMap = {
-      days: { days: value },
-      hours: { hours: value },
-      minutes: { minutes: value },
-      seconds: { seconds: value },
-    } as const;
-
-    return unitMap[schedule.delay.unit];
-  };
-
-  const result = await scheduler
-    .headers({
-      ...headers,
-    })
-    .schedule({
-      delay: { ...delayObjectNormalizer() },
-      url: notifyUrl,
-      payload: JSON.stringify(schedule.notification),
-    });
-  return result;
-}
-
 export const ReminderService = {
-  remindMultiAt,
-  remindAt,
-  remindDelay,
+  remind,
 };

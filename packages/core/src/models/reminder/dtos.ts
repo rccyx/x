@@ -46,6 +46,8 @@ export const reminderSendEmailNotificationSchemaDto = z.object({
     scheduleAtSchema,
     scheduleDelaySchema,
   ]),
+  headers: z.record(z.string(), z.string()),
+  url: z.string().url(),
 });
 
 export type ReminderSendEmailNotificationSchemaDto = z.infer<
