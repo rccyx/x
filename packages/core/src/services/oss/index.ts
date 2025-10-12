@@ -1,3 +1,4 @@
+import { logger } from "@ashgw/logger";
 import type {
   OssGetGithubTextSchemaDto,
   OssGetDirectTextSchemaRo,
@@ -19,6 +20,7 @@ async function fetchText(
           scriptPath: input.fetchUrl.scriptPath,
         })
       : input.fetchUrl.url;
+  logger.info("Fetching text from", { url });
 
   try {
     const res = await fetch(url, {
@@ -37,10 +39,17 @@ async function fetchText(
     const text = (await res.text()) as unknown as string;
     return { text };
   } catch (error) {
+    logger.error("fetchText failed");
     throw new AppError({
       code: "INTERNAL",
       message: "Upstream fetch failed",
       cause: error,
+      meta: {
+        upstream: {
+          service: "github",
+          operation: "fetchText",
+        },
+      },
     });
   }
 }

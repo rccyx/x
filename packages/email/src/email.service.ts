@@ -36,6 +36,7 @@ export class EmailService {
       options.bcc = typeof params.bcc === "string" ? [params.bcc] : params.bcc;
     }
 
+    logger.info("Sending email...");
     const { data, error } = await client.emails.send(options);
 
     if (error) {
