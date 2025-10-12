@@ -4,8 +4,8 @@ import type {
   NotificationCreateBodyRequest,
   NotificationCreateResponses,
 } from "../../models";
-import { send } from "@ashgw/email";
 import { env } from "@ashgw/env";
+import { NotificationService } from "@ashgw/core/services";
 
 export async function create(input: {
   body: NotificationCreateBodyRequest;
@@ -13,12 +13,14 @@ export async function create(input: {
   logger.info("Sending email notification...");
 
   try {
-    await send.notification.notify({
-      to: input.body.to ?? env.PERSONAL_EMAIL,
-      title: input.body.title,
-      subject: input.body.subject,
-      type: input.body.type,
-      messageMd: input.body.message,
+    await NotificationService.email.sendNotification({
+      body: {
+        to: input.body.to ?? env.PERSONAL_EMAIL,
+        type: input.body.type,
+        message: input.body.message,
+        subject: input.body.subject ?? input.body.title,
+        title: input.body.title,
+      },
     });
 
     logger.info("Email notification sent successfully");

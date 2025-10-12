@@ -685,12 +685,6 @@ importers:
       '@ashgw/cross-runtime':
         specifier: workspace:*
         version: link:../cross-runtime
-      '@ashgw/db':
-        specifier: workspace:*
-        version: link:../db
-      '@ashgw/email':
-        specifier: workspace:*
-        version: link:../email
       '@ashgw/env':
         specifier: workspace:*
         version: link:../env
@@ -703,15 +697,6 @@ importers:
       '@ashgw/monitor':
         specifier: workspace:*
         version: link:../monitor
-      '@ashgw/scheduler':
-        specifier: workspace:*
-        version: link:../scheduler
-      '@ashgw/security':
-        specifier: workspace:*
-        version: link:../security
-      '@ashgw/storage':
-        specifier: workspace:*
-        version: link:../storage
       '@ts-rest/core':
         specifier: catalog:ts-rest3
         version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
