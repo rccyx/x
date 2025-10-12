@@ -39,6 +39,7 @@
     "@ashgw/monitor": "workspace:*",
     "@ashgw/scheduler": "workspace:*",
     "@ashgw/security": "workspace:*",
+    "@ashgw/storage": "workspace:*",
     "@ts-rest/core": "catalog:ts-rest3",
     "@ts-rest/open-api": "catalog:ts-rest3",
     "@ts-rest/react-query": "catalog:ts-rest3",

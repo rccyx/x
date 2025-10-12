@@ -10,7 +10,7 @@ import {
   postGetSchemaDto,
   postUpdateSchemaDto,
   trashPostArticleSchemaRo,
-} from "~/api/models";
+} from "~/api/rpc/models";
 import { BlogService } from "~/api/services";
 
 export const postRouter = router({

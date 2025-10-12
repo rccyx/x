@@ -216,6 +216,9 @@ importers:
       '@ashgw/security':
         specifier: workspace:*
         version: link:../../packages/security
+      '@ashgw/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@ts-rest/core':
         specifier: catalog:ts-rest3
         version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
