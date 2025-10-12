@@ -1,5 +1,6 @@
 {
   "name": "ashgw",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -11,14 +12,14 @@
     "deps:format": "syncpack format",
     "dev": "turbo watch dev --continue",
     "dev:next": "turbo watch dev -F @ashgw/nextjs...",
+    "env:validate:app": "turbo run env:validate:app",
+    "env:validate:ci": "turbo run env:validate:ci",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "hooks": "husky install",
     "knip": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "postinstall": "pnpm dlx sherif@latest",
-    "env:validate:app": "turbo run env:validate:app",
-    "env:validate:ci": "turbo run env:validate:ci",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e",
     "test:unit-integration": "turbo run test:unit-integration"
@@ -54,6 +55,5 @@
   "homepage": "https://ashgw.me",
   "packageManager": "pnpm@9.12.2",
   "prettier": "@ashgw/prettier-config",
-  "repository": "ashgw/x",
-  "version": "0.0.1"
+  "repository": "ashgw/x"
 }

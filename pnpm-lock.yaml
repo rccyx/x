@@ -183,6 +183,9 @@ importers:
       '@ashgw/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@ashgw/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@ashgw/constants':
         specifier: workspace:*
         version: link:../../packages/constants

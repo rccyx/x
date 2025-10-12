@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "prettier . --write",
-    "lint": "tsc --noEmit; eslint .",
     "env:validate:app": "pnpm tsx index.ts",
-    "env:validate:ci": "export VALIDATE_CI=true && pnpm tsx index.ts"
+    "env:validate:ci": "export VALIDATE_CI=true && pnpm tsx index.ts",
+    "format": "prettier . --write",
+    "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
     "envyx": "1.1.0",

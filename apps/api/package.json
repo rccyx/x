@@ -28,6 +28,7 @@
   "author": "",
   "dependencies": {
     "@ashgw/analytics": "workspace:*",
+    "@ashgw/auth": "workspace:*",
     "@ashgw/constants": "workspace:*",
     "@ashgw/cross-runtime": "workspace:*",
     "@ashgw/db": "workspace:*",
