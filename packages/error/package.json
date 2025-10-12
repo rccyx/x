@@ -6,6 +6,10 @@
     "format": "prettier . --write",
     "lint": "tsc --noEmit; eslint ."
   },
+  "dependencies": {
+    "@ashgw/logger": "workspace:*",
+    "erryx": "0.1.0"
+  },
   "devDependencies": {
     "@ashgw/eslint-config": "workspace:*",
     "@ashgw/tsconfig": "workspace:*",

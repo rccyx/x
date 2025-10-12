@@ -1,6 +1,6 @@
 import { env } from "@ashgw/env";
-import { AppError } from "@ashgw/error";
 import { logger } from "@ashgw/logger";
+import { E, throwable } from "@ashgw/error";
 
 interface SubscribeInput {
   email: string;
@@ -18,51 +18,61 @@ export class NewsletterService {
     "X-Kit-Api-Key": env.KIT_API_KEY,
   } as const;
 
-  /** Creates or updates a subscriber */
   public static async subscribe({ email }: SubscribeInput): Promise<void> {
-    try {
-      await this._createSubscriber({ email });
-    } catch (error) {
-      logger.error("Newsletter subscription failed", { error });
-      throw new AppError({
-        code: "INTERNAL",
-        message: "Failed to subscribe to newsletter",
-        cause: error,
-      });
-    }
+    await this._createSubscriber({ email });
   }
 
   private static async _createSubscriber({
     email,
   }: SubscribeInput): Promise<void> {
-    logger.info("Creating/updating subscriber", { email });
+    logger.info("creating/updating subscriber", { email });
 
-    const res = await fetch(`${this.API_BASE}/subscribers`, {
-      method: "POST",
-      headers: this.HEADERS,
-      body: JSON.stringify({
-        email_address: email,
-      }),
+    const res = await throwable(
+      "external",
+      () =>
+        fetch(`${this.API_BASE}/subscribers`, {
+          method: "POST",
+          headers: this.HEADERS,
+          body: JSON.stringify({ email_address: email }),
+        }),
+      {
+        message: "failed to subscribe to newsletter",
+        service: "kit",
+        operation: "create-subscriber",
+        onError: (err) => {
+          logger.error("kit api request failed", { errMessage: err.message });
+        },
+      },
+    );
+
+    const data = await throwable("internal", () => this._parseResponse(res), {
+      message: "failed to parse newsletter response",
+      service: "kit",
+      operation: "create-subscriber",
+      onError: (err) => {
+        logger.error("failed to parse newsletter response", {
+          errMessage: err.message,
+        });
+      },
     });
 
-    const data = await this._parseResponse(res);
-    this._handleResponse({ res, data });
+    this._validateResponse({ res, data });
   }
 
   private static async _parseResponse(res: Response): Promise<KitAPIResponse> {
     return (await res.json().catch(() => ({
-      errors: ["Failed to parse response"],
+      errors: ["failed to parse response"],
     }))) as KitAPIResponse;
   }
 
-  private static _handleResponse({
+  private static _validateResponse({
     res,
     data,
   }: {
     res: Response;
     data: KitAPIResponse;
   }): void {
-    logger.info("Kit API response", {
+    logger.info("kit api response", {
       status: res.status,
       data,
       headers: Object.fromEntries(res.headers.entries()),
@@ -70,11 +80,10 @@ export class NewsletterService {
 
     if (!res.ok) {
       const errorMessage =
-        data.errors?.join(", ") ?? data.message ?? "Unknown error";
+        data.errors?.join(", ") ?? data.message ?? "unknown error";
 
-      throw new AppError({
-        code: "INTERNAL",
-        message: `Kit API error (${res.status}): ${errorMessage}`,
+      throw E.upstreamError(`kit api error (${res.status}): ${errorMessage}`, {
+        upstream: { service: "kit", operation: "create-subscriber" },
       });
     }
   }

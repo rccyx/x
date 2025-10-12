@@ -3,9 +3,8 @@ import type { Optional } from "ts-roids";
 import fm from "front-matter";
 import { db } from "@ashgw/db";
 import { WordCounterService } from "@ashgw/cross-runtime";
-import { AppError } from "@ashgw/error";
+import { E, throwable } from "@ashgw/error";
 import { logger } from "@ashgw/logger";
-
 import type {
   fontMatterMdxContentRo,
   PostCardRo,
@@ -19,25 +18,37 @@ import { PostQueryHelper } from "../../query-helpers";
 
 export class PostService {
   public async getPublicPostCards(): Promise<PostCardRo[]> {
-    const posts = await db.post.findMany({
-      where: PostQueryHelper.whereReleasedToPublic(),
-      select: {
-        ...PostQueryHelper.cardSelect(),
+    const posts = await throwable(
+      () =>
+        db.post.findMany({
+          where: PostQueryHelper.whereReleasedToPublic(),
+          select: { ...PostQueryHelper.cardSelect() },
+          orderBy: { firstModDate: "desc" },
+        }),
+      {
+        service: "db",
+        operation: "post.findMany",
+        message: "failed to fetch public posts",
       },
-      orderBy: { firstModDate: "desc" },
-    });
-
-    return posts.map((post) =>
-      PostMapper.toCardRo({
-        post,
-      }),
     );
+
+    return posts.map((post) => PostMapper.toCardRo({ post }));
   }
+
   public async getAllAdminPosts(): Promise<PostArticleRo[]> {
-    const posts = await db.post.findMany({
-      include: PostQueryHelper.adminInclude(),
-      orderBy: { firstModDate: "desc" },
-    });
+    const posts = await throwable(
+      () =>
+        db.post.findMany({
+          include: PostQueryHelper.adminInclude(),
+          orderBy: { firstModDate: "desc" },
+        }),
+      {
+        service: "db",
+        operation: "post.findMany",
+        message: "failed to fetch admin posts",
+      },
+    );
+
     if (posts.length === 0) return [];
 
     return posts.map((post) =>
@@ -52,17 +63,24 @@ export class PostService {
   }
 
   public async getTrashedPosts(): Promise<TrashPostArticleRo[]> {
-    const trashed = await db.trashPost.findMany({
-      orderBy: { deletedAt: "desc" },
-    });
+    const trashed = await throwable(
+      () =>
+        db.trashPost.findMany({
+          orderBy: { deletedAt: "desc" },
+        }),
+      {
+        service: "db",
+        operation: "trashPost.findMany",
+        message: "failed to fetch trashed posts",
+        onError: (e) =>
+          logger.error("failed to fetch trashed posts", {
+            errMessage: e.message,
+          }),
+      },
+    );
 
     if (trashed.length === 0) return [];
-
-    return trashed.map((t) =>
-      PostMapper.toTrashRo({
-        post: t,
-      }),
-    );
+    return trashed.map((t) => PostMapper.toTrashRo({ post: t }));
   }
 
   public async getDetailedPublicPost({
@@ -70,10 +88,19 @@ export class PostService {
   }: {
     slug: string;
   }): Promise<Optional<PostArticleRo>> {
-    const post = await db.post.findUnique({
-      where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
-      include: PostQueryHelper.articleInclude(),
-    });
+    const post = await throwable(
+      () =>
+        db.post.findUnique({
+          where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
+          include: PostQueryHelper.articleInclude(),
+        }),
+      {
+        service: "db",
+        operation: "post.findUnique",
+        message: "failed to fetch detailed public post",
+      },
+    );
+
     if (!post) return null;
 
     return PostMapper.toArticleRo({
@@ -84,39 +111,49 @@ export class PostService {
 
   public async createPost(data: PostEditorDto): Promise<PostArticleRo> {
     const slug = this._slugify(data.title);
-    const existingPost = await db.post.findUnique({ where: { slug } });
-    if (existingPost) {
-      throw new AppError({
-        code: "CONFLICT",
-        message: `A post with slug "${slug}" already exists`,
-      });
-    }
+
+    const existingPost = await throwable(
+      () => db.post.findUnique({ where: { slug } }),
+      {
+        service: "db",
+        operation: "post.findUnique",
+        message: "failed to check if post already exists with the slug",
+      },
+    );
+
+    if (existingPost)
+      throw E.conflict(`a post with slug "${slug}" already exists`);
 
     const now = new Date();
     const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
 
-    const post = await db.post.create({
-      data: {
-        slug,
-        title: data.title,
-        summary: data.summary,
-        isReleased: data.isReleased,
-        firstModDate: now,
-        lastModDate: now,
-        minutesToRead,
-        tags: data.tags,
-        category: data.category,
-        mdxText: data.mdxText,
+    const post = await throwable(
+      () =>
+        db.post.create({
+          data: {
+            slug,
+            title: data.title,
+            summary: data.summary,
+            isReleased: data.isReleased,
+            firstModDate: now,
+            lastModDate: now,
+            minutesToRead,
+            tags: data.tags,
+            category: data.category,
+            mdxText: data.mdxText,
+          },
+          include: PostQueryHelper.articleInclude(),
+        }),
+      {
+        service: "db",
+        operation: "post.create",
+        message: `failed to create post with slug: ${slug}`,
       },
-      include: PostQueryHelper.articleInclude(),
-    });
+    );
 
     return PostMapper.toArticleRo({
       post,
-      fontMatterMdxContent: this._parseMDX({
-        content: data.mdxText,
-        slug,
-      }),
+      fontMatterMdxContent: this._parseMDX({ content: data.mdxText, slug }),
     });
   }
 
@@ -131,85 +168,90 @@ export class PostService {
       where: { slug },
       select: { slug: true },
     });
-    if (!existingPost) {
-      throw new AppError({
-        code: "NOT_FOUND",
-        message: `Post with slug "${slug}" not found`,
-      });
-    }
+    if (!existingPost) throw E.notFound(`post with slug "${slug}" not found`);
 
     const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
 
-    const post = await db.post.update({
-      where: { slug },
-      data: {
-        title: data.title,
-        summary: data.summary,
-        isReleased: data.isReleased,
-        lastModDate: new Date(),
-        minutesToRead,
-        tags: data.tags,
-        category: data.category,
-        mdxText: data.mdxText,
+    const post = await throwable(
+      () =>
+        db.post.update({
+          where: { slug },
+          data: {
+            title: data.title,
+            summary: data.summary,
+            isReleased: data.isReleased,
+            lastModDate: new Date(),
+            minutesToRead,
+            tags: data.tags,
+            category: data.category,
+            mdxText: data.mdxText,
+          },
+          include: PostQueryHelper.articleInclude(),
+        }),
+      {
+        service: "db",
+        operation: "post.update",
+        message: `failed to update ${data.title}`,
       },
-      include: PostQueryHelper.articleInclude(),
-    });
+    );
 
     return PostMapper.toArticleRo({
       post,
-      fontMatterMdxContent: this._parseMDX({
-        content: data.mdxText,
-        slug,
-      }),
+      fontMatterMdxContent: this._parseMDX({ content: data.mdxText, slug }),
     });
   }
 
-  /**
-   * Move a live post to TrashPost. (no support for images or other assets yet)
-   */
   public async trashPost({
     originalSlug,
   }: {
     originalSlug: string;
   }): Promise<void> {
-    const post = await db.post.findUnique({
-      where: { slug: originalSlug },
-    });
-    if (!post) {
-      throw new AppError({
-        code: "NOT_FOUND",
-        message: `Post with slug "${originalSlug}" not found`,
-      });
-    }
+    const post = await db.post.findUnique({ where: { slug: originalSlug } });
+    if (!post) throw E.notFound(`post with slug "${originalSlug}" not found`);
 
-    await db.$transaction(async (tx) => {
-      await tx.trashPost.create({
-        data: {
-          originalSlug: post.slug,
-          title: post.title,
-          summary: post.summary,
-          firstModDate: post.firstModDate,
-          lastModDate: post.lastModDate,
-          wasReleased: post.isReleased,
-          minutesToRead: post.minutesToRead,
-          tags: post.tags,
-          category: post.category,
-          mdxText: post.mdxText,
-        },
-      });
+    await throwable(
+      () =>
+        db.$transaction(async (tx) => {
+          await tx.trashPost.create({
+            data: {
+              originalSlug: post.slug,
+              title: post.title,
+              summary: post.summary,
+              firstModDate: post.firstModDate,
+              lastModDate: post.lastModDate,
+              wasReleased: post.isReleased,
+              minutesToRead: post.minutesToRead,
+              tags: post.tags,
+              category: post.category,
+              mdxText: post.mdxText,
+            },
+          });
+          await tx.post.delete({ where: { slug: post.slug } });
+        }),
+      {
+        service: "db",
+        operation: "transaction.trashPost",
+        message: `failed to move ${post.title} to trash`,
+      },
+    );
 
-      await tx.post.delete({ where: { slug: post.slug } });
-    });
-
-    logger.info("Post moved to trash", { originalSlug });
+    logger.info("post moved to trash", { originalSlug });
   }
 
   public async purgeTrashPost({ trashId }: { trashId: string }): Promise<void> {
-    await db.trashPost.delete({ where: { id: trashId } });
+    await throwable(() => db.trashPost.delete({ where: { id: trashId } }), {
+      service: "db",
+      operation: "trashPost.delete",
+      message: "failed to purge trashed post",
+    });
   }
 
   public async purgeTrash(): Promise<void> {
-    await db.trashPost.deleteMany();
+    await throwable(() => db.trashPost.deleteMany(), {
+      service: "db",
+      operation: "trashPost.deleteMany",
+      message: "failed to purge all trashed posts",
+    });
   }
 
   public async restoreFromTrash({
@@ -217,43 +259,42 @@ export class PostService {
   }: {
     trashId: string;
   }): Promise<void> {
-    const trash = await db.trashPost.findUnique({
-      where: { id: trashId },
-    });
-    if (!trash) {
-      throw new AppError({
-        code: "NOT_FOUND",
-        message: "Trash item not found",
-      });
-    }
+    const trash = await db.trashPost.findUnique({ where: { id: trashId } });
+    if (!trash) throw E.notFound("trash item not found");
 
     const exists = await db.post.findUnique({
       where: { slug: trash.originalSlug },
     });
-    if (exists) {
-      throw new AppError({
-        code: "CONFLICT",
-        message: "A live post already uses this slug",
-      });
-    }
+    if (exists)
+      throw E.conflict(
+        `a live post with slug "${trash.originalSlug}" already exists`,
+      );
 
-    await db.$transaction(async (tx) => {
-      await tx.post.create({
-        data: {
-          slug: trash.originalSlug,
-          title: trash.title,
-          summary: trash.summary,
-          firstModDate: trash.firstModDate,
-          lastModDate: trash.lastModDate,
-          isReleased: trash.wasReleased,
-          minutesToRead: trash.minutesToRead,
-          tags: trash.tags,
-          category: trash.category,
-          mdxText: trash.mdxText,
-        },
-      });
-      await tx.trashPost.delete({ where: { id: trashId } });
-    });
+    await throwable(
+      () =>
+        db.$transaction(async (tx) => {
+          await tx.post.create({
+            data: {
+              slug: trash.originalSlug,
+              title: trash.title,
+              summary: trash.summary,
+              firstModDate: trash.firstModDate,
+              lastModDate: trash.lastModDate,
+              isReleased: trash.wasReleased,
+              minutesToRead: trash.minutesToRead,
+              tags: trash.tags,
+              category: trash.category,
+              mdxText: trash.mdxText,
+            },
+          });
+          await tx.trashPost.delete({ where: { id: trashId } });
+        }),
+      {
+        service: "db",
+        operation: "transaction.restorePost",
+        message: "failed to restore post from trash",
+      },
+    );
   }
 
   private _parseMDX({

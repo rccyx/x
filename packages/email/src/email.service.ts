@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
-import { AppError } from "@ashgw/error";
+import { E, throwable } from "@ashgw/error";
 import { logger } from "@ashgw/logger";
 import { env } from "@ashgw/env";
 import { defaultEmail, defaultEmailFrom } from "@ashgw/constants";
@@ -20,7 +20,6 @@ export class EmailService {
 
   public async sendHtml(params: SendParams): Promise<SendResult> {
     const client = this._client();
-
     const to = typeof params.to === "string" ? [params.to] : params.to;
     const options: CreateEmailOptions = {
       from: params.from ?? this.defaultFrom,
@@ -36,24 +35,26 @@ export class EmailService {
       options.bcc = typeof params.bcc === "string" ? [params.bcc] : params.bcc;
     }
 
-    logger.info("Sending email...");
-    const { data, error } = await client.emails.send(options);
+    logger.info("sending email...");
 
-    if (error) {
-      logger.error("Failed to send email", error);
-      throw new AppError({
-        code: "INTERNAL",
-        message: "Failed to send email",
-        cause: error,
+    const { data } = await throwable(
+      "external",
+      () => client.emails.send(options),
+      {
+        service: "resend",
+        operation: "send-email",
+        message: "failed to send email",
+        onError: (err) =>
+          logger.error("failed to send email", { errMessage: err.message }),
+      },
+    );
+
+    if (!data?.id) {
+      throw E.internal("missing response from email provider", {
+        internal: { service: "resend", operation: "send-email" },
       });
     }
 
-    if (!data.id) {
-      throw new AppError({
-        code: "INTERNAL",
-        message: "Missing response from email provider",
-      });
-    }
     return { id: data.id };
   }
 

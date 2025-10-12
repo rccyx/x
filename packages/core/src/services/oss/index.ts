@@ -3,7 +3,7 @@ import type {
   OssGetGithubTextSchemaDto,
   OssGetDirectTextSchemaRo,
 } from "../../models";
-import { AppError } from "@ashgw/error";
+import { E, throwable } from "@ashgw/error";
 
 function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
   const { repo, scriptPath } = opts;
@@ -20,40 +20,38 @@ async function fetchText(
           scriptPath: input.fetchUrl.scriptPath,
         })
       : input.fetchUrl.url;
-  logger.info("Fetching text from", { url });
 
-  try {
-    const res = await fetch(url, {
-      next: { revalidate: input.revalidateSeconds },
-      cache: "force-cache",
-      signal: AbortSignal.timeout(10_000),
-    });
+  logger.info("fetching text from", { url });
 
-    if (!res.ok) {
-      throw new AppError({
-        code: "INTERNAL",
-        message: "Upstream error",
-        meta: { url, statusText: res.statusText },
-      });
-    }
-    const text = (await res.text()) as unknown as string;
-    return { text };
-  } catch (error) {
-    logger.error("fetchText failed");
-    throw new AppError({
-      code: "INTERNAL",
-      message: "Upstream fetch failed",
-      cause: error,
-      meta: {
-        upstream: {
-          service: "github",
-          operation: "fetchText",
-        },
-      },
+  const res = await throwable(
+    "external",
+    () =>
+      fetch(url, {
+        next: { revalidate: input.revalidateSeconds },
+        cache: "force-cache",
+        signal: AbortSignal.timeout(10_000),
+      }),
+    {
+      service: "oss",
+      operation: "fetchText",
+      message: "failed to fetch github content",
+    },
+  );
+
+  if (!res.ok) {
+    throw E.upstreamError(`${url} returned non-ok response`, {
+      upstream: { service: "oss", operation: "fetchText" },
+      statusText: res.statusText,
     });
   }
+
+  const text = await throwable("external", () => res.text(), {
+    service: "oss",
+    operation: "parseText",
+    message: "failed to parse upstream text",
+  });
+
+  return { text };
 }
 
-export const OssService = {
-  fetchText,
-};
+export const OssService = { fetchText };

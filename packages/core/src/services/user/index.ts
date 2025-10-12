@@ -1,4 +1,3 @@
-import { AppError } from "@ashgw/error";
 import type {
   SessionRo,
   TwoFactorEnableDto,
@@ -19,21 +18,29 @@ import type {
 import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
+import { E, throwable } from "@ashgw/error";
 
 export class UserService {
   private readonly requestHeaders: Headers;
   constructor({ requestHeaders }: { requestHeaders: Headers }) {
     this.requestHeaders = requestHeaders;
   }
-  // ======================= Login =======================
   public async login({ email, password }: UserLoginDto): Promise<void> {
-    await auth.api.signInEmail({
-      body: {
-        email,
-        password,
+    await throwable(
+      () =>
+        auth.api.signInEmail({
+          body: {
+            email,
+            password,
+          },
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to login",
+        service: "auth",
+        operation: "sign-in-email",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async signUp({
@@ -41,64 +48,106 @@ export class UserService {
     password,
     name,
   }: UserRegisterDto): Promise<void> {
-    await auth.api.signUpEmail({
-      body: {
-        email,
-        password,
-        name,
+    await throwable(
+      () =>
+        auth.api.signUpEmail({
+          body: {
+            email,
+            password,
+            name,
+          },
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to sign up",
+        service: "auth",
+        operation: "sign-up-email",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async logout(): Promise<void> {
-    await auth.api.signOut({
-      headers: this.requestHeaders,
+    await throwable(() => auth.api.signOut({ headers: this.requestHeaders }), {
+      service: "auth",
+      operation: "sign-out",
     });
   }
 
   public async terminateAllActiveSessions(): Promise<void> {
-    await auth.api.revokeSessions({
-      headers: this.requestHeaders,
-    });
+    await throwable(
+      () =>
+        auth.api.revokeSessions({
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to revoke sessions",
+        service: "auth",
+        operation: "revoke-sessions",
+      },
+    );
   }
 
   public async listSessions(): Promise<SessionRo[]> {
-    const sessions = await auth.api.listSessions({
-      headers: this.requestHeaders,
-    });
+    const sessions = await throwable(
+      () => auth.api.listSessions({ headers: this.requestHeaders }),
+      {
+        message: "failed to list sessions",
+        service: "auth",
+        operation: "list-sessions",
+      },
+    );
     return sessions.map((s) => SessionMapper.toRo({ session: s }));
   }
 
   public async terminateSpecificSession({
     sessionId,
   }: UserTerminateSpecificSessionDto): Promise<void> {
-    const sessions = await auth.api.listSessions({
-      headers: this.requestHeaders,
-    });
+    const sessions = await throwable(
+      () => auth.api.listSessions({ headers: this.requestHeaders }),
+      {
+        message: "failed to list sessions",
+        service: "auth",
+        operation: "list-sessions",
+      },
+    );
+
     const target = sessions.find((s) => s.id === sessionId);
     if (!target) {
-      throw new AppError({
-        code: "BAD_REQUEST",
-        message: "Invalid session ID",
-      });
+      throw E.badRequest("Invalid session ID");
     }
-    await auth.api.revokeSession({
-      body: {
-        token: target.token,
+
+    await throwable(
+      () =>
+        auth.api.revokeSession({
+          body: {
+            token: target.token,
+          },
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to revoke session",
+        service: "auth",
+        operation: "revoke-session",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async changePassword(input: UserChangePasswordDto): Promise<void> {
-    await auth.api.changePassword({
-      body: {
-        ...input,
-        revokeOtherSessions: true,
+    await throwable(
+      () =>
+        auth.api.changePassword({
+          body: {
+            ...input,
+            revokeOtherSessions: true,
+          },
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to change password",
+        service: "auth",
+        operation: "change-password",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async me(): Promise<Optional<UserRo>> {
@@ -111,13 +160,16 @@ export class UserService {
   }
 
   private async _getUserWithSession(): Promise<UserRo> {
-    const response = await auth.api.getSession({
-      headers: this.requestHeaders,
-    });
+    const response = await throwable(
+      () => auth.api.getSession({ headers: this.requestHeaders }),
+      {
+        message: "failed to get session",
+        service: "auth",
+        operation: "get-session",
+      },
+    );
     if (!response?.user) {
-      throw new AppError({
-        code: "UNAUTHORIZED",
-      });
+      throw E.unauthorized("Invalid session");
     }
     return UserMapper.toUserRo({
       user: response.user,
@@ -130,50 +182,98 @@ export class UserService {
   public async enableTwoFactor(
     input: TwoFactorEnableDto,
   ): Promise<TwoFactorEnableRo> {
-    return await auth.api.enableTwoFactor({
-      body: {
-        ...input,
+    return await throwable(
+      () =>
+        auth.api.enableTwoFactor({
+          body: {
+            ...input,
+          },
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to enable two factor",
+        service: "auth",
+        operation: "enable-two-factor",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
   public async getTwoFactorTotpUri(
     input: TwoFactorGetTotpUriDto,
   ): Promise<TwoFactorGetTotpUriRo> {
-    return await auth.api.getTOTPURI({
-      body: input,
-      headers: this.requestHeaders,
-    });
+    return await throwable(
+      () =>
+        auth.api.getTOTPURI({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to get two factor totp uri",
+        service: "auth",
+        operation: "get-two-factor-totp-uri",
+      },
+    );
   }
   public async verifyTwoFactorTotp(
     input: TwoFactorVerifyTotpDto,
   ): Promise<void> {
-    await auth.api.verifyTOTP({
-      body: input,
-      headers: this.requestHeaders,
-    });
+    await throwable(
+      () =>
+        auth.api.verifyTOTP({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to verify two factor totp",
+        service: "auth",
+        operation: "verify-two-factor-totp",
+      },
+    );
   }
   public async disableTwoFactor(input: TwoFactorDisableDto): Promise<void> {
-    await auth.api.disableTwoFactor({
-      body: input,
-      headers: this.requestHeaders,
-    });
+    await throwable(
+      () =>
+        auth.api.disableTwoFactor({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to disable two factor",
+        service: "auth",
+        operation: "disable-two-factor",
+      },
+    );
   }
   public async generateTwoFactorBackupCodes(
     input: TwoFactorGenerateBackupCodesDto,
   ): Promise<TwoFactorGenerateBackupCodesRo> {
-    return await auth.api.generateBackupCodes({
-      body: input,
-      headers: this.requestHeaders,
-    });
+    return await throwable(
+      () =>
+        auth.api.generateBackupCodes({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to generate two factor backup codes",
+        service: "auth",
+        operation: "generate-two-factor-backup-codes",
+      },
+    );
   }
 
   public async verifyTwoFactorBackupCode(
     input: TwoFactorVerifyBackupCodeDto,
   ): Promise<void> {
-    await auth.api.verifyBackupCode({
-      body: input,
-      headers: this.requestHeaders,
-    });
+    await throwable(
+      () =>
+        auth.api.verifyBackupCode({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      {
+        message: "failed to verify two factor backup code",
+        service: "auth",
+        operation: "verify-two-factor-backup-code",
+      },
+    );
   }
 }
