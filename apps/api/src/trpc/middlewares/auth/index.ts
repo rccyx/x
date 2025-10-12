@@ -1,4 +1,4 @@
-import type { UserRoleEnum } from "~/api/transports/rpc/models";
+import type { UserRoleEnum } from "~/api/core/models";
 import { middleware } from "~/trpc/root";
 import { isAuthenticated } from "./authentication";
 import { isAuthorized } from "./authorization";
