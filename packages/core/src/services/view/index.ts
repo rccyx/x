@@ -8,6 +8,7 @@ import type {
   ViewWindowPurgeWithCutoffDto,
   ViewWindowPurgeWithCutoffRo,
 } from "../../models/view";
+
 export class ViewService {
   public async trackView({
     slug,
@@ -71,7 +72,7 @@ export class ViewService {
   public async purgeViewWindowWithCutoff({
     cutoff,
   }: ViewWindowPurgeWithCutoffDto): Promise<ViewWindowPurgeWithCutoffRo> {
-    logger.info("Cleaning up the view window with: ", {
+    logger.info("Cleaning up the view window prior to: ", {
       cutoffDate: cutoff.toISOString(),
     });
     const deleted = await db.postViewWindow.deleteMany({
