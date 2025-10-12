@@ -35,7 +35,6 @@
     "limico": "catalog:",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
-    "react-hook-form": "catalog:rhf",
     "sharp": "catalog:",
     "superjson": "catalog:",
     "ts-rest-kit": "workspace:*",
@@ -43,8 +42,6 @@
   },
   "devDependencies": {
     "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/next-config": "workspace:*",
-    "@ashgw/playwright-config": "workspace:*",
     "@ashgw/prettier-config": "workspace:*",
     "@ashgw/tsconfig": "workspace:*",
     "@ashgw/vitest-config": "workspace:*",
@@ -52,7 +49,6 @@
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",
     "@vitest/ui": "catalog:",
-    "prettier": "catalog:",
     "ts-roids": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

@@ -757,9 +757,6 @@ importers:
       react-dom:
         specifier: catalog:react18
         version: 18.3.1(react@18.3.1)
-      react-hook-form:
-        specifier: catalog:rhf
-        version: 7.53.0(react@18.3.1)
       sharp:
         specifier: 'catalog:'
         version: 0.33.2
@@ -776,12 +773,6 @@ importers:
       '@ashgw/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@ashgw/next-config':
-        specifier: workspace:*
-        version: link:../../tooling/next
-      '@ashgw/playwright-config':
-        specifier: workspace:*
-        version: link:../../tooling/playwright
       '@ashgw/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
@@ -803,9 +794,6 @@ importers:
       '@vitest/ui':
         specifier: 'catalog:'
         version: 2.1.8(vitest@2.1.8)
-      prettier:
-        specifier: 'catalog:'
-        version: 3.3.3
       ts-roids:
         specifier: 'catalog:'
         version: 2.0.0

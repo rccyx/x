@@ -1,13 +1,3 @@
 {
-  "extends": "@ashgw/tsconfig/base.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"],
-      "@ts-rest/core": ["./node_modules/@ts-rest/core"], // checkout http://github.com/pnpm/pnpm/issues/5176
-      "@ts-rest/serverless": ["./node_modules/@ts-rest/serverless"] // same
-    },
-    "module": "esnext"
-  },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "extends": "@ashgw/tsconfig/base.json"
 }
