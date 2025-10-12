@@ -1276,6 +1276,9 @@ importers:
       '@ashgw/env':
         specifier: workspace:*
         version: link:../env
+      '@ashgw/error':
+        specifier: workspace:*
+        version: link:../error
       '@ashgw/logger':
         specifier: workspace:*
         version: link:../logger
