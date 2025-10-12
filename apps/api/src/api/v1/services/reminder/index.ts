@@ -1,7 +1,7 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
-import { rootUri } from "~/api/root-uri";
+import { rootUri } from "~/api/uri";
 import type {
   ReminderCreateBodyDto,
   ReminderCreateResponses,

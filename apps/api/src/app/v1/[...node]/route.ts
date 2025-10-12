@@ -7,7 +7,7 @@ import {
   setupRequestMiddleware,
   setupResponseHandlers,
 } from "~/ts-rest/middlewares";
-import { rootUri } from "~/api/root-uri";
+import { rootUri } from "~/api/uri";
 
 export const runtime = "nodejs";
 

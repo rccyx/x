@@ -8,7 +8,7 @@ import { logger } from "@ashgw/logger";
 
 import { createTRPCContext } from "~/trpc/context";
 import { appRouter } from "~/api/rpc/router";
-import { rootUri } from "~/api/root-uri";
+import { rootUri } from "~/api/uri";
 
 export const runtime = "nodejs";
 

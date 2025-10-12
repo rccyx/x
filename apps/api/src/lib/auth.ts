@@ -1,7 +1,7 @@
 import { setupAuth } from "@ashgw/auth";
 import { siteName } from "@ashgw/constants";
 import { env } from "@ashgw/env";
-import { rootUri } from "~/api/root-uri";
+import { rootUri } from "~/api/uri";
 
 export const { auth, authApi, handler } = setupAuth({
   appName: siteName,
