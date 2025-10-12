@@ -72,48 +72,23 @@ s
 
 ### Services
 
-- **Classes**: `<Domain>Service` with constructor injection for infra
-- **Methods**: imperative verbs on domain objects, `createPost`, `updatePost`, `trashPost`, `restoreFromTrash`
-- **Return**: always RO types, never raw DB types
+- **Classes**: `<Domain>Service` with constructor injection for infra & easy testing if needed.
+- **Methods**: imperative verbs on domain objects, `create`, `update`, `trashPosts`, `restoreFromTrash`
+- **Return**: always RO types, never raw unserialized types
 
-### Files and folders
+### Note
 
-```
-apps/api/src
-├── api
-│   ├── rpc
-│   │   ├── models/           # Dto/Ro schemas and types (internal)
-│   │   ├── mappers/
-│   │   ├── query-helpers/
-│   │   ├── routes/           # tRPC routers only
-│   │   ├── services/         # business logic, single source of truth
-│   │   └── router.ts         # appRouter assembly
-│   ├── v1
-│   │   ├── contract.ts       # ts-rest contract, source of truth for REST surface
-│   │   ├── endpoints.ts
-│   │   ├── functions/        # thin adapters that call Services
-│   │   ├── models/           # *Request and *Responses schemas and types
-│   │   └── router.ts
-│   └── uri.ts
-├── app                       # Next.js route handlers per transport
-│   ├── rpc/[node]/route.ts
-│   └── v1/[...node]/route.ts
-└── trpc, ts-rest, lib, middleware, etc.
-```
-
-Keep `api/rpc/models` separate from `api/v1/models`. This prevents internal DTOs from leaking into public requests.
+Keep `api/rpc/models` separate from `api/v1/models`. This prevents internal objects from leaking into the public domain.
 
 ## Data flow examples
 
 ### RPC read
 
-`client -> trpc route -> validate DTO -> call Service -> Service loads with QueryHelper -> Mapper.toRo -> return RO`
+`client -> rpc route -> validate DTO -> call internal Service -> return RO`
 
 ### REST command
 
-`client -> ts-rest router -> validate *Request -> auth + rate limit -> map Request to DTO -> call Service -> map RO to *Responses if needed -> return`
-
-Mapping is usually one line because DTO and Request often match. Keep the types distinct to preserve the boundary.
+`client -> rest router -> validate *Request -> map Request to DTO -> call internal Service -> map RO to *Responses`
 
 ## Versioning and deprecation
 
@@ -124,19 +99,8 @@ Mapping is usually one line because DTO and Request often match. Keep the types 
 ## Error handling
 
 - Transport returns typed errors only from declared error schemas.
-- Services throw `AppError` with stable `code` values. Transports translate these to HTTP or TRPC errors.
+- Services ONLY throw `AppError` with stable `code` values. Transports translate these to HTTP or TRPC errors as needed.
 - Avoid leaking internal messages across the boundary.
-
-## Rate limiting and auth
-
-- Apply rate limiting in transport. The limiter returns helpful messages and retry hints.
-- For RPC, use `publicProcedure`, `authenticatedProcedure`, and `adminProcedure`.
-- For REST, use middlewares `authed()` and `rateLimiter()` in router composition.
-
-## CORS and cookies
-
-- RPC route handler sets `credentials: include` on client fetch and mirrors cookies back to the final response.
-- REST uses Next handlers and does not require custom CORS for same origin. Add CORS only when exposing across origins.
 
 ## Schema strictness checklist
 
@@ -148,98 +112,15 @@ Mapping is usually one line because DTO and Request often match. Keep the types 
 
 ## Mapper rules
 
-- Mappers accept DB result types produced by QueryHelpers. They never call the db.
+- Mappers accept DB result types produced by QueryHelpers, or other 3rd party service helpers. They never call the db or unserialized 3rd party return types.
 - Private helper methods for enum normalization are allowed.
-- Mappers never log or throw domain errors. They are pure transformations.
+- Mappers never log or throw domain errors. They are **pure** transformations.
 
 ## Service rules
 
-- Only place allowed to call db and external clients.
+- Only place allowed to call db and external services.
 - Input is DTOs or internally constructed primitives. Output is ROs.
 - Throw `AppError` for domain failures. Do not return null for exceptional flows unless the caller expects null as a valid outcome.
-
-## Procedure and endpoint naming
-
-- Prefer intent based names over CRUD noise. `trashPost`, `restoreFromTrash`, `getPublicPostCards`.
-- For lists, names end with plural nouns. For detail reads, include context like `getDetailedPublicPost`.
-- For commands, use imperative verbs. For queries, use `get*`.
-
-## Example mini spec
-
-RPC
-
-```ts
-// dto
-export const postUpdateSchemaDto = z.object({
-  slug: z.string().min(1),
-  data: postEditorSchemaDto,
-});
-export type PostUpdateDto = z.infer<typeof postUpdateSchemaDto>;
-
-// route
-updatePost: adminProcedure({ limiter: { hits: 2, every: "30s" } })
-  .input(postUpdateSchemaDto)
-  .output(postArticleSchemaRo)
-  .mutation(async ({ input: { slug, data }, ctx: { db } }) => {
-    return await new BlogService({ db, storage }).updatePost({ slug, data });
-  });
-```
-
-REST
-
-```ts
-// requests
-export const postTrashDeleteHeadersSchemaRequest =
-  tokenAuthMiddlewareHeaderSchemaRequest.extend({});
-export type PostTrashDeleteHeadersRequest = z.infer<
-  typeof postTrashDeleteHeadersSchemaRequest
->;
-
-// responses
-export const postTrashDeleteSchemaResponses = createSchemaResponses({
-  ...rateLimiterMiddlewareSchemaResponse,
-  ...tokenAuthMiddlewareSchemaResponse,
-  ...noContentSchemaResponse,
-  ...internalErrorSchemaResponse,
-});
-export type PostTrashDeleteResponses = InferResponses<
-  typeof postTrashDeleteSchemaResponses
->;
-```
-
-Service
-
-```ts
-export class BlogService {
-  public async trashPost({
-    originalSlug,
-  }: {
-    originalSlug: string;
-  }): Promise<void> {
-    // implementation as in repo
-  }
-}
-```
-
-## What to put where
-
-- A new user facing operation
-
-  - Add REST contract entry under `api/v1/contract.ts`
-  - Add function under `api/v1/functions/<resource>/<action>.ts` that calls a Service
-  - Add request and response schemas under `api/v1/models/<resource>`
-  - Wire handler in `api/v1/router.ts`
-
-- A new internal only operation
-
-  - Add RPC procedure in `api/rpc/routes/<resource>`
-  - Add DTO or RO schemas if needed
-  - Implement in a Service if it is not a trivial wrapper
-
-- A new database view or selection
-
-  - Add a method to `QueryHelper`
-  - Update Mapper to produce the right RO
 
 ## FAQ
 
@@ -250,14 +131,10 @@ Both should call Services directly. Avoid chaining transports.
 Do not import RPC DTOs into REST. Define `*Request` in REST and map to DTOs before hitting Services. This keeps the public contract stable even if internal DTOs change.
 
 **Can Services return primitives instead of ROs?**
-Prefer ROs. It gives you a stable, documented shape across the app and simplifies testing.
+No. Return ROs. It gives you a stable, documented shape across the app and simplifies testing.
 
 **Where do I normalize external provider responses?**
 In Services, immediately after the client call, then return an RO.
 
 **How to deprecate a REST field?**
 Add a replacement field, run both for a period, mark old field as deprecated in OpenAPI, remove in the next version.
-
----
-
-If you want, I can turn this into `apps/api/README.md` and add a short `CONTRIBUTING.md` with do and do not rules.
