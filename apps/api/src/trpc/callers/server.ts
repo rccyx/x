@@ -3,7 +3,7 @@ import { cache } from "react";
 import { headers, cookies } from "next/headers";
 import { createTRPCClient, loggerLink } from "@trpc/client";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
-import type { AppRouter } from "~/api/router";
+import type { AppRouter } from "~/api/rpc/router";
 import { env } from "@ashgw/env";
 import type { TRPCRequestInfo } from "@trpc/server/unstable-core-do-not-import";
 import type { NextRequest, NextResponse } from "next/server";
@@ -11,7 +11,7 @@ import { createHydrationHelpers } from "@trpc/react-query/rsc";
 
 import { db } from "@ashgw/db";
 
-import { appRouter } from "~/api/router";
+import { appRouter } from "~/api/rpc/router";
 import { createCallerFactory } from "~/trpc/root";
 import { createTRPCContext } from "~/trpc/context";
 import { makeQueryClient } from "~/trpc/callers/query-client";
@@ -54,7 +54,7 @@ export const { trpc: trpcRpcServerSideClient, HydrateClient } =
 const getTrpcBaseUrl = (): string => {
   if (env.NEXT_PUBLIC_CURRENT_ENV === "development") {
     return env.NODE_ENV === "development"
-      ? "http://localhost:3001"
+      ? "http://localhost:3001" // TODO: actually look at why I did this tho?
       : "http://localhost:3000";
   } else {
     return env.NEXT_PUBLIC_BLOG_URL;

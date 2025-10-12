@@ -58,6 +58,7 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN:
       process.env.NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
   skipValidation: typeof window !== "undefined", // don't validate on the client, we validate at build time

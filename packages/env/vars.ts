@@ -126,6 +126,7 @@ export const clientVars = {
     ),
   SENTRY_DSN: z.string().url(),
   WWW_URL: z.string().url(),
+  API_URL: z.string().url(),
   BLOG_URL: z.string().url(),
   POSTHOG_KEY: z.string().min(20).startsWith("phc_"),
   POSTHOG_HOST: z.string().url(),
