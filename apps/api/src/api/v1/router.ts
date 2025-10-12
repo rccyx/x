@@ -3,9 +3,8 @@ import { gpg } from "@ashgw/constants";
 import { rateLimiter, authed } from "~/ts-rest/middlewares";
 import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
-import { PostService, ReminderService } from "~/api/v1/services";
 
-import { health, oss, notification } from "~/api/v1/functions";
+import { health, oss, notification, reminder, post } from "~/api/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()
@@ -20,8 +19,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.reminderCreate)(
-    async ({ body, headers }) =>
-      await ReminderService.create({ body, headers }),
+    async ({ body, headers }) => await reminder.create({ body, headers }),
   ),
 
   notificationCreate: middleware()
@@ -50,8 +48,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.postDeleteViewWindow)(
-    async (_, { request: { ctx } }) =>
-      await new PostService({ db: ctx.db }).deleteViewWindow(),
+    async () => await post.deleteViewWindow(),
   ),
 
   postDeleteTrash: middleware()
@@ -64,10 +61,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.postDeleteTrash)(
-    async (_, { request: { ctx } }) =>
-      await new PostService({ db: ctx.db }).deleteTrashPosts(),
-  ),
+    .route(contract.postDeleteTrash)(async () => await post.deleteTrash()),
 
   bootstrap: async ({ query }) =>
     await oss.fetchText({
