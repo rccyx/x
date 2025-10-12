@@ -1,10 +1,16 @@
-import { contract } from "~/api/v1/contract";
+import { contract } from "~/api/transports/v1/contract";
 import { gpg } from "@ashgw/constants";
 import { rateLimiter, authed } from "~/ts-rest/middlewares";
 import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 
-import { health, oss, notification, reminder, post } from "~/api/v1/functions";
+import {
+  health,
+  oss,
+  notification,
+  reminder,
+  post,
+} from "~/api/transports/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()
