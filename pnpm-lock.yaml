@@ -706,6 +706,9 @@ importers:
       '@ashgw/constants':
         specifier: workspace:*
         version: link:../constants
+      '@ashgw/core':
+        specifier: workspace:*
+        version: link:../core
       '@ashgw/cross-runtime':
         specifier: workspace:*
         version: link:../cross-runtime
@@ -917,6 +920,76 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+
+  packages/core:
+    dependencies:
+      '@ashgw/analytics':
+        specifier: workspace:*
+        version: link:../analytics
+      '@ashgw/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@ashgw/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@ashgw/cross-runtime':
+        specifier: workspace:*
+        version: link:../cross-runtime
+      '@ashgw/db':
+        specifier: workspace:*
+        version: link:../db
+      '@ashgw/email':
+        specifier: workspace:*
+        version: link:../email
+      '@ashgw/env':
+        specifier: workspace:*
+        version: link:../env
+      '@ashgw/error':
+        specifier: workspace:*
+        version: link:../error
+      '@ashgw/logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@ashgw/monitor':
+        specifier: workspace:*
+        version: link:../monitor
+      '@ashgw/scheduler':
+        specifier: workspace:*
+        version: link:../scheduler
+      '@ashgw/security':
+        specifier: workspace:*
+        version: link:../security
+      '@ashgw/storage':
+        specifier: workspace:*
+        version: link:../storage
+      zod:
+        specifier: 'catalog:'
+        version: 3.23.8
+    devDependencies:
+      '@ashgw/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@ashgw/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@ashgw/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@ashgw/vitest-config':
+        specifier: workspace:*
+        version: link:../../tooling/vitest
+      '@vitest/ui':
+        specifier: 'catalog:'
+        version: 2.1.8(vitest@2.1.8)
+      ts-roids:
+        specifier: 'catalog:'
+        version: 2.0.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   packages/cross-runtime:
     dependencies:

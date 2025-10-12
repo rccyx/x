@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/api",
+  "name": "@ashgw/core",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,7 +18,6 @@
     "@ashgw/analytics": "workspace:*",
     "@ashgw/auth": "workspace:*",
     "@ashgw/constants": "workspace:*",
-    "@ashgw/core": "workspace:*",
     "@ashgw/cross-runtime": "workspace:*",
     "@ashgw/db": "workspace:*",
     "@ashgw/email": "workspace:*",
@@ -29,16 +28,6 @@
     "@ashgw/scheduler": "workspace:*",
     "@ashgw/security": "workspace:*",
     "@ashgw/storage": "workspace:*",
-    "@ts-rest/core": "catalog:ts-rest3",
-    "@ts-rest/open-api": "catalog:ts-rest3",
-    "@ts-rest/react-query": "catalog:ts-rest3",
-    "@ts-rest/serverless": "catalog:ts-rest3",
-    "limico": "catalog:",
-    "react": "catalog:react18",
-    "react-dom": "catalog:react18",
-    "sharp": "catalog:",
-    "superjson": "catalog:",
-    "ts-rest-kit": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -46,9 +35,6 @@
     "@ashgw/prettier-config": "workspace:*",
     "@ashgw/tsconfig": "workspace:*",
     "@ashgw/vitest-config": "workspace:*",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:react18",
-    "@types/react-dom": "catalog:react18",
     "@vitest/ui": "catalog:",
     "ts-roids": "catalog:",
     "typescript": "catalog:",
@@ -58,11 +44,8 @@
     "node": "20.x"
   },
   "exports": {
-    "./v1": "./src/transports/v1/index.ts",
-    "./rpc": "./src/transports/rpc/index.ts",
-    "./ts-rest": "./src/ts-rest/index.ts",
-    "./trpc": "./src/trpc/index.ts",
-    "./uri": "./src/uri.ts"
+    "./models": "./src/models/index.ts",
+    "./services": "./src/services/index.ts"
   },
   "keywords": [],
   "license": "ISC",
