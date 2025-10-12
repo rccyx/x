@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 
-import type { UserRo } from "~/core/models";
-import type { TrpcContext } from "~/trpc/context";
-import { UserService } from "~/core/services";
+import type { UserRo } from "../../../core/models";
+import type { TrpcContext } from "../../../trpc/context";
+import { UserService } from "../../../core/services";
 
 export async function isAuthenticated(input: {
   ctx: TrpcContext;

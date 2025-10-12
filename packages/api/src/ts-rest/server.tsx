@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { makeQueryClient } from "./query-client";
-import { tsrQueryClientSideClient } from "~/ts-rest/client";
+import { tsrQueryClientSideClient } from "./client";
 
 /**
  * Use this in `getServerSideProps`, `getStaticProps`, or any server-side

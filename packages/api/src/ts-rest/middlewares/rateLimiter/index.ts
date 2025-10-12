@@ -1,7 +1,7 @@
 import { middlewareResponse, middlewareFn } from "ts-rest-kit/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
-import type { GlobalContext } from "~/ts-rest/context";
+import type { GlobalContext } from "../../context";
 import { getFingerprint } from "@ashgw/security";
 
 type RlKind = "interval" | "quota";

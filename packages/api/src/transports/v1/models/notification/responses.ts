@@ -5,7 +5,7 @@ import {
   internalErrorSchemaResponse,
   okSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
-} from "~/transports/v1/models/shared/responses";
+} from "../../models/shared/responses";
 
 export const notificationCreateSchemaResponses = createSchemaResponses({
   ...rateLimiterMiddlewareSchemaResponse,

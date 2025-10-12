@@ -1,7 +1,7 @@
-import { contract } from "~/transports/v1/contract";
+import { contract } from "../../transports/v1/contract";
 import { gpg } from "@ashgw/constants";
-import { rateLimiter, authed } from "~/ts-rest/middlewares";
-import type { GlobalContext } from "~/ts-rest/context";
+import { rateLimiter, authed } from "../../ts-rest/middlewares";
+import type { GlobalContext } from "../../ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 
 import {
@@ -10,7 +10,7 @@ import {
   notification,
   reminder,
   post,
-} from "~/transports/v1/functions";
+} from "../../transports/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()

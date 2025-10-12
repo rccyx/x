@@ -15,10 +15,10 @@ import type {
   UserRo,
   UserTerminateSpecificSessionDto,
   UserChangePasswordDto,
-} from "~/core/models";
-import { SessionMapper, UserMapper } from "~/core/mappers";
+} from "../../models";
+import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
-import type { TrpcContext } from "~/trpc/context";
+import type { TrpcContext } from "../../../trpc/context";
 import { auth } from "@ashgw/auth";
 
 export class UserService {

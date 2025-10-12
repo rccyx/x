@@ -2,7 +2,7 @@
 
 import { QueryClientProvider } from "@ts-rest/react-query/tanstack";
 import { getOptimizedQueryClient } from "./query-client";
-import { tsrQueryClientSideClient } from "~/ts-rest/client";
+import { tsrQueryClientSideClient } from "./client";
 
 // Provides React Query context + ts-rest hook context in one place
 // - QueryClientProvider: TanStack Query v5

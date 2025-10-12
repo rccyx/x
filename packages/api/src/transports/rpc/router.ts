@@ -1,6 +1,6 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
-import { router } from "~/trpc/root";
+import { router } from "../../trpc/root";
 import { newsletterRouter, postRouter, userRouter, viewRouter } from "./routes";
 
 export const appRouter = router({

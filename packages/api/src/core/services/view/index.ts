@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import type { DatabaseClient } from "@ashgw/db";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import type { TrackViewRo } from "~/core/models/view";
+import type { TrackViewRo } from "../../models/view";
 export class ViewService {
   private readonly db: DatabaseClient;
   private readonly req: NextRequest;

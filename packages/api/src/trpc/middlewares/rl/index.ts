@@ -1,4 +1,4 @@
-import { middleware } from "~/trpc/root";
+import { middleware } from "../../root";
 import { TRPCError } from "@trpc/server";
 import type { RlWindow } from "limico";
 import { createLimiter } from "limico";

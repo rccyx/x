@@ -1,4 +1,4 @@
-import { tokenAuthMiddlewareHeaderSchemaRequest } from "~/transports/v1/models/shared";
+import { tokenAuthMiddlewareHeaderSchemaRequest } from "../../models/shared";
 import { z } from "zod";
 import { NotificationType } from "@ashgw/email";
 
