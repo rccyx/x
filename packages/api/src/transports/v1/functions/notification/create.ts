@@ -11,7 +11,6 @@ export async function create(input: {
   body: NotificationCreateBodyRequest;
 }): Promise<NotificationCreateResponses> {
   logger.info("Sending email notification...");
-
   try {
     await NotificationService.email.sendNotification({
       body: {
