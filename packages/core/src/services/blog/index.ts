@@ -1,8 +1,7 @@
 import type { FrontMatterResult } from "front-matter";
 import type { Optional } from "ts-roids";
 import fm from "front-matter";
-import type { DatabaseClient } from "@ashgw/db";
-import type { StorageClient } from "@ashgw/storage";
+import { db } from "@ashgw/db";
 import { WordCounterService } from "@ashgw/cross-runtime";
 import { AppError } from "@ashgw/error";
 import { logger } from "@ashgw/logger";
@@ -19,17 +18,8 @@ import { fontMatterMdxContentSchemaRo } from "../../models";
 import { PostQueryHelper } from "../../query-helpers";
 
 export class BlogService {
-  private readonly db: DatabaseClient;
-  // storage still injected for images or future assets...
-  private readonly storage: StorageClient;
-
-  constructor({ db, storage }: { db: DatabaseClient; storage: StorageClient }) {
-    this.db = db;
-    this.storage = storage;
-  }
-
   public async getPublicPostCards(): Promise<PostCardRo[]> {
-    const posts = await this.db.post.findMany({
+    const posts = await db.post.findMany({
       where: PostQueryHelper.whereReleasedToPublic(),
       select: {
         ...PostQueryHelper.cardSelect(),
@@ -44,7 +34,7 @@ export class BlogService {
     );
   }
   public async getAllAdminPosts(): Promise<PostArticleRo[]> {
-    const posts = await this.db.post.findMany({
+    const posts = await db.post.findMany({
       include: PostQueryHelper.adminInclude(),
       orderBy: { firstModDate: "desc" },
     });
@@ -62,7 +52,7 @@ export class BlogService {
   }
 
   public async getTrashedPosts(): Promise<TrashPostArticleRo[]> {
-    const trashed = await this.db.trashPost.findMany({
+    const trashed = await db.trashPost.findMany({
       orderBy: { deletedAt: "desc" },
     });
 
@@ -80,7 +70,7 @@ export class BlogService {
   }: {
     slug: string;
   }): Promise<Optional<PostArticleRo>> {
-    const post = await this.db.post.findUnique({
+    const post = await db.post.findUnique({
       where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
       include: PostQueryHelper.articleInclude(),
     });
@@ -94,7 +84,7 @@ export class BlogService {
 
   public async createPost(data: PostEditorDto): Promise<PostArticleRo> {
     const slug = this._slugify(data.title);
-    const existingPost = await this.db.post.findUnique({ where: { slug } });
+    const existingPost = await db.post.findUnique({ where: { slug } });
     if (existingPost) {
       throw new AppError({
         code: "CONFLICT",
@@ -105,7 +95,7 @@ export class BlogService {
     const now = new Date();
     const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
 
-    const post = await this.db.post.create({
+    const post = await db.post.create({
       data: {
         slug,
         title: data.title,
@@ -137,7 +127,7 @@ export class BlogService {
     slug: string;
     data: PostEditorDto;
   }): Promise<PostArticleRo> {
-    const existingPost = await this.db.post.findUnique({
+    const existingPost = await db.post.findUnique({
       where: { slug },
       select: { slug: true },
     });
@@ -150,7 +140,7 @@ export class BlogService {
 
     const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
 
-    const post = await this.db.post.update({
+    const post = await db.post.update({
       where: { slug },
       data: {
         title: data.title,
@@ -182,7 +172,7 @@ export class BlogService {
   }: {
     originalSlug: string;
   }): Promise<void> {
-    const post = await this.db.post.findUnique({
+    const post = await db.post.findUnique({
       where: { slug: originalSlug },
     });
     if (!post) {
@@ -192,7 +182,7 @@ export class BlogService {
       });
     }
 
-    await this.db.$transaction(async (tx) => {
+    await db.$transaction(async (tx) => {
       await tx.trashPost.create({
         data: {
           originalSlug: post.slug,
@@ -215,7 +205,7 @@ export class BlogService {
   }
 
   public async purgeTrash({ trashId }: { trashId: string }): Promise<void> {
-    await this.db.trashPost.delete({ where: { id: trashId } });
+    await db.trashPost.delete({ where: { id: trashId } });
   }
 
   public async restoreFromTrash({
@@ -223,7 +213,7 @@ export class BlogService {
   }: {
     trashId: string;
   }): Promise<void> {
-    const trash = await this.db.trashPost.findUnique({
+    const trash = await db.trashPost.findUnique({
       where: { id: trashId },
     });
     if (!trash) {
@@ -233,7 +223,7 @@ export class BlogService {
       });
     }
 
-    const exists = await this.db.post.findUnique({
+    const exists = await db.post.findUnique({
       where: { slug: trash.originalSlug },
     });
     if (exists) {
@@ -243,7 +233,7 @@ export class BlogService {
       });
     }
 
-    await this.db.$transaction(async (tx) => {
+    await db.$transaction(async (tx) => {
       await tx.post.create({
         data: {
           slug: trash.originalSlug,

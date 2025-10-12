@@ -1,15 +1,12 @@
 import { createHash } from "crypto";
-import type { NextRequest } from "next/server";
-import type { DatabaseClient } from "@ashgw/db";
+import { db } from "@ashgw/db";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
 import type { TrackViewRo } from "../../models/view";
 export class ViewService {
-  private readonly db: DatabaseClient;
-  private readonly req: NextRequest;
+  private readonly req: Request;
 
-  constructor({ db, req }: { db: DatabaseClient; req: NextRequest }) {
-    this.db = db;
+  constructor({ req }: { req: Request }) {
     this.req = req;
   }
 
@@ -25,7 +22,7 @@ export class ViewService {
     const bucketStart = this._utcMidnight(new Date());
 
     let total = 0;
-    await this.db.$transaction(async (tx) => {
+    await db.$transaction(async (tx) => {
       const inserted = await tx.postViewWindow.createMany({
         data: { postSlug: slug, fingerprint, bucketStart },
         skipDuplicates: true,
