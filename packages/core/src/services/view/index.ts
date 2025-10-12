@@ -71,9 +71,23 @@ export class ViewService {
   public async purgeViewWindowWithCutoff({
     cutoff,
   }: ViewWindowPurgeWithCutoffDto): Promise<ViewWindowPurgeWithCutoffRo> {
+    logger.info("Cleaning up the view window with: ", {
+      cutoffDate: cutoff.toISOString(),
+    });
     const deleted = await db.postViewWindow.deleteMany({
       where: { bucketStart: { lt: cutoff } },
     });
-    return { deletedCount: deleted.count };
+    const deletedCount = deleted.count;
+    if (deletedCount > 0) {
+      logger.info("View window records purged successfully!", {
+        deleted: deletedCount,
+        cutoff: cutoff.toISOString(),
+      });
+    } else {
+      logger.info("No record to purge, view window is clean", {
+        cutoff: cutoff.toISOString(),
+      });
+    }
+    return { deletedCount };
   }
 }
