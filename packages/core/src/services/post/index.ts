@@ -17,7 +17,7 @@ import { PostMapper } from "../../mappers";
 import { fontMatterMdxContentSchemaRo } from "../../models";
 import { PostQueryHelper } from "../../query-helpers";
 
-export class BlogService {
+export class PostService {
   public async getPublicPostCards(): Promise<PostCardRo[]> {
     const posts = await db.post.findMany({
       where: PostQueryHelper.whereReleasedToPublic(),

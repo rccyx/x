@@ -1,4 +1,4 @@
-export { BlogService } from "./blog";
+export { PostService as BlogService } from "./post";
 export { NewsletterService } from "./newsletter";
 export { ViewService } from "./view";
 export { UserService } from "./user";
