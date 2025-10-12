@@ -1,6 +1,6 @@
 {
-  "name": "@ashgw/api",
-  "version": "1.84.1",
+  "name": "@ashgw/server",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
