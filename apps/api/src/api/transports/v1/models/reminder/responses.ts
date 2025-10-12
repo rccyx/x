@@ -5,7 +5,7 @@ import {
   tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
-} from "~/api/v1/models/shared/responses";
+} from "~/api/transports/v1/models/shared/responses";
 import { reminderMessageCreatedSchemaRo } from "./ros";
 
 export const reminderCreateSchemaResponses = createSchemaResponses({

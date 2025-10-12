@@ -1,7 +1,7 @@
 import { db } from "@ashgw/db";
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { PostTrashDeleteResponses } from "~/api/v1/models";
+import type { PostTrashDeleteResponses } from "~/api/transports/v1/models";
 
 const retentionDays = 30;
 

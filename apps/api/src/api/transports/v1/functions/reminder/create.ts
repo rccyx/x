@@ -7,9 +7,9 @@ import type {
   ReminderCreateResponses,
   ReminderMessageCreatedRo,
   ReminderCreateHeadersRequest,
-} from "~/api/v1/models";
+} from "~/api/transports/v1/models";
 import { scheduler } from "@ashgw/scheduler";
-import { v1endpoints } from "~/api/v1/endpoints";
+import { v1endpoints } from "~/api/transports/v1/endpoints";
 
 const notifyUrl =
   env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;

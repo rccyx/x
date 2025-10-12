@@ -4,7 +4,7 @@ import type {
   OssGetGpgResponses,
   OssGetTextQueryRequest,
   OssGetTextResponses,
-} from "~/api/v1/models";
+} from "~/api/transports/v1/models";
 import type { ExclusiveUnion } from "ts-roids";
 
 interface FetchOpts {

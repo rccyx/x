@@ -1,4 +1,4 @@
-import type { HealthResponses } from "~/api/v1/models";
+import type { HealthResponses } from "~/api/transports/v1/models";
 
 export async function check(): Promise<HealthResponses> {
   await new Promise((r) => setTimeout(r, 1));
