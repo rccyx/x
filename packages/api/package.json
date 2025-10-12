@@ -61,19 +61,11 @@
     "node": "20.x"
   },
   "exports": {
-    "./transports/v1/models": {
-      "import": "./src/transports/v1/models/index.ts",
-      "types": "./src/transports/v1/models/index.ts"
-    },
-    "./transports/v1/contract": {
-      "import": "./src/transports/v1/contract.ts",
-      "types": "./src/transports/v1/contract.ts"
-    },
-    "./transports/rpc/router": {
+    "./v1": {
       "import": "./src/transports/rpc/router/index.ts",
       "types": "./src/transports/rpc/router/index.ts"
     },
-    "./transports/rpc/models": {
+    "./rpc": {
       "import": "./src/transports/rpc/models/index.ts",
       "types": "./src/transports/rpc/models/index.ts"
     },
