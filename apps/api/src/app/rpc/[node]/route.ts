@@ -6,7 +6,7 @@ import { db } from "@ashgw/db";
 import { monitor } from "@ashgw/monitor";
 import { logger } from "@ashgw/logger";
 
-import { createTRPCContext } from "~/trpc/context";
+import { createTRPCContext } from "~/api/trpc/context";
 import { appRouter } from "~/api/transports/rpc/router";
 import { rootUri } from "~/api/uri";
 

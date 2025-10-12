@@ -12,9 +12,9 @@ import { createHydrationHelpers } from "@trpc/react-query/rsc";
 import { db } from "@ashgw/db";
 
 import { appRouter } from "~/api/transports/rpc/router";
-import { createCallerFactory } from "~/trpc/root";
-import { createTRPCContext } from "~/trpc/context";
-import { makeQueryClient } from "~/trpc/callers/query-client";
+import { createCallerFactory } from "~/api/trpc/root";
+import { createTRPCContext } from "~/api/trpc/context";
+import { makeQueryClient } from "~/api/trpc/callers/query-client";
 import { getTrpcUrl } from "./client";
 import { transformer } from "../transformer";
 

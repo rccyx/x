@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import type { TrpcContext } from "~/trpc/context";
-import { authenticatedProcedure, publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
+import type { TrpcContext } from "~/api/trpc/context";
+import { authenticatedProcedure, publicProcedure } from "~/api/trpc/procedures";
+import { router } from "~/api/trpc/root";
 import {
   sessionSchemaRo,
   userChangePasswordSchemaDto,
@@ -19,9 +19,9 @@ import {
   twoFactorEnableSchemaRo,
   twoFactorGetTotpUriSchemaRo,
   twoFactorGenerateBackupCodesSchemaRo,
-} from "~/api/transports/rpc/models";
+} from "~/api/core/models";
 
-import { UserService } from "~/api/transports/rpc/services";
+import { UserService } from "~/api/core/services";
 
 const userService = (ctx: TrpcContext) =>
   new UserService({

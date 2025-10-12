@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
-import { newsletterSubscribeDtoSchema } from "~/api/transports/rpc/models";
-import { NewsletterService } from "~/api/transports/rpc/services";
+import { publicProcedure } from "~/api/trpc/procedures";
+import { router } from "~/api/trpc/root";
+import { newsletterSubscribeDtoSchema } from "~/api/core/models";
+import { NewsletterService } from "~/api/core/services";
 
 export const newsletterRouter = router({
   subscribe: publicProcedure({

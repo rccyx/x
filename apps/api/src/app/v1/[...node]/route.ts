@@ -6,7 +6,7 @@ import { router } from "~/api/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
-} from "~/ts-rest/middlewares";
+} from "~/api/ts-rest/middlewares";
 import { rootUri } from "~/api/uri";
 
 export const runtime = "nodejs";

@@ -1,4 +1,4 @@
-import { c } from "~/ts-rest/root";
+import { c } from "~/api/ts-rest/root";
 import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
 
 export const okSchemaResponse = createSchemaResponses({

@@ -1,5 +1,5 @@
 import type { UserRoleEnum } from "~/api/core/models";
-import { middleware } from "~/trpc/root";
+import { middleware } from "~/api/trpc/root";
 import { isAuthenticated } from "./authentication";
 import { isAuthorized } from "./authorization";
 

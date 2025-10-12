@@ -3,7 +3,7 @@ import { siteName } from "@ashgw/constants";
 import { env } from "@ashgw/env";
 import { rootUri } from "~/api/uri";
 
-export const { auth, authApi, handler } = setupAuth({
+export const { auth, authApi, nextJsHandler } = setupAuth({
   appName: siteName,
   baseURL: env.NEXT_PUBLIC_API_URL,
   disableSignUp: true,

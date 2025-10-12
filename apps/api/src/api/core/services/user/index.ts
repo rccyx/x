@@ -18,7 +18,7 @@ import type {
 } from "~/api/core/models";
 import { SessionMapper, UserMapper } from "~/api/core/mappers";
 import type { Optional } from "ts-roids";
-import type { TrpcContext } from "~/trpc/context";
+import type { TrpcContext } from "~/api/trpc/context";
 import { authApi } from "~/lib/auth";
 
 export class UserService {

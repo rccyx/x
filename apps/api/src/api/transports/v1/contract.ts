@@ -1,4 +1,4 @@
-import { c } from "~/ts-rest/root";
+import { c } from "~/api/ts-rest/root";
 import { createContract } from "ts-rest-kit/core";
 import {
   healthSchemaResponses,
