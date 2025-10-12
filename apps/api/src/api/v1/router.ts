@@ -4,12 +4,13 @@ import { rateLimiter, authed } from "~/ts-rest/middlewares";
 import type { GlobalContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 import {
-  HealthService,
   NotificationService,
   OssService,
   PostService,
   ReminderService,
 } from "~/api/v1/services";
+
+import { health } from "~/api/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
   reminderCreate: middleware()
@@ -114,5 +115,5 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
         cacheControl: "s-maxage=86400, stale-while-revalidate=86400",
       },
     }),
-  health: async () => await HealthService.check(),
+  health: async () => await health.check(),
 });
