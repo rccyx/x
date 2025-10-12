@@ -1,56 +1,28 @@
-import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
 import type {
-  OssGetGpgResponses,
-  OssGetTextQueryRequest,
-  OssGetTextResponses,
+  OssGetGithubTextSchemaDto,
+  OssGetDirectTextSchemaRo,
 } from "../../models";
-import type { ExclusiveUnion } from "ts-roids";
 import { AppError } from "@ashgw/error";
-
-interface FetchOpts {
-  defaultRevalidate: number; // seconds
-  cacheControl: string;
-}
-
-type FetchUrl = ExclusiveUnion<
-  | {
-      github: {
-        repo: string;
-        scriptPath: string;
-      };
-    }
-  | {
-      direct: {
-        url: string;
-      };
-    }
->;
 
 function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
   const { repo, scriptPath } = opts;
   return `https://raw.githubusercontent.com/rccyx/${repo}/main/${scriptPath}`;
 }
 
-export async function fetchText(input: {
-  fetchUrl: FetchUrl;
-  query?: OssGetTextQueryRequest;
-  opts: FetchOpts;
-}): Promise<OssGetTextResponses | OssGetGpgResponses> {
-  const { fetchUrl, opts } = input;
-  const revalidateSeconds =
-    input.query?.revalidateSeconds ?? opts.defaultRevalidate;
-
-  const url = fetchUrl.github
-    ? getRepoMainBranchBaseUrl({
-        repo: fetchUrl.github.repo,
-        scriptPath: fetchUrl.github.scriptPath,
-      })
-    : fetchUrl.direct.url;
+async function fetchText(
+  input: OssGetGithubTextSchemaDto,
+): Promise<OssGetDirectTextSchemaRo> {
+  const url =
+    input.fetchUrl.type === "github"
+      ? getRepoMainBranchBaseUrl({
+          repo: input.fetchUrl.repo,
+          scriptPath: input.fetchUrl.scriptPath,
+        })
+      : input.fetchUrl.url;
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: revalidateSeconds },
+      next: { revalidate: input.revalidateSeconds },
       cache: "force-cache",
       signal: AbortSignal.timeout(10_000),
     });
@@ -61,25 +33,17 @@ export async function fetchText(input: {
         message: "Upstream error",
       });
     }
-
     const text = (await res.text()) as unknown as string;
-
-    return {
-      status: 200,
-      body: text,
-      headers: {
-        "Cache-Control": opts.cacheControl,
-      },
-    };
+    return { text };
   } catch (error) {
-    logger.error("fetchTextFromUpstream failed", { url, error });
-    monitor.next.captureException({ error });
-    return {
-      status: 500,
-      body: {
-        code: "INTERNAL_ERROR",
-        message: "Internal error",
-      },
-    };
+    throw new AppError({
+      code: "INTERNAL",
+      message: "Upstream fetch failed",
+      cause: error,
+    });
   }
 }
+
+export const OssService = {
+  fetchText,
+};
