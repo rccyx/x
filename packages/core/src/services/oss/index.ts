@@ -31,6 +31,7 @@ async function fetchText(
       throw new AppError({
         code: "INTERNAL",
         message: "Upstream error",
+        meta: { url, statusText: res.statusText },
       });
     }
     const text = (await res.text()) as unknown as string;
