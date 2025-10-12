@@ -1,22 +1,12 @@
-import { db } from "@ashgw/db";
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type { PostTrashDeleteResponses } from "../../models";
-
-const retentionDays = 30;
+import { PostService } from "@ashgw/core/services";
 
 export async function deleteTrash(): Promise<PostTrashDeleteResponses> {
-  const cutoff = new Date(Date.now() - retentionDays * 24 * 60 * 60 * 1000);
-
   try {
-    const { count } = await db.trashPost.deleteMany({
-      where: { deletedAt: { lt: cutoff } },
-    });
-
-    logger.info("Trashed posts purged", {
-      deleted: count,
-      cutoff: cutoff.toISOString(),
-    });
+    await new PostService().purgeTrash();
+    logger.info("Trashed posts purged");
     return { status: 204, body: undefined };
   } catch (error) {
     monitor.next.captureException({ error });

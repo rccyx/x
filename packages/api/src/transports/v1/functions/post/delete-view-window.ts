@@ -2,6 +2,7 @@ import { db } from "@ashgw/db";
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type { PostViewWindowDeleteResponses } from "../../models";
+import { ViewService } from "@ashgw/core/services";
 
 const retainDays = 2;
 
@@ -13,9 +14,7 @@ export async function deleteViewWindow(): Promise<PostViewWindowDeleteResponses>
   });
 
   try {
-    const deleted = await db.postViewWindow.deleteMany({
-      where: { bucketStart: { lt: cutoff } }, // uses @@index([bucketStart])
-    });
+    await new ViewService().purgeViewWindowWithCutoff({ cutoff });
 
     if (deleted.count > 0) {
       logger.info("View window records purged successfully!", {

@@ -2,22 +2,18 @@ import { createHash } from "crypto";
 import { db } from "@ashgw/db";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import type { TrackViewRo } from "../../models/view";
+import type {
+  TrackViewDto,
+  TrackViewRo,
+  ViewWindowPurgeWithCutoffDto,
+  ViewWindowPurgeWithCutoffRo,
+} from "../../models/view";
 export class ViewService {
-  private readonly requestHeaders: Headers;
-
-  constructor({ requestHeaders }: { requestHeaders: Headers }) {
-    this.requestHeaders = requestHeaders;
-  }
-
-  public async trackView({ slug }: { slug: string }): Promise<TrackViewRo> {
-    const headersList = this.requestHeaders;
-    const ipAddress =
-      headersList.get("x-forwarded-for") ??
-      headersList.get("x-real-ip") ??
-      "127.0.0.1";
-    const userAgent = headersList.get("user-agent") ?? "unknown";
-
+  public async trackView({
+    slug,
+    ipAddress,
+    userAgent,
+  }: TrackViewDto): Promise<TrackViewRo> {
     const fingerprint = this._fingerprint({ slug, ipAddress, userAgent });
     const bucketStart = this._utcMidnight(new Date());
 
@@ -70,5 +66,14 @@ export class ViewService {
     return new Date(
       Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0),
     );
+  }
+
+  public async purgeViewWindowWithCutoff({
+    cutoff,
+  }: ViewWindowPurgeWithCutoffDto): Promise<ViewWindowPurgeWithCutoffRo> {
+    const deleted = await db.postViewWindow.deleteMany({
+      where: { bucketStart: { lt: cutoff } },
+    });
+    return { deletedCount: deleted.count };
   }
 }

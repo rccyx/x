@@ -19,9 +19,16 @@ export const viewRouter = router({
           req: { headers },
         },
       }) => {
-        return await new ViewService({
-          requestHeaders: headers,
-        }).trackView({ slug });
+        const ipAddress =
+          headers.get("x-forwarded-for") ??
+          headers.get("x-real-ip") ??
+          "127.0.0.1";
+        const userAgent = headers.get("user-agent") ?? "unknown";
+        return await new ViewService().trackView({
+          slug,
+          ipAddress,
+          userAgent,
+        });
       },
     ),
 });
