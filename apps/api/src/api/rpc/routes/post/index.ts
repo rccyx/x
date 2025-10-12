@@ -11,7 +11,7 @@ import {
   postUpdateSchemaDto,
   trashPostArticleSchemaRo,
 } from "~/api/rpc/models";
-import { BlogService } from "~/api/services";
+import { BlogService } from "~/api/rpc/services";
 
 export const postRouter = router({
   getDetailedPublicPost: publicProcedure({
