@@ -19,6 +19,7 @@ const handler = createNextHandler(contract, router, {
   handlerType: "app-router",
   responseValidation: true,
   jsonQuery: false,
+  // cors: {}, // not needed
   requestMiddleware: [setupRequestMiddleware()],
   responseHandlers: [setupResponseHandlers],
   errorHandler: (error, { route }) => {

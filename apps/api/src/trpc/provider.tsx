@@ -31,12 +31,8 @@ export function TRPCProvider(
           fetch(url, options) {
             return fetch(url, {
               ...options,
-              // cookies included
+              // CORS & cookies included
               credentials: "include",
-              headers: {
-                ...options?.headers,
-                // [HEADER_NAMES.CSRF_TOKEN]: getCsrfTokenCookie(),
-              },
             });
           },
         }),
