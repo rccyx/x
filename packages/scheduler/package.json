@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@ashgw/env": "workspace:*",
+    "@ashgw/logger": "workspace:*",
     "@upstash/qstash": "2.8.2",
     "ts-roids": "catalog:"
   },

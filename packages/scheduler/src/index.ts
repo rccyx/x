@@ -1,5 +1,6 @@
 import { Client as QstashClient } from "@upstash/qstash";
 import { env } from "@ashgw/env";
+import { logger } from "@ashgw/logger";
 import type {
   Payload,
   ScheduleDto,
@@ -45,7 +46,6 @@ class SchedulerService {
         payload: input.payload,
       });
     } else {
-      // cron
       return this.scheduleCron({
         expression: input.cron.expression,
         url: input.url,
@@ -53,17 +53,20 @@ class SchedulerService {
       });
     }
   }
+
   private async scheduleAt(input: {
     url: string;
     payload: Payload;
     atTime: string;
   }): Promise<ScheduleAtResult> {
+    logger.info(`scheduling one-time job -> ${input.url}`);
     const response = await qstashClient.publish({
       url: input.url,
       body: input.payload,
       headers: this._headers,
       notBefore: SchedulerService._toUnixSecond(input.atTime),
     });
+    logger.info(`scheduled at ${input.atTime} (id=${response.messageId})`);
     return { messageId: response.messageId };
   }
 
@@ -76,22 +79,24 @@ class SchedulerService {
     payload: Payload;
     delay: Delay;
   }): Promise<ScheduleDelayResult> {
-    // here we just convert anuything we het into secoodsnand we send it as just an integer
     const normalizedDelayInSeconds = delay.days
-      ? delay.days * 24 * 60 * 60
+      ? delay.days * 86400
       : delay.hours
-        ? delay.hours * 60 * 60
+        ? delay.hours * 3600
         : delay.minutes
           ? delay.minutes * 60
           : delay.seconds;
 
+    logger.info(`scheduling delayed job -> ${url}`);
     const response = await qstashClient.publish({
-      url: url,
+      url,
       body: payload,
       headers: this._headers,
       delay: normalizedDelayInSeconds,
     });
-
+    logger.info(
+      `scheduled after ${normalizedDelayInSeconds}s (id=${response.messageId})`,
+    );
     return { messageId: response.messageId };
   }
 
@@ -100,12 +105,14 @@ class SchedulerService {
     payload: Payload;
     expression: string;
   }): Promise<ScheduleCronResult> {
+    logger.info(`scheduling cron -> ${input.expression} -> ${input.url}`);
     const response = await qstashClient.schedules.create({
       destination: input.url,
       cron: input.expression,
       body: input.payload,
       headers: this._headers,
     });
+    logger.info(`cron created (id=${response.scheduleId})`);
     return { scheduleId: response.scheduleId };
   }
 
