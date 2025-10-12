@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { generateOpenApi } from "@ts-rest/open-api";
 import { contract } from "~/api/v1/contract";
 import { env } from "@ashgw/env";
-import { rootEndpoints } from "~/api/root-endpoints";
+import { rootUri } from "~/api/root-uri";
 import { ossEmail } from "@ashgw/constants";
 
 export const runtime = "edge";
@@ -20,7 +20,7 @@ export function GET() {
       },
       openapi: "3.1.0",
       servers: [
-        { url: new URL(rootEndpoints.v1, env.NEXT_PUBLIC_WWW_URL).toString() },
+        { url: new URL(rootUri.v1, env.NEXT_PUBLIC_WWW_URL).toString() },
       ],
     },
     {

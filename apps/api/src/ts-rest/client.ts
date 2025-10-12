@@ -4,13 +4,13 @@
 import { initTsrReactQuery } from "@ts-rest/react-query/v5";
 import { initClient } from "@ts-rest/core";
 import { contract } from "~/api/v1/contract";
-import { rootEndpoints } from "~/api/root-endpoints";
+import { rootUri } from "~/api/root-uri";
 import type { InitClientArgs } from "@ts-rest/core";
 
 // Centralized client options per latest docs
 // Prefer passing credentials via fetchOptions when needed; keep baseHeaders pure
 const args = {
-  baseUrl: rootEndpoints.v1,
+  baseUrl: rootUri.v1,
   baseHeaders: {},
   validateResponse: true, // runtime response validation against contract
   throwOnUnknownStatus: true, // enforce declared status codes only

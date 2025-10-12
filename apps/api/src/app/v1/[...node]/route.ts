@@ -7,7 +7,7 @@ import {
   setupRequestMiddleware,
   setupResponseHandlers,
 } from "~/ts-rest/middlewares";
-import { rootEndpoints } from "~/api/root-endpoints";
+import { rootUri } from "~/api/root-uri";
 
 export const runtime = "nodejs";
 
@@ -15,7 +15,7 @@ export const runtime = "nodejs";
 // - requestMiddleware/responseHandlers wired via local ts-rest-kit wrappers
 // - responsesValidation enabled to align with strictStatusCodes
 const handler = createNextHandler(contract, router, {
-  basePath: rootEndpoints.v1,
+  basePath: rootUri.v1,
   handlerType: "app-router",
   responseValidation: true,
   jsonQuery: false,

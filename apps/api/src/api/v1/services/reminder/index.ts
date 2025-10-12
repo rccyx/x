@@ -1,7 +1,7 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
-import { rootEndpoints } from "~/api/root-endpoints";
+import { rootUri } from "~/api/root-uri";
 import type {
   ReminderCreateBodyDto,
   ReminderCreateResponses,
@@ -13,7 +13,7 @@ import { v1endpoints } from "~/api/v1/endpoints";
 
 export class ReminderService {
   private static readonly notifyUrl =
-    env.NEXT_PUBLIC_WWW_URL + rootEndpoints.v1 + v1endpoints.notification;
+    env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;
 
   public static async create({
     body: { schedule },

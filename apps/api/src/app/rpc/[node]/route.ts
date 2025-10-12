@@ -7,8 +7,8 @@ import { monitor } from "@ashgw/monitor";
 import { logger } from "@ashgw/logger";
 
 import { createTRPCContext } from "~/trpc/context";
-import { trpcUri } from "~/trpc/endpoint";
 import { appRouter } from "~/api/rpc/router";
+import { rootUri } from "~/api/root-uri";
 
 export const runtime = "nodejs";
 
@@ -16,7 +16,7 @@ const handler = async (req: NextRequest) => {
   const res = new NextResponse();
 
   const response = await fetchRequestHandler({
-    endpoint: trpcUri,
+    endpoint: rootUri.rpc,
     req,
     router: appRouter,
     createContext: ({ info: trpcInfo }) =>
