@@ -3,13 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "build:vercel-preview": "vercel build --yes",
-    "build:vercel-production": "vercel build --prod --yes",
     "clean": "git clean -xdf .cache .next .turbo node_modules",
-    "deploy:vercel-preview": "vercel deploy --prebuilt",
-    "deploy:vercel-production": "vercel deploy --prod --prebuilt",
-    "dev": "next dev -p 3000",
     "format": "prettier . --write",
     "format-check": "prettier --check .",
     "lint": "pnpm run lint:ts ",
@@ -18,12 +12,7 @@
     "lint:md": "markdownlint \"**/*.md\" --config=.markdownlint.json --ignore-path=.markdownlintignore",
     "lint:spelling": "cspell \"**\" \".github/**/*\"",
     "lint:ts": "tsc --noEmit; eslint .",
-    "postbuild": "echo 'next-sitemap'",
-    "start": "next start",
-    "test": "pnpm test:unit-integration; pnpm test:e2e",
-    "test:e2e": "cd test/e2e && npx playwright test",
-    "test:unit-integration": "vitest run --config=vitest.config.ts",
-    "with-env": "dotenv -e ../../.env --"
+    "postbuild": "echo 'next-sitemap'"
   },
   "author": "",
   "dependencies": {
@@ -45,7 +34,6 @@
     "@ts-rest/react-query": "catalog:ts-rest3",
     "@ts-rest/serverless": "catalog:ts-rest3",
     "limico": "catalog:",
-    "next": "catalog:",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
     "react-hook-form": "catalog:rhf",
@@ -61,18 +49,13 @@
     "@ashgw/prettier-config": "workspace:*",
     "@ashgw/tsconfig": "workspace:*",
     "@ashgw/vitest-config": "workspace:*",
-    "@playwright/test": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",
     "@vitest/ui": "catalog:",
-    "autoprefixer": "catalog:",
-    "jiti": "catalog:",
     "prettier": "catalog:",
-    "tailwindcss": "catalog:",
     "ts-roids": "catalog:",
     "typescript": "catalog:",
-    "vercel": "catalog:",
     "vitest": "catalog:"
   },
   "engines": {
@@ -80,5 +63,13 @@
   },
   "keywords": [],
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "core": "./src/api/core/index.ts",
+    "transports/v1": "./src/transports/v1/index.ts",
+    "transports/rpc": "./src/transports/rpc/index.ts",
+    "ts-rest": "./src/ts-rest/index.ts",
+    "trpc": "./src/trpc/index.ts",
+    "uri": "./src/uri.ts"
+  }
 }
