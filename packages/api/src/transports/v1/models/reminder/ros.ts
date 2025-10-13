@@ -9,7 +9,3 @@ export const reminderMessageCreatedSchemaRo = z
   .describe(
     "The reminder message or schedule created successfully by the upstream service.",
   );
-
-export type ReminderMessageCreatedRo = z.infer<
-  typeof reminderMessageCreatedSchemaRo
->;

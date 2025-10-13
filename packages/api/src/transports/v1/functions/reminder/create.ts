@@ -5,12 +5,14 @@ import { rootUri } from "../../../../uri";
 import type {
   ReminderCreateBodyRequest,
   ReminderCreateResponses,
-  ReminderMessageCreatedRo,
   ReminderCreateHeadersRequest,
 } from "../../models";
 import { scheduler } from "@ashgw/scheduler";
 import { v1endpoints } from "../../endpoints";
 import { ReminderService } from "@ashgw/core/services";
+
+const notifyUrl =
+  env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;
 
 export async function create({
   body: { schedule },
@@ -34,7 +36,7 @@ export async function create({
             type: "reminder",
           },
         },
-        url: env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification,
+        url: notifyUrl,
       });
 
       return {
@@ -43,30 +45,7 @@ export async function create({
           created: [{ id: result.id, at: result.at }],
         },
       };
-    }
-
-    if (schedule.kind === "multiAt") {
-      const created: ReminderMessageCreatedRo[] = [];
-      for (const item of schedule.notifications) {
-        const result = await scheduler
-          .headers({
-            ...headers,
-          })
-          .schedule({
-            at: {
-              datetimeIso: item.at,
-            },
-            url: notifyUrl,
-            payload: JSON.stringify(item.notification),
-          });
-
-        created.push({ kind: "message", id: result.messageId, at: item.at });
-      }
-
-      return { status: 201, body: { created } };
-    }
-
-    if (schedule.kind === "delay") {
+    } else {
       const delayObjectNormalizer = () => {
         const value = schedule.delay.value;
         const unitMap = {
@@ -91,7 +70,7 @@ export async function create({
 
       return {
         status: 201,
-        body: { created: [{ kind: "message", id: result.messageId }] },
+        body: { created: [{ id: result.messageId, at: schedule.delay.unit }] },
       };
     }
   } catch (error) {

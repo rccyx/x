@@ -42,39 +42,11 @@ const scheduleDelaySchema = withNotification({
   ]),
 });
 
-const scheduleCronSchema = withNotification({
-  kind: z.literal("cron").describe("At a specific date and time"),
-  cron: z.object({
-    timezone: z.string().min(1).max(128).describe("e.g. 'America/New_York'"),
-    expression: z
-      .string()
-      .min(1)
-      .max(16)
-      .describe("the 5 or 6 part POSIX cron expression, e.g. '0 0 * * *'"),
-  }),
-});
-
-const scheduleMultiAtSchema = z.object({
-  kind: z.literal("multiAt").describe("At multiple specific dates and times"),
-  notifications: z
-    .array(
-      z.object({
-        at: isoDateTimeSchema,
-        notification: reminderNotificationSchemaRequest,
-      }),
-    )
-    .describe(
-      "Notifications to send at each date and time, sequentially, at least one notification is required",
-    ),
-});
-
 export const reminderCreateBodySchemaRequest = z
   .object({
     schedule: z.discriminatedUnion("kind", [
       scheduleAtSchema,
       scheduleDelaySchema,
-      scheduleCronSchema,
-      scheduleMultiAtSchema,
     ]),
   })
   .describe("The reminder to create.");

@@ -10,23 +10,23 @@ import { NotificationService } from "@ashgw/core/services";
 export async function create(input: {
   body: NotificationCreateBodyRequest;
 }): Promise<NotificationCreateResponses> {
-  logger.info("Sending email notification...");
+  logger.info("Sending reminder email notification...");
   try {
     await NotificationService.email.sendNotification({
       body: {
         to: input.body.to ?? env.PERSONAL_EMAIL,
-        type: input.body.type,
+        type: "reminder",
         message: input.body.message,
         subject: input.body.subject ?? input.body.title,
         title: input.body.title,
       },
     });
 
-    logger.info("Email notification sent successfully");
+    logger.info("Reminder email notification sent successfully");
     return { status: 200, body: undefined };
   } catch (error) {
     monitor.next.captureException({ error });
-    logger.error("Failed to send notification", { error });
+    logger.error("Failed to send reminder email notification", { error });
     return {
       status: 500,
       body: {
