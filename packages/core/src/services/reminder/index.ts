@@ -21,7 +21,7 @@ async function remind({
         url,
         payload: JSON.stringify(schedule.emailNotification),
       });
-    return [{ id: result.messageId, at: schedule.at }];
+    return { id: result.messageId, at: schedule.at };
 
     // delay
   } else {
@@ -46,7 +46,7 @@ async function remind({
         url,
         payload: JSON.stringify(schedule.emailNotification),
       });
-    return [{ id: result.messageId, at: schedule.delay.unit }];
+    return { id: result.messageId, at: schedule.delay.unit };
   }
 }
 

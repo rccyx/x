@@ -95,7 +95,7 @@ class EmailSenders {
       const html = await render(
         React.createElement(NotifyTemplate, {
           messageMd: params.messageMd,
-          type: params.type,
+          type: params.type, // capitalize this,
         }),
         { pretty: true },
       );

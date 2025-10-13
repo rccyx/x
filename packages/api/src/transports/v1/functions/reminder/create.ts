@@ -10,9 +10,7 @@ import type {
 } from "../../models";
 import { scheduler } from "@ashgw/scheduler";
 import { v1endpoints } from "../../endpoints";
-
-const notifyUrl =
-  env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;
+import { ReminderService } from "@ashgw/core/services";
 
 export async function create({
   body: { schedule },
@@ -23,22 +21,26 @@ export async function create({
 }): Promise<ReminderCreateResponses> {
   try {
     if (schedule.kind === "at") {
-      const result = await scheduler
-        .headers({
+      const result = await ReminderService.remind({
+        headers: {
           ...headers,
-        })
-        .schedule({
-          at: {
-            datetimeIso: schedule.at,
+        },
+        schedule: {
+          kind: "at",
+          at: schedule.at,
+          emailNotification: {
+            message: schedule.notification.message,
+            title: schedule.notification.title,
+            type: "reminder",
           },
-          payload: JSON.stringify(schedule.notification),
-          url: notifyUrl,
-        });
+        },
+        url: env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification,
+      });
 
       return {
         status: 201,
         body: {
-          created: [{ kind: "message", id: result.messageId, at: schedule.at }],
+          created: [{ id: result.id, at: result.at }],
         },
       };
     }

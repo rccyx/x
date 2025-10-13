@@ -1,10 +1,6 @@
 export type OneOrMany<T> = T | T[];
 
-export enum NotificationType {
-  PERSONAL = "PERSONAL",
-  SERVICE = "SERVICE",
-  REMINDER = "REMINDER",
-}
+export type NotificationType = "personal" | "service" | "reminder";
 
 export interface SendParams {
   from?: string;

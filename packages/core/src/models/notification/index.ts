@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { NotificationType } from "@ashgw/email";
 
 export const emailNotificationCreateSchemaDto = z.object({
   to: z.string().email(),
-  type: z.nativeEnum(NotificationType),
+  type: z.enum(["personal", "service", "reminder"]),
   subject: z.string().min(1).max(30),
   title: z.string().min(1).max(30),
   message: z.string().min(1).max(10000),

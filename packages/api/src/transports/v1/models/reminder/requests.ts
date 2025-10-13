@@ -2,17 +2,11 @@ import { z } from "zod";
 import { notificationCreateBodySchemaRequest } from "../notification";
 import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
 import { isoDateTimeSchema } from "./shared";
-import { NotificationType } from "@ashgw/email";
 
-const reminderNotificationSchemaRequest = notificationCreateBodySchemaRequest
-  .omit({
+const reminderNotificationSchemaRequest =
+  notificationCreateBodySchemaRequest.omit({
     to: true,
     subject: true,
-  })
-  .extend({
-    type: z
-      .literal(NotificationType.REMINDER)
-      .default(NotificationType.REMINDER),
   });
 
 const withNotification = <T extends z.ZodRawShape>(shape: T) =>

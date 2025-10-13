@@ -3,7 +3,6 @@ import { isoDateTimeSchema } from "./shared";
 
 export const reminderMessageCreatedSchemaRo = z
   .object({
-    kind: z.enum(["message", "schedule"]),
     id: z.string().min(1).max(255),
     at: isoDateTimeSchema.optional(),
   })
