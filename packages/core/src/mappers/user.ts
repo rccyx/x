@@ -1,7 +1,7 @@
 import type { UserRo } from "../models";
 import type { UserAuthQuery } from "../query-helpers/user";
 import { UserRoleEnum } from "../models";
-import { AppError } from "@ashgw/error";
+import { E } from "@ashgw/error";
 import type { SessionAuthQuery } from "../query-helpers/session";
 import { SessionMapper } from "./session";
 
@@ -40,10 +40,7 @@ export class UserMapper {
       case "visitor":
         return UserRoleEnum.VISITOR;
       default:
-        throw new AppError({
-          code: "INTERNAL",
-          message: "Invalid role type, got: " + role,
-        });
+        throw E.unprocessableContent("Invalid role type, got: " + role);
     }
   }
 }
