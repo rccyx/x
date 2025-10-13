@@ -37,32 +37,27 @@ export class NewsletterService {
         }),
       {
         message: "failed to subscribe to newsletter",
-        service: "kit",
+        service: "newsletter",
         operation: "create-subscriber",
-        onError: (err) => {
-          logger.error("kit api request failed", { errMessage: err.message });
-        },
       },
     );
 
-    const data = await throwable("internal", () => this._parseResponse(res), {
+    const data = await throwable("external", () => this._parseResponse(res), {
       message: "failed to parse newsletter response",
-      service: "kit",
+      service: "newsletter",
       operation: "create-subscriber",
-      onError: (err) => {
-        logger.error("failed to parse newsletter response", {
-          errMessage: err.message,
-        });
-      },
     });
 
     this._validateResponse({ res, data });
   }
 
   private static async _parseResponse(res: Response): Promise<KitAPIResponse> {
-    return (await res.json().catch(() => ({
-      errors: ["failed to parse response"],
-    }))) as KitAPIResponse;
+    const result = await throwable("external", () => res.json(), {
+      operation: "parse-response",
+      service: "newsletter",
+      message: "failed to parse newsletter response",
+    });
+    return result as KitAPIResponse;
   }
 
   private static _validateResponse({

@@ -41,18 +41,14 @@ export class EmailService {
       "external",
       () => client.emails.send(options),
       {
-        service: "resend",
+        service: "email",
         operation: "send-email",
         message: "failed to send email",
-        onError: (err) =>
-          logger.error("failed to send email", { errMessage: err.message }),
       },
     );
 
     if (!data?.id) {
-      throw E.internal("missing response from email provider", {
-        internal: { service: "resend", operation: "send-email" },
-      });
+      throw E.internal("missing response from email provider");
     }
 
     return { id: data.id };
