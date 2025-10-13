@@ -50,14 +50,36 @@ export class NewsletterService {
 
     this._validateResponse({ res, data });
   }
-
   private static async _parseResponse(res: Response): Promise<KitAPIResponse> {
-    const result = await throwable("external", () => res.json(), {
-      operation: "parse-response",
+    // handle empty or non-json responses explicitly
+    if (
+      res.status === 204 ||
+      !res.headers.get("content-type")?.includes("application/json")
+    ) {
+      return {};
+    }
+
+    const text = await throwable("external", () => res.text(), {
       service: "newsletter",
-      message: "failed to parse newsletter response",
+      operation: "read-body",
+      message: "failed to read newsletter response body",
     });
-    return result as KitAPIResponse;
+
+    // constrain JSON.parse to a typed generic
+    const json = await throwable(
+      "external",
+      () => JSON.parse(text) as unknown,
+      {
+        service: "newsletter",
+        operation: "read-body",
+        message: "failed to parse newsletter JSON",
+      },
+    );
+
+    if (typeof json !== "object" || json === null || Array.isArray(json)) {
+      throw E.unprocessableContent("unexpected Kit API response shape");
+    }
+    return json as KitAPIResponse;
   }
 
   private static _validateResponse({
