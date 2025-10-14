@@ -5,7 +5,7 @@ This directory contains Terraform configuration for deploying and managing the b
 ### Initial Setup
 
 1. Decrypt the tfvars fi
-le
+   le
 
 2. Run `tf`
 
@@ -20,4 +20,3 @@ This Terraform configuration now provisions two separate Koyeb applications:
   - Uses the same settings, but the service name is suffixed with `-preview`
 
 To deploy both environments:
-
