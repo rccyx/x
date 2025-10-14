@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ossGetTextQuerySchemaRequest = z.object({
+const _ossGetTextQuerySchemaRequest = z.object({
   revalidateSeconds: z
     .string()
     .regex(/^\d+$/)
@@ -10,18 +10,19 @@ export const ossGetTextQuerySchemaRequest = z.object({
     .describe("Override ISR revalidate in seconds, 60..86400"),
 });
 
-export const ossGetScriptQuerySchemaRequest =
-  ossGetTextQuerySchemaRequest.extend({
-    script: z.object({
-      repo: z.string().min(1).max(255),
-      path: z.string().min(1).max(255),
-    }),
-  });
+const _ossGetScriptQuerySchemaRequest = _ossGetTextQuerySchemaRequest.extend({
+  script: z.object({
+    repo: z.string().min(1).max(255),
+    path: z.string().min(1).max(255),
+  }),
+});
 
-export const ossGetGpgQuerySchemaRequest = ossGetTextQuerySchemaRequest;
+export const gpgQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
+export const debionQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
+export const whisperQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
+export const bootstrapQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
 
-export type OssGetScriptQueryRequest = z.infer<
-  typeof ossGetScriptQuerySchemaRequest
->;
-
-export type OssGetGpgQueryRequest = z.infer<typeof ossGetGpgQuerySchemaRequest>;
+export type GpgQueryRequest = z.infer<typeof gpgQuerySchemaRequest>;
+export type DebionQueryRequest = z.infer<typeof debionQuerySchemaRequest>;
+export type WhisperQueryRequest = z.infer<typeof whisperQuerySchemaRequest>;
+export type BootstrapQueryRequest = z.infer<typeof bootstrapQuerySchemaRequest>;
