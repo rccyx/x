@@ -18,7 +18,7 @@ import type {
 import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
-import { err, ok, run, runner } from "@ashgw/runner";
+import { err, ok, run, runner, unwrap } from "@ashgw/runner";
 export class UserService {
   private readonly requestHeaders: Headers;
   constructor({ requestHeaders }: { requestHeaders: Headers }) {
@@ -97,20 +97,8 @@ export class UserService {
 
   public async terminateSpecificSession({
     sessionId,
-  }: UserTerminateSpecificSessionDto): Promise<void> {
-    await runner(
-      run(
-        () => auth.api.listSessions({ headers: this.requestHeaders }),
-        "List sessions API call",
-        {
-          message: "failed to list sessions",
-        },
-      ),
-    ).transform((sessions) =>
-      sessions.map((s) => SessionMapper.toRo({ session: s })),
-    );
-
-    await runner(
+  }: UserTerminateSpecificSessionDto) {
+    return await runner(
       run(
         () => auth.api.listSessions({ headers: this.requestHeaders }),
         "List sessions API call",
@@ -124,7 +112,7 @@ export class UserService {
         if (!session) {
           return err({
             message: "Invalid session ID",
-            tag: "Could not find the right session when mapped over",
+            tag: "Session not found when mapping over",
           });
         }
         return ok(session);
@@ -147,8 +135,8 @@ export class UserService {
       );
   }
 
-  public async changePassword(input: UserChangePasswordDto): Promise<void> {
-    await throwable(
+  public async changePassword(input: UserChangePasswordDto) {
+    return await run(
       () =>
         auth.api.changePassword({
           body: {
@@ -157,10 +145,9 @@ export class UserService {
           },
           headers: this.requestHeaders,
         }),
+      "Change Password API Call",
       {
-        message: "failed to change password",
-        service: "auth",
-        operation: "change-password",
+        message: "Failed to change password",
       },
     );
   }

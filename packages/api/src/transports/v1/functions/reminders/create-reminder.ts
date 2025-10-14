@@ -8,11 +8,10 @@ import type {
   ReminderCreateHeadersRequest,
 } from "../../models";
 import { scheduler } from "@ashgw/scheduler";
-import { v1endpoints } from "../../endpoints";
+import { v1 } from "../../endpoints";
 import { ReminderService } from "@ashgw/core/services";
 
-const notifyUrl =
-  env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1endpoints.notification;
+const notifyUrl = env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1.notification;
 
 export async function create({
   body: { schedule },

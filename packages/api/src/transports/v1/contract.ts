@@ -15,14 +15,13 @@ import {
   reminderCreateHeadersSchemaRequest,
   reminderCreateSchemaResponses,
 } from "../../transports/v1/models";
-import { v1endpoints } from "../../transports/v1/endpoints";
 
 export const contract = createContract(c)({
   reminderCreate: {
     method: "POST",
-    path: v1endpoints.reminder,
+    path: "v1/reminders",
     strictStatusCodes: true,
-    summary: "Create reminder",
+    summary: "Create a reminder",
     description:
       "Creates a reminder using the provided headers and body payload.",
     headers: reminderCreateHeadersSchemaRequest,
@@ -32,9 +31,9 @@ export const contract = createContract(c)({
 
   notificationCreate: {
     method: "POST",
-    path: v1endpoints.notification,
+    path: "v1/notifications",
     strictStatusCodes: true,
-    summary: "Send notification",
+    summary: "Send a notification",
     description:
       "Dispatches a system notification using the provided headers and body payload.",
     headers: notificationCreateHeadersSchemaRequest,
@@ -44,17 +43,17 @@ export const contract = createContract(c)({
 
   postDeleteViewWindow: {
     method: "DELETE",
-    path: v1endpoints.post.viewWindow,
+    path: "v1/posts",
     strictStatusCodes: true,
-    summary: "Purge view window data",
-    description: "Deletes cached or temporary view window data from the blog.",
+    summary: "Purge the view window from all posts",
+    description: "Deletes temporary view window data from all posts.",
     headers: postViewWindowDeleteHeadersSchemaRequest,
     responses: postViewWindowDeleteSchemaResponses,
   },
 
   postDeleteTrash: {
     method: "DELETE",
-    path: v1endpoints.post.trash,
+    path: "v1/posts",
     strictStatusCodes: true,
     summary: "Purge trashed posts",
     description: "Permanently deletes all posts currently in the trash bin.",
@@ -64,7 +63,7 @@ export const contract = createContract(c)({
 
   health: {
     method: "GET",
-    path: v1endpoints.health,
+    path: "v1/health",
     strictStatusCodes: true,
     summary: "Health check",
     description: "Simple liveness probe to verify the API is running.",
@@ -73,7 +72,7 @@ export const contract = createContract(c)({
 
   bootstrap: {
     method: "GET",
-    path: v1endpoints.oss.bootstrap,
+    path: "v1/bootstrap",
     strictStatusCodes: true,
     summary: "Fetch bootstrap script",
     description:
@@ -84,7 +83,7 @@ export const contract = createContract(c)({
 
   gpg: {
     method: "GET",
-    path: v1endpoints.oss.gpg,
+    path: "v1/gpg",
     strictStatusCodes: true,
     summary: "Fetch public GPG key",
     description: "Returns my armored public GPG key as plain text.",
@@ -94,7 +93,7 @@ export const contract = createContract(c)({
 
   debion: {
     method: "GET",
-    path: v1endpoints.oss.debion,
+    path: "v1/debion",
     strictStatusCodes: true,
     summary: "Fetch Debion setup script",
     description:
@@ -105,7 +104,7 @@ export const contract = createContract(c)({
 
   whisper: {
     method: "GET",
-    path: v1endpoints.oss.whisper,
+    path: "v1/whisper",
     strictStatusCodes: true,
     summary: "Fetch Whisper setup script",
     description:
