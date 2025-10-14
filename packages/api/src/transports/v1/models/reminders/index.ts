@@ -1,3 +1,3 @@
 export * from "./requests";
-export * from "./responses";
+export * from "./push-reminder";
 export * from "./ros";

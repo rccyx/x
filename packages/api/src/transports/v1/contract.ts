@@ -80,7 +80,7 @@ the operation id is structured as resource(s)<unique-action>, where unqiue actio
  
  so it becomes /models/resources(s), e.g: /models/posts or /models/health
 
- in models we have two things, reponses.ts & request, 
+ in models we have two things, reponses.ts & requests.ts, where index.ts exports them both, 
 
 
 Responses: <operationId>SchemaResponses (values)
@@ -89,6 +89,28 @@ Request: <operationId><Header/Query/Params/Body>SchemaRequest (value)
 // for types we just remove the word schema & make the first letter Uppercase
 Responses: <OperationId>Responses (types), z.infer<typeof <operationId>SchemaResponses>
 Request: <OperationId><Header/Query/Params/Body>Request (type), z.infer<typeof <operationId><Header/Query/Params/Body>SchemaRequest>
+
+(ofc if they get too many, u can just create sub folders that create respones.ts & requests.ts, folders should be the <unique-action>)
+and we just export them normally
+
+we start with one file first, sometimes just index.ts and then scale as needed
+
+/posts/ <resource(s)>
+     update-post.ts  <unique-action>
+     /get-post
+        / index.ts
+     /get-admin-posts 
+        / index.ts
+     /get-public-posts
+        / requests.ts
+        / responses.ts
+        / index.ts
+     .get-post-cards
+     .purge-trashed
+     /....
+
+
+
 
 
 the stucture is as ofllows, models folder has nested folders named as resources(s),functions folder has nested folders named as resources(s) too, same mapping 
@@ -102,6 +124,20 @@ functions:
                             export const health = { check }                  
                             export const <resource(s)> = { <uniqueAction> }
                           
+
+
+
+functions basically are thin wrappers around a call to the core, since this is rest we have av versioned API, meaning we cannot just 
+
+we cannot use core /models, we can only call core/services, why? if we reuse the models we never know if our contract changes
+
+REST is public facing and versioned, meaning we're not allowed to break our contract to ppl and services using it, thus, we just model w
+
+
+what we recieve and what we output and lock it in, if we launch and u need to update the API, move ot version two & so on,
+
+
+
 
  
 */ import { c } from "../../ts-rest/root";
