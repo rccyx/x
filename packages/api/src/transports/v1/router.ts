@@ -44,7 +44,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     async ({ body }) => await notifications.pushEmailNotif({ body }),
   ),
 
-  viewsDeleteWindowWithCutoff: middleware()
+  viewsPurgeWithCutoff: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -54,7 +54,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.viewsDeleteWindowWithCutoff)(
+    .route(contract.viewsPurgeWithCutoff)(
     async () => await views.purgeWithCutoff(),
   ),
 
@@ -71,7 +71,6 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     .route(contract.postsPurgeTrashBin)(
     async () => await posts.postsPurgeTrashBin(),
   ),
-
   bootstrap: async ({ query }) =>
     await oss.bootstrap({
       query,

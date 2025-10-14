@@ -163,7 +163,7 @@ import {
   bootstrapQuerySchemaRequest,
   bootstrapSchemaResponses,
   viewsPurgeWithCutoffHeadersSchemaRequest,
-  viewPurgeWithCutoffContractSchemaResponses,
+  viewPurgeWithCutoffSchemaResponses,
   postPurgeTrashBinHeadersSchemaRequest,
   postsPurgeTrashBinSchemaResponses,
   whisperSchemaResponses,
@@ -195,14 +195,14 @@ export const contract = createContract(c)({
     responses: notificationsPushEmailNotifSchemaResponses,
   },
 
-  viewsDeleteWindowWithCutoff: {
+  viewsPurgeWithCutoff: {
     method: "DELETE",
     path: v1.views,
     strictStatusCodes: true,
     summary: "Purge the view window from all posts",
     description: "Deletes temporary view window data from all posts.",
     headers: viewsPurgeWithCutoffHeadersSchemaRequest,
-    responses: viewPurgeWithCutoffContractSchemaResponses,
+    responses: viewPurgeWithCutoffSchemaResponses,
   },
 
   postsPurgeTrashBin: {

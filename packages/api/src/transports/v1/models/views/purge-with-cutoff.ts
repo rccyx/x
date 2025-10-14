@@ -31,12 +31,10 @@ const __viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
   ...internalErrorSchemaResponse,
 });
 
-export const viewPurgeWithCutoffContractSchemaResponses = createSchemaResponses(
-  {
-    ...mw,
-    ...__viewPurgeWithCutoffHandlerSchemaResponses,
-  },
-);
+export const viewPurgeWithCutoffSchemaResponses = createSchemaResponses({
+  ...mw,
+  ...__viewPurgeWithCutoffHandlerSchemaResponses,
+});
 
 export type ViewPurgeWithCutoffHandlerResponses = InferResponses<
   typeof __viewPurgeWithCutoffHandlerSchemaResponses
