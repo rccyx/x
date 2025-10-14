@@ -1,0 +1,289 @@
+---
+alwaysApply: false
+---
+
+# REST API Naming & Structure Rules
+
+This document defines how REST endpoints, operations, schemas, and functions are named and structured across the `v1/` API layer.
+
+## Core Philosophy
+
+Each **versioned transport** (e.g., `/transports/v1/`) is an immutable public contract. It is the only interface external systems rely on.  
+Once published, it cannot be broken, only superseded by a new version (e.g., `/v2`).  
+This layer **does not** import or reuse core models, only core services. Models are versioned and copied forward.
+
+## Operation Naming Convention
+
+Every API operation has a unique `operationId` in the contract.  
+This `operationId` acts as the **global identity** for both the OpenAPI spec and its corresponding function.
+
+Format:
+
+```
+<resource(s)><UniqueAction>
+```
+
+Examples:
+
+- `notificationsPushEmailNotif`
+- `remindersPushReminder`
+- `postsPurgeTrashBin`
+- `viewsPurgeWithCutoff`
+- `health`
+
+Rules:
+
+1. The operationId **always starts with the resource name** (plural by default, if cannot be plural e.g: health, then ok use singular name).
+2. The resource represents the REST collection (e.g., `/posts`, `/notifications`).
+3. The unique action describes what the operation does, using a **verb+noun** if needed (`pushReminder`, `purgeTrashBin`, `createSession`, etc.). Actions are unique within their connection. Thus combining resources + unique actions = OperationIds which are **unique globally** within the API version.
+
+## Resource Naming (Pluralization)
+
+- Pluralize resource directories and URIs unless the resource is inherently singular (`health`, `auth`, `config`).
+- `/integrations`, `/notifications`, `/emails`, `/billing`, `/payments`
+- `/health` is singular (cannot have “healths”)
+
+Each REST resource (plural) corresponds to a **folder** under both:
+
+```
+/functions/<resource(s)>/
+/models/<resource(s)>/
+```
+
+---
+
+## Folder Structure
+
+At the version root:
+
+```
+v1/
+├── contract.ts
+├── router.ts
+├── uris.ts
+├── functions/
+├── models/
+└── index.ts
+```
+
+- **`contract.ts`** defines the OpenAPI contract (source of truth for all operationIds, requests, responses).
+- **`router.ts`** implements routes that map contract operations to handler functions.
+- **`functions/`** contains all handler logic, grouped by resource. Handlers are simply callers to the core API, they have no other side effects, thye don't implement core functionalities themsleves.
+- **`models/`** defines request and response schemas, fully typed via Zod.
+- **`uris.ts`** centralizes versioned paths (e.g., `/v1/billing`, `/v1/payments`).
+
+---
+
+## Functions Layout
+
+`functions/` mirrors REST resources 1:1.
+
+```
+functions/
+  ├── [resource(s)]/
+  │    ├── <unique-action>.ts
+  │    └── index.ts
+  ├── index.ts
+```
+
+### Rules
+
+1. Each `<unique-action>.ts` file exports **exactly one** async function, named after the action <uniqueAction()>:
+   ```
+   export async function pushEmailNotif(...) { ... }
+   ```
+2. `index.ts` for each resource exports all its functions as a single constant:
+   ```
+   export const notifications = { pushEmailNotif }
+   export const reminders = { pushReminder }
+   export const posts = { purgeTrashBin }
+   ```
+3. The top-level `functions/index.ts` re-exports every resource constant:
+   ```
+   export * from "./notifications"
+   export * from "./health"
+   export * from "./users"
+   ```
+4. Handlers always return typed responses matching `<OperationId>HandlerResponses`.
+
+---
+
+## Models Layout
+
+`models/` defines contracts for both requests and responses.  
+Each subfolder corresponds to a resource (plural), mirroring `functions/`.
+
+```
+models/
+  ├── [resource(s)]/
+  │    ├── index.ts
+  │    ├── <unique-action>.ts
+  ├── _shared/ // shared values & types, hidden.
+  │    ├── requests.ts
+  │    ├── responses.ts
+  │    └── index.ts
+  └── index.ts
+```
+
+Shared middlewares, error schemas, and headers go into `_shared`.
+
+---
+
+## Schema Naming
+
+Every schema name reflects its `operationId` and purpose.
+
+### Requests
+
+```
+<operationId><Headers|Query|Params|Body>SchemaRequest
+```
+
+Example:
+
+- `usersUpdateProfileBodySchemaRequest`
+
+### Responses
+
+```
+<operationId>SchemaResponses
+```
+
+Example:
+
+- `postsPurgeTrashBinSchemaResponses`
+- `healthSchemaResponses`
+
+## Type Naming
+
+Types derive directly from schema names, stripping the “Schema” suffix and capitalizing the first letter.
+
+### Request Types
+
+```
+<OperationId><Headers|Query|Params|Body>Request
+```
+
+Example:
+
+- `RemindersPushReminderBodyRequest`
+- `NotificationsPushEmailNotifHeadersRequest`
+
+### Response Types
+
+```
+<OperationId>Responses
+<OperationId>HandlerResponses
+```
+
+### Handler-Only Responses
+
+Handlers only care about whether they succeed or fail. Middleware like authentication or rate limiting has nothing to do with the handler’s internal logic. Those concerns belong to the global response schema for that operation set because they apply to that route in the contract.
+
+Since middleware executes before the handler runs, there is no reason to include middleware responses inside the handler schema. The handler should describe only its own outcomes. The full schema combines both the middleware responses and the handler responses to represent the complete behavior of that endpoint.
+
+You always export the handler’s **response type** for function return typing, and the full **schema value** for the API contract or OpenAPI generator.
+
+#### Example
+
+```ts
+const __billingChargeHandlerSchemaResponses = createSchemaResponses({
+  200: okSchemaResponse["200"].extend({
+    chargeId: z.string().describe("Unique identifier of the processed charge."),
+    status: z.literal("success"),
+  }),
+  402: paymentRequiredSchemaResponse["402"].extend({
+    reason: z.string().describe("Why the payment failed."),
+  }),
+  ...internalErrorSchemaResponse,
+});
+
+// full API contract responses
+export const billingChargeSchemaResponses = createSchemaResponses({
+  ...mw,
+  ...__billingChargeHandlerSchemaResponses,
+});
+
+// handler type only
+export type BillingChargeHandlerResponses = InferResponses<
+  typeof __billingChargeHandlerSchemaResponses
+>;
+```
+
+Used as
+
+```ts
+export async function chargeCustomer(): Promise<BillingChargeHandlerResponses> {
+  // implementation
+}
+```
+
+## File Splitting Rules
+
+- **Keep each action isolated.**  
+  One action = one file.  
+  Never mix unrelated schemas in one file.
+- **Only split** `requests.ts` and `responses.ts` into separate files if the action’s schema grows large.
+- **Otherwise**, keep everything (request, response, types) in a single `index.ts`.
+
+## Contract Rules
+
+1. The contract always imports schemas from `/models`.
+2. Every operationId in `contract.ts` mirrors a function name and a model schema pair.
+3. The contract defines:
+   - `method` (HTTP verb)
+   - `path` (from `uris.ts`)
+   - `headers`, `query`, `body`, and `responses` (all schemas)
+   - `summary` and `description` for doc generation
+
+Example:
+
+```ts
+notificationsPushEmailNotif: {
+  method: "POST",
+  path: v1.notifications, // as in /v1/notifications
+  strictStatusCodes: true,
+  summary: "Send a notification",
+  description: "Dispatches a system notification using the provided headers and body payload.",
+  headers: notificationsPushEmailNotifHeadersSchemaRequest,
+  body: notificationsPushEmailNotifBodySchemaRequest,
+  responses: notificationsPushEmailNotifSchemaResponses,
+}
+```
+
+Operation naming rule is enforced: `resource(s)<UniqueAction>`.
+
+## URI Rules
+
+Centralize all endpoints in `uris.ts`:
+
+```ts
+export const v1 = {
+  health: "/health",
+  reminders: "/reminders",
+  notifications: "/notifications",
+  views: "/views",
+  posts: "/posts",
+  oss: {
+    bootstrap: "/bootstrap",
+    gpg: "/gpg",
+    debion: "/debion",
+    whisper: "/whisper",
+  },
+};
+```
+
+Rules:
+
+1. Flat resource keys = top-level routes.
+2. Nested groups (like `oss`) use sub-objects.
+3. Never hardcode URIs inside functions. Always import from `uris.ts`.
+
+## General Rules
+
+- Never reuse core `models` inside REST.
+- Only call `@ashgw/core/services` for logic.
+- Every new version (`v2/`, `v3/`) copies the previous folder and evolves from there.
+- Every handler must explicitly type its output with `<OperationId>HandlerResponses`.
+- Keep files small and isolated. Never mix multiple unrelated operations in one file.
+- If it’s not shared by multiple resources, don’t put it in `_shared`.
