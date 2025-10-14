@@ -1,5 +1,5 @@
-import { deleteViewWindowWithCutoff } from "./delete-views-with-cutoff";
+import { purgeWithCutoff } from "./purge-with-cutoff";
 
 export const views = {
-  deleteViewWindowWithCutoff,
+  purgeWithCutoff,
 };

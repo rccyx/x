@@ -1,6 +1,6 @@
 import { createSchemaResponses } from "ts-rest-kit/core";
 import type { InferResponses } from "ts-rest-kit/core";
-import { okSchemaResponse } from "../shared";
+import { okSchemaResponse } from "../_shared";
 
 export const healthSchemaResponses = createSchemaResponses({
   ...okSchemaResponse,

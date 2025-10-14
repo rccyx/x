@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
+import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import { notificationsPushEmailNotifBodySchemaRequest } from "../notifications";
 import type { InferResponses } from "ts-rest-kit/core";
 import { createSchemaResponses } from "ts-rest-kit/core";
@@ -7,7 +7,7 @@ import {
   tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
-} from "../shared/responses";
+} from "../_shared/responses";
 
 /* ------------------------- Shared Schemas ------------------------- */
 export const isoDateTimeSchema = z

@@ -2,13 +2,13 @@ import { z } from "zod";
 import type { InferResponses } from "ts-rest-kit/core";
 import { createSchemaResponses } from "ts-rest-kit/core";
 
-import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
+import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import {
   rateLimiterMiddlewareSchemaResponse,
   tokenAuthMiddlewareSchemaResponse,
   okSchemaResponse,
   internalErrorSchemaResponse,
-} from "../shared/responses";
+} from "../_shared/responses";
 
 /* ------------------------- Request Schemas ------------------------- */
 

@@ -6,9 +6,9 @@ import {
   internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
   noContentSchemaResponse,
-} from "../shared/responses";
+} from "../_shared/responses";
 
-import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
+import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 
 /* ------------------------- Request Schemas ------------------------- */
 
