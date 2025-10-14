@@ -4,7 +4,11 @@ import type { GpgQueryRequest, GpgResponses } from "../../models";
 import { OssService } from "@ashgw/core/services";
 import { gpg as gpgConstants } from "@ashgw/constants";
 
-export async function gpg(input: GpgQueryRequest): Promise<GpgResponses> {
+export async function gpg({
+  query,
+}: {
+  query: GpgQueryRequest;
+}): Promise<GpgResponses> {
   try {
     const { text } = await OssService.fetchText({
       fetchUrl: {
@@ -12,7 +16,7 @@ export async function gpg(input: GpgQueryRequest): Promise<GpgResponses> {
         url: gpgConstants.publicUrl,
       },
       cacheControl: "s-maxage=86400, stale-while-revalidate=86400",
-      revalidateSeconds: input.revalidateSeconds,
+      revalidateSeconds: query.revalidateSeconds,
     });
 
     return {

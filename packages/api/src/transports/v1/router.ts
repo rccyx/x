@@ -70,35 +70,23 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     .route(contract.postsDeleteTrash)(async () => await post.deleteTrash()),
 
   bootstrap: async ({ query }) =>
-    await oss.fetchScript({
-      script: {
-        path: "install/bootstrap",
-        repo: "dotfiles",
-      },
-      revalidateSeconds: query?.revalidateSeconds,
+    await oss.bootstrap({
+      query,
     }),
 
   debion: async ({ query }) =>
-    await oss.fetchScript({
-      script: {
-        path: "setup",
-        repo: "debion",
-      },
-      revalidateSeconds: query?.revalidateSeconds,
+    await oss.debion({
+      query,
     }),
 
   whisper: async ({ query }) =>
-    await oss.fetchScript({
-      script: {
-        path: "setup",
-        repo: "whisper",
-      },
-      revalidateSeconds: query?.revalidateSeconds,
+    await oss.whisper({
+      query,
     }),
 
   gpg: async ({ query }) =>
-    await oss.fetchGpg({
-      revalidateSeconds: query?.revalidateSeconds,
+    await oss.gpg({
+      query,
     }),
   health: async () => await health.check(),
 });
