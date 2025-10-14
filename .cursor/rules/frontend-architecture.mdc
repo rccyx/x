@@ -1,5 +1,6 @@
 ---
-alwaysApply: true
+globs: *.tsx
+alwaysApply: false
 ---
 
 ### Page Structure
