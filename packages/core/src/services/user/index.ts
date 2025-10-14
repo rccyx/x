@@ -18,15 +18,14 @@ import type {
 import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
-import { E, throwable } from "../../../../runner/src";
-
+import { err, ok, run, runner } from "@ashgw/runner";
 export class UserService {
   private readonly requestHeaders: Headers;
   constructor({ requestHeaders }: { requestHeaders: Headers }) {
     this.requestHeaders = requestHeaders;
   }
   public async login({ email, password }: UserLoginDto): Promise<void> {
-    await throwable(
+    await run(
       () =>
         auth.api.signInEmail({
           body: {
@@ -35,20 +34,15 @@ export class UserService {
           },
           headers: this.requestHeaders,
         }),
+      "Sign in email internal API bare hit",
       {
         message: "failed to login",
-        service: "auth",
-        operation: "sign-in-email",
       },
     );
   }
 
-  public async signUp({
-    email,
-    password,
-    name,
-  }: UserRegisterDto): Promise<void> {
-    await throwable(
+  public async signUp({ email, password, name }: UserRegisterDto) {
+    return await run(
       () =>
         auth.api.signUpEmail({
           body: {
@@ -56,80 +50,101 @@ export class UserService {
             password,
             name,
           },
-          headers: this.requestHeaders,
         }),
+      "Sign up email API call",
       {
         message: "failed to sign up",
-        service: "auth",
-        operation: "sign-up-email",
       },
     );
   }
 
-  public async logout(): Promise<void> {
-    await throwable(() => auth.api.signOut({ headers: this.requestHeaders }), {
-      service: "auth",
-      operation: "sign-out",
-    });
+  public async logout() {
+    return await run(
+      () => auth.api.signOut({ headers: this.requestHeaders }),
+      "Sign out API call",
+      {
+        message: "failed to sign out",
+      },
+    );
   }
 
-  public async terminateAllActiveSessions(): Promise<void> {
-    await throwable(
+  public async terminateAllActiveSessions() {
+    return await run(
       () =>
         auth.api.revokeSessions({
           headers: this.requestHeaders,
         }),
+      "Revoke sessions API call",
       {
         message: "failed to revoke sessions",
-        service: "auth",
-        operation: "revoke-sessions",
       },
     );
   }
 
-  public async listSessions(): Promise<SessionRo[]> {
-    const sessions = await throwable(
-      () => auth.api.listSessions({ headers: this.requestHeaders }),
-      {
-        message: "failed to list sessions",
-        service: "auth",
-        operation: "list-sessions",
-      },
+  public async listSessions() {
+    return await runner(
+      run(
+        () => auth.api.listSessions({ headers: this.requestHeaders }),
+        "List sessions API call",
+        {
+          message: "failed to list sessions",
+        },
+      ),
+    ).transform((sessions) =>
+      sessions.map((s) => SessionMapper.toRo({ session: s })),
     );
-    return sessions.map((s) => SessionMapper.toRo({ session: s }));
   }
 
   public async terminateSpecificSession({
     sessionId,
   }: UserTerminateSpecificSessionDto): Promise<void> {
-    const sessions = await throwable(
-      () => auth.api.listSessions({ headers: this.requestHeaders }),
-      {
-        message: "failed to list sessions",
-        service: "auth",
-        operation: "list-sessions",
-      },
+    await runner(
+      run(
+        () => auth.api.listSessions({ headers: this.requestHeaders }),
+        "List sessions API call",
+        {
+          message: "failed to list sessions",
+        },
+      ),
+    ).transform((sessions) =>
+      sessions.map((s) => SessionMapper.toRo({ session: s })),
     );
 
-    const target = sessions.find((s) => s.id === sessionId);
-    if (!target) {
-      throw E.badRequest("Invalid session ID");
-    }
-
-    await throwable(
-      () =>
-        auth.api.revokeSession({
-          body: {
-            token: target.token,
+    await runner(
+      run(
+        () => auth.api.listSessions({ headers: this.requestHeaders }),
+        "List sessions API call",
+        {
+          message: "failed to list sessions",
+        },
+      ),
+    )
+      .next((sessions) => {
+        const session = sessions.find((s) => s.id === sessionId);
+        if (!session) {
+          return err({
+            message: "Invalid session ID",
+            tag: "Could not find the right session when mapped over",
+          });
+        }
+        return ok(session);
+      })
+      .next((session) =>
+        run(
+          () => {
+            return auth.api.revokeSession({
+              body: {
+                token: session.token,
+              },
+              headers: this.requestHeaders,
+            });
           },
-          headers: this.requestHeaders,
-        }),
-      {
-        message: "failed to revoke session",
-        service: "auth",
-        operation: "revoke-session",
-      },
-    );
+          "Revoke Session API call",
+          {
+            message: "Cannot revoke session",
+          },
+        ),
+      );
   }
 
   public async changePassword(input: UserChangePasswordDto): Promise<void> {
