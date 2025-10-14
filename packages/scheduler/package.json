@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@ashgw/env": "workspace:*",
-    "@ashgw/error": "workspace:*",
     "@ashgw/logger": "workspace:*",
+    "@ashgw/runner": "workspace:*",
     "@upstash/qstash": "2.8.2",
     "ts-roids": "catalog:"
   },

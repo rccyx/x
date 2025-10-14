@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
-import { E, throwable } from "@ashgw/error";
+import { E, throwable } from "../../runner/src";
 import { logger } from "@ashgw/logger";
 import { env } from "@ashgw/env";
 import { defaultEmail, defaultEmailFrom } from "@ashgw/constants";

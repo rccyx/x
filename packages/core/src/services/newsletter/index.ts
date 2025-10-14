@@ -1,6 +1,6 @@
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import { E, throwable } from "@ashgw/error";
+import { E, throwable } from "../../../../runner/src";
 
 interface SubscribeInput {
   email: string;

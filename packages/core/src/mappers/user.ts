@@ -1,7 +1,7 @@
 import type { UserRo } from "../models";
 import type { UserAuthQuery } from "../query-helpers/user";
 import { UserRoleEnum } from "../models";
-import { E } from "@ashgw/error";
+import { E } from "../../../runner/src";
 import type { SessionAuthQuery } from "../query-helpers/session";
 import { SessionMapper } from "./session";
 

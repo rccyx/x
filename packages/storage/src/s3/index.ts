@@ -13,7 +13,7 @@ import {
   PutObjectCommand,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import { AppError } from "@ashgw/error";
+import { AppError } from "@ashgw/runner";
 import { env } from "@ashgw/env";
 
 import { logger } from "@ashgw/logger";

@@ -3,7 +3,7 @@ import type { Optional } from "ts-roids";
 import fm from "front-matter";
 import { db } from "@ashgw/db";
 import { WordCounterService } from "@ashgw/cross-runtime";
-import { E, throwable } from "@ashgw/error";
+import { E, throwable } from "../../../../runner/src";
 import { logger } from "@ashgw/logger";
 import type {
   fontMatterMdxContentRo,

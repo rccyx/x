@@ -18,7 +18,7 @@ import type {
 import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
-import { E, throwable } from "@ashgw/error";
+import { E, throwable } from "../../../../runner/src";
 
 export class UserService {
   private readonly requestHeaders: Headers;

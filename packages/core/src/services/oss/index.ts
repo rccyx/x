@@ -3,7 +3,7 @@ import type {
   OssGetGithubTextSchemaDto,
   OssGetDirectTextSchemaRo,
 } from "../../models";
-import { E, throwable } from "@ashgw/error";
+import { E, throwable } from "../../../../runner/src";
 
 function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
   const { repo, scriptPath } = opts;
