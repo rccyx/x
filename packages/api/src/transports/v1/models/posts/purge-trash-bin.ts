@@ -38,6 +38,6 @@ export const postsPurgeTrashBinSchemaResponses = createSchemaResponses({
 
 // == Types ===
 
-export type PostsPurgeTrashBinResponses = InferResponses<
-  typeof postsPurgeTrashBinSchemaResponses
+export type PostsPurgeTrashBinHandlerResponses = InferResponses<
+  typeof postsPurgeTrashBinHandlerSchemaResponses
 >;

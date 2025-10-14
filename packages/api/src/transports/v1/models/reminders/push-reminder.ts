@@ -76,7 +76,7 @@ export type RemindersPushReminderHeadersRequest = z.infer<
 
 /* ------------------------- Response Schemas ------------------------- */
 
-export const mw = createSchemaResponses({
+const mw = createSchemaResponses({
   ...rateLimiterMiddlewareSchemaResponse,
   ...tokenAuthMiddlewareSchemaResponse,
 });
