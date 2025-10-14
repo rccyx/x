@@ -3,7 +3,7 @@ import type { Optional } from "ts-roids";
 import { createTRPCReact } from "@trpc/react-query";
 
 import { makeQueryClient } from "./query-client";
-import { rootUri } from "../../uri";
+import { root } from "../../root-uris";
 import type { AppRouter } from "../../transports/rpc/router";
 
 let clientQueryClientSingleton: Optional<QueryClient> = null;
@@ -11,7 +11,7 @@ let clientQueryClientSingleton: Optional<QueryClient> = null;
 const isServer = typeof window === "undefined";
 const isBrowser = !isServer;
 
-const trpcUri = rootUri.rpc;
+const trpcUri = root.rpc;
 
 export function getOptimizedQueryClient() {
   if (isServer) {

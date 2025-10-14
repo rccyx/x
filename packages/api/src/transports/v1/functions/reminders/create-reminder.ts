@@ -1,17 +1,17 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
-import { rootUri } from "../../../../uri";
+import { root } from "../../../../root-uris";
 import type {
   ReminderCreateBodyRequest,
   ReminderCreateResponses,
   ReminderCreateHeadersRequest,
 } from "../../models";
 import { scheduler } from "@ashgw/scheduler";
-import { v1 } from "../../endpoints";
+import { v1 } from "../../uris";
 import { ReminderService } from "@ashgw/core/services";
 
-const notifyUrl = env.NEXT_PUBLIC_WWW_URL + rootUri.v1 + v1.notification;
+const notifyUrl = env.NEXT_PUBLIC_WWW_URL + root.v1 + v1.notifications;
 
 export async function create({
   body: { schedule },

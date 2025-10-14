@@ -8,6 +8,7 @@ import {
   oss,
   notification,
   reminder,
+  views,
   post,
 } from "../../transports/v1/functions";
 
@@ -42,7 +43,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     async ({ body }) => await notification.create({ body }),
   ),
 
-  postDeleteViewWindow: middleware()
+  viewsDeleteWindowWithCutoff: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -52,11 +53,11 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.postDeleteViewWindow)(
-    async () => await post.deleteViewWindow(),
+    .route(contract.viewsDeleteWindowWithCutoff)(
+    async () => await views.deleteViewWindowWithCutoff(),
   ),
 
-  postDeleteTrash: middleware()
+  postsDeleteTrash: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -66,7 +67,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.postDeleteTrash)(async () => await post.deleteTrash()),
+    .route(contract.postsDeleteTrash)(async () => await post.deleteTrash()),
 
   bootstrap: async ({ query }) =>
     await oss.fetchScript({
