@@ -25,7 +25,8 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.reminderCreate)(
-    async ({ body, headers }) => await reminders.create({ body, headers }),
+    async ({ body, headers }) =>
+      await reminders.pushReminder({ body, headers }),
   ),
 
   notificationCreate: middleware()
@@ -40,7 +41,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.notificationCreate)(
-    async ({ body }) => await notifications.create({ body }),
+    async ({ body }) => await notifications.pushEmailNotif({ body }),
   ),
 
   viewsDeleteWindowWithCutoff: middleware()
@@ -54,10 +55,10 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.viewsDeleteWindowWithCutoff)(
-    async () => await views.deleteViewWindowWithCutoff(),
+    async () => await views.purgeWithCutoff(),
   ),
 
-  postsDeleteTrash: middleware()
+  postsPurgeTrashBin: middleware()
     .use(
       rateLimiter({
         kind: "interval",
@@ -67,7 +68,9 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.postsDeleteTrash)(async () => await posts.deleteTrash()),
+    .route(contract.postsPurgeTrashBin)(
+    async () => await posts.postsPurgeTrashBin(),
+  ),
 
   bootstrap: async ({ query }) =>
     await oss.bootstrap({
