@@ -26,7 +26,7 @@ const mw = createSchemaResponses({
   ...tokenAuthMiddlewareSchemaResponse,
 });
 
-export const viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
+const __viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
   ...noContentSchemaResponse,
   ...internalErrorSchemaResponse,
 });
@@ -34,10 +34,10 @@ export const viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
 export const viewPurgeWithCutoffContractSchemaResponses = createSchemaResponses(
   {
     ...mw,
-    ...viewPurgeWithCutoffHandlerSchemaResponses,
+    ...__viewPurgeWithCutoffHandlerSchemaResponses,
   },
 );
 
 export type ViewPurgeWithCutoffHandlerResponses = InferResponses<
-  typeof viewPurgeWithCutoffHandlerSchemaResponses
+  typeof __viewPurgeWithCutoffHandlerSchemaResponses
 >;

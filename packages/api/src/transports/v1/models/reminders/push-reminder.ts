@@ -81,31 +81,29 @@ const mw = createSchemaResponses({
   ...tokenAuthMiddlewareSchemaResponse,
 });
 
-export const remindersPushReminderHandlerSchemaResponses =
-  createSchemaResponses({
-    201: z.object({
-      created: z.array(
-        z
-          .object({
-            id: z.string().min(1).max(255),
-            at: isoDateTimeSchema.optional(),
-          })
-          .describe(
-            "The reminder message or schedule created successfully by the upstream service.",
-          ),
-      ),
-    }),
-    ...internalErrorSchemaResponse,
-  });
+const __remindersPushReminderHandlerSchemaResponses = createSchemaResponses({
+  201: z.object({
+    created: z.array(
+      z
+        .object({
+          id: z.string().min(1).max(255),
+          at: isoDateTimeSchema.optional(),
+        })
+        .describe(
+          "The reminder message or schedule created successfully by the upstream service.",
+        ),
+    ),
+  }),
+  ...internalErrorSchemaResponse,
+});
 
 export const remindersPushReminderSchemaResponses = createSchemaResponses({
   ...mw,
-  ...remindersPushReminderHandlerSchemaResponses,
-  // TODO: remove this annoying ass error reposne when erryx is done
+  ...__remindersPushReminderHandlerSchemaResponses,
 });
 
 export type RemindersPushReminderHandlerResponses = InferResponses<
-  typeof remindersPushReminderHandlerSchemaResponses
+  typeof __remindersPushReminderHandlerSchemaResponses
 >;
 
 export type RemindersPushReminderResponses = InferResponses<

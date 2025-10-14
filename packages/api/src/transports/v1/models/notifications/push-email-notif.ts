@@ -56,24 +56,23 @@ const mws = createSchemaResponses({
   ...tokenAuthMiddlewareSchemaResponse,
 });
 
-const notificationsPushEmailNotifHandlerSchemaResponses = createSchemaResponses(
-  {
+const __notificationsPushEmailNotifHandlerSchemaResponses =
+  createSchemaResponses({
     ...okSchemaResponse,
     ...internalErrorSchemaResponse,
-  },
-);
+  });
 
 export const notificationsPushEmailNotifSchemaResponses = createSchemaResponses(
   {
     ...mws,
-    ...notificationsPushEmailNotifHandlerSchemaResponses,
+    ...__notificationsPushEmailNotifHandlerSchemaResponses,
   },
 );
 
 /* ------------------------- Response Types ------------------------- */
 
 export type NotificationsPushEmailNotifHandlerResponses = InferResponses<
-  typeof notificationsPushEmailNotifHandlerSchemaResponses
+  typeof __notificationsPushEmailNotifHandlerSchemaResponses
 >;
 
 export type NotificationsPushEmailNotifResponses = InferResponses<

@@ -82,6 +82,9 @@ the operation id is structured as resource(s)<unique-action>, where unqiue actio
 
  in models we have two things, reponses.ts & requests.ts, where index.ts exports them both, 
 
+ we separate handler responses from full responses because handlers only run after all middlewares have passed, so they only care about their own success or internal errors. the full responses include middleware errors too, since the user might get rate-limited or unauthenticated before the handler runs. this makes the contract complete for clients while keeping handler logic clean and isolated.
+
+
 
 Responses: <operationId>SchemaResponses (values)
 Request: <operationId><Header/Query/Params/Body>SchemaRequest (value)
@@ -95,24 +98,26 @@ and we just export them normally
 
 we start with one file first, sometimes just index.ts and then scale as needed
 
-/posts/ <resource(s)>
-     update-post.ts  <unique-action>
-     /get-post
-        / index.ts
-     /get-admin-posts 
-        / index.ts
-     /get-public-posts
-        / requests.ts
-        / responses.ts
-        / index.ts
-     .get-post-cards
-     .purge-trashed
-     /....
 
+/models/posts/ <resource(s)>
+          update-post.ts  <unique-action>
+          /get-post
+              / index.ts
+          /get-admin-posts 
+              / index.ts
+          /get-public-posts
+              / requests.ts
+              / responses.ts
+              / index.ts
+          .get-post-cards
+          .purge-trashed
+          /....
 
+but usually u really dont need seperate responses.ts and requests.ts since index.ts is light enough
 
+tho keep files light meaning never put the responese/requets one more than one action per file since it convoluts it
 
-
+for functions tho, 
 the stucture is as ofllows, models folder has nested folders named as resources(s),functions folder has nested folders named as resources(s) too, same mapping 
 
 like this 
@@ -144,20 +149,24 @@ what we recieve and what we output and lock it in, if we launch and u need to up
 import { createContract } from "ts-rest-kit/core";
 import {
   healthSchemaResponses,
-  notificationCreateBodySchemaRequest,
-  notificationCreateHeadersSchemaRequest,
-  notificationCreateSchemaResponses,
   gpgQuerySchemaRequest,
   gpgSchemaResponses,
   debionQuerySchemaRequest,
   debionSchemaResponses,
   whisperQuerySchemaRequest,
-  whisperSchemaResponses,
-  reminderCreateBodySchemaRequest,
-  reminderCreateHeadersSchemaRequest,
-  reminderCreateSchemaResponses,
+  remindersPushReminderBodySchemaRequest,
+  remindersPushReminderHeadersSchemaRequest,
+  remindersPushReminderSchemaResponses,
+  notificationsPushEmailNotifBodySchemaRequest,
+  notificationsPushEmailNotifHeadersSchemaRequest,
+  notificationsPushEmailNotifSchemaResponses,
   bootstrapQuerySchemaRequest,
   bootstrapSchemaResponses,
+  viewsPurgeWithCutoffHeadersSchemaRequest,
+  viewPurgeWithCutoffContractSchemaResponses,
+  postPurgeTrashBinHeadersSchemaRequest,
+  postsPurgeTrashBinSchemaResponses,
+  whisperSchemaResponses,
 } from "../../transports/v1/models";
 import { v1 } from "./uris";
 
@@ -169,9 +178,9 @@ export const contract = createContract(c)({
     summary: "Create a reminder",
     description:
       "Creates a reminder using the provided headers and body payload.",
-    headers: reminderCreateHeadersSchemaRequest,
-    body: reminderCreateBodySchemaRequest,
-    responses: reminderCreateSchemaResponses,
+    headers: remindersPushReminderHeadersSchemaRequest,
+    body: remindersPushReminderBodySchemaRequest,
+    responses: remindersPushReminderSchemaResponses,
   },
 
   notificationCreate: {
@@ -181,9 +190,9 @@ export const contract = createContract(c)({
     summary: "Send a notification",
     description:
       "Dispatches a system notification using the provided headers and body payload.",
-    headers: notificationCreateHeadersSchemaRequest,
-    body: notificationCreateBodySchemaRequest,
-    responses: notificationCreateSchemaResponses,
+    headers: notificationsPushEmailNotifHeadersSchemaRequest,
+    body: notificationsPushEmailNotifBodySchemaRequest,
+    responses: notificationsPushEmailNotifSchemaResponses,
   },
 
   viewsDeleteWindowWithCutoff: {
@@ -192,8 +201,8 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Purge the view window from all posts",
     description: "Deletes temporary view window data from all posts.",
-    headers: viewsDeleteWindowWithCutoffHeadersSchemaRequest,
-    responses: viewsDeleteWindowWithCutoffSchemaResponses,
+    headers: viewsPurgeWithCutoffHeadersSchemaRequest,
+    responses: viewPurgeWithCutoffContractSchemaResponses,
   },
 
   postsPurgeTrashBin: {
@@ -202,7 +211,7 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Purge trashed posts",
     description: "Permanently deletes all posts currently in the trash bin.",
-    headers: postsPurgeTrashBinHeadersSchemaRequest,
+    headers: postPurgeTrashBinHeadersSchemaRequest,
     responses: postsPurgeTrashBinSchemaResponses,
   },
 
