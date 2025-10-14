@@ -1,9 +1,9 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { PostTrashDeleteResponses } from "../../models";
+import type { PostsPurgeTrashBinHandlerResponses } from "../../models";
 import { PostService } from "@ashgw/core/services";
 
-export async function postsPurgeTrashBin(): Promise<PostTrashDeleteResponses> {
+export async function postsPurgeTrashBin(): Promise<PostsPurgeTrashBinHandlerResponses> {
   try {
     await new PostService().purgeTrash();
     logger.info("Trashed posts purged");

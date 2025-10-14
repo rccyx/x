@@ -3,9 +3,9 @@ import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
 import { root } from "../../../../root-uris";
 import type {
-  ReminderCreateBodyRequest,
-  ReminderCreateResponses,
-  ReminderCreateHeadersRequest,
+  RemindersPushReminderHandlerResponses,
+  RemindersPushReminderBodyRequest,
+  RemindersPushReminderHeadersRequest,
 } from "../../models";
 import { scheduler } from "@ashgw/scheduler";
 import { v1 } from "../../uris";
@@ -13,13 +13,13 @@ import { ReminderService } from "@ashgw/core/services";
 
 const notifyUrl = env.NEXT_PUBLIC_WWW_URL + root.v1 + v1.notifications;
 
-export async function createReminder({
+export async function pushReminder({
   body: { schedule },
   headers,
 }: {
-  body: ReminderCreateBodyRequest;
-  headers: ReminderCreateHeadersRequest;
-}): Promise<ReminderCreateResponses> {
+  body: RemindersPushReminderBodyRequest;
+  headers: RemindersPushReminderHeadersRequest;
+}): Promise<RemindersPushReminderHandlerResponses> {
   try {
     if (schedule.kind === "at") {
       const result = await ReminderService.remind({

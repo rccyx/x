@@ -1,15 +1,15 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type {
-  NotificationCreateBodyRequest,
-  NotificationCreateResponses,
+  NotificationsPushEmailNotifBodyRequest,
+  NotificationsPushEmailNotifHandlerResponses,
 } from "../../models";
 import { env } from "@ashgw/env";
 import { NotificationService } from "@ashgw/core/services";
 
-export async function createNotification(input: {
-  body: NotificationCreateBodyRequest;
-}): Promise<NotificationCreateResponses> {
+export async function pushEmailNotif(input: {
+  body: NotificationsPushEmailNotifBodyRequest;
+}): Promise<NotificationsPushEmailNotifHandlerResponses> {
   logger.info("Sending reminder email notification...");
   try {
     await NotificationService.email.sendNotification({
