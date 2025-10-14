@@ -1,0 +1,37 @@
+# Repo Setup
+
+This document defines the exact structure and intent of every directory in the repository. It exists to prevent confusion and enforce consistent architecture across all stacks.
+
+## Packages
+
+-> core (API): transport and consumer agnostic core logic. Contains the entire business logic and domain layer, no framework bindings.
+-> api: thin transport layer that exposes the core logic over any protocol (RPC, GraphQL, REST, SOAP, etc). The transport layer never contains core logic, it simply calls it, only serialization, and forwarding.
+-> auth: dedicated authentication API. It has its own domain complexity (tokens, sessions, providers). The core interacts with it over the wire through well-defined contracts.
+-> logger: minimal, dependency-free logging utility for consistent structured logs across packages, never console.log, use the logger from the package.
+-> constants: holds shared constants used throughout the repo. These are static values that do not depend on runtime or environment variables.
+-> cross-runtime: utilities or services that run identically in Deno, Bun, Node, Cloudflare Workers, or browsers. Used for true cross-environment logic (e.g., universal text formatters).
+-> monitor: encapsulates monitoring integrations (Sentry or any future provider).
+-> analytics: integrates tracking providers like PostHog and Google Analytics.
+-> db: handles database connections and migrations only. Contains schema definitions and migration scripts.
+-> seeder: imports the database module and seeds data deterministically for tests or local dev.
+-> env: provides typesafe environment variable validation using Zod, ensuring all runtime configs are correct at startup.
+-> security: provides cryptographic and security utilities such as hashing, masking, encryption and timing-safe operations.
+-> seo: provides reusable helpers to improve SEO handling for server-rendered apps.
+-> storage: abstracts blob storage logic. The provider is interchangeable (R2, S3, etc) via an adapter pattern.
+-> design: contains the design system. All primitive UI components (buttons, inputs, etc) live here.
+-> components: contains higher-level UI components shared across apps, such as headers and footers. Does not hold primitives or app-specific UI. Rarely extended beyond essentials.
+
+## Apps
+
+-> www, blog, app, mobile, etc: every app directly calls the API layer. No backend, just UI that depends on the same transport abstraction to call the API.
+-> server: minimal backend app. It only connects the chosen framework (Next.js, Express, etc) to the API transport. No logic lives here. It initializes the transport layer. Set up once & forget.
+
+## Tooling
+
+All tooling packages exist as single sources of truth for configurations used across all packages.
+-> eslint: shared ESLint configuration and plugins.
+-> playwright: shared Playwright configuration for integration or E2E testing.
+-> prettier: Prettier configuration shared across the repo.
+-> next: shared Next.js configuration and plugins.
+-> typescript: shared tsconfig presets.
+-> vitest: shared Vitest configuration for all unit and integration tests.
