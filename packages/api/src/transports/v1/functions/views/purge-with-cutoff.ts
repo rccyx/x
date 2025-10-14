@@ -1,12 +1,12 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
-import type { ViewPurgeWithCutoffHandlerResponses } from "../../models";
+import type { ViewsPurgeWithCutoffHandlerResponses } from "../../models";
 import { ViewService } from "@ashgw/core/services";
 
 const retainDays = 2;
 const oneDayInMs = 1000 * 60 * 60 * 24;
 
-export async function purgeWithCutoff(): Promise<ViewPurgeWithCutoffHandlerResponses> {
+export async function purgeWithCutoff(): Promise<ViewsPurgeWithCutoffHandlerResponses> {
   // compute cutoff per function run
   const cutoff = new Date(Date.now() - oneDayInMs * retainDays);
 

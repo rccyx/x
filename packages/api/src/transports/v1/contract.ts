@@ -143,6 +143,12 @@ what we recieve and what we output and lock it in, if we launch and u need to up
 
 
 
+REST APIs are externally consumed, meaning we do not pipe models directly from core, we replicate and copy & version then deprecate
+
+
+THE HANDLER TYPE IN THE HANDLER RESPONSES, IS ALWAYS EXPORTED BUT I'S SCHEMA ISNT 
+
+
 
  
 */ import { c } from "../../ts-rest/root";
@@ -163,7 +169,7 @@ import {
   bootstrapQuerySchemaRequest,
   bootstrapSchemaResponses,
   viewsPurgeWithCutoffHeadersSchemaRequest,
-  viewPurgeWithCutoffSchemaResponses,
+  viewsPurgeWithCutoffSchemaResponses,
   postPurgeTrashBinHeadersSchemaRequest,
   postsPurgeTrashBinSchemaResponses,
   whisperSchemaResponses,
@@ -171,7 +177,7 @@ import {
 import { v1 } from "./uris";
 
 export const contract = createContract(c)({
-  reminderCreate: {
+  remindersPushReminder: {
     method: "POST",
     path: v1.reminders,
     strictStatusCodes: true,
@@ -183,7 +189,7 @@ export const contract = createContract(c)({
     responses: remindersPushReminderSchemaResponses,
   },
 
-  notificationCreate: {
+  notificationsPushEmailNotif: {
     method: "POST",
     path: v1.notifications,
     strictStatusCodes: true,
@@ -202,7 +208,7 @@ export const contract = createContract(c)({
     summary: "Purge the view window from all posts",
     description: "Deletes temporary view window data from all posts.",
     headers: viewsPurgeWithCutoffHeadersSchemaRequest,
-    responses: viewPurgeWithCutoffSchemaResponses,
+    responses: viewsPurgeWithCutoffSchemaResponses,
   },
 
   postsPurgeTrashBin: {

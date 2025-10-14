@@ -13,7 +13,7 @@ import {
 } from "../../transports/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
-  reminderCreate: middleware()
+  remindersPushReminder: middleware()
     .use(
       rateLimiter({
         kind: "quota",
@@ -24,12 +24,12 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.reminderCreate)(
+    .route(contract.remindersPushReminder)(
     async ({ body, headers }) =>
       await reminders.pushReminder({ body, headers }),
   ),
 
-  notificationCreate: middleware()
+  notificationsPushEmailNotif: middleware()
     .use(
       rateLimiter({
         kind: "quota",
@@ -40,7 +40,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.notificationCreate)(
+    .route(contract.notificationsPushEmailNotif)(
     async ({ body }) => await notifications.pushEmailNotif({ body }),
   ),
 

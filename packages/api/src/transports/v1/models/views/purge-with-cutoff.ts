@@ -31,11 +31,12 @@ const __viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
   ...internalErrorSchemaResponse,
 });
 
-export const viewPurgeWithCutoffSchemaResponses = createSchemaResponses({
+export const viewsPurgeWithCutoffSchemaResponses = createSchemaResponses({
   ...mw,
   ...__viewPurgeWithCutoffHandlerSchemaResponses,
 });
 
-export type ViewPurgeWithCutoffHandlerResponses = InferResponses<
+// the handler type is always exported while it's schema isnt
+export type ViewsPurgeWithCutoffHandlerResponses = InferResponses<
   typeof __viewPurgeWithCutoffHandlerSchemaResponses
 >;
