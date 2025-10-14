@@ -3,11 +3,9 @@ import { tokenAuthMiddlewareHeaderSchemaRequest } from "../shared";
 
 // ========== Schemas ==========
 
-export const postTrashDeleteHeadersSchemaRequest =
+export const viewWindowDeleteHeadersSchemaRequest =
   tokenAuthMiddlewareHeaderSchemaRequest.extend({});
 
-// ========== Types ==========
-
-export type PostTrashDeleteHeadersRequest = z.infer<
-  typeof postTrashDeleteHeadersSchemaRequest
+export type ViewWindowDeleteHeadersRequest = z.infer<
+  typeof viewWindowDeleteHeadersSchemaRequest
 >;
