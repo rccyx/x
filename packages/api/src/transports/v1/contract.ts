@@ -56,7 +56,53 @@
  This is the convention.
 
 
- * 
+ the contract defunes the operationId, and we use it to name our functions, and operations 
+ basiclal yif the operation id is called, notificationsCreateSchemaResponses it means we will call a function from the notifications called 
+ notificationsCreateNotification, another exmaple is postsPurgeTrashBin, it means we will call a function from the posts called purgeTrashBin, 
+
+(notice how the operation id ALWAYS starts wit hthe resource, in plural)
+
+
+the operation id is structured as resource(s)<unique-action>, where unqiue action is the unqiue action within that given resource
+
+ functions do mirror REST resources, where we make it plural, Post is a single databse entity right? and in teh core we have it as 
+
+ PostService, but actually here in rest we have to make it plural, thus the functions package has directories called posts, reminders, notifications etc
+
+
+ it maps 1:1 to /notifications from th rest endpoint, tho the convention, now of, we can break the conveion if the resrouce can never be plural for exmaple 
+
+ if it's  standalone thing like health it's ok, theree's no healths.
+
+
+ anywys, the schema basiclaly shoudl be under the models/ package, where each sub directory under models is named <resource(s)>,
+ 
+ 
+ so it becomes /models/resources(s), e.g: /models/posts or /models/health
+
+ in models we have two things, reponses.ts & request, 
+
+
+Responses: <operationId>SchemaResponses (values)
+Request: <operationId><Header/Query/Params/Body>SchemaRequest (value)
+
+// for types we just remove the word schema & make the first letter Uppercase
+Responses: <OperationId>Responses (types), z.infer<typeof <operationId>SchemaResponses>
+Request: <OperationId><Header/Query/Params/Body>Request (type), z.infer<typeof <operationId><Header/Query/Params/Body>SchemaRequest>
+
+
+the stucture is as ofllows, models folder has nested folders named as resources(s),functions folder has nested folders named as resources(s) too, same mapping 
+
+like this 
+functions:
+  - [resources(s)]: // for example reminders or health
+    - [<unique-action>.ts] // for exmaple create-one.ts (), each containing ONE exported function named uniqueAction(), I REPEAT ONE FUNCTION EPXORTED
+    - index.ts, here we export one constant that holds all the functions of this reources's function, named as resource(s)
+                for exmaple export const posts = { createPost }
+                            export const health = { check }                  
+                            export const <resource(s)> = { <uniqueAction> }
+                          
+
  
 */ import { c } from "../../ts-rest/root";
 import { createContract } from "ts-rest-kit/core";

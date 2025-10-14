@@ -6,7 +6,7 @@ import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 import {
   health,
   oss,
-  notification,
+  notifications,
   reminders,
   views,
   posts,
@@ -40,7 +40,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.notificationCreate)(
-    async ({ body }) => await notification.create({ body }),
+    async ({ body }) => await notifications.create({ body }),
   ),
 
   viewsDeleteWindowWithCutoff: middleware()

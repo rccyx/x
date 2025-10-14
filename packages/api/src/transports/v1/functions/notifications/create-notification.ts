@@ -7,7 +7,7 @@ import type {
 import { env } from "@ashgw/env";
 import { NotificationService } from "@ashgw/core/services";
 
-export async function create(input: {
+export async function createNotification(input: {
   body: NotificationCreateBodyRequest;
 }): Promise<NotificationCreateResponses> {
   logger.info("Sending reminder email notification...");

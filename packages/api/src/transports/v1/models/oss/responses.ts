@@ -10,10 +10,10 @@ const _githubErrorSchemaResponses = createSchemaResponses({
   424: httpErrorSchema
     .upstream()
     .describe("GitHub failed to serve content (Raw URL error)"),
-  ...internalErrorSchemaResponse,
+  ...internalErrorSchemaResponse, // REMOVE THIS
 });
 
-const _ossGetTextSchemaResponses = createSchemaResponses({
+const _getScriptSchemaResponses = createSchemaResponses({
   200: c.otherResponse({
     contentType: "text/plain",
     body: z.string().min(1).describe("Raw text body returned by upstream"),
@@ -32,20 +32,18 @@ export const gpgSchemaResponses = createSchemaResponses({
   ..._githubErrorSchemaResponses,
 });
 
-export const debionSchemaResponses = _ossGetTextSchemaResponses;
+export const debionSchemaResponses = _getScriptSchemaResponses;
 
-export const whisperSchemaResponses = _ossGetTextSchemaResponses;
+export const whisperSchemaResponses = _getScriptSchemaResponses;
 
-export const bootstrapSchemaResponses = _ossGetTextSchemaResponses;
+export const bootstrapSchemaResponses = _getScriptSchemaResponses;
 
 // ========== Types ==========
 
-export type DebionResponses = InferResponses<typeof _ossGetTextSchemaResponses>;
-export type WhisperResponses = InferResponses<
-  typeof _ossGetTextSchemaResponses
->;
+export type DebionResponses = InferResponses<typeof _getScriptSchemaResponses>;
+export type WhisperResponses = InferResponses<typeof _getScriptSchemaResponses>;
 export type BootstrapResponses = InferResponses<
-  typeof _ossGetTextSchemaResponses
+  typeof _getScriptSchemaResponses
 >;
 
 export type GpgResponses = InferResponses<typeof gpgSchemaResponses>;

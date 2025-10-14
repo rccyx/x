@@ -1,5 +1,5 @@
-import { create } from "./create-notification";
+import { createNotification } from "./create-notification";
 
-export const notification = {
-  create,
+export const notifications = {
+  createNotification,
 };
