@@ -10,12 +10,14 @@ const _ossGetTextQuerySchemaRequest = z.object({
     .describe("Override ISR revalidate in seconds, 60..86400"),
 });
 
-const _ossGetScriptQuerySchemaRequest = _ossGetTextQuerySchemaRequest.extend({
-  script: z.object({
-    repo: z.string().min(1).max(255),
-    path: z.string().min(1).max(255),
-  }),
-});
+const _ossGetScriptQuerySchemaRequest = _ossGetTextQuerySchemaRequest
+  .extend({
+    script: z.object({
+      repo: z.string().min(1).max(255),
+      path: z.string().min(1).max(255),
+    }),
+  })
+  .optional();
 
 export const gpgQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
 export const debionQuerySchemaRequest = _ossGetTextQuerySchemaRequest;

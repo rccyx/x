@@ -45,11 +45,17 @@ import {
   notificationCreateBodySchemaRequest,
   notificationCreateHeadersSchemaRequest,
   notificationCreateSchemaResponses,
-  ossGetTextQuerySchemaRequest,
-  ossGetTextSchemaResponses,
+  gpgQuerySchemaRequest,
+  gpgSchemaResponses,
+  debionQuerySchemaRequest,
+  debionSchemaResponses,
+  whisperQuerySchemaRequest,
+  whisperSchemaResponses,
   reminderCreateBodySchemaRequest,
   reminderCreateHeadersSchemaRequest,
   reminderCreateSchemaResponses,
+  bootstrapQuerySchemaRequest,
+  bootstrapSchemaResponses,
 } from "../../transports/v1/models";
 import { v1 } from "./uris";
 
@@ -114,8 +120,8 @@ export const contract = createContract(c)({
     summary: "Fetch bootstrap script",
     description:
       "Returns a raw text bootstrap script for initializing dotfiles setup.",
-    query: ossGetTextQuerySchemaRequest.optional(),
-    responses: ossGetTextSchemaResponses,
+    query: bootstrapQuerySchemaRequest,
+    responses: bootstrapSchemaResponses,
   },
 
   gpg: {
@@ -124,7 +130,7 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Fetch public GPG key",
     description: "Returns my armored public GPG key as plain text.",
-    query: gpgQuerySchemaRequest.optional(),
+    query: gpgQuerySchemaRequest,
     responses: gpgSchemaResponses,
   },
 
@@ -135,7 +141,7 @@ export const contract = createContract(c)({
     summary: "Fetch Debion setup script",
     description:
       "Returns a raw text script for initializing the custom Debion login screen environment.",
-    query: debionQuerySchemaRequest.optional(),
+    query: debionQuerySchemaRequest,
     responses: debionSchemaResponses,
   },
 
@@ -146,7 +152,7 @@ export const contract = createContract(c)({
     summary: "Fetch Whisper setup script",
     description:
       "Returns a raw text script for configuring OpenAI's Whisper locally.",
-    query: whisperQuerySchemaRequest.optional(),
+    query: whisperQuerySchemaRequest,
     responses: whisperSchemaResponses,
   },
 });

@@ -1,7 +1,9 @@
-import { fetchScript } from "./fetch-script";
-import { fetchGpg } from "./fetch-gpg";
+import { bootstrap, debion, whisper } from "./scripts";
+import { gpg } from "./gpg";
 
 export const oss = {
-  fetchScript,
-  fetchGpg,
+  gpg,
+  whisper,
+  debion,
+  bootstrap,
 };
