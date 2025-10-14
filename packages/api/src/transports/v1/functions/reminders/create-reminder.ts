@@ -13,7 +13,7 @@ import { ReminderService } from "@ashgw/core/services";
 
 const notifyUrl = env.NEXT_PUBLIC_WWW_URL + root.v1 + v1.notifications;
 
-export async function create({
+export async function createReminder({
   body: { schedule },
   headers,
 }: {

@@ -7,9 +7,9 @@ import {
   health,
   oss,
   notification,
-  reminder,
+  reminders,
   views,
-  post,
+  posts,
 } from "../../transports/v1/functions";
 
 export const router = createRouterWithContext(contract)<GlobalContext>({
@@ -25,7 +25,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
     )
     .use(authed())
     .route(contract.reminderCreate)(
-    async ({ body, headers }) => await reminder.create({ body, headers }),
+    async ({ body, headers }) => await reminders.create({ body, headers }),
   ),
 
   notificationCreate: middleware()
@@ -67,7 +67,7 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
-    .route(contract.postsDeleteTrash)(async () => await post.deleteTrash()),
+    .route(contract.postsDeleteTrash)(async () => await posts.deleteTrash()),
 
   bootstrap: async ({ query }) =>
     await oss.bootstrap({

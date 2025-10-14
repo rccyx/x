@@ -1,5 +1,5 @@
-import { create } from "./create";
+import { createReminder } from "./create-reminder";
 
-export const reminder = {
-  create,
+export const reminders = {
+  createReminder,
 };

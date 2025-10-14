@@ -35,6 +35,26 @@
  It is the same action, the same shit mapping 1012, that's all it is, that's 101 mapping.
 
 
+ The naming convention of the files when it comes to functions should be super simple,
+ which is if we get too many functions, of course, we have to create different files
+ for each single function.
+ For example, for our createReminder function, we have to create a different file called
+ createReminders you can see right there.
+ We're going to have to do this like for small files, small functionality, it will be an
+ overhead.
+ But again, if the file gets too big, we have to match the file example exactly with a
+ function.
+ If we normalize the name, of course, make it all matter of case, instead of words tied
+ to each other, you got to create a - that's the only difference.
+ That's it.
+ The same fucking name keeps it.
+ And also, we export one constant in the index.
+ One constant represents the folder that we have on your functions.
+ So if it's posts, it is posts.
+ We don't change it.
+ We don't change it at all.
+ This is the convention.
+
 
  * 
  
@@ -94,14 +114,14 @@ export const contract = createContract(c)({
     responses: viewsDeleteWindowWithCutoffSchemaResponses,
   },
 
-  postsDeleteTrash: {
+  postsPurgeTrashBin: {
     method: "DELETE",
     path: v1.posts,
     strictStatusCodes: true,
     summary: "Purge trashed posts",
     description: "Permanently deletes all posts currently in the trash bin.",
-    headers: postsDeleteTrashHeadersSchemaRequest,
-    responses: postsDeleteTrashSchemaResponses,
+    headers: postsPurgeTrashBinHeadersSchemaRequest,
+    responses: postsPurgeTrashBinSchemaResponses,
   },
 
   health: {
