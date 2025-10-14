@@ -9,11 +9,11 @@ import {
   ossGetTextSchemaResponses,
   postTrashDeleteHeadersSchemaRequest,
   postTrashDeleteSchemaResponses,
-  postViewWindowDeleteHeadersSchemaRequest,
   postViewWindowDeleteSchemaResponses,
   reminderCreateBodySchemaRequest,
   reminderCreateHeadersSchemaRequest,
   reminderCreateSchemaResponses,
+  viewWindowDeleteHeadersSchemaRequest,
 } from "../../transports/v1/models";
 import { v1 } from "./uris";
 
@@ -48,7 +48,7 @@ export const contract = createContract(c)({
     strictStatusCodes: true,
     summary: "Purge the view window from all posts",
     description: "Deletes temporary view window data from all posts.",
-    headers: postViewWindowDeleteHeadersSchemaRequest,
+    headers: viewWindowDeleteHeadersSchemaRequest,
     responses: postViewWindowDeleteSchemaResponses,
   },
 

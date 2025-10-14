@@ -7,13 +7,23 @@ import {
   noContentSchemaResponse,
 } from "../shared/responses";
 
-export const viewWindowDeleteSchemaResponses = createSchemaResponses({
-  ...rateLimiterMiddlewareSchemaResponse,
-  ...tokenAuthMiddlewareSchemaResponse,
+export const viewWindowDeleteMiddlewaresSchemaResponses = createSchemaResponses(
+  {
+    ...rateLimiterMiddlewareSchemaResponse,
+    ...tokenAuthMiddlewareSchemaResponse,
+  },
+);
+
+export const viewWindowDeleteHandlerSchemaResponses = createSchemaResponses({
   ...noContentSchemaResponse,
   ...internalErrorSchemaResponse,
 });
 
-export type ViewWindowDeleteResponses = InferResponses<
-  typeof viewWindowDeleteSchemaResponses
+export const viewWindowDeleteContractSchemaResponses = createSchemaResponses({
+  ...viewWindowDeleteMiddlewaresSchemaResponses,
+  ...viewWindowDeleteHandlerSchemaResponses,
+});
+
+export type ViewWindowDeleteHandlerResponses = InferResponses<
+  typeof viewWindowDeleteHandlerSchemaResponses
 >;
