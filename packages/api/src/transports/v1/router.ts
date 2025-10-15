@@ -68,9 +68,11 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       }),
     )
     .use(authed())
+
     .route(contract.postsPurgeTrashBin)(
     async () => await posts.postsPurgeTrashBin(),
   ),
+
   bootstrap: async ({ query }) =>
     await oss.bootstrap({
       query,
