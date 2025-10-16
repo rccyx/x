@@ -32,7 +32,7 @@ export const gpgSchemaResponses = createSchemaResponses({
   ..._githubErrorSchemaResponses,
 });
 
-export const debionSchemaResponses = _getScriptSchemaResponses;
+export const thyxSchemaResponses = _getScriptSchemaResponses;
 
 export const whisperSchemaResponses = _getScriptSchemaResponses;
 
@@ -40,7 +40,7 @@ export const bootstrapSchemaResponses = _getScriptSchemaResponses;
 
 // ========== Types ==========
 
-export type DebionResponses = InferResponses<typeof _getScriptSchemaResponses>;
+export type ThyxResponses = InferResponses<typeof _getScriptSchemaResponses>;
 export type WhisperResponses = InferResponses<typeof _getScriptSchemaResponses>;
 export type BootstrapResponses = InferResponses<
   typeof _getScriptSchemaResponses

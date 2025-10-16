@@ -78,8 +78,8 @@ export const router = createRouterWithContext(contract)<GlobalContext>({
       query,
     }),
 
-  debion: async ({ query }) =>
-    await oss.debion({
+  thyx: async ({ query }) =>
+    await oss.thyx({
       query,
     }),
 

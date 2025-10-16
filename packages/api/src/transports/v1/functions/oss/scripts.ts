@@ -1,8 +1,8 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import type {
-  DebionQueryRequest,
-  DebionResponses,
+  ThyxQueryRequest,
+  ThyxResponses,
   WhisperResponses,
   BootstrapResponses,
   BootstrapQueryRequest,
@@ -10,8 +10,8 @@ import type {
 } from "../../models";
 import { OssService } from "@ashgw/core/services";
 
-type OssGetScriptQueryRequest = DebionQueryRequest; // TODO: remove this after erryx
-type OssGetTextResponses = DebionResponses; // same
+type OssGetScriptQueryRequest = ThyxQueryRequest; // TODO: remove this after erryx
+type OssGetTextResponses = ThyxResponses; // same
 
 async function fetchScript(input: {
   query: OssGetScriptQueryRequest;
@@ -76,14 +76,14 @@ export async function bootstrap({
   });
 }
 
-export async function debion({
+export async function thyx({
   query,
 }: {
-  query: DebionQueryRequest;
-}): Promise<DebionResponses> {
+  query: ThyxQueryRequest;
+}): Promise<ThyxResponses> {
   return await fetchScript({
     from: {
-      repo: "debion",
+      repo: "thyx",
       path: "setup",
     },
     query,

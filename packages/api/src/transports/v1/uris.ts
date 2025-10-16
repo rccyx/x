@@ -7,7 +7,7 @@ export const v1 = {
   oss: {
     bootstrap: "/bootstrap",
     gpg: "/gpg",
-    debion: "/debion",
+    thyx: "/thyx",
     whisper: "/whisper",
   },
 };

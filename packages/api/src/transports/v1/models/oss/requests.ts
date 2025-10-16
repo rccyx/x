@@ -11,11 +11,11 @@ const _ossGetTextQuerySchemaRequest = z.object({
 });
 
 export const gpgQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
-export const debionQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
+export const thyxQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
 export const whisperQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
 export const bootstrapQuerySchemaRequest = _ossGetTextQuerySchemaRequest;
 
 export type GpgQueryRequest = z.infer<typeof gpgQuerySchemaRequest>;
-export type DebionQueryRequest = z.infer<typeof debionQuerySchemaRequest>;
+export type ThyxQueryRequest = z.infer<typeof thyxQuerySchemaRequest>;
 export type WhisperQueryRequest = z.infer<typeof whisperQuerySchemaRequest>;
 export type BootstrapQueryRequest = z.infer<typeof bootstrapQuerySchemaRequest>;

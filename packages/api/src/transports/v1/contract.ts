@@ -157,8 +157,8 @@ import {
   healthSchemaResponses,
   gpgQuerySchemaRequest,
   gpgSchemaResponses,
-  debionQuerySchemaRequest,
-  debionSchemaResponses,
+  thyxQuerySchemaRequest,
+  thyxSchemaResponses,
   whisperQuerySchemaRequest,
   remindersPushReminderBodySchemaRequest,
   remindersPushReminderHeadersSchemaRequest,
@@ -251,15 +251,15 @@ export const contract = createContract(c)({
     responses: gpgSchemaResponses,
   },
 
-  debion: {
+  thyx: {
     method: "GET",
-    path: v1.oss.debion,
+    path: v1.oss.thyx,
     strictStatusCodes: true,
-    summary: "Fetch Debion setup script",
+    summary: "Fetch thyx setup script",
     description:
-      "Returns a raw text script for initializing the custom Debion login screen environment.",
-    query: debionQuerySchemaRequest,
-    responses: debionSchemaResponses,
+      "Returns a raw text script for initializing the custom thyx login screen screen theme.",
+    query: thyxQuerySchemaRequest,
+    responses: thyxSchemaResponses,
   },
 
   whisper: {

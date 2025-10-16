@@ -1,9 +1,9 @@
-import { bootstrap, debion, whisper } from "./scripts";
+import { bootstrap, thyx, whisper } from "./scripts";
 import { gpg } from "./gpg";
 
 export const oss = {
   gpg,
   whisper,
-  debion,
+  thyx,
   bootstrap,
 };

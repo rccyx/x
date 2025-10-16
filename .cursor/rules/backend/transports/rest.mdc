@@ -8,13 +8,13 @@ This document defines how REST endpoints, operations, schemas, and functions are
 
 ## Core Philosophy
 
-Each **versioned transport** (e.g., `/transports/v1/`) is an immutable public contract. It is the only interface external systems rely on.  
-Once published, it cannot be broken, only superseded by a new version (e.g., `/v2`).  
+Each **versioned transport** (e.g., `/transports/v1/`) is an immutable public contract. It is the only interface external systems rely on.
+Once published, it cannot be broken, only superseded by a new version (e.g., `/v2`).
 This layer **does not** import or reuse core models, only core services. Models are versioned and copied forward.
 
 ## Operation Naming Convention
 
-Every API operation has a unique `operationId` in the contract.  
+Every API operation has a unique `operationId` in the contract.
 This `operationId` acts as the **global identity** for both the OpenAPI spec and its corresponding function.
 
 Format:
@@ -110,7 +110,7 @@ functions/
 
 ## Models Layout
 
-`models/` defines contracts for both requests and responses.  
+`models/` defines contracts for both requests and responses.
 Each subfolder corresponds to a resource (plural), mirroring `functions/`.
 
 ```
@@ -220,8 +220,8 @@ export async function chargeCustomer(): Promise<BillingChargeHandlerResponses> {
 
 ## File Splitting Rules
 
-- **Keep each action isolated.**  
-  One action = one file.  
+- **Keep each action isolated.**
+  One action = one file.
   Never mix unrelated schemas in one file.
 - **Only split** `requests.ts` and `responses.ts` into separate files if the action’s schema grows large.
 - **Otherwise**, keep everything (request, response, types) in a single `index.ts`.
@@ -267,7 +267,7 @@ export const v1 = {
   oss: {
     bootstrap: "/bootstrap",
     gpg: "/gpg",
-    debion: "/debion",
+    thyx: "/thyx",
     whisper: "/whisper",
   },
 };
@@ -287,3 +287,4 @@ Rules:
 - Every handler must explicitly type its output with `<OperationId>HandlerResponses`.
 - Keep files small and isolated. Never mix multiple unrelated operations in one file.
 - If it’s not shared by multiple resources, don’t put it in `_shared`.
+
