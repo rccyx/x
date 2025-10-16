@@ -1,7 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
 # API architecture and naming guide
 
 This repo exposes two transports over the same domain logic:

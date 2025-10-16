@@ -1,3 +1,3 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
