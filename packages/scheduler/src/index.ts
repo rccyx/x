@@ -1,7 +1,7 @@
 import { Client as QstashClient } from "@upstash/qstash";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import { throwable } from "../../runner/src";
+import { runner } from "@ashgw/runner";
 import type {
   Payload,
   ScheduleDto,

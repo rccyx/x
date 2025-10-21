@@ -110,14 +110,23 @@ class EmailSenders {
     },
 
     accountDeleted: async (params: AccountDeletedParams) => {
-      const html = await render(
-        React.createElement(AccountDeletedTemplate, params),
-        { pretty: true },
-      );
-      return emailService.sendHtml({
-        to: params.to,
-        subject: "Your account has been deleted",
-        html,
+      return runner(
+        run(
+          () =>
+            render(React.createElement(AccountDeletedTemplate, params), {
+              pretty: true,
+            }),
+          "AccountDeletedTemplateRenderingFailure",
+          {
+            message: "cannot render account deleted template",
+          },
+        ),
+      ).next((html) => {
+        return emailService.sendHtml({
+          to: params.to,
+          subject: "Your account has been deleted",
+          html,
+        });
       });
     },
   };

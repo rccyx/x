@@ -6,9 +6,10 @@ import eslint from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
+import runyx from "eslint-plugin-runyx";
 
 export default tseslint.config(
-  // Ignore files not tracked by VCS and any config files
+  // ignore files not tracked by VCS and any config files
   includeIgnoreFile(path.join(import.meta.dirname, "../../.gitignore")),
   { ignores: ["**/*.config.*", "**dist/**"] },
   {
@@ -16,6 +17,7 @@ export default tseslint.config(
     plugins: {
       import: importPlugin,
       turbo: turboPlugin,
+      runyx,
     },
     extends: [
       eslint.configs.recommended,
@@ -24,28 +26,19 @@ export default tseslint.config(
       ...tseslint.configs.stylisticTypeChecked,
     ],
     rules: {
+      // plugin: turbo
       ...turboPlugin.configs.recommended.rules,
+
+      // plugin: runyx
+      "runyx/no-hanging-calls": "error",
+
+      // plugin: typescript-eslint
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
           prefer: "type-imports",
           disallowTypeAnnotations: true,
           fixStyle: "separate-type-imports",
-        },
-      ],
-      // Prevent console.* usage even when imported differently
-      // use { logger } from "@ashgw/logger"
-      "no-restricted-syntax": [
-        "error",
-        {
-          selector: "MemberExpression[object.name='console']",
-          message:
-            "Use import { logger } from '@ashgw/logger' instead of console.*",
-        },
-        {
-          selector: "Identifier[name='console']",
-          message:
-            "Use import { logger } from '@ashgw/logger' instead of console",
         },
       ],
       "@typescript-eslint/no-unsafe-assignment": "warn",
@@ -59,12 +52,27 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-unnecessary-condition": [
         "error",
-        {
-          allowConstantLoopConditions: true,
-        },
+        { allowConstantLoopConditions: true },
       ],
       "@typescript-eslint/no-non-null-assertion": "error",
+
+      // plugin: import
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+
+      // generic restriction: console
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "MemberExpression[object.name='console']",
+          message:
+            "Use import { logger } from '@ashgw/logger' instead of console.*",
+        },
+        {
+          selector: "Identifier[name='console']",
+          message:
+            "Use import { logger } from '@ashgw/logger' instead of console",
+        },
+      ],
     },
   },
   {
