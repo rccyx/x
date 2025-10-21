@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
-import { E, throwable } from "../../runner/src";
+import { err, ok, run, runner } from "@ashgw/runner";
 import { logger } from "@ashgw/logger";
 import { env } from "@ashgw/env";
 import { defaultEmail, defaultEmailFrom } from "@ashgw/constants";
@@ -18,7 +18,7 @@ export class EmailService {
     return defaultEmailFrom;
   }
 
-  public async sendHtml(params: SendParams): Promise<SendResult> {
+  public async sendHtml(params: SendParams) {
     const client = this._client();
     const to = typeof params.to === "string" ? [params.to] : params.to;
     const options: CreateEmailOptions = {
@@ -37,21 +37,20 @@ export class EmailService {
 
     logger.info("sending email...");
 
-    const { data } = await throwable(
-      "external",
-      () => client.emails.send(options),
-      {
-        service: "email",
-        operation: "send-email",
+    return runner(
+      run(() => client.emails.send(options), "EmailClientSendingFailure", {
+        severity: "error",
         message: "failed to send email",
-      },
-    );
-
-    if (!data?.id) {
-      throw E.internal("missing response from email provider");
-    }
-
-    return { id: data.id };
+      }),
+    ).next(({ data }) => {
+      if (!data?.id) {
+        return err({
+          message: "missing response from email provider",
+          tag: "EmailClientResponseMissingId",
+        });
+      }
+      return ok<SendResult>({ id: data.id });
+    });
   }
 
   private _client(): Resend {

@@ -9,6 +9,7 @@ import ResetPasswordTemplate from "./templates/auth/ResetPassword";
 import EmailIsVerifiedTemplate from "./templates/auth/EmailIsVerified";
 import AccountDeletedTemplate from "./templates/auth/AccountDeleted";
 import NotifyTemplate from "./templates/notification/Notify";
+import { run, runner } from "@ashgw/runner";
 
 export interface VerifyEmailParams {
   readonly to: Recipient;
@@ -42,38 +43,69 @@ export interface NotificationParams {
 class EmailSenders {
   public readonly auth = {
     verifyEmail: async (params: VerifyEmailParams) => {
-      const html = await render(
-        React.createElement(VerifyEmailTemplate, params),
-        { pretty: true },
-      );
-      return emailService.sendHtml({
-        to: params.to,
-        subject: "Verify your email",
-        html,
+      return runner(
+        run(
+          () => {
+            return render(React.createElement(VerifyEmailTemplate, params), {
+              pretty: true,
+            });
+          },
+          "VerifyEmailTemplateRenderingFailure",
+          {
+            message: "cannot render verify email template",
+          },
+        ),
+      ).next((html) => {
+        return emailService.sendHtml({
+          to: params.to,
+          subject: "Verify your email",
+          html,
+        });
       });
     },
 
     afterVerification: async (params: EmailIsVerifiedParams) => {
-      const html = await render(
-        React.createElement(EmailIsVerifiedTemplate, params),
-        { pretty: true },
-      );
-      return emailService.sendHtml({
-        to: params.to,
-        subject: "Email verified",
-        html,
+      return runner(
+        run(
+          () => {
+            return render(
+              React.createElement(EmailIsVerifiedTemplate, params),
+              { pretty: true },
+            );
+          },
+          "EmailIsVerifiedTemplateRenderingFailure",
+          {
+            message: "cannot render email is verified template",
+          },
+        ),
+      ).next((html) => {
+        return emailService.sendHtml({
+          to: params.to,
+          subject: "Email verified",
+          html,
+        });
       });
     },
 
     resetPassword: async (params: ResetPasswordParams) => {
-      const html = await render(
-        React.createElement(ResetPasswordTemplate, params),
-        { pretty: true },
-      );
-      return emailService.sendHtml({
-        to: params.to,
-        subject: "Reset your password",
-        html,
+      return runner(
+        run(
+          () => {
+            return render(React.createElement(ResetPasswordTemplate, params), {
+              pretty: true,
+            });
+          },
+          "ResetPasswordTemplateRenderingFailure",
+          {
+            message: "cannot render reset password template",
+          },
+        ),
+      ).next((html) => {
+        return emailService.sendHtml({
+          to: params.to,
+          subject: "Reset your password",
+          html,
+        });
       });
     },
 
@@ -92,17 +124,27 @@ class EmailSenders {
 
   public readonly notification = {
     notify: async (params: NotificationParams) => {
-      const html = await render(
-        React.createElement(NotifyTemplate, {
-          messageMd: params.messageMd,
-          type: params.type, // capitalize this,
-        }),
-        { pretty: true },
-      );
-      return emailService.sendHtml({
-        to: params.to,
-        subject: params.subject ?? params.title,
-        html,
+      return runner(
+        run(
+          () =>
+            render(
+              React.createElement(NotifyTemplate, {
+                messageMd: params.messageMd,
+                type: params.type, // capitalize this,
+              }),
+              { pretty: true },
+            ),
+          "NotificationTemplateRenderingFailure",
+          {
+            message: "cannot render notification template",
+          },
+        ),
+      ).next((html) => {
+        return emailService.sendHtml({
+          to: params.to,
+          subject: params.subject ?? params.title,
+          html,
+        });
       });
     },
   };
