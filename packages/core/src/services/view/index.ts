@@ -8,7 +8,6 @@ import type {
   ViewWindowPurgeWithCutoffDto,
   ViewWindowPurgeWithCutoffRo,
 } from "../../models/view";
-import { throwable } from "../../../../runner/src";
 
 export class ViewService {
   public async trackView({

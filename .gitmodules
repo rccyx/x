@@ -13,7 +13,3 @@
 [submodule "auth"]
 	path = packages/auth
 	url = git@github.com:rccyx/auth.git
-
-[submodule "runner"]
-	path = packages/runner
-	url = git@github.com:rccyx/runner.git
