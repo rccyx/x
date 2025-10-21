@@ -1,18 +1,15 @@
 import { Client as QstashClient } from "@upstash/qstash";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import { runner } from "@ashgw/runner";
 import type {
   Payload,
   ScheduleDto,
-  AtDto,
-  CronDto,
   ScheduleAtResult,
   ScheduleCronResult,
   ScheduleDelayResult,
-  DelayDto,
   Delay,
 } from "./types";
+import { run } from "@ashgw/runner";
 
 const qstashClient = new QstashClient({ token: env.QSTASH_TOKEN });
 
@@ -27,55 +24,57 @@ class SchedulerService {
     return new SchedulerService({ ...this._headers, ...headers });
   }
 
-  public async schedule(input: AtDto): Promise<ScheduleAtResult>;
-  public async schedule(input: CronDto): Promise<ScheduleCronResult>;
-  public async schedule(input: DelayDto): Promise<ScheduleDelayResult>;
-  public async schedule(
+  public async schedule(input: ScheduleDto) {
+    return run(
+      () => this._schedule(input),
+      "SchedulerServiceApiPublishingFailure",
+      {
+        message: "failed to schedule job",
+      },
+    );
+  }
+
+  private async _schedule(
     input: ScheduleDto,
   ): Promise<ScheduleAtResult | ScheduleCronResult | ScheduleDelayResult> {
     if ("at" in input) {
-      return await this.scheduleAt({
+      return await this._scheduleAt({
         atTime: input.at.datetimeIso,
         url: input.url,
         payload: input.payload,
       });
     }
     if ("delay" in input) {
-      return await this.scheduleDelay({
+      return await this._scheduleDelay({
         delay: input.delay,
         url: input.url,
         payload: input.payload,
       });
     }
-    return await this.scheduleCron({
+    return await this._scheduleCron({
       expression: input.cron.expression,
       url: input.url,
       payload: input.payload,
     });
   }
 
-  private async scheduleAt(input: {
+  private async _scheduleAt(input: {
     url: string;
     payload: Payload;
     atTime: string;
   }): Promise<ScheduleAtResult> {
     logger.info(`scheduling one-time job -> ${input.url}`);
-    const response = await throwable(
-      "external",
-      () =>
-        qstashClient.publish({
-          url: input.url,
-          body: input.payload,
-          headers: this._headers,
-          notBefore: SchedulerService._toUnixSecond(input.atTime),
-        }),
-      { service: "analytics", operation: "publish-at" },
-    );
+    const response = await qstashClient.publish({
+      url: input.url,
+      body: input.payload,
+      headers: this._headers,
+      notBefore: SchedulerService._toUnixSecond(input.atTime),
+    });
     logger.info(`scheduled at ${input.atTime} (id=${response.messageId})`);
     return { messageId: response.messageId };
   }
 
-  private async scheduleDelay({
+  private async _scheduleDelay({
     delay,
     payload,
     url,
@@ -93,40 +92,30 @@ class SchedulerService {
           : delay.seconds;
 
     logger.info(`scheduling delayed job -> ${url}`);
-    const response = await throwable(
-      "external",
-      () =>
-        qstashClient.publish({
-          url,
-          body: payload,
-          headers: this._headers,
-          delay: normalizedDelayInSeconds,
-        }),
-      { service: "scheduler", operation: "publish-delay" },
-    );
+    const response = await qstashClient.publish({
+      url,
+      body: payload,
+      headers: this._headers,
+      delay: normalizedDelayInSeconds,
+    });
     logger.info(
       `scheduled after ${normalizedDelayInSeconds}s (id=${response.messageId})`,
     );
     return { messageId: response.messageId };
   }
 
-  private async scheduleCron(input: {
+  private async _scheduleCron(input: {
     url: string;
     payload: Payload;
     expression: string;
   }): Promise<ScheduleCronResult> {
     logger.info(`scheduling cron -> ${input.expression} -> ${input.url}`);
-    const response = await throwable(
-      "external",
-      () =>
-        qstashClient.schedules.create({
-          destination: input.url,
-          cron: input.expression,
-          body: input.payload,
-          headers: this._headers,
-        }),
-      { service: "scheduler", operation: "schedule-cron" },
-    );
+    const response = await qstashClient.schedules.create({
+      destination: input.url,
+      cron: input.expression,
+      body: input.payload,
+      headers: this._headers,
+    });
     logger.info(`cron created (id=${response.scheduleId})`);
     return { scheduleId: response.scheduleId };
   }
