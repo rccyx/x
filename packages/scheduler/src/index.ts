@@ -27,7 +27,7 @@ class SchedulerService {
   public async schedule(input: ScheduleDto) {
     return run(
       () => this._schedule(input),
-      "SchedulerServiceApiPublishingFailure",
+      "SchedulerServiceExternalApiPublishFailure",
       {
         message: "failed to schedule job",
       },
