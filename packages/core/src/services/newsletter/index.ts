@@ -47,7 +47,7 @@ export class NewsletterService {
     )
       .next((res) => {
         return run(
-          () => this._parseKitResponse(res),
+          () => this._parse(res),
           `${serviceTag}ParseResponseFailure`,
           {
             message:
@@ -59,16 +59,17 @@ export class NewsletterService {
           },
         );
       })
-      .next((kitApiResponse) => {
-        if (kitApiResponse.errors) {
+      .next((kitRes) => {
+        if (kitRes.errors) {
           return err({
             severity: "error",
             message: "failed to subscribe to newsletter",
             tag: "NewsletterServiceSubscribeFailure",
             meta: {
               note: "kit response doesnt look like what it's supposed to be",
-              apiResponseErrors: {
-                ...kitApiResponse.errors,
+              apiResponse: {
+                errors: kitRes.errors,
+                message: kitRes.message,
               },
             },
           });
@@ -77,7 +78,7 @@ export class NewsletterService {
       });
   }
 
-  private static _parseKitResponse(res: Response): KitAPIResponse {
+  private static _parse(res: Response): KitAPIResponse {
     if (
       res.status === 204 ||
       !res.headers.get("content-type")?.includes("application/json")

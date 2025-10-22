@@ -3,55 +3,69 @@ import type {
   OssGetGithubTextSchemaDto,
   OssGetDirectTextSchemaRo,
 } from "../../models";
-import { E, throwable } from "../../../../runner/src";
+import { err, ok, run, runner } from "@ashgw/runner";
 
 function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
   const { repo, scriptPath } = opts;
   return `https://raw.githubusercontent.com/rccyx/${repo}/main/${scriptPath}`;
 }
 
-async function fetchText(
-  input: OssGetGithubTextSchemaDto,
-): Promise<OssGetDirectTextSchemaRo> {
-  const url =
-    input.fetchUrl.type === "github"
-      ? getRepoMainBranchBaseUrl({
-          repo: input.fetchUrl.repo,
-          scriptPath: input.fetchUrl.scriptPath,
-        })
-      : input.fetchUrl.url;
+export class OssService {
+  private static readonly serviceTag = "OssService";
+  public static async fetchText(input: OssGetGithubTextSchemaDto) {
+    const url =
+      input.fetchUrl.type === "github"
+        ? getRepoMainBranchBaseUrl({
+            repo: input.fetchUrl.repo,
+            scriptPath: input.fetchUrl.scriptPath,
+          })
+        : input.fetchUrl.url;
 
-  logger.info("fetching text from", { url });
+    logger.info("fetching text from", { url });
 
-  const res = await throwable(
-    "external",
-    () =>
-      fetch(url, {
-        next: { revalidate: input.revalidateSeconds },
-        cache: "force-cache",
-        signal: AbortSignal.timeout(10_000),
-      }),
-    {
-      service: "oss",
-      operation: "fetchText",
-      message: "failed to fetch github content",
-    },
-  );
-
-  if (!res.ok) {
-    throw E.upstreamError(`${url} returned non-ok response`, {
-      upstream: { service: "oss", operation: "fetchText" },
-      statusText: res.statusText,
-    });
+    return runner(
+      run(
+        () =>
+          fetch(url, {
+            next: { revalidate: input.revalidateSeconds },
+            cache: "force-cache",
+            signal: AbortSignal.timeout(10_000),
+          }),
+        `${this.serviceTag}GithubContentApiFetchFailure`,
+        {
+          message: "failed to call github api",
+          severity: "error",
+          meta: {
+            url,
+          },
+        },
+      ),
+    )
+      .next((res) => {
+        if (!res.ok) {
+          return err({
+            message: "github api returned non-ok response",
+            tag: `${this.serviceTag}GithubContentNonOkResponseFailure`,
+            severity: "error",
+            meta: {
+              url,
+              status: res.status,
+              statusText: res.statusText,
+              headers: Object.fromEntries(res.headers.entries()),
+            },
+          });
+        }
+        return ok(res);
+      })
+      .next((res) =>
+        run(() => res.text(), `${this.serviceTag}GithubContentParseFailure`, {
+          message: "failed to parse github content",
+          severity: "error",
+          meta: {
+            url,
+          },
+        }),
+      )
+      .next((text) => ok<OssGetDirectTextSchemaRo>({ text }));
   }
-
-  const text = await throwable("external", () => res.text(), {
-    service: "oss",
-    operation: "parseText",
-    message: "failed to parse upstream text",
-  });
-
-  return { text };
 }
-
-export const OssService = { fetchText };
