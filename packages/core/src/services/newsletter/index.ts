@@ -1,15 +1,20 @@
+import { z } from "zod";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
-import { E, throwable } from "../../../../runner/src";
+import { err, ok, run, runner } from "@ashgw/runner";
 
 interface SubscribeInput {
   email: string;
 }
 
-interface KitAPIResponse {
-  errors?: string[];
-  message?: string;
-}
+const kitAPIResponseSchema = z.object({
+  errors: z.array(z.string()).optional(),
+  message: z.string().optional(),
+});
+
+type KitAPIResponse = z.infer<typeof kitAPIResponseSchema>;
+
+const serviceTag = "NewsletterService";
 
 export class NewsletterService {
   private static readonly API_BASE = "https://api.kit.com/v4";
@@ -18,90 +23,67 @@ export class NewsletterService {
     "X-Kit-Api-Key": env.KIT_API_KEY,
   } as const;
 
-  public static async subscribe({ email }: SubscribeInput): Promise<void> {
-    await this._createSubscriber({ email });
-  }
-
-  private static async _createSubscriber({
-    email,
-  }: SubscribeInput): Promise<void> {
+  public static async subscribe({ email }: SubscribeInput) {
     logger.info("creating/updating subscriber", { email });
 
-    const res = await throwable(
-      "external",
-      () =>
-        fetch(`${this.API_BASE}/subscribers`, {
-          method: "POST",
-          headers: this.HEADERS,
-          body: JSON.stringify({ email_address: email }),
-        }),
-      {
-        message: "failed to subscribe to newsletter",
-        service: "newsletter",
-        operation: "create-subscriber",
-      },
-    );
-
-    const data = await throwable("external", () => this._parseResponse(res), {
-      message: "failed to parse newsletter response",
-      service: "newsletter",
-      operation: "create-subscriber",
-    });
-
-    this._validateResponse({ res, data });
+    return runner(
+      run(
+        () =>
+          fetch(`${this.API_BASE}/subscribers`, {
+            method: "POST",
+            headers: this.HEADERS,
+            body: JSON.stringify({ email_address: email }),
+          }),
+        `${serviceTag}SubscriberApiFailure`,
+        {
+          message:
+            "looks like something went wrong with our newsletter provider",
+          severity: "error",
+          meta: {
+            email,
+          },
+        },
+      ),
+    )
+      .next((res) => {
+        return run(
+          () => this._parseKitResponse(res),
+          `${serviceTag}ParseResponseFailure`,
+          {
+            message:
+              "looks like something went wrong with our newsletter provider",
+            severity: "error",
+            meta: {
+              email,
+            },
+          },
+        );
+      })
+      .next((kitApiResponse) => {
+        if (kitApiResponse.errors) {
+          return err({
+            severity: "error",
+            message: "failed to subscribe to newsletter",
+            tag: "NewsletterServiceSubscribeFailure",
+            meta: {
+              note: "kit response doesnt look like what it's supposed to be",
+              apiResponseErrors: {
+                ...kitApiResponse.errors,
+              },
+            },
+          });
+        }
+        return ok();
+      });
   }
-  private static async _parseResponse(res: Response): Promise<KitAPIResponse> {
-    // handle empty or non-json responses explicitly
+
+  private static _parseKitResponse(res: Response): KitAPIResponse {
     if (
       res.status === 204 ||
       !res.headers.get("content-type")?.includes("application/json")
     ) {
       return {};
     }
-
-    const text = await throwable("external", () => res.text(), {
-      service: "newsletter",
-      operation: "read-body",
-      message: "failed to read newsletter response body",
-    });
-
-    // constrain JSON.parse to a typed generic
-    const json = await throwable(
-      "external",
-      () => JSON.parse(text) as unknown,
-      {
-        service: "newsletter",
-        operation: "read-body",
-        message: "failed to parse newsletter JSON",
-      },
-    );
-
-    if (typeof json !== "object" || json === null || Array.isArray(json)) {
-      throw E.unprocessableContent("unexpected Kit API response shape");
-    }
-    return json as KitAPIResponse;
-  }
-
-  private static _validateResponse({
-    res,
-    data,
-  }: {
-    res: Response;
-    data: KitAPIResponse;
-  }): void {
-    logger.info("kit api response", {
-      status: res.status,
-      data,
-      headers: Object.fromEntries(res.headers.entries()),
-    });
-
-    if (!res.ok) {
-      const errorMessage =
-        data.errors?.join(", ") ?? data.message ?? "unknown error";
-
-      throw E.upstreamError(`kit api error (${res.status}): ${errorMessage}`, {
-        upstream: { service: "kit", operation: "create-subscriber" },
-      });
-    }
+    return kitAPIResponseSchema.parse(res.json());
   }
 }

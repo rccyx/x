@@ -1,7 +1,6 @@
 import type { UserRo } from "../models";
 import type { UserAuthQuery } from "../query-helpers/user";
 import { UserRoleEnum } from "../models";
-import { E } from "../../../runner/src";
 import type { SessionAuthQuery } from "../query-helpers/session";
 import { SessionMapper } from "./session";
 
@@ -20,27 +19,23 @@ export class UserMapper {
       createdAt: user.createdAt,
       emailVerified: user.emailVerified,
       updatedAt: user.updatedAt,
-      image: user.image ? user.image : undefined,
-      role: this._mapRoleFromAuthQuery({ role: user.role }),
+      image: user.image ?? undefined,
+      role: this._mapRoleFromAuthQuery(user.role),
       twoFactorEnabled: user.twoFactorEnabled ?? false,
       session: SessionMapper.toRo({ session }),
     };
   }
 
-  private static _mapRoleFromAuthQuery({
-    role,
-  }: {
-    role: string;
-  }): UserRoleEnum {
+  private static _mapRoleFromAuthQuery(role: string): UserRoleEnum {
     const normalized = role.toLowerCase().trim();
 
-    switch (normalized) {
-      case "admin":
-        return UserRoleEnum.ADMIN;
-      case "visitor":
-        return UserRoleEnum.VISITOR;
-      default:
-        throw E.unprocessableContent("Invalid role type, got: " + role);
-    }
+    const map: Record<"admin" | "visitor", UserRoleEnum> = {
+      admin: UserRoleEnum.ADMIN,
+      visitor: UserRoleEnum.VISITOR,
+    };
+    // fallback to visitor by default, but it will never happen
+    return (
+      (map as Record<string, UserRoleEnum>)[normalized] ?? UserRoleEnum.VISITOR
+    );
   }
 }
