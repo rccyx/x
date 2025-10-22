@@ -1,29 +1,34 @@
 import { scheduler } from "@ashgw/scheduler";
 import type {
-  ReminderSendEmailNotificationSchemaRo,
+  ReminderSendEmailNotificationRo,
   ReminderSendEmailNotificationSchemaDto,
 } from "../../models";
+import { ok, runner } from "@ashgw/runner";
 
 async function remind({
   headers,
   schedule,
   url,
-}: ReminderSendEmailNotificationSchemaDto): Promise<ReminderSendEmailNotificationSchemaRo> {
+}: ReminderSendEmailNotificationSchemaDto) {
   if (schedule.kind === "at") {
-    const result = await scheduler
-      .headers({
-        ...headers,
-      })
-      .schedule({
-        at: {
-          datetimeIso: schedule.at,
-        },
-        url,
-        payload: JSON.stringify(schedule.emailNotification),
-      });
-    return { id: result.messageId, at: schedule.at };
-
-    // delay
+    return runner(
+      scheduler
+        .headers({
+          ...headers,
+        })
+        .schedule({
+          at: {
+            datetimeIso: schedule.at,
+          },
+          url,
+          payload: JSON.stringify(schedule.emailNotification),
+        }),
+    ).next(() =>
+      ok<ReminderSendEmailNotificationRo>({
+        at: schedule.at,
+        type: "date",
+      }),
+    );
   } else {
     const delayObjectNormalizer = () => {
       const value = schedule.delay.value;
@@ -37,16 +42,23 @@ async function remind({
       return unitMap[schedule.delay.unit];
     };
 
-    const result = await scheduler
-      .headers({
-        ...headers,
-      })
-      .schedule({
-        delay: { ...delayObjectNormalizer() },
-        url,
-        payload: JSON.stringify(schedule.emailNotification),
-      });
-    return { id: result.messageId, at: schedule.delay.unit };
+    return runner(
+      scheduler
+        .headers({
+          ...headers,
+        })
+        .schedule({
+          delay: { ...delayObjectNormalizer() },
+          url,
+          payload: JSON.stringify(schedule.emailNotification),
+        }),
+    ).next(() =>
+      ok<ReminderSendEmailNotificationRo>({
+        type: "delay",
+        unit: schedule.delay.unit,
+        value: schedule.delay.value,
+      }),
+    );
   }
 }
 

@@ -1,11 +1,22 @@
 import { z } from "zod";
 import { isoDateTimeSchema } from "./shared";
 
-export const reminderSendEmailNotificationSchemaRo = z.object({
-  id: z.string().min(1).max(255),
-  at: isoDateTimeSchema.optional(),
+const delaySchemaRo = z.object({
+  type: z.literal("delay"),
+  unit: z.enum(["seconds", "minutes", "hours", "days"]),
+  value: z.number().nonnegative(),
 });
 
-export type ReminderSendEmailNotificationSchemaRo = z.infer<
+const dateSchemaRo = z.object({
+  type: z.literal("date"),
+  at: isoDateTimeSchema,
+});
+
+export const reminderSendEmailNotificationSchemaRo = z.discriminatedUnion(
+  "type",
+  [delaySchemaRo, dateSchemaRo],
+);
+
+export type ReminderSendEmailNotificationRo = z.infer<
   typeof reminderSendEmailNotificationSchemaRo
 >;
