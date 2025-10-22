@@ -1485,8 +1485,8 @@ importers:
         specifier: ^9.12.0
         version: 9.12.0(jiti@2.6.0)
       eslint-plugin-runyx:
-        specifier: 1.0.1
-        version: 1.0.1(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3)
+        specifier: 1.1.0
+        version: 1.1.0(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3)
       prettier:
         specifier: 'catalog:'
         version: 3.3.3
@@ -7176,8 +7176,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-runyx@1.0.1:
-    resolution: {integrity: sha512-1CShq4yS1qBKdfGH8w7oMCrNtF/a6omXB5AIFEPCY9zfZlFtbtRoNpdRPE3QqBTgHe7fQixdY2MYqjbiVuRkEg==}
+  eslint-plugin-runyx@1.1.0:
+    resolution: {integrity: sha512-f3xQn5J9nRLm186OPvHhrZWG5RZN7S3NgfVUKbyyXdS9z/ONM3lEnvwTIF3d3TOzAlg9PLv+fdyLgloVFDSXOA==}
     peerDependencies:
       eslint: '>=8.57 <11'
       typescript: ^5
@@ -17676,7 +17676,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-runyx@1.0.1(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3):
+  eslint-plugin-runyx@1.1.0(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3):
     dependencies:
       eslint: 9.12.0(jiti@2.6.0)
       typescript: 5.6.3
