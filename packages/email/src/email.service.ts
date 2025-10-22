@@ -37,15 +37,6 @@ export class EmailService {
 
     logger.info("sending email...");
 
-    await run(
-      () => client.emails.send(options),
-      "EmailClientApiSendingFailure",
-      {
-        severity: "error",
-        message: "failed to send email",
-      },
-    );
-
     return runner(
       run(() => client.emails.send(options), "EmailClientApiSendingFailure", {
         severity: "error",

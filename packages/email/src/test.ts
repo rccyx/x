@@ -3,8 +3,27 @@ import { logger } from "@ashgw/logger";
 import { env } from "@ashgw/env";
 import { send } from "./index";
 
+function sendInstantCall() {
+  // noop
+}
+
 observer((err) => {
-  if (err.meta?.severity === "info") return;
+  if (err.meta?.severity === "warning") {
+    logger.warn(err.message, {
+      tag: err.tag,
+      meta: err.meta,
+      cause: err.cause,
+    });
+    return;
+  } else if (err.meta?.severity === "fatal") {
+    logger.fatal(err.message, {
+      tag: err.tag,
+      meta: err.meta,
+      cause: err.cause,
+    });
+    sendInstantCall();
+    return;
+  }
   logger.error(err.message, { tag: err.tag, meta: err.meta, cause: err.cause });
 });
 
