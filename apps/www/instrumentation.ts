@@ -2,18 +2,27 @@ import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { observer } from "runyx";
 
-export const onRequestError = monitor.next.SentryLib.captureRequestError;
-
 export function register() {
   monitor.next.initializeServer();
   observer((error) => {
-    // every Err() and run() call in this process goes through here
-    if (error.meta?.severity === "info") {
-      logger.info(error.message, {
+    const severity = error.meta?.severity;
+
+    if (severity === "warning") {
+      logger.warn(error.message, {
         tag: error.tag,
         meta: error.meta,
         cause: error.cause,
       });
+      return;
+    }
+
+    if (severity === "fatal") {
+      logger.fatal(error.message, {
+        tag: error.tag,
+        meta: error.meta,
+        cause: error.cause,
+      });
+      monitor.next.captureException({ error });
       return;
     }
 
@@ -23,8 +32,6 @@ export function register() {
       cause: error.cause,
     });
 
-    monitor.next.captureException({
-      error,
-    });
+    monitor.next.captureException({ error });
   });
 }
