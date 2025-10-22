@@ -56,6 +56,7 @@ export class EmailService {
         return err({
           message: "email response failure",
           tag: "EmailClientApiResponseFailure",
+          severity: "error",
           meta: {
             note: "verify the domain, if you have changed it",
             resendErrorResponse: {

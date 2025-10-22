@@ -4,11 +4,8 @@ import { env } from "@ashgw/env";
 import { send } from "./index";
 
 observer((err) => {
-  logger.error(err.message, {
-    tag: err.tag,
-    meta: err.meta,
-    cause: err.cause,
-  });
+  if (err.meta?.severity === "info") return;
+  logger.error(err.message, { tag: err.tag, meta: err.meta, cause: err.cause });
 });
 
 async function main(): Promise<void> {
