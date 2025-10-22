@@ -30,6 +30,7 @@ class SchedulerService {
       "SchedulerServiceExternalApiPublishFailure",
       {
         message: "failed to schedule job",
+        severity: "error",
       },
     );
   }

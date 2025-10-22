@@ -53,6 +53,7 @@ class EmailSenders {
           "VerifyEmailTemplateRenderingFailure",
           {
             message: "cannot render verify email template",
+            severity: "error",
           },
         ),
       ).next((html) => {
@@ -76,6 +77,7 @@ class EmailSenders {
           "EmailIsVerifiedTemplateRenderingFailure",
           {
             message: "cannot render email is verified template",
+            severity: "error",
           },
         ),
       ).next((html) => {
@@ -98,6 +100,7 @@ class EmailSenders {
           "ResetPasswordTemplateRenderingFailure",
           {
             message: "cannot render reset password template",
+            severity: "error",
           },
         ),
       ).next((html) => {
@@ -119,6 +122,7 @@ class EmailSenders {
           "AccountDeletedTemplateRenderingFailure",
           {
             message: "cannot render account deleted template",
+            severity: "error",
           },
         ),
       ).next((html) => {
@@ -146,6 +150,7 @@ class EmailSenders {
           "NotificationTemplateRenderingFailure",
           {
             message: "cannot render notification template",
+            severity: "error",
           },
         ),
       ).next((html) => {
