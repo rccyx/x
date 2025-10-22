@@ -19,39 +19,31 @@ export class ViewService {
     const bucketStart = this._utcMidnight(new Date());
 
     let total = 0;
-    await throwable(
-      () =>
-        db.$transaction(async (tx) => {
-          const inserted = await tx.postViewWindow.createMany({
-            data: { postSlug: slug, fingerprint, bucketStart },
-            skipDuplicates: true,
-          });
+    await db.$transaction(async (tx) => {
+      const inserted = await tx.postViewWindow.createMany({
+        data: { postSlug: slug, fingerprint, bucketStart },
+        skipDuplicates: true,
+      });
 
-          if (inserted.count > 0) {
-            const updated = await tx.post.update({
-              where: { slug },
-              data: { viewsCount: { increment: 1 } },
-              select: { viewsCount: true },
-            });
-            total = updated.viewsCount;
-            logger.info("New view tracked", { slug });
-          } else {
-            const existing = await tx.post.findUnique({
-              where: { slug },
-              select: { viewsCount: true },
-            });
-            logger.info("User already saw the post, no view to track", {
-              slug,
-            });
-            total = existing?.viewsCount ?? 0;
-          }
-        }),
-      {
-        message: "failed to track view",
-        service: "db",
-        operation: "transaction.track-view",
-      },
-    );
+      if (inserted.count > 0) {
+        const updated = await tx.post.update({
+          where: { slug },
+          data: { viewsCount: { increment: 1 } },
+          select: { viewsCount: true },
+        });
+        total = updated.viewsCount;
+        logger.info("New view tracked", { slug });
+      } else {
+        const existing = await tx.post.findUnique({
+          where: { slug },
+          select: { viewsCount: true },
+        });
+        logger.info("User already saw the post, no view to track", {
+          slug,
+        });
+        total = existing?.viewsCount ?? 0;
+      }
+    });
     return { total };
   }
   private _fingerprint({
@@ -83,17 +75,9 @@ export class ViewService {
     logger.info("Cleaning up the view window prior to: ", {
       cutoffDate: cutoff.toISOString(),
     });
-    const deleted = await throwable(
-      () =>
-        db.postViewWindow.deleteMany({
-          where: { bucketStart: { lt: cutoff } },
-        }),
-      {
-        message: "failed to purge view window",
-        service: "db",
-        operation: "postViewWindow.deleteMany",
-      },
-    );
+    const deleted = await db.postViewWindow.deleteMany({
+      where: { bucketStart: { lt: cutoff } },
+    });
     const deletedCount = deleted.count;
     if (deletedCount > 0) {
       logger.info("View window records purged successfully!", {
