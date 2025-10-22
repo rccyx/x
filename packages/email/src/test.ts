@@ -1,6 +1,15 @@
+import { observer } from "@ashgw/runner";
+import { logger } from "@ashgw/logger";
 import { env } from "@ashgw/env";
 import { send } from "./index";
-import { logger } from "@ashgw/logger";
+
+observer((err) => {
+  logger.error(err.message, {
+    tag: err.tag,
+    meta: err.meta,
+    cause: err.cause,
+  });
+});
 
 async function main(): Promise<void> {
   await send.auth
@@ -13,19 +22,19 @@ async function main(): Promise<void> {
       r.match({
         ok: (v) => logger.info("Sent verify email", { id: v.id }),
         err: {
-          EmailClientResponseMissingId: (e) => {
-            logger.error("Failed to send verify email", { error: e });
+          EmailClientApiResponseFailure: (_e) => {
+            // noop
           },
-          EmailClientSendingFailure: (e) => {
-            logger.error("Failed to send verify email", { error: e });
+          EmailClientApiSendingFailure: (_e) => {
+            // noop
           },
-          VerifyEmailTemplateRenderingFailure: (e) => {
-            logger.error("Failed to send verify email", { error: e });
+          VerifyEmailTemplateRenderingFailure: (_e) => {
+            // noop
           },
         },
       }),
-    );
-  logger.info("Sent verify email");
+    )
+    .catch((e) => logger.error("error", e));
 }
 
 void main();

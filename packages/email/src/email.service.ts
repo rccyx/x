@@ -37,16 +37,32 @@ export class EmailService {
 
     logger.info("sending email...");
 
+    await run(
+      () => client.emails.send(options),
+      "EmailClientApiSendingFailure",
+      {
+        severity: "error",
+        message: "failed to send email",
+      },
+    );
+
     return runner(
-      run(() => client.emails.send(options), "EmailClientSendingFailure", {
+      run(() => client.emails.send(options), "EmailClientApiSendingFailure", {
         severity: "error",
         message: "failed to send email",
       }),
-    ).next(({ data }) => {
-      if (!data?.id) {
+    ).next(({ data, error }) => {
+      if (error) {
         return err({
-          message: "missing response from email provider",
-          tag: "EmailClientResponseMissingId",
+          message: "email response failure",
+          tag: "EmailClientApiResponseFailure",
+          meta: {
+            note: "verify the domain, if you have changed it",
+            resendErrorResponse: {
+              message: error.message,
+              name: error.name,
+            },
+          },
         });
       }
       return ok<SendResult>({ id: data.id });

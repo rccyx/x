@@ -1,10 +1,21 @@
+import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
+import { observer } from "runyx";
 
-// Only export Sentry's request-error hook here. We let Next auto-init Sentry
-// via sentry.server.config.ts and sentry.client.config.ts to avoid double init.
 export const onRequestError = monitor.next.SentryLib.captureRequestError;
 
-// Server-side Sentry init for this app. Loaded by Next at startup.
 export function register() {
   monitor.next.initializeServer();
+  observer((error) => {
+    // every Err() and run() call in this process goes through here
+    logger.error(error.message, {
+      tag: error.tag,
+      meta: error.meta,
+      cause: error.cause,
+    });
+
+    monitor.next.captureException({
+      error,
+    });
+  });
 }
