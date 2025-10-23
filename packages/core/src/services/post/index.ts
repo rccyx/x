@@ -248,71 +248,165 @@ export class PostService {
   }: {
     slug: string;
     data: PostEditorDto;
-  }): Promise<PostArticleRo> {
-    const existingPost = await db.post.findUnique({
-      where: { slug },
-      select: { slug: true },
-    });
-    if (!existingPost) throw Error(`post with slug "${slug}" not found`);
-
-    const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
-
-    const post = await db.post.update({
-      where: { slug },
-      data: {
-        title: data.title,
-        summary: data.summary,
-        isReleased: data.isReleased,
-        lastModDate: new Date(),
-        minutesToRead,
-        tags: data.tags,
-        category: data.category,
-        mdxText: data.mdxText,
-      },
-      include: PostQueryHelper.articleInclude(),
-    });
-
-    return PostMapper.toArticleRo({
-      post,
-      fontMatterMdxContent: this._parseMDX({ content: data.mdxText, slug }),
-    });
-  }
-
-  public async trashPost({
-    originalSlug,
-  }: {
-    originalSlug: string;
-  }): Promise<void> {
-    const post = await db.post.findUnique({ where: { slug: originalSlug } });
-    if (!post) throw Error(`post with slug "${originalSlug}" not found`);
-
-    await db.$transaction(async (tx) => {
-      await tx.trashPost.create({
-        data: {
-          originalSlug: post.slug,
-          title: post.title,
-          summary: post.summary,
-          firstModDate: post.firstModDate,
-          lastModDate: post.lastModDate,
-          wasReleased: post.isReleased,
-          minutesToRead: post.minutesToRead,
-          tags: post.tags,
-          category: post.category,
-          mdxText: post.mdxText,
+  }) {
+    return runner(
+      run(
+        () => db.post.findUnique({ where: { slug } }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to check if post already exists",
         },
+      ),
+    )
+      .next((existingPost) => {
+        if (!existingPost) {
+          return err({
+            severity: "warn",
+            message: `post with slug "${slug}" not found`,
+            tag: `${this.serviceTag}PostNotFound`,
+          });
+        }
+        return ok(existingPost);
+      })
+      .next(() =>
+        runSync(
+          () => WordCounterService.countMinutesToRead(data.mdxText),
+          `${this.serviceTag}WordCountFailure`,
+          {
+            severity: "error",
+            message: "failed to count words",
+          },
+        ),
+      )
+      .next((minutesToRead) =>
+        run(
+          () =>
+            db.post.update({
+              where: { slug },
+              data: {
+                title: data.title,
+                summary: data.summary,
+                isReleased: data.isReleased,
+                lastModDate: new Date(),
+                minutesToRead,
+                tags: data.tags,
+                category: data.category,
+                mdxText: data.mdxText,
+              },
+              include: PostQueryHelper.articleInclude(),
+            }),
+          `${this.serviceTag}DatabaseFailure`,
+          {
+            severity: "fatal",
+            message: "failed to update post",
+          },
+        ),
+      )
+      .next((rawPost) =>
+        runSync(
+          () =>
+            PostMapper.toArticleRo({
+              post: rawPost,
+              fontMatterMdxContent: this._parseMDX({
+                content: data.mdxText,
+                slug,
+              }),
+            }),
+          `${this.serviceTag}MDXParsingFailure`,
+          {
+            severity: "error",
+            message: "failed to parse MDX",
+          },
+        ),
+      )
+      .next((post) => ok<PostArticleRo>(post));
+  }
+
+  public async trashPost({ originalSlug }: { originalSlug: string }) {
+    return runner(
+      run(
+        () => db.post.findUnique({ where: { slug: originalSlug } }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to check if post exists",
+        },
+      ),
+    )
+      .next((post) => {
+        if (!post) {
+          return err({
+            severity: "warn",
+            message: `post with slug "${originalSlug}" not found`,
+            tag: `${this.serviceTag}PostNotFound`,
+          });
+        }
+        return ok(post);
+      })
+      .next((post) =>
+        run(
+          () =>
+            db.$transaction(async (tx) => {
+              await tx.trashPost.create({
+                data: {
+                  originalSlug: post.slug,
+                  title: post.title,
+                  summary: post.summary,
+                  firstModDate: post.firstModDate,
+                  lastModDate: post.lastModDate,
+                  wasReleased: post.isReleased,
+                  minutesToRead: post.minutesToRead,
+                  tags: post.tags,
+                  category: post.category,
+                  mdxText: post.mdxText,
+                },
+              });
+              await tx.post.delete({ where: { slug: post.slug } });
+            }),
+          `${this.serviceTag}DatabaseFailure`,
+          {
+            severity: "fatal",
+            message: "failed to trash post",
+          },
+        ),
+      )
+      .next(() => {
+        logger.info("post moved to trash", { originalSlug });
+        return ok();
       });
-      await tx.post.delete({ where: { slug: post.slug } });
+  }
+
+  public async purgeTrashPost({ trashId }: { trashId: string }) {
+    return runner(
+      run(
+        () => db.trashPost.delete({ where: { id: trashId } }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to purge trash post",
+        },
+      ),
+    ).next(() => {
+      logger.info("trash post purged", { trashId });
+      return ok();
     });
-
-    logger.info("post moved to trash", { originalSlug });
   }
 
-  public async purgeTrashPost({ trashId }: { trashId: string }): Promise<void> {
-    await db.trashPost.delete({ where: { id: trashId } });
-  }
-
-  public async purgeTrash(): Promise<void> {
-    await db.trashPost.deleteMany();
+  public async purgeTrash() {
+    return runner(
+      run(
+        () => db.trashPost.deleteMany(),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to purge trash posts",
+        },
+      ),
+    ).next(() => {
+      logger.info("trash posts purged");
+      return ok();
+    });
   }
 
   public async restoreFromTrash({
