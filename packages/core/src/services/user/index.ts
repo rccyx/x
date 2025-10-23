@@ -13,12 +13,13 @@ import type {
   UserRo,
   UserTerminateSpecificSessionDto,
   UserChangePasswordDto,
+  SessionRo,
 } from "../../models";
 import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
 import { logger as baseLogger } from "@ashgw/logger";
-import { run } from "@ashgw/runner";
+import { err, ok, run, runner } from "@ashgw/runner";
 
 const logger = baseLogger.withContext({
   service: "UserService",
@@ -97,29 +98,63 @@ export class UserService {
 
   public async listSessions() {
     logger.info("Listing all sessions");
-    const sessions = await auth.api.listSessions({
-      headers: this.requestHeaders,
-    });
-    return sessions.map((s) => SessionMapper.toRo({ session: s }));
+    return runner(
+      run(
+        () => auth.api.listSessions({ headers: this.requestHeaders }),
+        `${this.serviceTag}${this.authApiTag}ListSessionsFailure`,
+        {
+          severity: "error",
+          message: "failed to list sessions",
+        },
+      ),
+    ).next((rawSessions) =>
+      ok<SessionRo[]>(
+        rawSessions.map((session) => SessionMapper.toRo({ session })),
+      ),
+    );
   }
 
   public async terminateSpecificSession({
     sessionId,
   }: UserTerminateSpecificSessionDto) {
-    logger.info("Terminating specific session");
-    const sessions = await auth.api.listSessions({
-      headers: this.requestHeaders,
-    });
-    const session = sessions.find((s) => s.id === sessionId);
-    if (!session) {
-      throw Error("Invalid session ID");
-    }
-    return await auth.api.revokeSession({
-      body: {
-        token: session.token,
-      },
-      headers: this.requestHeaders,
-    });
+    return runner(
+      run(
+        () => auth.api.listSessions({ headers: this.requestHeaders }),
+        `${this.serviceTag}${this.authApiTag}ListSessionsFailure`,
+        {
+          severity: "error",
+          message: "failed to list sessions",
+        },
+      ),
+    )
+      .next((rawSessions) => {
+        const rawSession = rawSessions.find((s) => s.id === sessionId);
+        if (!rawSession) {
+          return err({
+            severity: "warn",
+            tag: `${this.serviceTag}${this.authApiTag}InvalidSessionId`,
+            message: "Invalid session ID",
+            meta: {
+              note: "the provided session ID doesnt match any of the active sessions",
+            },
+          });
+        }
+        return ok(rawSession);
+      })
+      .next((rawSession) =>
+        run(
+          () =>
+            auth.api.revokeSession({
+              body: { token: rawSession.token },
+              headers: this.requestHeaders,
+            }),
+          `${this.serviceTag}${this.authApiTag}RevokeSessionFailure`,
+          {
+            severity: "error",
+            message: "failed to revoke session",
+          },
+        ),
+      );
   }
 
   public async changePassword(input: UserChangePasswordDto) {

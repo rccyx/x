@@ -7,7 +7,7 @@ export function register() {
   observer((error) => {
     const severity = error.meta?.severity;
 
-    if (severity === "warning") {
+    if (severity === "warn") {
       logger.warn(error.message, {
         tag: error.tag,
         meta: error.meta,

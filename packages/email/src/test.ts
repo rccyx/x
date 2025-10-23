@@ -8,7 +8,7 @@ function sendInstantCall() {
 }
 
 observer((err) => {
-  if (err.meta?.severity === "warning") {
+  if (err.meta?.severity === "warn") {
     logger.warn(err.message, {
       tag: err.tag,
       meta: err.meta,
