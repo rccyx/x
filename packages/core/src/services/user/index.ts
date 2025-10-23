@@ -209,7 +209,7 @@ export class UserService {
         return err({
           severity: "warn",
           tag: `${this.serviceTag}${this.authApiTag}InvalidSession`,
-          message: "Invalid session",
+          message: "no user found in session",
         });
       }
       return ok<UserRo>(
@@ -223,59 +223,121 @@ export class UserService {
 
   // ======================= Two Factor =======================
 
-  public async enableTwoFactor(
-    input: TwoFactorEnableDto,
-  ): Promise<TwoFactorEnableRo> {
+  public async enableTwoFactor(input: TwoFactorEnableDto) {
     logger.info("Enabling two factor");
-    return await auth.api.enableTwoFactor({
-      body: {
-        ...input,
-      },
-      headers: this.requestHeaders,
+    return runner(
+      run(
+        () =>
+          auth.api.enableTwoFactor({
+            body: {
+              ...input,
+            },
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}EnableTwoFactorFailure`,
+        {
+          severity: "error",
+          message: "failed to enable two factor",
+        },
+      ),
+    ).next(({ backupCodes, totpURI }) => {
+      return ok<TwoFactorEnableRo>({
+        backupCodes,
+        totpURI,
+      });
     });
   }
-  public async getTwoFactorTotpUri(
-    input: TwoFactorGetTotpUriDto,
-  ): Promise<TwoFactorGetTotpUriRo> {
+  public async getTwoFactorTotpUri(input: TwoFactorGetTotpUriDto) {
     logger.info("Getting two factor totp uri");
-    return auth.api.getTOTPURI({
-      body: input,
-      headers: this.requestHeaders,
-    });
-  }
-  public async verifyTwoFactorTotp(
-    input: TwoFactorVerifyTotpDto,
-  ): Promise<void> {
-    logger.info("Verifying two factor totp");
-    await auth.api.verifyTOTP({
-      body: input,
-      headers: this.requestHeaders,
-    });
-  }
-  public async disableTwoFactor(input: TwoFactorDisableDto): Promise<void> {
-    logger.info("Disabling two factor");
-    await auth.api.disableTwoFactor({
-      body: input,
-      headers: this.requestHeaders,
-    });
-  }
-  public async generateTwoFactorBackupCodes(
-    input: TwoFactorGenerateBackupCodesDto,
-  ): Promise<TwoFactorGenerateBackupCodesRo> {
-    logger.info("Generating two factor backup codes");
-    return await auth.api.generateBackupCodes({
-      body: input,
-      headers: this.requestHeaders,
+    return runner(
+      run(
+        () =>
+          auth.api.getTOTPURI({
+            body: input,
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}GetTOTPURIFailure`,
+        {
+          severity: "error",
+          message: "failed to get totp uri",
+        },
+      ),
+    ).next(({ totpURI }) => {
+      return ok<TwoFactorGetTotpUriRo>({
+        totpURI,
+      });
     });
   }
 
-  public async verifyTwoFactorBackupCode(
-    input: TwoFactorVerifyBackupCodeDto,
-  ): Promise<void> {
-    logger.info("Verifying two factor backup code");
-    await auth.api.verifyBackupCode({
-      body: input,
-      headers: this.requestHeaders,
+  public async verifyTwoFactorTotp(input: TwoFactorVerifyTotpDto) {
+    logger.info("Verifying two factor totp");
+    return run(
+      () =>
+        auth.api.verifyTOTP({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}VerifyTOTPFailure`,
+      {
+        severity: "error",
+        message: "failed to verify totp",
+      },
+    );
+  }
+
+  public async disableTwoFactor(input: TwoFactorDisableDto) {
+    logger.info("Disabling two factor");
+    return run(
+      () =>
+        auth.api.disableTwoFactor({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}DisableTwoFactorFailure`,
+      {
+        severity: "error",
+        message: "failed to disable two factor",
+      },
+    );
+  }
+
+  public async generateTwoFactorBackupCodes(
+    input: TwoFactorGenerateBackupCodesDto,
+  ) {
+    logger.info("Generating two factor backup codes");
+    return runner(
+      run(
+        () =>
+          auth.api.generateBackupCodes({
+            body: input,
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}GenerateBackupCodesFailure`,
+        {
+          severity: "error",
+          message: "failed to generate backup codes",
+        },
+      ),
+    ).next(({ backupCodes }) => {
+      return ok<TwoFactorGenerateBackupCodesRo>({
+        backupCodes,
+      });
     });
+  }
+
+  public async verifyTwoFactorBackupCode(input: TwoFactorVerifyBackupCodeDto) {
+    logger.info("Verifying two factor backup code");
+    return run(
+      () =>
+        auth.api.verifyBackupCode({
+          body: input,
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}VerifyBackupCodeFailure`,
+      {
+        severity: "error",
+        message: "failed to verify backup code",
+      },
+    );
   }
 }
