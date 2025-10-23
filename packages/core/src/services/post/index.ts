@@ -409,39 +409,78 @@ export class PostService {
     });
   }
 
-  public async restoreFromTrash({
-    trashId,
-  }: {
-    trashId: string;
-  }): Promise<void> {
-    const trash = await db.trashPost.findUnique({ where: { id: trashId } });
-    if (!trash) throw Error("trash item not found");
-
-    const exists = await db.post.findUnique({
-      where: { slug: trash.originalSlug },
-    });
-    if (exists)
-      throw Error(
-        `a live post with slug "${trash.originalSlug}" already exists`,
-      );
-
-    await db.$transaction(async (tx) => {
-      await tx.post.create({
-        data: {
-          slug: trash.originalSlug,
-          title: trash.title,
-          summary: trash.summary,
-          firstModDate: trash.firstModDate,
-          lastModDate: trash.lastModDate,
-          isReleased: trash.wasReleased,
-          minutesToRead: trash.minutesToRead,
-          tags: trash.tags,
-          category: trash.category,
-          mdxText: trash.mdxText,
+  public async restoreFromTrash({ trashId }: { trashId: string }) {
+    return runner(
+      run(
+        () => db.trashPost.findUnique({ where: { id: trashId } }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to find trash post",
         },
+      ),
+    )
+      .next((trash) => {
+        if (!trash) {
+          return err({
+            severity: "warn",
+            message: `trash post with id "${trashId}" not found`,
+            tag: `${this.serviceTag}TrashPostNotFound`,
+          });
+        }
+        return ok(trash);
+      })
+      .next((trash) =>
+        run(
+          () => db.post.findUnique({ where: { slug: trash.originalSlug } }),
+          `${this.serviceTag}DatabaseFailure`,
+          {
+            severity: "fatal",
+            message: "failed to check if post already exists",
+          },
+        ),
+      )
+      .next((exists) => {
+        if (exists) {
+          return err({
+            severity: "error",
+            message: `a live post with slug "${exists.originalSlug}" already exists`,
+            tag: `${this.serviceTag}PostAlreadyExists`,
+          });
+        }
+        return ok();
+      })
+      .nextAcc((_, trash, __) =>
+        run(
+          () =>
+            db.$transaction(async (tx) => {
+              await tx.post.create({
+                data: {
+                  slug: trash.originalSlug,
+                  title: trash.title,
+                  summary: trash.summary,
+                  firstModDate: trash.firstModDate,
+                  lastModDate: trash.lastModDate,
+                  isReleased: trash.wasReleased,
+                  minutesToRead: trash.minutesToRead,
+                  tags: trash.tags,
+                  category: trash.category,
+                  mdxText: trash.mdxText,
+                },
+              });
+              await tx.trashPost.delete({ where: { id: trashId } });
+            }),
+          `${this.serviceTag}DatabaseFailure`,
+          {
+            severity: "fatal",
+            message: "failed to restore from trash",
+          },
+        ),
+      )
+      .next(() => {
+        logger.info("post restored from trash", { trashId });
+        return ok();
       });
-      await tx.trashPost.delete({ where: { id: trashId } });
-    });
   }
 
   private _parseMDX({
