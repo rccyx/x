@@ -1,5 +1,4 @@
 import type { FrontMatterResult } from "front-matter";
-import type { Optional } from "ts-roids";
 import fm from "front-matter";
 import { db } from "@ashgw/db";
 import { WordCounterService } from "@ashgw/cross-runtime";
@@ -85,63 +84,162 @@ export class PostService {
       .next((posts) => ok<PostArticleRo[]>(posts));
   }
 
-  public async getTrashedPosts(): Promise<TrashPostArticleRo[]> {
-    const trashed = await db.trashPost.findMany({
-      orderBy: { deletedAt: "desc" },
+  public async getTrashedPosts() {
+    return runner(
+      run(
+        () =>
+          db.trashPost.findMany({
+            orderBy: { deletedAt: "desc" },
+          }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to fetch trashed posts",
+        },
+      ),
+    ).next((trashed) => {
+      if (trashed.length === 0)
+        return err({
+          severity: "warn",
+          message: "no trashed posts found",
+          tag: `${this.serviceTag}NoTrashedPostsFound`,
+        });
+      return ok<TrashPostArticleRo[]>(
+        trashed.map((post) => PostMapper.toTrashRo({ post })),
+      );
     });
-
-    if (trashed.length === 0) return [];
-    return trashed.map((t) => PostMapper.toTrashRo({ post: t }));
   }
 
-  public async getDetailedPublicPost({
-    slug,
-  }: {
-    slug: string;
-  }): Promise<Optional<PostArticleRo>> {
-    const post = await db.post.findUnique({
-      where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
-      include: PostQueryHelper.articleInclude(),
-    });
-
-    if (!post) return null;
-
-    return PostMapper.toArticleRo({
-      post,
-      fontMatterMdxContent: this._parseMDX({ content: post.mdxText, slug }),
-    });
+  public async getDetailedPublicPost({ slug }: { slug: string }) {
+    return runner(
+      run(
+        () =>
+          db.post.findUnique({
+            where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
+            include: PostQueryHelper.articleInclude(),
+          }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to fetch public post",
+        },
+      ),
+    )
+      .next((rawPost) => {
+        if (!rawPost) {
+          return err({
+            message: "no post found for the given slug",
+            severity: "warn",
+            tag: `${this.serviceTag}DetailedPublicPostNotFound`,
+          });
+        }
+        return ok(rawPost);
+      })
+      .next((rawPost) =>
+        runSync(
+          () =>
+            PostMapper.toArticleRo({
+              post: rawPost,
+              fontMatterMdxContent: this._parseMDX({
+                content: rawPost.mdxText,
+                slug: rawPost.slug,
+              }),
+            }),
+          `${this.serviceTag}MDXParsingFailure`,
+          {
+            severity: "error",
+            message: "failed to parse MDX",
+          },
+        ),
+      )
+      .next((post) => ok<PostArticleRo>(post));
   }
 
-  public async createPost(data: PostEditorDto): Promise<PostArticleRo> {
-    const slug = this._slugify(data.title);
+  public async createPost(data: PostEditorDto) {
+    const slug = data.title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
 
-    const existingPost = await db.post.findUnique({ where: { slug } });
-
-    if (existingPost) throw Error(`a post with slug "${slug}" already exists`);
-
-    const now = new Date();
-    const minutesToRead = WordCounterService.countMinutesToRead(data.mdxText);
-
-    const post = await db.post.create({
-      data: {
-        slug,
-        title: data.title,
-        summary: data.summary,
-        isReleased: data.isReleased,
-        firstModDate: now,
-        lastModDate: now,
-        minutesToRead,
-        tags: data.tags,
-        category: data.category,
-        mdxText: data.mdxText,
-      },
-      include: PostQueryHelper.articleInclude(),
-    });
-
-    return PostMapper.toArticleRo({
-      post,
-      fontMatterMdxContent: this._parseMDX({ content: data.mdxText, slug }),
-    });
+    return runner(
+      run(
+        () => db.post.findUnique({ where: { slug } }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to check if post already exists",
+        },
+      ),
+    )
+      .next((existingPost) => {
+        if (existingPost) {
+          return err({
+            tag: `${this.serviceTag}PostAlreadyExists`,
+            severity: "error",
+            message: `a post with slug "${slug}" already exists`,
+          });
+        }
+        return ok();
+      })
+      .next(() =>
+        runSync(
+          () => WordCounterService.countMinutesToRead(data.mdxText),
+          `${this.serviceTag}WordCountFailure`,
+          {
+            severity: "error",
+            message: "failed to count words",
+          },
+        ),
+      )
+      .next((minutesToRead) =>
+        run(
+          () => {
+            const now = new Date();
+            return db.post.create({
+              data: {
+                slug,
+                title: data.title,
+                summary: data.summary,
+                isReleased: data.isReleased,
+                firstModDate: now,
+                lastModDate: now,
+                minutesToRead,
+                tags: data.tags,
+                category: data.category,
+                mdxText: data.mdxText,
+              },
+              include: PostQueryHelper.articleInclude(),
+            });
+          },
+          `${this.serviceTag}DatabaseFailure`,
+          {
+            severity: "fatal",
+            message: "failed to create post",
+          },
+        ),
+      )
+      .next((rawPost) =>
+        runSync(
+          () =>
+            PostMapper.toArticleRo({
+              post: rawPost,
+              fontMatterMdxContent: this._parseMDX({
+                content: rawPost.mdxText,
+                slug: rawPost.slug,
+              }),
+            }),
+          `${this.serviceTag}MDXParsingFailure`,
+          {
+            severity: "error",
+            message: "failed to parse MDX",
+          },
+        ),
+      )
+      .next((post) => ok<PostArticleRo>(post));
   }
 
   public async updatePost({
@@ -260,16 +358,5 @@ export class PostService {
   }): FontMatterMdxContentRo {
     const parsed: FrontMatterResult<":"> = fm(content);
     return fontMatterMdxContentSchemaRo.parse(parsed);
-  }
-
-  private _slugify(title: string): string {
-    return title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9\s-]/g, "")
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
   }
 }
