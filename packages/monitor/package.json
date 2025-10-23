@@ -9,7 +9,6 @@
   "dependencies": {
     "@ashgw/env": "workspace:*",
     "@ashgw/logger": "workspace:*",
-    "@ashgw/runner": "workspace:*",
     "@sentry/nextjs": "9.8.0",
     "next": "catalog:"
   },
