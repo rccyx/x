@@ -48,7 +48,7 @@ export const trashPostArticleSchemaRo = z.object({
 
 // ========== Types (inferred from schemas) ==========
 
-export type fontMatterMdxContentRo = z.infer<
+export type FontMatterMdxContentRo = z.infer<
   typeof fontMatterMdxContentSchemaRo
 >;
 export type PostCardRo = z.infer<typeof postCardSchemaRo>;

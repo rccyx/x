@@ -1,7 +1,7 @@
 import type { PostCategory as DbPostCategory } from "@ashgw/db/raw";
 
 import type {
-  fontMatterMdxContentRo,
+  FontMatterMdxContentRo,
   PostCardRo,
   PostArticleRo,
   TrashPostArticleRo,
@@ -33,7 +33,7 @@ export class PostMapper {
     post,
   }: {
     post: PostArticleQuery;
-    fontMatterMdxContent: fontMatterMdxContentRo;
+    fontMatterMdxContent: FontMatterMdxContentRo;
   }): PostArticleRo {
     return {
       ...this.toCardRo({ post }),

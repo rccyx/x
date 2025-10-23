@@ -5,7 +5,7 @@ import { db } from "@ashgw/db";
 import { WordCounterService } from "@ashgw/cross-runtime";
 import { logger } from "@ashgw/logger";
 import type {
-  fontMatterMdxContentRo,
+  FontMatterMdxContentRo,
   PostCardRo,
   PostArticleRo,
   PostEditorDto,
@@ -14,35 +14,75 @@ import type {
 import { PostMapper } from "../../mappers";
 import { fontMatterMdxContentSchemaRo } from "../../models";
 import { PostQueryHelper } from "../../query-helpers";
+import { err, ok, run, runner, runSync } from "@ashgw/runner";
 
 export class PostService {
-  public async getPublicPostCards(): Promise<PostCardRo[]> {
-    const posts = await db.post.findMany({
-      where: PostQueryHelper.whereReleasedToPublic(),
-      select: { ...PostQueryHelper.cardSelect() },
-      orderBy: { firstModDate: "desc" },
-    });
-
-    return posts.map((post) => PostMapper.toCardRo({ post }));
+  private readonly serviceTag = "PostService";
+  public async getPublicPostCards() {
+    return runner(
+      run(
+        () =>
+          db.post.findMany({
+            where: PostQueryHelper.whereReleasedToPublic(),
+            select: { ...PostQueryHelper.cardSelect() },
+            orderBy: { firstModDate: "desc" },
+          }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to fetch public posts",
+        },
+      ),
+    ).next((posts) =>
+      ok<PostCardRo[]>(posts.map((post) => PostMapper.toCardRo({ post }))),
+    );
   }
 
-  public async getAllAdminPosts(): Promise<PostArticleRo[]> {
-    const posts = await db.post.findMany({
-      include: PostQueryHelper.adminInclude(),
-      orderBy: { firstModDate: "desc" },
-    });
-
-    if (posts.length === 0) return [];
-
-    return posts.map((post) =>
-      PostMapper.toArticleRo({
-        post,
-        fontMatterMdxContent: this._parseMDX({
-          content: post.mdxText,
-          slug: post.slug,
-        }),
-      }),
-    );
+  public async getAllAdminPosts() {
+    return runner(
+      run(
+        () =>
+          db.post.findMany({
+            include: PostQueryHelper.adminInclude(),
+            orderBy: { firstModDate: "desc" },
+          }),
+        `${this.serviceTag}DatabaseFailure`,
+        {
+          severity: "fatal",
+          message: "failed to fetch admin posts",
+        },
+      ),
+    )
+      .next((rawPosts) => {
+        if (rawPosts.length === 0) {
+          return err({
+            severity: "warn",
+            message: "no admin posts found",
+            tag: `${this.serviceTag}NoAdminPostsFound`,
+          });
+        }
+        return ok(rawPosts);
+      })
+      .next((rawPosts) =>
+        runSync(
+          () =>
+            rawPosts.map((rawPost) =>
+              PostMapper.toArticleRo({
+                post: rawPost,
+                fontMatterMdxContent: this._parseMDX({
+                  content: rawPost.mdxText,
+                  slug: rawPost.slug,
+                }),
+              }),
+            ),
+          `${this.serviceTag}MDXParsingFailure`,
+          {
+            severity: "error",
+            message: "failed to parse MDX",
+          },
+        ),
+      )
+      .next((posts) => ok<PostArticleRo[]>(posts));
   }
 
   public async getTrashedPosts(): Promise<TrashPostArticleRo[]> {
@@ -217,7 +257,7 @@ export class PostService {
   }: {
     content: string;
     slug: string;
-  }): fontMatterMdxContentRo {
+  }): FontMatterMdxContentRo {
     const parsed: FrontMatterResult<":"> = fm(content);
     return fontMatterMdxContentSchemaRo.parse(parsed);
   }
