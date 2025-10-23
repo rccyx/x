@@ -159,36 +159,65 @@ export class UserService {
 
   public async changePassword(input: UserChangePasswordDto) {
     logger.info("Changing password");
-    return await auth.api.changePassword({
-      body: {
-        ...input,
-        revokeOtherSessions: true,
+    return run(
+      () =>
+        auth.api.changePassword({
+          body: {
+            ...input,
+            revokeOtherSessions: true,
+          },
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}ChangePasswordFailure`,
+      {
+        severity: "error",
+        message: "failed to change password",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async me(): Promise<Optional<UserRo>> {
     logger.info("Get me");
-    try {
-      return await this._getUserWithSession();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      return null;
-    }
+    return this._getUserWithSession().then((r) =>
+      r.match({
+        ok: (user) => user,
+        err: {
+          UserServiceAuthApiGetSessionFailure: (_err) => {
+            return null;
+          },
+          UserServiceAuthApiInvalidSession: (_err) => {
+            return null;
+          },
+        },
+      }),
+    );
   }
 
-  private async _getUserWithSession(): Promise<UserRo> {
+  private async _getUserWithSession() {
     logger.info("Getting user with session");
-    const response = await auth.api.getSession({
-      headers: this.requestHeaders,
-    });
-    if (!response?.user) {
-      throw Error("Invalid session");
-    }
-    return UserMapper.toUserRo({
-      user: response.user,
-      session: response.session,
+    return runner(
+      run(
+        () => auth.api.getSession({ headers: this.requestHeaders }),
+        `${this.serviceTag}${this.authApiTag}GetSessionFailure`,
+        {
+          severity: "error",
+          message: "failed to get session",
+        },
+      ),
+    ).next((res) => {
+      if (!res?.user) {
+        return err({
+          severity: "warn",
+          tag: `${this.serviceTag}${this.authApiTag}InvalidSession`,
+          message: "Invalid session",
+        });
+      }
+      return ok<UserRo>(
+        UserMapper.toUserRo({
+          user: res.user,
+          session: res.session,
+        }),
+      );
     });
   }
 
