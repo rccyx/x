@@ -440,7 +440,7 @@ export class PostService {
           },
         ),
       )
-      .next((exists) => {
+      .nextAcc((exists, _, __) => {
         if (exists) {
           return err({
             severity: "error",
