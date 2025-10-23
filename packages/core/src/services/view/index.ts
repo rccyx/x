@@ -8,16 +8,57 @@ import type {
   ViewWindowPurgeWithCutoffDto,
   ViewWindowPurgeWithCutoffRo,
 } from "../../models/view";
+import { ok, run, runner, runSync } from "@ashgw/runner";
 
 export class ViewService {
-  public async trackView({
-    slug,
-    ipAddress,
-    userAgent,
-  }: TrackViewDto): Promise<TrackViewRo> {
-    const fingerprint = this._fingerprint({ slug, ipAddress, userAgent });
-    const bucketStart = this._utcMidnight(new Date());
+  private readonly serviceTag = "ViewService";
+  public async trackView({ slug, ipAddress, userAgent }: TrackViewDto) {
+    return runner(
+      runSync(
+        () => this._fingerprint({ slug, ipAddress, userAgent }),
+        `${this.serviceTag}FingerprintFailure`,
+        {
+          severity: "error",
+          message: "failed to fingerprint",
+        },
+      ),
+    )
+      .next(() => {
+        const bucketStart = new Date(
+          Date.UTC(
+            new Date().getUTCFullYear(),
+            new Date().getUTCMonth(),
+            new Date().getUTCDate(),
+            0,
+            0,
+            0,
+            0,
+          ),
+        );
+        return ok(bucketStart);
+      })
+      .nextAcc((fingerprint, bucketStart) =>
+        run(
+          () => this._trackViewTransaction({ bucketStart, fingerprint, slug }),
+          `${this.serviceTag}DatabaseTransactionFailure`,
+          {
+            message: "failed to track view",
+            severity: "error",
+          },
+        ),
+      )
+      .next(({ total }) => ok<TrackViewRo>({ total }));
+  }
 
+  private async _trackViewTransaction({
+    bucketStart,
+    fingerprint,
+    slug,
+  }: {
+    slug: string;
+    fingerprint: string;
+    bucketStart: Date;
+  }) {
     let total = 0;
     await db.$transaction(async (tx) => {
       const inserted = await tx.postViewWindow.createMany({
@@ -46,6 +87,7 @@ export class ViewService {
     });
     return { total };
   }
+
   private _fingerprint({
     slug,
     ipAddress,
@@ -61,12 +103,6 @@ export class ViewService {
     return createHash("sha256")
       .update(`${slug}:${hashedIp}:${userAgent}`)
       .digest("hex");
-  }
-
-  private _utcMidnight(d: Date): Date {
-    return new Date(
-      Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0, 0),
-    );
   }
 
   public async purgeViewWindowWithCutoff({
