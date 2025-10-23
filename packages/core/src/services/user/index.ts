@@ -18,6 +18,7 @@ import { SessionMapper, UserMapper } from "../../mappers";
 import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
 import { logger as baseLogger } from "@ashgw/logger";
+import { run } from "@ashgw/runner";
 
 const logger = baseLogger.withContext({
   service: "UserService",
@@ -25,6 +26,7 @@ const logger = baseLogger.withContext({
 
 export class UserService {
   private readonly serviceTag = "UserService";
+  private readonly authApiTag = "AuthApi";
 
   private readonly requestHeaders: Headers;
   constructor({ requestHeaders }: { requestHeaders: Headers }) {
@@ -32,36 +34,65 @@ export class UserService {
   }
   public async login({ email, password }: UserLoginDto) {
     logger.info("Logging in user");
-    await auth.api.signInEmail({
-      body: {
-        email,
-        password,
+    return run(
+      () =>
+        auth.api.signInEmail({
+          body: {
+            email,
+            password,
+          },
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}SignInEmailFailure`,
+      {
+        severity: "error",
+        message: "failed to sign in",
       },
-      headers: this.requestHeaders,
-    });
+    );
   }
 
   public async signUp({ email, password, name }: UserRegisterDto) {
     logger.info("Signing up user");
-    return await auth.api.signUpEmail({
-      body: {
-        email,
-        password,
-        name,
+    return run(
+      () =>
+        auth.api.signUpEmail({
+          body: {
+            email,
+            password,
+            name,
+          },
+          headers: this.requestHeaders,
+        }),
+      `${this.serviceTag}${this.authApiTag}SignUpEmailFailure`,
+      {
+        severity: "error",
+        message: "failed to sign up",
       },
-    });
+    );
   }
 
   public async logout() {
     logger.info("Logging out user");
-    return auth.api.signOut({ headers: this.requestHeaders });
+    return run(
+      () => auth.api.signOut({ headers: this.requestHeaders }),
+      `${this.serviceTag}${this.authApiTag}SignOutFailure`,
+      {
+        severity: "error",
+        message: "failed to sign out",
+      },
+    );
   }
 
   public async terminateAllActiveSessions() {
     logger.info("Terminating all active sessions");
-    return await auth.api.revokeSessions({
-      headers: this.requestHeaders,
-    });
+    return run(
+      () => auth.api.revokeSessions({ headers: this.requestHeaders }),
+      `${this.serviceTag}${this.authApiTag}RevokeSessionsFailure`,
+      {
+        severity: "error",
+        message: "failed to revoke sessions",
+      },
+    );
   }
 
   public async listSessions() {
