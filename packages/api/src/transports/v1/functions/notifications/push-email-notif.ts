@@ -36,7 +36,6 @@ export async function pushEmailNotif(input: {
               body: {
                 code: "INTERNAL_ERROR",
                 message: e.message,
-                details: e.meta,
               },
             } as const;
           },
@@ -46,7 +45,6 @@ export async function pushEmailNotif(input: {
               body: {
                 code: "INTERNAL_ERROR",
                 message: e.message,
-                details: e.meta,
               },
             } as const;
           },
@@ -56,7 +54,6 @@ export async function pushEmailNotif(input: {
               body: {
                 code: "INTERNAL_ERROR",
                 message: e.message,
-                details: e.meta,
               },
             } as const;
           },
