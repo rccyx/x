@@ -1,5 +1,4 @@
 import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
 import type {
   NotificationsPushEmailNotifBodyRequest,
   NotificationsPushEmailNotifHandlerResponses,
@@ -11,8 +10,8 @@ export async function pushEmailNotif(input: {
   body: NotificationsPushEmailNotifBodyRequest;
 }): Promise<NotificationsPushEmailNotifHandlerResponses> {
   logger.info("Sending reminder email notification...");
-  try {
-    await NotificationService.email.sendNotification({
+  return await NotificationService.email
+    .sendNotification({
       body: {
         to: input.body.to ?? env.PERSONAL_EMAIL,
         type: "reminder",
@@ -20,19 +19,48 @@ export async function pushEmailNotif(input: {
         subject: input.body.subject ?? input.body.title,
         title: input.body.title,
       },
-    });
-
-    logger.info("Reminder email notification sent successfully");
-    return { status: 200, body: undefined };
-  } catch (error) {
-    monitor.next.captureException({ error });
-    logger.error("Failed to send reminder email notification", { error });
-    return {
-      status: 500,
-      body: {
-        code: "INTERNAL_ERROR",
-        message: "Oops! Looks like it's on me this time",
-      },
-    };
-  }
+    })
+    .then((r) =>
+      r.match({
+        ok: () => {
+          logger.info("Reminder email notification sent successfully");
+          return {
+            status: 200,
+            body: undefined,
+          } as const;
+        },
+        err: {
+          EmailClientApiResponseFailure: (e) => {
+            return {
+              status: 500,
+              body: {
+                code: "INTERNAL_ERROR",
+                message: e.message,
+                details: e.meta,
+              },
+            } as const;
+          },
+          EmailClientApiSendingFailure: (e) => {
+            return {
+              status: 500,
+              body: {
+                code: "INTERNAL_ERROR",
+                message: e.message,
+                details: e.meta,
+              },
+            } as const;
+          },
+          NotificationTemplateRenderingFailure: (e) => {
+            return {
+              status: 500,
+              body: {
+                code: "INTERNAL_ERROR",
+                message: e.message,
+                details: e.meta,
+              },
+            } as const;
+          },
+        },
+      }),
+    );
 }
