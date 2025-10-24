@@ -1,5 +1,4 @@
 import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
 import type {
   ThyxQueryRequest,
   ThyxResponses,
@@ -10,8 +9,8 @@ import type {
 } from "../../models";
 import { OssService } from "@ashgw/core/services";
 
-type OssGetScriptQueryRequest = ThyxQueryRequest; // TODO: remove this after erryx
-type OssGetTextResponses = ThyxResponses; // same
+type OssGetScriptQueryRequest = ThyxQueryRequest;
+type OssGetTextResponses = ThyxResponses;
 
 async function fetchScript(input: {
   query: OssGetScriptQueryRequest;
@@ -20,32 +19,47 @@ async function fetchScript(input: {
     path: string;
   };
 }): Promise<OssGetTextResponses> {
-  try {
-    const { text } = await OssService.fetchText({
-      fetchUrl: {
-        type: "github",
-        repo: input.from.repo,
-        scriptPath: input.from.path,
-      },
-      cacheControl: "s-maxage=86400, stale-while-revalidate=86400",
-      revalidateSeconds: input.query.revalidateSeconds,
-    });
+  logger.info("fetching script from", {
+    repo: input.from.repo,
+    path: input.from.path,
+  });
 
-    return {
-      status: 200,
-      body: text,
-    };
-  } catch (error) {
-    logger.error("fetchGpg failed", { error });
-    monitor.next.captureException({ error });
-    return {
-      status: 424,
-      body: {
-        code: "UPSTREAM_ERROR",
-        message: "Upstream error",
+  return await OssService.fetchText({
+    fetchUrl: {
+      type: "github",
+      repo: input.from.repo,
+      scriptPath: input.from.path,
+    },
+    cacheControl: "s-maxage=86400, stale-while-revalidate=86400",
+    revalidateSeconds: input.query.revalidateSeconds,
+  }).then((r) =>
+    r.match({
+      ok: (data) => {
+        logger.info("script fetched successfully");
+        return {
+          status: 200,
+          body: data.text,
+        } as const;
       },
-    };
-  }
+      err: {
+        OssServiceGithubContentApiFetchFailure: (e) =>
+          ({
+            status: 500,
+            body: { message: e.message },
+          }) as const,
+        OssServiceGithubContentNonOkResponseFailure: (e) =>
+          ({
+            status: 424,
+            body: { message: e.message },
+          }) as const,
+        OssServiceGithubContentParseFailure: (e) =>
+          ({
+            status: 500,
+            body: { message: e.message },
+          }) as const,
+      },
+    }),
+  );
 }
 
 export async function whisper({
