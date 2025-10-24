@@ -1,23 +1,25 @@
-import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
 import type { PostsPurgeTrashBinHandlerResponses } from "../../models";
 import { PostService } from "@ashgw/core/services";
 
 export async function postsPurgeTrashBin(): Promise<PostsPurgeTrashBinHandlerResponses> {
-  try {
-    await new PostService().purgeTrash();
-    logger.info("Trashed posts purged");
-    return { status: 204, body: undefined };
-  } catch (error) {
-    monitor.next.captureException({ error });
-    return {
-      status: 500,
-      body: {
-        code: "INTERNAL_ERROR",
-        message: "Oops! Looks like it's on me this time",
+  return new PostService().purgeTrash().then((r) =>
+    r.match({
+      ok: () => ({
+        status: 204,
+        body: undefined,
+      }),
+      err: {
+        PostServiceDatabaseFailure: (e) => {
+          return {
+            status: 500,
+            body: {
+              message: e.message,
+            },
+          } as const;
+        },
       },
-    };
-  }
+    }),
+  );
 }
 
 export const posts = {
