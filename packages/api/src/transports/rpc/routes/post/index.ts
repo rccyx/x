@@ -112,8 +112,9 @@ export const postRouter = router({
     .input(z.object({ trashId: z.string().min(1) }))
     .output(z.void())
     .mutation(async ({ input: { trashId } }) => {
-      const blogService = new PostService();
-      await blogService.purgeTrashPost({ trashId });
+      return new PostService()
+        .purgeTrashPost({ trashId })
+        .then((r) => r.unwrap());
     }),
 
   restoreFromTrash: adminProcedure({
@@ -125,7 +126,8 @@ export const postRouter = router({
     .input(z.object({ trashId: z.string().min(1) }))
     .output(z.void())
     .mutation(async ({ input: { trashId } }) => {
-      const blogService = new PostService();
-      await blogService.restoreFromTrash({ trashId });
+      return new PostService()
+        .restoreFromTrash({ trashId })
+        .then((r) => r.unwrap());
     }),
 });
