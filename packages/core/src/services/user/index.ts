@@ -154,7 +154,8 @@ export class UserService {
             message: "failed to revoke session",
           },
         ),
-      );
+      )
+      .next(() => ok());
   }
 
   public async changePassword(input: UserChangePasswordDto) {
