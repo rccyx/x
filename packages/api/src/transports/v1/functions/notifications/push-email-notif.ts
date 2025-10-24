@@ -6,6 +6,16 @@ import type {
 import { env } from "@ashgw/env";
 import { NotificationService } from "@ashgw/core/services";
 
+function error(message: string): NotificationsPushEmailNotifHandlerResponses {
+  return {
+    status: 500,
+    body: {
+      code: "INTERNAL_ERROR",
+      message: message,
+    },
+  } as const;
+}
+
 export async function pushEmailNotif(input: {
   body: NotificationsPushEmailNotifBodyRequest;
 }): Promise<NotificationsPushEmailNotifHandlerResponses> {
@@ -31,31 +41,13 @@ export async function pushEmailNotif(input: {
         },
         err: {
           EmailClientApiResponseFailure: (e) => {
-            return {
-              status: 500,
-              body: {
-                code: "INTERNAL_ERROR",
-                message: e.message,
-              },
-            } as const;
+            return error(e.message);
           },
           EmailClientApiSendingFailure: (e) => {
-            return {
-              status: 500,
-              body: {
-                code: "INTERNAL_ERROR",
-                message: e.message,
-              },
-            } as const;
+            return error(e.message);
           },
           NotificationTemplateRenderingFailure: (e) => {
-            return {
-              status: 500,
-              body: {
-                code: "INTERNAL_ERROR",
-                message: e.message,
-              },
-            } as const;
+            return error(e.message);
           },
         },
       }),
