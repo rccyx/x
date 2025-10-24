@@ -5,8 +5,11 @@ import { observer } from "runyx";
 export function register() {
   monitor.next.initializeServer();
   observer((error) => {
-    const severity = error.meta?.severity;
+    // Skip if the error is a retry error, only log the last attempt
+    if ((error.meta?.retryAttempt ?? 0) < (error.meta?.retryMaxAttempts ?? 0))
+      return;
 
+    const severity = error.meta?.severity;
     if (severity === "warn") {
       logger.warn(error.message, {
         tag: error.tag,

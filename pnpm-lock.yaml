@@ -1256,8 +1256,8 @@ importers:
         specifier: workspace:*
         version: link:../monitor
       runyx:
-        specifier: 0.13.0
-        version: 0.13.0
+        specifier: 0.14.0
+        version: 0.14.0
     devDependencies:
       '@ashgw/eslint-config':
         specifier: workspace:*
@@ -9799,8 +9799,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runyx@0.13.0:
-    resolution: {integrity: sha512-UthrPusnelQ0MEbq9WL8aJTSKqWHxl1e7NojG2mQUazXmatqCgQiVEjoaeu6ht+0uinVcz24sj4mzbguvs4fHA==}
+  runyx@0.14.0:
+    resolution: {integrity: sha512-DWfp1pfCpbfbk9yYB0NmwW9r00Cr2jH27toIpMH2UljdnKKjCDlAWMvqEUKVEDOK2eWa/hWUb+wpEaVD001rNg==}
 
   rxjs@6.6.7:
     resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}
@@ -20768,7 +20768,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runyx@0.13.0: {}
+  runyx@0.14.0: {}
 
   rxjs@6.6.7:
     dependencies:

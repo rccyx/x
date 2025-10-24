@@ -22,7 +22,6 @@ import {
   twoFactorGetTotpUriSchemaRo,
   twoFactorGenerateBackupCodesSchemaRo,
 } from "../../models";
-
 import { UserService } from "../../services";
 
 const userService = (ctx: TrpcContext) =>
@@ -47,7 +46,7 @@ export const userRouter = router({
     .input(userLoginSchemaDto)
     .output(z.void())
     .mutation(async ({ input, ctx }) => {
-      return await userService(ctx).login(input);
+      const a = await userService(ctx).login(input);
     }),
 
   // decativated for now
