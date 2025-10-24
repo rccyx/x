@@ -1,4 +1,3 @@
-import { logger } from "@ashgw/logger";
 import type {
   NotificationsPushEmailNotifBodyRequest,
   NotificationsPushEmailNotifHandlerResponses,
@@ -9,7 +8,6 @@ import { NotificationService } from "@ashgw/core/services";
 export async function pushEmailNotif(input: {
   body: NotificationsPushEmailNotifBodyRequest;
 }): Promise<NotificationsPushEmailNotifHandlerResponses> {
-  logger.info("Sending reminder email notification...");
   return NotificationService.email
     .sendNotification({
       body: {
@@ -23,7 +21,6 @@ export async function pushEmailNotif(input: {
     .then((r) =>
       r.match({
         ok: () => {
-          logger.info("Reminder email notification sent successfully");
           return {
             status: 200,
             body: undefined,

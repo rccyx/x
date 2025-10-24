@@ -22,7 +22,7 @@ export async function pushReminder({
 }): Promise<RemindersPushReminderHandlerResponses> {
   try {
     if (schedule.kind === "at") {
-      const result = await ReminderService.remind({
+      return ReminderService.remind({
         headers: {
           ...headers,
         },
@@ -36,14 +36,26 @@ export async function pushReminder({
           },
         },
         url: notifyUrl,
-      });
-
-      return {
-        status: 201,
-        body: {
-          created: [{ id: result.id, at: result.at }],
-        },
-      };
+      }).then((r) =>
+        r.match({
+          ok: (v) => ({
+            status: 201,
+            body: {
+              created: [{ id: v.type === "delay", at: result.at }],
+            },
+          }),
+          err: {
+            SchedulerServiceExternalApiPublishFailure: (e) => {
+              return {
+                status: 201,
+                body: {
+                  created: [{ id: result.id, at: result.at }],
+                },
+              };
+            },
+          },
+        }),
+      );
     } else {
       const delayObjectNormalizer = () => {
         const value = schedule.delay.value;

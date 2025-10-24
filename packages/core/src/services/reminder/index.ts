@@ -27,7 +27,7 @@ async function remind({
       ok<ReminderSendEmailNotificationRo>({
         at: schedule.at,
         type: "date",
-      }),
+      } as const),
     );
   } else {
     const delayObjectNormalizer = () => {
@@ -57,7 +57,7 @@ async function remind({
         type: "delay",
         unit: schedule.delay.unit,
         value: schedule.delay.value,
-      }),
+      } as const),
     );
   }
 }
