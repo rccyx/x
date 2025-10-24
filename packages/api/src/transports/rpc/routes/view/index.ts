@@ -24,11 +24,13 @@ export const viewRouter = router({
           headers.get("x-real-ip") ??
           "127.0.0.1";
         const userAgent = headers.get("user-agent") ?? "unknown";
-        return await new ViewService().trackView({
-          slug,
-          ipAddress,
-          userAgent,
-        });
+        return new ViewService()
+          .trackView({
+            slug,
+            ipAddress,
+            userAgent,
+          })
+          .then((r) => r.unwrap());
       },
     ),
 });

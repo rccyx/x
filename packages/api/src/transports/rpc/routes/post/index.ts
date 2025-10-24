@@ -22,8 +22,9 @@ export const postRouter = router({
     .input(postGetSchemaDto)
     .output(postArticleSchemaRo.nullable())
     .query(async ({ input: { slug } }) => {
-      const blogService = new PostService();
-      return await blogService.getDetailedPublicPost({ slug });
+      return new PostService()
+        .getDetailedPublicPost({ slug })
+        .then((r) => r.unwrap());
     }),
 
   getPublicPostCards: publicProcedure({
@@ -35,8 +36,7 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(postCardSchemaRo))
     .query(async () => {
-      const blogService = new PostService();
-      return await blogService.getPublicPostCards();
+      return new PostService().getPublicPostCards().then((r) => r.unwrap());
     }),
 
   getAllAdminPosts: adminProcedure({
@@ -48,8 +48,7 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(postArticleSchemaRo))
     .query(async () => {
-      const blogService = new PostService();
-      return await blogService.getAllAdminPosts();
+      return new PostService().getAllAdminPosts().then((r) => r.unwrap());
     }),
 
   createPost: adminProcedure({
@@ -61,8 +60,7 @@ export const postRouter = router({
     .input(postEditorSchemaDto)
     .output(postArticleSchemaRo)
     .mutation(async ({ input }) => {
-      const blogService = new PostService();
-      return await blogService.createPost(input);
+      return new PostService().createPost(input).then((r) => r.unwrap());
     }),
 
   updatePost: adminProcedure({
@@ -74,8 +72,9 @@ export const postRouter = router({
     .input(postUpdateSchemaDto)
     .output(postArticleSchemaRo)
     .mutation(async ({ input: { data, slug } }) => {
-      const blogService = new PostService();
-      return await blogService.updatePost({ slug, data });
+      return new PostService()
+        .updatePost({ slug, data })
+        .then((r) => r.unwrap());
     }),
 
   trashPost: adminProcedure({
@@ -87,8 +86,9 @@ export const postRouter = router({
     .input(postDeleteSchemaDto)
     .output(z.void())
     .mutation(async ({ input: { slug } }) => {
-      const blogService = new PostService();
-      await blogService.trashPost({ originalSlug: slug });
+      return new PostService()
+        .trashPost({ originalSlug: slug })
+        .then((r) => r.unwrap());
     }),
 
   getTrashedPosts: adminProcedure({
@@ -100,8 +100,7 @@ export const postRouter = router({
     .input(z.void())
     .output(z.array(trashPostArticleSchemaRo))
     .query(async () => {
-      const blogService = new PostService();
-      return await blogService.getTrashedPosts();
+      return new PostService().getTrashedPosts().then((r) => r.unwrap());
     }),
 
   purgeTrashPost: adminProcedure({
