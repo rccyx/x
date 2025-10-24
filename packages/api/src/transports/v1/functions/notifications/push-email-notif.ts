@@ -6,21 +6,11 @@ import type {
 import { env } from "@ashgw/env";
 import { NotificationService } from "@ashgw/core/services";
 
-function error(message: string): NotificationsPushEmailNotifHandlerResponses {
-  return {
-    status: 500,
-    body: {
-      code: "INTERNAL_ERROR",
-      message: message,
-    },
-  } as const;
-}
-
 export async function pushEmailNotif(input: {
   body: NotificationsPushEmailNotifBodyRequest;
 }): Promise<NotificationsPushEmailNotifHandlerResponses> {
   logger.info("Sending reminder email notification...");
-  return await NotificationService.email
+  return NotificationService.email
     .sendNotification({
       body: {
         to: input.body.to ?? env.PERSONAL_EMAIL,
@@ -40,14 +30,29 @@ export async function pushEmailNotif(input: {
           } as const;
         },
         err: {
-          EmailClientApiResponseFailure: (e) => {
-            return error(e.message);
+          EmailClientApiResponseFailure: ({ message }) => {
+            return {
+              status: 502,
+              body: {
+                message,
+              },
+            } as const;
           },
-          EmailClientApiSendingFailure: (e) => {
-            return error(e.message);
+          EmailClientApiSendingFailure: ({ message }) => {
+            return {
+              status: 500,
+              body: {
+                message,
+              },
+            } as const;
           },
-          NotificationTemplateRenderingFailure: (e) => {
-            return error(e.message);
+          NotificationTemplateRenderingFailure: ({ message }) => {
+            return {
+              status: 500,
+              body: {
+                message,
+              },
+            } as const;
           },
         },
       }),

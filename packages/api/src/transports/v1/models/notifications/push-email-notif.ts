@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { InferResponses } from "ts-rest-kit/core";
-import { createSchemaResponses } from "ts-rest-kit/core";
+import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
 
 import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import {
@@ -60,6 +60,7 @@ const __notificationsPushEmailNotifHandlerSchemaResponses =
   createSchemaResponses({
     ...okSchemaResponse,
     ...internalErrorSchemaResponse,
+    502: httpErrorSchema.upstream().describe("Upstream error"),
   });
 
 export const notificationsPushEmailNotifSchemaResponses = createSchemaResponses(
