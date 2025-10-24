@@ -23,10 +23,9 @@ async function remind({
           url,
           payload: JSON.stringify(schedule.emailNotification),
         }),
-    ).next(() =>
+    ).next((res) =>
       ok<ReminderSendEmailNotificationRo>({
-        at: schedule.at,
-        type: "date",
+        id: res.messageId,
       } as const),
     );
   } else {
@@ -52,11 +51,9 @@ async function remind({
           url,
           payload: JSON.stringify(schedule.emailNotification),
         }),
-    ).next(() =>
+    ).next((res) =>
       ok<ReminderSendEmailNotificationRo>({
-        type: "delay",
-        unit: schedule.delay.unit,
-        value: schedule.delay.value,
+        id: res.messageId,
       } as const),
     );
   }

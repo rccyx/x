@@ -22,20 +22,12 @@ export interface DelayDto extends ScheduleBaseDto {
   delay: Delay;
 }
 
-export interface CronDto extends ScheduleBaseDto {
-  cron: { expression: string };
-}
+export type ScheduleDto = AtDto | DelayDto;
 
-export type ScheduleDto = AtDto | CronDto | DelayDto;
-
-export interface ScheduleAtResult {
+export interface ScheduleResult {
   messageId: string;
 }
 
 export interface ScheduleDelayResult {
   messageId: string;
-}
-
-export interface ScheduleCronResult {
-  scheduleId: string;
 }

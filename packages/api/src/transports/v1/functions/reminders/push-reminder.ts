@@ -1,5 +1,3 @@
-import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
 import { env } from "@ashgw/env";
 import { root } from "../../../../root-uris";
 import type {
@@ -20,76 +18,86 @@ export async function pushReminder({
   body: RemindersPushReminderBodyRequest;
   headers: RemindersPushReminderHeadersRequest;
 }): Promise<RemindersPushReminderHandlerResponses> {
-  try {
-    if (schedule.kind === "at") {
-      return ReminderService.remind({
-        headers: {
-          ...headers,
+  if (schedule.kind === "at") {
+    return ReminderService.remind({
+      headers: {
+        ...headers,
+      },
+      schedule: {
+        kind: "at",
+        at: schedule.at,
+        emailNotification: {
+          message: schedule.notification.message,
+          title: schedule.notification.title,
+          type: "reminder",
         },
-        schedule: {
-          kind: "at",
-          at: schedule.at,
-          emailNotification: {
-            message: schedule.notification.message,
-            title: schedule.notification.title,
-            type: "reminder",
+      },
+      url: notifyUrl,
+    }).then((r) =>
+      r.match({
+        ok: (v) => ({
+          status: 201,
+          body: {
+            created: { id: v.id, at: schedule.at, type: "at" },
+          },
+        }),
+        err: {
+          SchedulerServiceExternalApiPublishFailure: (e) => {
+            return {
+              status: 502,
+              body: {
+                message: e.message,
+              },
+            } as const;
           },
         },
+      }),
+    );
+  } else {
+    const delayObjectNormalizer = () => {
+      const value = schedule.delay.value;
+      const unitMap = {
+        days: { days: value },
+        hours: { hours: value },
+        minutes: { minutes: value },
+        seconds: { seconds: value },
+      } as const;
+
+      return unitMap[schedule.delay.unit];
+    };
+
+    return scheduler
+      .headers({
+        ...headers,
+      })
+      .schedule({
+        delay: { ...delayObjectNormalizer() },
         url: notifyUrl,
-      }).then((r) =>
+        payload: JSON.stringify(schedule.notification),
+      })
+      .then((r) =>
         r.match({
           ok: (v) => ({
             status: 201,
             body: {
-              created: [{ id: v.type === "delay", at: result.at }],
+              created: {
+                type: "delay",
+                delay: schedule.delay.value,
+                id: v.messageId,
+              },
             },
           }),
           err: {
             SchedulerServiceExternalApiPublishFailure: (e) => {
               return {
-                status: 201,
+                status: 502,
                 body: {
-                  created: [{ id: result.id, at: result.at }],
+                  message: e.message,
                 },
-              };
+              } as const;
             },
           },
         }),
       );
-    } else {
-      const delayObjectNormalizer = () => {
-        const value = schedule.delay.value;
-        const unitMap = {
-          days: { days: value },
-          hours: { hours: value },
-          minutes: { minutes: value },
-          seconds: { seconds: value },
-        } as const;
-
-        return unitMap[schedule.delay.unit];
-      };
-
-      const result = await scheduler
-        .headers({
-          ...headers,
-        })
-        .schedule({
-          delay: { ...delayObjectNormalizer() },
-          url: notifyUrl,
-          payload: JSON.stringify(schedule.notification),
-        });
-
-      return {
-        status: 201,
-        body: { created: [{ id: result.messageId, at: schedule.delay.unit }] },
-      };
-    }
-  } catch (error) {
-    logger.error("reminder scheduling failed", { error });
-    monitor.next.captureException({ error });
-    return {
-      status: 500,
-      body: { code: "INTERNAL_ERROR", message: "Internal error" },
-    };
   }
 }

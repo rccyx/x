@@ -2,10 +2,9 @@ import { z } from "zod";
 import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import { notificationsPushEmailNotifBodySchemaRequest } from "../notifications";
 import type { InferResponses } from "ts-rest-kit/core";
-import { createSchemaResponses } from "ts-rest-kit/core";
+import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
 import {
   tokenAuthMiddlewareSchemaResponse,
-  internalErrorSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,
 } from "../_shared/responses";
 
@@ -83,18 +82,24 @@ const mw = createSchemaResponses({
 
 const __remindersPushReminderHandlerSchemaResponses = createSchemaResponses({
   201: z.object({
-    created: z.array(
+    created: z.discriminatedUnion("type", [
       z
         .object({
+          type: z.literal("at"),
           id: z.string().min(1).max(255),
-          at: isoDateTimeSchema.optional(),
+          at: isoDateTimeSchema,
         })
-        .describe(
-          "The reminder message or schedule created successfully by the upstream service.",
-        ),
-    ),
+        .describe("Job scheduled at a specific datetime."),
+      z
+        .object({
+          type: z.literal("delay"),
+          id: z.string().min(1).max(255),
+          delay: z.number().int().positive(),
+        })
+        .describe("Job scheduled after a delay in seconds."),
+    ]),
   }),
-  ...internalErrorSchemaResponse,
+  502: httpErrorSchema.upstream().describe("Upstream error"),
 });
 
 export const remindersPushReminderSchemaResponses = createSchemaResponses({

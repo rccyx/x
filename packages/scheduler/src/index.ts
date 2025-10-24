@@ -4,8 +4,7 @@ import { logger } from "@ashgw/logger";
 import type {
   Payload,
   ScheduleDto,
-  ScheduleAtResult,
-  ScheduleCronResult,
+  ScheduleResult,
   ScheduleDelayResult,
   Delay,
 } from "./types";
@@ -35,35 +34,27 @@ class SchedulerService {
     );
   }
 
-  private async _schedule(
-    input: ScheduleDto,
-  ): Promise<ScheduleAtResult | ScheduleCronResult | ScheduleDelayResult> {
+  private async _schedule(input: ScheduleDto) {
     if ("at" in input) {
       return await this._scheduleAt({
         atTime: input.at.datetimeIso,
         url: input.url,
         payload: input.payload,
       });
-    }
-    if ("delay" in input) {
+    } else {
       return await this._scheduleDelay({
         delay: input.delay,
         url: input.url,
         payload: input.payload,
       });
     }
-    return await this._scheduleCron({
-      expression: input.cron.expression,
-      url: input.url,
-      payload: input.payload,
-    });
   }
 
   private async _scheduleAt(input: {
     url: string;
     payload: Payload;
     atTime: string;
-  }): Promise<ScheduleAtResult> {
+  }): Promise<ScheduleResult> {
     logger.info(`scheduling one-time job -> ${input.url}`);
     const response = await qstashClient.publish({
       url: input.url,
@@ -72,7 +63,7 @@ class SchedulerService {
       notBefore: SchedulerService._toUnixSecond(input.atTime),
     });
     logger.info(`scheduled at ${input.atTime} (id=${response.messageId})`);
-    return { messageId: response.messageId };
+    return { messageId: response.messageId } as const;
   }
 
   private async _scheduleDelay({
@@ -102,23 +93,7 @@ class SchedulerService {
     logger.info(
       `scheduled after ${normalizedDelayInSeconds}s (id=${response.messageId})`,
     );
-    return { messageId: response.messageId };
-  }
-
-  private async _scheduleCron(input: {
-    url: string;
-    payload: Payload;
-    expression: string;
-  }): Promise<ScheduleCronResult> {
-    logger.info(`scheduling cron -> ${input.expression} -> ${input.url}`);
-    const response = await qstashClient.schedules.create({
-      destination: input.url,
-      cron: input.expression,
-      body: input.payload,
-      headers: this._headers,
-    });
-    logger.info(`cron created (id=${response.scheduleId})`);
-    return { scheduleId: response.scheduleId };
+    return { messageId: response.messageId } as const;
   }
 
   private static _toUnixSecond(isoString: string): number {
