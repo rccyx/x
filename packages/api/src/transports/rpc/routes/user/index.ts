@@ -40,7 +40,7 @@ export const userRouter = router({
           r.match({
             ok: (user) => user,
             err: {
-              UserServiceAuthApiGetSessionFailure: (_e) => {
+              UserServiceAuthApiGetSession: (_e) => {
                 return null;
               },
               UserServiceAuthApiInvalidSession: (_e) => {

@@ -191,7 +191,7 @@ export class UserService {
     return runner(
       run(
         () => auth.api.getSession({ headers: this.requestHeaders }),
-        `${this.serviceTag}${this.authApiTag}GetSessionFailure`,
+        `${this.serviceTag}${this.authApiTag}GetSession`,
         {
           severity: "error",
           message: "failed to get session",
