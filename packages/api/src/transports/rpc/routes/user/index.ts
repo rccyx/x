@@ -60,7 +60,7 @@ export const userRouter = router({
     .input(userLoginSchemaDto)
     .output(z.void())
     .mutation(async ({ input, ctx }) => {
-      await userService(ctx)
+      return userService(ctx)
         .login(input)
         .then((r) => r.unwrap());
     }),
@@ -74,7 +74,7 @@ export const userRouter = router({
     .input(z.void())
     .output(z.void())
     .mutation(async ({ ctx }) => {
-      await userService(ctx)
+      return userService(ctx)
         .logout()
         .then((r) => r.unwrap());
     }),
@@ -88,9 +88,11 @@ export const userRouter = router({
     .input(userChangePasswordSchemaDto)
     .output(z.void())
     .mutation(async ({ ctx, input }) => {
-      await userService(ctx).changePassword({
-        ...input,
-      });
+      return userService(ctx)
+        .changePassword({
+          ...input,
+        })
+        .then((r) => r.unwrap());
     }),
 
   listAllSessions: authenticatedProcedure({
@@ -116,7 +118,7 @@ export const userRouter = router({
     .input(z.void())
     .output(z.void())
     .mutation(async ({ ctx }) => {
-      await userService(ctx)
+      return userService(ctx)
         .terminateAllActiveSessions()
         .then((r) => r.unwrap());
     }),
@@ -174,7 +176,7 @@ export const userRouter = router({
     .input(twoFactorVerifyTotpSchemaDto)
     .output(z.void())
     .mutation(async ({ ctx, input }) => {
-      await userService(ctx)
+      return userService(ctx)
         .verifyTwoFactorTotp(input)
         .then((r) => r.unwrap());
     }),
@@ -188,7 +190,7 @@ export const userRouter = router({
     .input(twoFactorDisableSchemaDto)
     .output(z.void())
     .mutation(async ({ ctx, input }) => {
-      await userService(ctx)
+      return userService(ctx)
         .disableTwoFactor(input)
         .then((r) => r.unwrap());
     }),
@@ -216,7 +218,7 @@ export const userRouter = router({
     .input(twoFactorVerifyBackupCodeSchemaDto)
     .output(z.void())
     .mutation(async ({ ctx, input }) => {
-      await userService(ctx)
+      return userService(ctx)
         .verifyTwoFactorBackupCode(input)
         .then((r) => r.unwrap());
     }),

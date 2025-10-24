@@ -34,21 +34,25 @@ export class UserService {
   }
   public async login({ email, password }: UserLoginDto) {
     logger.info("Logging in user");
-    return run(
-      () =>
-        auth.api.signInEmail({
-          body: {
-            email,
-            password,
-          },
-          headers: this.requestHeaders,
-        }),
-      `${this.serviceTag}${this.authApiTag}SignInEmailFailure`,
-      {
-        severity: "error",
-        message: "failed to sign in",
-      },
-    );
+    return runner(
+      run(
+        () =>
+          auth.api.signInEmail({
+            body: {
+              email,
+              password,
+            },
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}SignInEmailFailure`,
+        {
+          severity: "error",
+          message: "failed to sign in",
+        },
+      ),
+    ).next(() => {
+      return ok();
+    });
   }
 
   public async signUp({ email, password, name }: UserRegisterDto) {
@@ -73,26 +77,30 @@ export class UserService {
 
   public async logout() {
     logger.info("Logging out user");
-    return run(
-      () => auth.api.signOut({ headers: this.requestHeaders }),
-      `${this.serviceTag}${this.authApiTag}SignOutFailure`,
-      {
-        severity: "error",
-        message: "failed to sign out",
-      },
-    );
+    return runner(
+      run(
+        () => auth.api.signOut({ headers: this.requestHeaders }),
+        `${this.serviceTag}${this.authApiTag}SignOutFailure`,
+        {
+          severity: "error",
+          message: "failed to sign out",
+        },
+      ),
+    ).next(() => ok());
   }
 
   public async terminateAllActiveSessions() {
     logger.info("Terminating all active sessions");
-    return run(
-      () => auth.api.revokeSessions({ headers: this.requestHeaders }),
-      `${this.serviceTag}${this.authApiTag}RevokeSessionsFailure`,
-      {
-        severity: "error",
-        message: "failed to revoke sessions",
-      },
-    );
+    return runner(
+      run(
+        () => auth.api.revokeSessions({ headers: this.requestHeaders }),
+        `${this.serviceTag}${this.authApiTag}RevokeSessionsFailure`,
+        {
+          severity: "error",
+          message: "failed to revoke sessions",
+        },
+      ),
+    ).next(() => ok());
   }
 
   public async listSessions() {
@@ -159,21 +167,23 @@ export class UserService {
 
   public async changePassword(input: UserChangePasswordDto) {
     logger.info("Changing password");
-    return run(
-      () =>
-        auth.api.changePassword({
-          body: {
-            ...input,
-            revokeOtherSessions: true,
-          },
-          headers: this.requestHeaders,
-        }),
-      `${this.serviceTag}${this.authApiTag}ChangePasswordFailure`,
-      {
-        severity: "error",
-        message: "failed to change password",
-      },
-    );
+    return runner(
+      run(
+        () =>
+          auth.api.changePassword({
+            body: {
+              ...input,
+              revokeOtherSessions: true,
+            },
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}ChangePasswordFailure`,
+        {
+          severity: "error",
+          message: "failed to change password",
+        },
+      ),
+    ).next(() => ok());
   }
 
   public async getUserWithSession() {
@@ -254,34 +264,38 @@ export class UserService {
 
   public async verifyTwoFactorTotp(input: TwoFactorVerifyTotpDto) {
     logger.info("Verifying two factor totp");
-    return run(
-      () =>
-        auth.api.verifyTOTP({
-          body: input,
-          headers: this.requestHeaders,
-        }),
-      `${this.serviceTag}${this.authApiTag}VerifyTOTPFailure`,
-      {
-        severity: "error",
-        message: "failed to verify totp",
-      },
-    );
+    return runner(
+      run(
+        () =>
+          auth.api.verifyTOTP({
+            body: input,
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}VerifyTOTPFailure`,
+        {
+          severity: "error",
+          message: "failed to verify totp",
+        },
+      ),
+    ).next(() => ok());
   }
 
   public async disableTwoFactor(input: TwoFactorDisableDto) {
     logger.info("Disabling two factor");
-    return run(
-      () =>
-        auth.api.disableTwoFactor({
-          body: input,
-          headers: this.requestHeaders,
-        }),
-      `${this.serviceTag}${this.authApiTag}DisableTwoFactorFailure`,
-      {
-        severity: "error",
-        message: "failed to disable two factor",
-      },
-    );
+    return runner(
+      run(
+        () =>
+          auth.api.disableTwoFactor({
+            body: input,
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}DisableTwoFactorFailure`,
+        {
+          severity: "error",
+          message: "failed to disable two factor",
+        },
+      ),
+    ).next(() => ok());
   }
 
   public async generateTwoFactorBackupCodes(
@@ -310,17 +324,19 @@ export class UserService {
 
   public async verifyTwoFactorBackupCode(input: TwoFactorVerifyBackupCodeDto) {
     logger.info("Verifying two factor backup code");
-    return run(
-      () =>
-        auth.api.verifyBackupCode({
-          body: input,
-          headers: this.requestHeaders,
-        }),
-      `${this.serviceTag}${this.authApiTag}VerifyBackupCodeFailure`,
-      {
-        severity: "error",
-        message: "failed to verify backup code",
-      },
-    );
+    return runner(
+      run(
+        () =>
+          auth.api.verifyBackupCode({
+            body: input,
+            headers: this.requestHeaders,
+          }),
+        `${this.serviceTag}${this.authApiTag}VerifyBackupCodeFailure`,
+        {
+          severity: "error",
+          message: "failed to verify backup code",
+        },
+      ),
+    ).next(() => ok());
   }
 }
