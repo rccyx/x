@@ -34,7 +34,21 @@ export const userRouter = router({
     .input(z.void())
     .output(userSchemaRo.nullable())
     .query(async ({ ctx }) => {
-      return await userService(ctx).me();
+      return userService(ctx)
+        .getUserWithSession()
+        .then((r) =>
+          r.match({
+            ok: (user) => user,
+            err: {
+              UserServiceAuthApiGetSessionFailure: (_e) => {
+                return null;
+              },
+              UserServiceAuthApiInvalidSession: (_e) => {
+                return null;
+              },
+            },
+          }),
+        );
     }),
 
   login: publicProcedure({

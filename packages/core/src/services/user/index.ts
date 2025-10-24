@@ -16,7 +16,6 @@ import type {
   SessionRo,
 } from "../../models";
 import { SessionMapper, UserMapper } from "../../mappers";
-import type { Optional } from "ts-roids";
 import { auth } from "@ashgw/auth";
 import { logger as baseLogger } from "@ashgw/logger";
 import { err, ok, run, runner } from "@ashgw/runner";
@@ -177,24 +176,7 @@ export class UserService {
     );
   }
 
-  public async me(): Promise<Optional<UserRo>> {
-    logger.info("Get me");
-    return this._getUserWithSession().then((r) =>
-      r.match({
-        ok: (user) => user,
-        err: {
-          UserServiceAuthApiGetSessionFailure: (_err) => {
-            return null;
-          },
-          UserServiceAuthApiInvalidSession: (_err) => {
-            return null;
-          },
-        },
-      }),
-    );
-  }
-
-  private async _getUserWithSession() {
+  public async getUserWithSession() {
     logger.info("Getting user with session");
     return runner(
       run(
