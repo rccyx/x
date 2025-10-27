@@ -13,7 +13,7 @@ export async function isAuthenticated(input: {
   if (!r.ok) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
-      message: r.message,
+      message: "You must be logged in to access this",
     });
   }
   return r.value satisfies UserRo;
