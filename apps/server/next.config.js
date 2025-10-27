@@ -1,4 +1,3 @@
-// ESM-safe __dirname + tracing root for monorepo
 import { createJiti } from "jiti";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
