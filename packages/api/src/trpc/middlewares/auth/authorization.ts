@@ -37,7 +37,7 @@ export function isAuthorized({
   ) {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: "You don't have permission to access this resource",
+      message: "You don't have permission to access this",
     });
   }
 }

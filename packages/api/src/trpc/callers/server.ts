@@ -5,7 +5,7 @@ import { createTRPCClient, loggerLink } from "@trpc/client";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import type { AppRouter } from "~/transports/rpc/router";
 import { env } from "@ashgw/env";
-import type { TRPCRequestInfo } from "@trpc/server/unstable-core-do-not-import";
+import type { TRPCRequestInfo } from "@trpc/server/unstable-core-do-not-import"; // game is game
 import type { NextRequest, NextResponse } from "next/server";
 import { createHydrationHelpers } from "@trpc/react-query/rsc";
 
@@ -19,11 +19,11 @@ import { getTrpcUrl } from "./client";
 import { transformer } from "~/trpc/transformer";
 
 /**
- * create a "naked" trpc context for direct server-side calls.
+ * create a "bare" trpc context for direct server-side calls.
  * - used for testing or internal utils
  * - not tied to a real req/res cycle (mocked)
  */
-const nakedCtx = createTRPCContext({
+const bareCtx = createTRPCContext({
   db,
   req: {} as NextRequest,
   res: {} as NextResponse,
@@ -35,7 +35,7 @@ const nakedCtx = createTRPCContext({
  * good for tests & playgrounds. no headers/cookies. naked ctx.
  * don’t use this in rsc — use `trpcHttpServerSideClient` instead.
  */
-const serverSideCaller = createCallerFactory(appRouter)(nakedCtx);
+const serverSideCaller = createCallerFactory(appRouter)(bareCtx);
 
 /**
  * create a query client that stays stable for a single rsc request.
@@ -57,7 +57,7 @@ const getTrpcBaseUrl = (): string => {
 
 /**
  * http-based trpc client for rsc.
- * in rsc we can’t call procs directly, nakedCtx not available.
+ * in rsc we can’t call procs directly, bareCtx not available.
  * so we go through http using `httpBatchLink`, forwarding cookies/headers for auth/session.
  * `cache()` ensures stable instance per rsc request.
  */
