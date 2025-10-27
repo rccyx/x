@@ -1,4 +1,4 @@
-import { middlewareResponse, middlewareFn } from "ts-rest-kit/core";
+import { response, middlewareFn } from "ts-rest-kit/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
 import type { GlobalContext } from "../../context";
@@ -69,7 +69,7 @@ export function rateLimiter(input: RateLimitOptions) {
             : `Rate limit exceeded: please wait ${seconds}s until quota refresh.`;
       }
 
-      return middlewareResponse.errors.tooManyRequests({
+      return response.error.tooManyRequests({
         body: { message },
         retryAfterSeconds: Math.max(1, Math.floor(pass.retryAfterMs / 1000)),
       });
