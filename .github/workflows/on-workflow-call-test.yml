@@ -46,7 +46,7 @@ jobs:
         run: npx playwright install # issue not resolved with pnpm as of date 04.24
       - name: Run Playwright tests
         run: pnpm test:e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-report
