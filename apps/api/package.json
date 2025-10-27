@@ -28,30 +28,19 @@
   "author": "",
   "dependencies": {
     "@ashgw/analytics": "workspace:*",
-    "@ashgw/auth": "workspace:*",
+    "@ashgw/api": "workspace:*",
     "@ashgw/constants": "workspace:*",
-    "@ashgw/core": "workspace:*",
     "@ashgw/cross-runtime": "workspace:*",
-    "@ashgw/db": "workspace:*",
     "@ashgw/design": "workspace:*",
     "@ashgw/env": "workspace:*",
     "@ashgw/logger": "workspace:*",
     "@ashgw/monitor": "workspace:*",
-    "@ashgw/runner": "workspace:*",
-    "@ashgw/scheduler": "workspace:*",
-    "@ashgw/security": "workspace:*",
-    "@ts-rest/core": "catalog:ts-rest3",
-    "@ts-rest/open-api": "catalog:ts-rest3",
-    "@ts-rest/react-query": "catalog:ts-rest3",
-    "@ts-rest/serverless": "catalog:ts-rest3",
-    "limico": "catalog:",
     "next": "catalog:",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
     "react-hook-form": "catalog:rhf",
     "sharp": "catalog:",
     "superjson": "catalog:",
-    "ts-rest-kit": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -79,14 +68,14 @@
   "engines": {
     "node": "20.x"
   },
-  "keywords": [],
-  "license": "ISC",
-  "type": "module",
   "exports": {
     "./v1": "./src/transports/v1/index.ts",
     "./rpc": "./src/transports/rpc/index.ts",
     "./ts-rest": "./src/ts-rest/index.ts",
     "./trpc": "./src/trpc/index.ts",
     "./uri": "./src/uri.ts"
-  }
+  },
+  "keywords": [],
+  "license": "ISC",
+  "type": "module"
 }
