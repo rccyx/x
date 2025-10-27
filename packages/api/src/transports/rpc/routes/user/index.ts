@@ -1,11 +1,8 @@
 import { z } from "zod";
 
-import type { TrpcContext } from "../../../../trpc/context";
-import {
-  authenticatedProcedure,
-  publicProcedure,
-} from "../../../../trpc/procedures";
-import { router } from "../../../../trpc/root";
+import type { TrpcContext } from "~/trpc/context";
+import { authenticatedProcedure, publicProcedure } from "~/trpc/procedures";
+import { router } from "~/trpc/root";
 import {
   sessionSchemaRo,
   userChangePasswordSchemaDto,

@@ -151,7 +151,7 @@ THE HANDLER TYPE IN THE HANDLER RESPONSES, IS ALWAYS EXPORTED BUT I'S SCHEMA ISN
 
 
  
-*/ import { c } from "../../ts-rest/root";
+*/ import { c } from "~/ts-rest/root";
 import { createContract } from "ts-rest-kit/core";
 import {
   healthSchemaResponses,
@@ -173,8 +173,8 @@ import {
   postPurgeTrashBinHeadersSchemaRequest,
   postsPurgeTrashBinSchemaResponses,
   whisperSchemaResponses,
-} from "../../transports/v1/models";
-import { v1 } from "./uris";
+} from "~/transports/v1/models";
+import { v1 } from "~/transports/v1/uris";
 
 export const contract = createContract(c)({
   remindersPushReminder: {
