@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import type { UserRo, UserRoleEnum } from "@ashgw/core/models";
+import type { UserRo, UserRoleEnum } from "~/transports/rpc/models";
 
 // role hierarchy: higher rank means more privilege!
 // DO NOT CHANGE THE RANKING OF THE ROLES

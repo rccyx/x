@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 
-import type { UserRo } from "@ashgw/core/models";
-import type { TrpcContext } from "../../../trpc/context";
-import { UserService } from "@ashgw/core/services";
+import { UserService } from "~/transports/rpc/services";
+import type { UserRo } from "~/transports/rpc/models";
+import type { TrpcContext } from "~/trpc/context";
 
 export async function isAuthenticated(input: {
   ctx: TrpcContext;
@@ -16,5 +16,5 @@ export async function isAuthenticated(input: {
       message: "You must be logged in to access this",
     });
   }
-  return r.value satisfies UserRo;
+  return r.value;
 }

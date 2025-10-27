@@ -1,4 +1,4 @@
-import { UserRoleEnum } from "@ashgw/core/models";
+import { UserRoleEnum } from "~/transports/rpc/models";
 import { authMiddleware } from "./middlewares/auth";
 import { timingMiddleware } from "./middlewares/timing";
 import { procedure } from "./root";
@@ -40,7 +40,7 @@ function authorizedProcedure({
 }) {
   return publicProcedure(limiter).use(
     authMiddleware({
-      withAuthorization: {
+      authorize: {
         requiredRole,
       },
     }),

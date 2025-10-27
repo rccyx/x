@@ -1,19 +1,19 @@
-import type { UserRoleEnum } from "@ashgw/core/models";
-import { middleware } from "../../root";
+import type { UserRoleEnum } from "~/transports/rpc/models";
+import { middleware } from "~/trpc/root";
 import { isAuthenticated } from "./authentication";
 import { isAuthorized } from "./authorization";
 
 export const authMiddleware = (input: {
-  withAuthorization?: {
+  authorize?: {
     requiredRole: UserRoleEnum;
   };
 }) =>
   middleware(async ({ ctx, next }) => {
     const user = await isAuthenticated({ ctx });
 
-    if (input.withAuthorization) {
+    if (input.authorize) {
       isAuthorized({
-        requiredRole: input.withAuthorization.requiredRole,
+        requiredRole: input.authorize.requiredRole,
         userRole: user.role,
       });
     }

@@ -3,7 +3,7 @@ import type { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@ashgw/db";
 import type { DatabaseClient } from "@ashgw/db";
-import type { UserRo } from "@ashgw/core/models";
+import type { UserRo } from "~/transports/rpc/models";
 
 export function createTRPCContext(opts: {
   req: NextRequest;
