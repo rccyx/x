@@ -7,16 +7,14 @@ import { UserService } from "@ashgw/core/services";
 export async function isAuthenticated(input: {
   ctx: TrpcContext;
 }): Promise<UserRo> {
-  const user = await new UserService({
+  const r = await new UserService({
     requestHeaders: input.ctx.req.headers,
-  }).me();
-
-  if (!user) {
+  }).getUserWithSession();
+  if (!r.ok) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
-      message: "You must be logged in to access this resource",
+      message: r.message,
     });
   }
-
-  return user;
+  return r.value satisfies UserRo;
 }
