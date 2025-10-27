@@ -688,6 +688,9 @@ importers:
       '@ashgw/runner':
         specifier: workspace:*
         version: link:../runner
+      '@ashgw/scheduler':
+        specifier: workspace:*
+        version: link:../scheduler
       '@ts-rest/core':
         specifier: catalog:ts-rest3
         version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)

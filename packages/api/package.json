@@ -24,6 +24,7 @@
     "@ashgw/logger": "workspace:*",
     "@ashgw/monitor": "workspace:*",
     "@ashgw/runner": "workspace:*",
+    "@ashgw/scheduler": "workspace:*",
     "@ts-rest/core": "catalog:ts-rest3",
     "@ts-rest/open-api": "catalog:ts-rest3",
     "@ts-rest/react-query": "catalog:ts-rest3",
