@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/server",
+  "name": "@ashgw/api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -28,14 +28,18 @@
   "author": "",
   "dependencies": {
     "@ashgw/analytics": "workspace:*",
-    "@ashgw/api": "workspace:*",
     "@ashgw/auth": "workspace:*",
     "@ashgw/constants": "workspace:*",
+    "@ashgw/core": "workspace:*",
     "@ashgw/cross-runtime": "workspace:*",
+    "@ashgw/db": "workspace:*",
+    "@ashgw/design": "workspace:*",
     "@ashgw/env": "workspace:*",
     "@ashgw/logger": "workspace:*",
     "@ashgw/monitor": "workspace:*",
     "@ashgw/runner": "workspace:*",
+    "@ashgw/scheduler": "workspace:*",
+    "@ashgw/security": "workspace:*",
     "@ts-rest/core": "catalog:ts-rest3",
     "@ts-rest/open-api": "catalog:ts-rest3",
     "@ts-rest/react-query": "catalog:ts-rest3",
@@ -51,6 +55,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@ashgw/design": "workspace:*",
     "@ashgw/eslint-config": "workspace:*",
     "@ashgw/next-config": "workspace:*",
     "@ashgw/playwright-config": "workspace:*",
@@ -76,5 +81,12 @@
   },
   "keywords": [],
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "./v1": "./src/transports/v1/index.ts",
+    "./rpc": "./src/transports/rpc/index.ts",
+    "./ts-rest": "./src/ts-rest/index.ts",
+    "./trpc": "./src/trpc/index.ts",
+    "./uri": "./src/uri.ts"
+  }
 }

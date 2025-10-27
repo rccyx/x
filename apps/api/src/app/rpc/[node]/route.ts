@@ -6,9 +6,9 @@ import { db } from "@ashgw/db";
 import { monitor } from "@ashgw/monitor";
 import { logger } from "@ashgw/logger";
 
-import { createTRPCContext } from "@ashgw/api/trpc";
-import { appRouter } from "@ashgw/api/rpc";
-import { rootUri } from "@ashgw/api/uri";
+import { createTRPCContext } from "~/trpc/context";
+import { appRouter } from "~/transports/rpc/router";
+import { root } from "~/root-uris";
 
 export const runtime = "nodejs";
 
@@ -16,7 +16,7 @@ const handler = async (req: NextRequest) => {
   const res = new NextResponse();
 
   const response = await fetchRequestHandler({
-    endpoint: rootUri.rpc,
+    endpoint: root.rpc,
     req,
     router: appRouter,
     createContext: ({ info: trpcInfo }) =>

@@ -169,6 +169,145 @@ importers:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
 
+  apps/api:
+    dependencies:
+      '@ashgw/analytics':
+        specifier: workspace:*
+        version: link:../../packages/analytics
+      '@ashgw/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@ashgw/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@ashgw/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@ashgw/cross-runtime':
+        specifier: workspace:*
+        version: link:../../packages/cross-runtime
+      '@ashgw/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@ashgw/design':
+        specifier: workspace:*
+        version: link:../../packages/design
+      '@ashgw/env':
+        specifier: workspace:*
+        version: link:../../packages/env
+      '@ashgw/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
+      '@ashgw/monitor':
+        specifier: workspace:*
+        version: link:../../packages/monitor
+      '@ashgw/runner':
+        specifier: workspace:*
+        version: link:../../packages/runner
+      '@ashgw/scheduler':
+        specifier: workspace:*
+        version: link:../../packages/scheduler
+      '@ashgw/security':
+        specifier: workspace:*
+        version: link:../../packages/security
+      '@ts-rest/core':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
+      '@ts-rest/open-api':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)
+      '@ts-rest/react-query':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)
+      '@ts-rest/serverless':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
+      limico:
+        specifier: 'catalog:'
+        version: 2.0.9
+      next:
+        specifier: 'catalog:'
+        version: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: catalog:react18
+        version: 18.3.1
+      react-dom:
+        specifier: catalog:react18
+        version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: catalog:rhf
+        version: 7.53.0(react@18.3.1)
+      sharp:
+        specifier: 'catalog:'
+        version: 0.33.2
+      superjson:
+        specifier: 'catalog:'
+        version: 2.2.1
+      ts-rest-kit:
+        specifier: workspace:*
+        version: link:../../packages/ts-rest-kit
+      zod:
+        specifier: 'catalog:'
+        version: 3.23.8
+    devDependencies:
+      '@ashgw/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@ashgw/next-config':
+        specifier: workspace:*
+        version: link:../../tooling/next
+      '@ashgw/playwright-config':
+        specifier: workspace:*
+        version: link:../../tooling/playwright
+      '@ashgw/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@ashgw/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@ashgw/vitest-config':
+        specifier: workspace:*
+        version: link:../../tooling/vitest
+      '@playwright/test':
+        specifier: 'catalog:'
+        version: 1.48.2
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.16.15
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.5(@types/react@18.3.18)
+      '@vitest/ui':
+        specifier: 'catalog:'
+        version: 2.1.8(vitest@2.1.8)
+      autoprefixer:
+        specifier: 'catalog:'
+        version: 10.0.1(postcss@8.5.6)
+      jiti:
+        specifier: 'catalog:'
+        version: 2.4.2
+      prettier:
+        specifier: 'catalog:'
+        version: 3.3.3
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
+      ts-roids:
+        specifier: 'catalog:'
+        version: 2.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+      vercel:
+        specifier: 'catalog:'
+        version: 33.2.0
+      vitest:
+        specifier: 'catalog:'
+        version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
+
   apps/blog:
     dependencies:
       '@ashgw/analytics':
@@ -176,7 +315,7 @@ importers:
         version: link:../../packages/analytics
       '@ashgw/api':
         specifier: workspace:*
-        version: link:../../packages/api
+        version: link:../api
       '@ashgw/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -356,133 +495,6 @@ importers:
         specifier: ^5.96.1
         version: 5.96.1
 
-  apps/server:
-    dependencies:
-      '@ashgw/analytics':
-        specifier: workspace:*
-        version: link:../../packages/analytics
-      '@ashgw/api':
-        specifier: workspace:*
-        version: link:../../packages/api
-      '@ashgw/auth':
-        specifier: workspace:*
-        version: link:../../packages/auth
-      '@ashgw/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@ashgw/cross-runtime':
-        specifier: workspace:*
-        version: link:../../packages/cross-runtime
-      '@ashgw/env':
-        specifier: workspace:*
-        version: link:../../packages/env
-      '@ashgw/logger':
-        specifier: workspace:*
-        version: link:../../packages/logger
-      '@ashgw/monitor':
-        specifier: workspace:*
-        version: link:../../packages/monitor
-      '@ashgw/runner':
-        specifier: workspace:*
-        version: link:../../packages/runner
-      '@ts-rest/core':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
-      '@ts-rest/open-api':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)
-      '@ts-rest/react-query':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)
-      '@ts-rest/serverless':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
-      limico:
-        specifier: 'catalog:'
-        version: 2.0.9
-      next:
-        specifier: 'catalog:'
-        version: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: catalog:react18
-        version: 18.3.1
-      react-dom:
-        specifier: catalog:react18
-        version: 18.3.1(react@18.3.1)
-      react-hook-form:
-        specifier: catalog:rhf
-        version: 7.53.0(react@18.3.1)
-      sharp:
-        specifier: 'catalog:'
-        version: 0.33.2
-      superjson:
-        specifier: 'catalog:'
-        version: 2.2.1
-      ts-rest-kit:
-        specifier: workspace:*
-        version: link:../../packages/ts-rest-kit
-      zod:
-        specifier: 'catalog:'
-        version: 3.23.8
-    devDependencies:
-      '@ashgw/eslint-config':
-        specifier: workspace:*
-        version: link:../../tooling/eslint
-      '@ashgw/next-config':
-        specifier: workspace:*
-        version: link:../../tooling/next
-      '@ashgw/playwright-config':
-        specifier: workspace:*
-        version: link:../../tooling/playwright
-      '@ashgw/prettier-config':
-        specifier: workspace:*
-        version: link:../../tooling/prettier
-      '@ashgw/tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/typescript
-      '@ashgw/vitest-config':
-        specifier: workspace:*
-        version: link:../../tooling/vitest
-      '@playwright/test':
-        specifier: 'catalog:'
-        version: 1.48.2
-      '@types/node':
-        specifier: 'catalog:'
-        version: 20.16.15
-      '@types/react':
-        specifier: catalog:react18
-        version: 18.3.18
-      '@types/react-dom':
-        specifier: catalog:react18
-        version: 18.3.5(@types/react@18.3.18)
-      '@vitest/ui':
-        specifier: 'catalog:'
-        version: 2.1.8(vitest@2.1.8)
-      autoprefixer:
-        specifier: 'catalog:'
-        version: 10.0.1(postcss@8.5.6)
-      jiti:
-        specifier: 'catalog:'
-        version: 2.4.2
-      prettier:
-        specifier: 'catalog:'
-        version: 3.3.3
-      tailwindcss:
-        specifier: 'catalog:'
-        version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.6.3
-      vercel:
-        specifier: 'catalog:'
-        version: 33.2.0
-      vitest:
-        specifier: 'catalog:'
-        version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
-
   apps/www:
     dependencies:
       '@ashgw/analytics':
@@ -490,7 +502,7 @@ importers:
         version: link:../../packages/analytics
       '@ashgw/api':
         specifier: workspace:*
-        version: link:../../packages/api
+        version: link:../api
       '@ashgw/components':
         specifier: workspace:*
         version: link:../../packages/components
@@ -658,112 +670,6 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
-
-  packages/api:
-    dependencies:
-      '@ashgw/analytics':
-        specifier: workspace:*
-        version: link:../analytics
-      '@ashgw/auth':
-        specifier: workspace:*
-        version: link:../auth
-      '@ashgw/constants':
-        specifier: workspace:*
-        version: link:../constants
-      '@ashgw/core':
-        specifier: workspace:*
-        version: link:../core
-      '@ashgw/cross-runtime':
-        specifier: workspace:*
-        version: link:../cross-runtime
-      '@ashgw/db':
-        specifier: workspace:*
-        version: link:../db
-      '@ashgw/env':
-        specifier: workspace:*
-        version: link:../env
-      '@ashgw/logger':
-        specifier: workspace:*
-        version: link:../logger
-      '@ashgw/monitor':
-        specifier: workspace:*
-        version: link:../monitor
-      '@ashgw/runner':
-        specifier: workspace:*
-        version: link:../runner
-      '@ashgw/scheduler':
-        specifier: workspace:*
-        version: link:../scheduler
-      '@ashgw/security':
-        specifier: workspace:*
-        version: link:../security
-      '@ts-rest/core':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
-      '@ts-rest/open-api':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)
-      '@ts-rest/react-query':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)
-      '@ts-rest/serverless':
-        specifier: catalog:ts-rest3
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
-      limico:
-        specifier: 'catalog:'
-        version: 2.0.9
-      react:
-        specifier: catalog:react18
-        version: 18.3.1
-      react-dom:
-        specifier: catalog:react18
-        version: 18.3.1(react@18.3.1)
-      sharp:
-        specifier: 'catalog:'
-        version: 0.33.2
-      superjson:
-        specifier: 'catalog:'
-        version: 2.2.1
-      ts-rest-kit:
-        specifier: workspace:*
-        version: link:../ts-rest-kit
-      zod:
-        specifier: 'catalog:'
-        version: 3.23.8
-    devDependencies:
-      '@ashgw/eslint-config':
-        specifier: workspace:*
-        version: link:../../tooling/eslint
-      '@ashgw/prettier-config':
-        specifier: workspace:*
-        version: link:../../tooling/prettier
-      '@ashgw/tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/typescript
-      '@ashgw/vitest-config':
-        specifier: workspace:*
-        version: link:../../tooling/vitest
-      '@types/node':
-        specifier: 'catalog:'
-        version: 20.16.15
-      '@types/react':
-        specifier: catalog:react18
-        version: 18.3.18
-      '@types/react-dom':
-        specifier: catalog:react18
-        version: 18.3.5(@types/react@18.3.18)
-      '@vitest/ui':
-        specifier: 'catalog:'
-        version: 2.1.8(vitest@2.1.8)
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.6.3
-      vitest:
-        specifier: 'catalog:'
-        version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   packages/auth:
     dependencies:
