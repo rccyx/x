@@ -2,7 +2,7 @@
 
 import { QueryClientProvider } from "@ts-rest/react-query/tanstack";
 import { getOptimizedQueryClient } from "./query-client";
-import { tsrQueryClientSideClient } from "./client";
+import { tsrQueryClientSide } from "./client";
 
 // Provides React Query context + ts-rest hook context in one place
 // - QueryClientProvider: TanStack Query v5
@@ -14,9 +14,9 @@ export function TsrProvider(
 ) {
   return (
     <QueryClientProvider client={getOptimizedQueryClient()}>
-      <tsrQueryClientSideClient.ReactQueryProvider>
+      <tsrQueryClientSide.ReactQueryProvider>
         {props.children}
-      </tsrQueryClientSideClient.ReactQueryProvider>
+      </tsrQueryClientSide.ReactQueryProvider>
     </QueryClientProvider>
   );
 }

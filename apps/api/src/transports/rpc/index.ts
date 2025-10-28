@@ -1,3 +1,3 @@
 // EXPORTS FOR OUTSIDE API PACKAGE CONSUMERS
 
-export * from "./router";
+export { appRouter, type AppRouter } from "./router";

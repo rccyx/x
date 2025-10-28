@@ -1,6 +1,6 @@
 import { contract } from "~/transports/v1/contract";
 import { rateLimiter, authed } from "~/ts-rest/middlewares";
-import type { GlobalContext } from "~/ts-rest/context";
+import type { TsrContext } from "~/ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 
 import {
@@ -12,7 +12,7 @@ import {
   posts,
 } from "~/transports/v1/functions";
 
-export const router = createRouterWithContext(contract)<GlobalContext>({
+export const router = createRouterWithContext(contract)<TsrContext>({
   remindersPushReminder: middleware()
     .use(
       rateLimiter({

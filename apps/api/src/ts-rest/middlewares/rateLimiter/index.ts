@@ -1,7 +1,7 @@
 import { response, middlewareFn } from "ts-rest-kit/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
-import type { GlobalContext } from "../../context";
+import type { TsrContext } from "../../context";
 import { getFingerprint } from "@ashgw/security";
 
 type RlKind = "interval" | "quota";
@@ -53,7 +53,7 @@ export function rateLimiter(input: RateLimitOptions) {
   const allow =
     input.kind === "interval" ? rlI.allow.bind(rlI) : rlQ.allow.bind(rlQ);
 
-  return middlewareFn<GlobalContext, RateLimiterCtx>(async (req, _res) => {
+  return middlewareFn<TsrContext, RateLimiterCtx>(async (req, _res) => {
     const pass = await allow(getFingerprint({ req }));
     if (!pass.allowed) {
       let message: string;

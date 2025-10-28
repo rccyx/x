@@ -1,7 +1,4 @@
-export * from "./middlewares";
-export * from "./context";
-export * from "./client";
-export * from "./root";
-export * from "./query-client";
-export * from "./provider";
-export * from "./server";
+export type { TsrContext } from "./context";
+export { sdk, tsrQueryClientSide } from "./client";
+export { TsrProvider } from "./provider";
+export { HydrateTsrClient } from "./server";

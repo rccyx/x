@@ -1,7 +1,7 @@
 import type { DatabaseClient } from "@ashgw/db";
-import type { GlobalTsrContext } from "ts-rest-kit/core";
+import type { GlobalTsrContext as Base } from "ts-rest-kit/core";
 
-export interface GlobalContext extends GlobalTsrContext {
+export interface TsrContext extends Base {
   ctx: {
     requestedAt: Date;
     db: DatabaseClient;

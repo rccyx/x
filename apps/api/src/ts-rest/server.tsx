@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { makeQueryClient } from "./query-client";
-import { tsrQueryClientSideClient } from "./client";
+import { tsrQueryClientSide } from "./client";
 
 /**
  * Use this in `getServerSideProps`, `getStaticProps`, or any server-side
@@ -16,7 +16,7 @@ import { tsrQueryClientSideClient } from "./client";
  *
  */
 export const tsrQueryServerSideClient =
-  tsrQueryClientSideClient.initQueryClient(makeQueryClient());
+  tsrQueryClientSide.initQueryClient(makeQueryClient());
 
 /**
  * A thin wrapper that hydrates React Query’s cache on the client
@@ -30,7 +30,7 @@ export const tsrQueryServerSideClient =
  * </HydrateClient>
  * ```
  */
-export function HydrateClient(
+export function HydrateTsrClient(
   props: Readonly<{
     children: React.ReactNode;
   }>,
