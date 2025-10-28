@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { logger } from "@ashgw/logger";
 
-import type { UserRo } from "@ashgw/api/rpc";
+import type { UserRo } from "@ashgw/api/rpc-models";
 import { trpcClientSide } from "@ashgw/api/trpc";
 
 export function useAuth(): {

@@ -3,8 +3,8 @@ import type { Optional } from "ts-roids";
 import { createTRPCReact } from "@trpc/react-query";
 
 import { makeQueryClient } from "./query-client";
-import { root } from "~/root-uris";
-import type { AppRouter } from "~/transports/rpc/router";
+import { root } from "../../root-uris";
+import type { AppRouter } from "../../transports/rpc/router";
 
 let clientQueryClientSingleton: Optional<QueryClient> = null;
 
