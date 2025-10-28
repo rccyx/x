@@ -6,7 +6,7 @@ import { router } from "~/transports/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
-} from "@ashgw/api/ts-rest";
+} from "~/ts-rest/middlewares";
 import { root } from "~/root-uris";
 
 export const runtime = "nodejs";
