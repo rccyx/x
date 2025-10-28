@@ -11,7 +11,7 @@ import { AnalyticsProvider } from "@ashgw/analytics/client";
 import { env } from "@ashgw/env";
 import { DesignSystemProvider } from "@ashgw/design/provider";
 
-import { TRPCProvider } from "~/trpc/provider";
+import { TRPCProvider } from "@ashgw/api/trpc";
 import { GoBack } from "./components/pages/root";
 import { StoreProvider } from "./stores";
 import { siteName } from "@ashgw/constants";
