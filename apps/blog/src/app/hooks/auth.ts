@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 
 import { logger } from "@ashgw/logger";
 
-import type { UserRo } from "~/api/models";
-import { trpcClientSide } from "~/trpc/callers/client";
+import type { UserRo } from "@ashgw/api/rpc";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 export function useAuth(): {
   user: Optional<UserRo>;
