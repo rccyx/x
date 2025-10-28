@@ -84,6 +84,7 @@
   "exports": {
     "./v1": "./src/transports/v1/index.ts",
     "./rpc": "./src/transports/rpc/index.ts",
+    "./rpc-models": "./src/transports/rpc/models/index.ts",
     "./ts-rest": "./src/ts-rest/index.ts",
     "./trpc": "./src/trpc/index.ts",
     "./uri": "./src/uri.ts"
