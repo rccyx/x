@@ -17,9 +17,9 @@ import {
   Input,
 } from "@ashgw/design/ui";
 
-import type { NewsletterSubscribeDto } from "~/api/models/newsletter";
-import { newsletterSubscribeDtoSchema } from "~/api/models/newsletter";
-import { trpcClientSide } from "~/trpc/callers/client";
+import type { NewsletterSubscribeDto } from "@ashgw/api/rpc-models";
+import { newsletterSubscribeDtoSchema } from "@ashgw/api/rpc-models";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 export function Newsletter() {
   const form = useForm<NewsletterSubscribeDto>({

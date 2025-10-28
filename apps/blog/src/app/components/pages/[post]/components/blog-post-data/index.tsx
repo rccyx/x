@@ -10,7 +10,7 @@ import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/
 import { ScrollUp } from "~/app/components/pages/home/components/postCards/components/ScrollUp";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { MDX } from "../../../../shared/mdx-custom/mdx";
-import type { PostArticleRo } from "~/api/models";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
 import { ReleaseDate } from "./ReleaseDate";
 import { ViewTracker } from "./ViewTracker";
 
