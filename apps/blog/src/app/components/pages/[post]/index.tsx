@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import type { PostArticleRo } from "~/api/models";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
 import { Newsletter } from "~/app/components/pages/[post]/components/newsletter";
 import { BlogPostData } from "./components/blog-post-data";
 

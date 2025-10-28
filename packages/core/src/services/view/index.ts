@@ -12,7 +12,11 @@ import { ok, run, runner, runSync } from "@ashgw/runner";
 
 export class ViewService {
   private readonly serviceTag = "ViewService";
-  public async trackView({ slug, ipAddress, userAgent }: TrackViewDto) {
+  public async trackView({
+    slug,
+    ipAddress,
+    userAgent,
+  }: TrackViewDto & { ipAddress: string; userAgent: string }) {
     return runner(
       runSync(
         () => this._fingerprint({ slug, ipAddress, userAgent }),

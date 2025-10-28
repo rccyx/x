@@ -6,7 +6,6 @@ import { motion } from "@ashgw/design/motion";
 import { useForm } from "react-hook-form";
 import { toast } from "@ashgw/design/ui";
 
-import { logger } from "@ashgw/logger";
 import {
   Button,
   Form,
@@ -41,16 +40,12 @@ export function Newsletter() {
     },
   });
 
-  const submitHandler: SubmitHandler<NewsletterSubscribeDto> = async (data) => {
-    try {
-      await subscribeMutation.mutateAsync({
-        email: data.email,
-      });
-    } catch (error) {
-      logger.debug("Newsletter subscription failed", {
-        error,
-      });
-    }
+  const submitHandler: SubmitHandler<NewsletterSubscribeDto> = async ({
+    email,
+  }) => {
+    await subscribeMutation.mutateAsync({
+      email,
+    });
   };
 
   return (

@@ -5,8 +5,6 @@ import { slug } from "../shared";
 
 export const trackViewSchemaDto = z.object({
   slug,
-  ipAddress: z.string().min(1).max(128),
-  userAgent: z.string().min(1).max(2048),
 });
 
 export const viewWindowPurgeWithCutoffSchemaDto = z.object({

@@ -3,7 +3,7 @@
 import type { Optional } from "ts-roids";
 import { useEffect, useRef } from "react";
 import { logger } from "@ashgw/logger";
-import { trpcClientSide } from "~/trpc/callers/client";
+import { trpcClientSide } from "@ashgw/api/trpc";
 import { useStore } from "~/app/stores";
 
 interface UseViewTrackerProps {
