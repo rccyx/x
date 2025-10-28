@@ -174,18 +174,24 @@ importers:
       '@ashgw/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
-      '@ashgw/api':
+      '@ashgw/auth':
         specifier: workspace:*
-        version: 'link:'
+        version: link:../../packages/auth
+      '@ashgw/components':
+        specifier: workspace:*
+        version: link:../../packages/components
       '@ashgw/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@ashgw/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@ashgw/cross-runtime':
         specifier: workspace:*
         version: link:../../packages/cross-runtime
-      '@ashgw/design':
+      '@ashgw/db':
         specifier: workspace:*
-        version: link:../../packages/design
+        version: link:../../packages/db
       '@ashgw/env':
         specifier: workspace:*
         version: link:../../packages/env
@@ -195,6 +201,36 @@ importers:
       '@ashgw/monitor':
         specifier: workspace:*
         version: link:../../packages/monitor
+      '@ashgw/runner':
+        specifier: workspace:*
+        version: link:../../packages/runner
+      '@trpc/client':
+        specifier: catalog:trpc11
+        version: 11.0.2(@trpc/server@11.0.2(typescript@5.6.3))(typescript@5.6.3)
+      '@trpc/next':
+        specifier: catalog:trpc11
+        version: 11.0.2(@tanstack/react-query@5.71.10(react@18.3.1))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.6.3))(typescript@5.6.3))(@trpc/react-query@11.0.2(@tanstack/react-query@5.71.10(react@18.3.1))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.6.3))(typescript@5.6.3))(@trpc/server@11.0.2(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@trpc/server@11.0.2(typescript@5.6.3))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      '@trpc/react-query':
+        specifier: catalog:trpc11
+        version: 11.0.2(@tanstack/react-query@5.71.10(react@18.3.1))(@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.6.3))(typescript@5.6.3))(@trpc/server@11.0.2(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      '@trpc/server':
+        specifier: catalog:trpc11
+        version: 11.0.2(typescript@5.6.3)
+      '@ts-rest/core':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
+      '@ts-rest/open-api':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)
+      '@ts-rest/react-query':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)
+      '@ts-rest/serverless':
+        specifier: catalog:ts-rest3
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
+      limico:
+        specifier: 'catalog:'
+        version: 2.0.9
       next:
         specifier: 'catalog:'
         version: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -213,10 +249,16 @@ importers:
       superjson:
         specifier: 'catalog:'
         version: 2.2.1
+      ts-rest-kit:
+        specifier: workspace:*
+        version: link:../../packages/ts-rest-kit
       zod:
         specifier: 'catalog:'
         version: 3.23.8
     devDependencies:
+      '@ashgw/design':
+        specifier: workspace:*
+        version: link:../../packages/design
       '@ashgw/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
