@@ -1,6 +1,6 @@
-import { contract } from "~/transports/v1/contract";
-import { rateLimiter, authed } from "~/ts-rest/middlewares";
-import type { TsrContext } from "~/ts-rest/context";
+import { contract } from "../../transports/v1/contract";
+import { rateLimiter, authed } from "../../ts-rest/middlewares";
+import type { TsrContext } from "../../ts-rest/context";
 import { createRouterWithContext, middleware } from "ts-rest-kit/next";
 
 import {
@@ -10,7 +10,7 @@ import {
   reminders,
   views,
   posts,
-} from "~/transports/v1/functions";
+} from "../../transports/v1/functions";
 
 export const router = createRouterWithContext(contract)<TsrContext>({
   remindersPushReminder: middleware()

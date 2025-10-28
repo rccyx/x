@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { generateOpenApi } from "@ts-rest/open-api";
-import { contract } from "~/transports/v1/contract";
+import { contract } from "../../../transports/v1/contract";
 import { env } from "@ashgw/env";
-import { root } from "~/root-uris";
+import { root } from "../../../root-uris";
 import { ossEmail } from "@ashgw/constants";
 
 export const runtime = "edge";

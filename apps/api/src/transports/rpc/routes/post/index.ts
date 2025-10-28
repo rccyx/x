@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { adminProcedure, publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
+import { adminProcedure, publicProcedure } from "../../../../trpc/procedures";
+import { router } from "../../../../trpc/root";
 import {
   postCardSchemaRo,
   postDeleteSchemaDto,

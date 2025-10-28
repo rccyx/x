@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
+import { publicProcedure } from "../../../../trpc/procedures";
+import { router } from "../../../../trpc/root";
 import { newsletterSubscribeDtoSchema } from "../../models";
 import { NewsletterService } from "../../services";
 

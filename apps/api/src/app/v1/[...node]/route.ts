@@ -1,13 +1,13 @@
 import { logger } from "@ashgw/logger";
 import { monitor } from "@ashgw/monitor";
 import { createNextHandler } from "@ts-rest/serverless/next";
-import { contract } from "~/transports/v1/contract";
-import { router } from "~/transports/v1/router";
+import { contract } from "../../../transports/v1/contract";
+import { router } from "../../../transports/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
-} from "~/ts-rest/middlewares";
-import { root } from "~/root-uris";
+} from "../../../ts-rest/middlewares";
+import { root } from "../../../root-uris";
 
 export const runtime = "nodejs";
 

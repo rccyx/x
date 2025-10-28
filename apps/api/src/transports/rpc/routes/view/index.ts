@@ -1,5 +1,5 @@
-import { publicProcedure } from "~/trpc/procedures";
-import { router } from "~/trpc/root";
+import { publicProcedure } from "../../../../trpc/procedures";
+import { router } from "../../../../trpc/root";
 import { trackViewSchemaRo, trackViewSchemaDto } from "../../models";
 import { ViewService } from "../../services";
 

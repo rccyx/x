@@ -6,9 +6,9 @@ import { db } from "@ashgw/db";
 import { monitor } from "@ashgw/monitor";
 import { logger } from "@ashgw/logger";
 
-import { createTRPCContext } from "~/trpc/context";
-import { appRouter } from "~/transports/rpc/router";
-import { root } from "~/root-uris";
+import { createTRPCContext } from "../../../trpc/context";
+import { appRouter } from "../../../transports/rpc/router";
+import { root } from "../../../root-uris";
 
 export const runtime = "nodejs";
 
