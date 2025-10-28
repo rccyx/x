@@ -5,7 +5,7 @@ import { motion } from "@ashgw/design/motion";
 import { Button, Input } from "@ashgw/design/ui";
 import { ModalShell } from "./ModalShell";
 
-import type { PostArticleRo } from "~/api/models/post";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
 
 export function ConfirmBlogDeleteModal(props: {
   blog: PostArticleRo;

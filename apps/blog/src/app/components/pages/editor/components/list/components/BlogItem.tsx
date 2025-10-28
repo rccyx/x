@@ -3,7 +3,7 @@ import { motion } from "@ashgw/design/motion";
 
 import { Button } from "@ashgw/design/ui";
 
-import type { PostArticleRo } from "~/api/models/post";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
 
 interface BlogItemProps {
   blog: PostArticleRo;

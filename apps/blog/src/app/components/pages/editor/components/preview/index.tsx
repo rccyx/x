@@ -6,7 +6,7 @@ import { motion } from "@ashgw/design/motion";
 import { DateService } from "@ashgw/cross-runtime";
 import { Badge, Skeleton } from "@ashgw/design/ui";
 
-import type { PostEditorDto } from "~/api/models/post";
+import type { PostEditorDto } from "@ashgw/api/rpc-models";
 import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/blog";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { ClientMDX } from "../../../../shared/mdx-custom/mdx/client";

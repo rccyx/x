@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "@ashgw/design/motion";
 
 import { Button, ScrollArea, Skeleton } from "@ashgw/design/ui";
 
-import type { PostArticleRo, TrashPostArticleRo } from "~/api/models/post";
+import type { PostArticleRo, TrashPostArticleRo } from "@ashgw/api/rpc-models";
 
 interface BaseAction {
   label: string;
