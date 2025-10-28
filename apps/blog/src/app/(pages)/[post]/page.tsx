@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { NotFound } from "@ashgw/components";
 import { createMetadata } from "@ashgw/seo";
 import { BlogPostPage } from "~/app/components/pages/[post]";
-import { trpcHttpServerSideClient, HydrateClient } from "~/trpc/callers/server";
+import { trpcHttpServerSideClient, HydrateTrpcClient } from "@ashgw/api/trpc";
 
 const getPostCached = cache((slug: string) =>
   trpcHttpServerSideClient.post.getDetailedPublicPost.query({ slug }),
@@ -47,8 +47,8 @@ export default async function Page({ params }: { params: { post: string } }) {
     return <NotFound message={`No post found that matches /${params.post}`} />;
 
   return (
-    <HydrateClient>
+    <HydrateTrpcClient>
       <BlogPostPage postData={postData} />
-    </HydrateClient>
+    </HydrateTrpcClient>
   );
 }

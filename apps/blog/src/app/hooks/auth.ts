@@ -2,8 +2,6 @@ import type { Optional } from "ts-roids";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-import { logger } from "@ashgw/logger";
-
 import type { UserRo } from "@ashgw/api/rpc-models";
 import { trpcClientSide } from "@ashgw/api/trpc";
 
@@ -18,13 +16,9 @@ export function useAuth(): {
   const logoutMutation = trpcClientSide.user.logout.useMutation();
 
   const logout = useCallback(async () => {
-    try {
-      await logoutMutation.mutateAsync();
-      await utils.user.me.invalidate();
-      router.refresh();
-    } catch (error) {
-      logger.error("Logout failed", { error });
-    }
+    await logoutMutation.mutateAsync();
+    await utils.user.me.invalidate();
+    router.refresh();
   }, [logoutMutation, router, utils.user.me]);
 
   return {
