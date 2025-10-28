@@ -7,7 +7,7 @@ import { httpBatchLink } from "@trpc/client";
 import {
   getOptimizedQueryClient,
   getTrpcUrl,
-  trpcClientSide,
+  rpcClientSide,
 } from "./callers/client";
 import { transformer } from "./transformer";
 
@@ -23,7 +23,7 @@ export function TRPCProvider(
   //       render if it suspends and there ais no boundary
   const queryClientInstance = getOptimizedQueryClient();
   const [trpcClientInstance] = useState(() =>
-    trpcClientSide.createClient({
+    rpcClientSide.createClient({
       links: [
         httpBatchLink({
           url: getTrpcUrl({ siteBaseUrl: props.siteBaseUrl }),
@@ -41,13 +41,13 @@ export function TRPCProvider(
   );
 
   return (
-    <trpcClientSide.Provider
+    <rpcClientSide.Provider
       client={trpcClientInstance}
       queryClient={queryClientInstance}
     >
       <QueryClientProvider client={queryClientInstance}>
         {props.children}
       </QueryClientProvider>
-    </trpcClientSide.Provider>
+    </rpcClientSide.Provider>
   );
 }

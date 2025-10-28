@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { logger } from "@ashgw/logger";
 
 import type { UserRo } from "@ashgw/api/rpc";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClientSide } from "@ashgw/api/trpc";
 
 export function useAuth(): {
   user: Optional<UserRo>;
@@ -13,9 +13,9 @@ export function useAuth(): {
   logout: () => Promise<void>;
 } {
   const router = useRouter();
-  const { data: user, isLoading } = trpcClientSide.user.me.useQuery();
-  const utils = trpcClientSide.useUtils();
-  const logoutMutation = trpcClientSide.user.logout.useMutation();
+  const { data: user, isLoading } = rpcClientSide.user.me.useQuery();
+  const utils = rpcClientSide.useUtils();
+  const logoutMutation = rpcClientSide.user.logout.useMutation();
 
   const logout = useCallback(async () => {
     try {
