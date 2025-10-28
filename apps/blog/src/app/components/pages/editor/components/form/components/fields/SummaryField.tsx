@@ -9,7 +9,7 @@ import {
   Textarea,
 } from "@ashgw/design/ui";
 
-import type { PostEditorDto } from "~/api/models/post";
+import type { PostEditorDto } from "@ashgw/api/rpc-models";
 
 interface SummaryFieldProps {
   control: Control<PostEditorDto>;

@@ -3,7 +3,7 @@ import { Lock, LogIn } from "@ashgw/design/icons";
 
 import { Button } from "@ashgw/design/ui";
 
-import { UserRoleEnum } from "~/api/models";
+import { UserRoleEnum } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks";
 
 interface FormButtonsProps {

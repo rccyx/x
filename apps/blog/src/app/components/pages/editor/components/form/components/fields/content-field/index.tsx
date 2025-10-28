@@ -2,7 +2,7 @@ import type { Control } from "react-hook-form";
 
 import { FormControl, FormField, FormItem, FormLabel } from "@ashgw/design/ui";
 
-import type { PostEditorDto } from "~/api/models/post";
+import type { PostEditorDto } from "@ashgw/api/rpc-models";
 import { BlockEditor } from "./BlockEditor";
 
 interface ContentFieldProps {
