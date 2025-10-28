@@ -48,8 +48,10 @@ const getQueryClient = cache(makeQueryClient);
  * - `trpcRpcServerSideClient`: direct caller client (no http)
  * - `HydrateClient`: react component that hydrates dehydrated queries into client cache
  */
-export const { trpc: trpcBareServerSideClient, HydrateClient } =
-  createHydrationHelpers<AppRouter>(serverSideCaller, getQueryClient);
+export const {
+  trpc: trpcBareServerSideClient,
+  HydrateClient: HydrateTrpcClient,
+} = createHydrationHelpers<AppRouter>(serverSideCaller, getQueryClient);
 
 const getTrpcBaseUrl = (): string => {
   return env.NEXT_PUBLIC_API_URL;

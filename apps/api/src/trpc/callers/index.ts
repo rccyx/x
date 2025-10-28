@@ -1,4 +1,6 @@
-export * from "./client";
-export * from "./server";
-export * from "./query-client";
-export * from "./server";
+export { trpcClientSide } from "./client";
+export {
+  HydrateTrpcClient,
+  trpcBareServerSideClient,
+  trpcHttpServerSideClient,
+} from "./server";
