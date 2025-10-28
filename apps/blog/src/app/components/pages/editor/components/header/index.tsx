@@ -4,7 +4,7 @@ import { Plus } from "@ashgw/design/icons";
 import { Button } from "@ashgw/design/ui";
 
 import type { SortOptions as SortOptionsType } from "./components/SortOptions";
-import type { PostArticleRo } from "~/api/models/post";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
 import { PreviewToggle } from "../preview/components/PreviewToggle";
 import { ProfileButton } from "./components/ProfileButton";

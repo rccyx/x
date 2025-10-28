@@ -19,7 +19,7 @@ export class UserMapper {
       createdAt: user.createdAt,
       emailVerified: user.emailVerified,
       updatedAt: user.updatedAt,
-      image: user.image ?? undefined,
+      image: user.image ?? null,
       role: this._mapRoleFromAuthQuery(user.role),
       twoFactorEnabled: user.twoFactorEnabled ?? false,
       session: SessionMapper.toRo({ session }),

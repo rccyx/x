@@ -12,7 +12,7 @@ import {
   Checkbox,
 } from "@ashgw/design/ui";
 
-import type { PostEditorDto } from "~/api/models/post";
+import type { PostEditorDto } from "@ashgw/api/rpc-models";
 import { CategoryField } from "./components/fields/CategoryField";
 import { ContentField } from "./components/fields/content-field";
 import { SummaryField } from "./components/fields/SummaryField";
