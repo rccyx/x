@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { monitor } from "@ashgw/monitor";
-import { rpcHttpServerSideClient } from "@ashgw/api/rpc-server";
+import { rpcHttpServer } from "@ashgw/api/rpc-server";
 import { logger } from "@ashgw/logger";
 
 export const runtime = "nodejs";
@@ -26,11 +26,9 @@ const clamp = (s: string, n: number) =>
 
 export default async function Image(_: Request, { params }: RouteCtx) {
   try {
-    const post = await rpcHttpServerSideClient.post.getDetailedPublicPost.query(
-      {
-        slug: params.post,
-      },
-    );
+    const post = await rpcHttpServer.post.getDetailedPublicPost.query({
+      slug: params.post,
+    });
 
     const title = clamp(post?.title ?? "Post not found", 90);
     const subtitle = clamp(post?.summary ?? "No description available", 140);

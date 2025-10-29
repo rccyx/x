@@ -1,2 +1,2 @@
-export { rpcHttpServerSideClient } from "./server";
+export { rpcHttpServer } from "./server";
 export { HydrateRpcClient } from "./server";

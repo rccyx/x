@@ -4,7 +4,7 @@ import { useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-import { getOptimizedQueryClient, getTrpcUrl, rpcClientSide } from "./client";
+import { getOptimizedQueryClient, getTrpcUrl, rpcClient } from "./client";
 import { transformer } from "../../transformer";
 
 export function RPCProvider(
@@ -19,7 +19,7 @@ export function RPCProvider(
   //       render if it suspends and there ais no boundary
   const queryClientInstance = getOptimizedQueryClient();
   const [trpcClientInstance] = useState(() =>
-    rpcClientSide.createClient({
+    rpcClient.createClient({
       links: [
         httpBatchLink({
           url: getTrpcUrl({ siteBaseUrl: props.siteBaseUrl }),
@@ -37,13 +37,13 @@ export function RPCProvider(
   );
 
   return (
-    <rpcClientSide.Provider
+    <rpcClient.Provider
       client={trpcClientInstance}
       queryClient={queryClientInstance}
     >
       <QueryClientProvider client={queryClientInstance}>
         {props.children}
       </QueryClientProvider>
-    </rpcClientSide.Provider>
+    </rpcClient.Provider>
   );
 }
