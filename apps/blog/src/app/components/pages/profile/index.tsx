@@ -18,7 +18,7 @@ import {
 } from "@ashgw/design/ui";
 
 import { useAuth } from "~/app/hooks/auth";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 import { ChangePasswordForm } from "./components/ChangePasswordForm";
 import { SessionsList } from "./components/SessionsList";
 import { UserInfo } from "./components/UserInfo";
@@ -34,7 +34,7 @@ import {
 export function ProfilePage() {
   const router = useRouter();
   const { user, isLoading, logout } = useAuth();
-  const utils = trpcClientSide.useUtils();
+  const utils = rpcClient.useUtils();
 
   // Perform redirect as a side effect, not during render
   useEffect(() => {
