@@ -1,1 +1,2 @@
-export { restServer, HydrateRestClient } from "./server";
+export { RestProvider } from "./provider";
+export { restClient, sdk } from "./client";
