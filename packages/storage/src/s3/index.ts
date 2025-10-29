@@ -19,7 +19,6 @@ import { setTimeout as setAbortTimeout } from "timers";
 import { setTimeout as sleep } from "timers/promises";
 import type { Readable } from "stream";
 import type { MaybeUndefined } from "ts-roids";
-import { AppError } from "@ashgw/runner";
 import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
 
@@ -34,7 +33,9 @@ import { BaseStorageService } from "../base";
 
 try {
   setDefaultResultOrder("ipv4first");
-} catch {}
+} catch {
+  //
+}
 
 const MAX_RETRIES = 3;
 const DEFAULT_TIMEOUT_MS = 8000;
@@ -138,11 +139,7 @@ export class S3Service extends BaseStorageService {
     );
 
     if (!res.Body) {
-      throw new AppError({
-        code: "NOT_FOUND",
-        message: `file ${key} not found`,
-        meta: { upstream: { service: "s3", operation: "GetObject" } },
-      });
+      throw new Error(`file ${key} not found`);
     }
     return this._streamToBuffer(res.Body as Readable);
   }
@@ -232,7 +229,9 @@ export class S3Service extends BaseStorageService {
       DEFAULT_TIMEOUT_MS,
     );
 
-    const keys = (res.Contents ?? []).map((c) => c.Key!).filter(Boolean);
+    const keys = (res.Contents ?? [])
+      .map((c) => c.Key)
+      .filter((k): k is string => typeof k === "string");
     return { keys, nextToken: res.NextContinuationToken };
   }
 
@@ -304,15 +303,17 @@ export class S3Service extends BaseStorageService {
               MaxKeys: 1000,
             }),
           );
-          const objects = (list.Contents ?? []).map((o) => ({ Key: o.Key! }));
-          if (objects.length > 0) {
+          const keys = (list.Contents ?? [])
+            .map((o) => o.Key)
+            .filter((k): k is string => typeof k === "string");
+          if (keys.length > 0) {
             await this.client.send(
               new DeleteObjectsCommand({
                 Bucket: this.bucket,
-                Delete: { Objects: objects, Quiet: true },
+                Delete: { Objects: keys.map((k) => ({ Key: k })), Quiet: true },
               }),
             );
-            deleted += objects.length;
+            deleted += keys.length;
           }
           return list;
         },
@@ -338,7 +339,10 @@ export class S3Service extends BaseStorageService {
       ResponseContentType: options?.responseContentType,
       ResponseContentDisposition: options?.responseContentDisposition,
     });
-    const url = await getSignedUrl(this.client, cmd, {
+    const clientForPresign = this.client as unknown as Parameters<
+      typeof getSignedUrl
+    >[0];
+    const url = await getSignedUrl(clientForPresign, cmd, {
       expiresIn: options?.expiresIn ?? 900,
     });
     return url;
@@ -361,7 +365,10 @@ export class S3Service extends BaseStorageService {
       ServerSideEncryption: options?.serverSideEncryption,
       SSEKMSKeyId: options?.sseKmsKeyId,
     });
-    const url = await getSignedUrl(this.client, cmd, {
+    const clientForPresign = this.client as unknown as Parameters<
+      typeof getSignedUrl
+    >[0];
+    const url = await getSignedUrl(clientForPresign, cmd, {
       expiresIn: options?.expiresIn ?? 900,
     });
     return url;
@@ -405,7 +412,7 @@ export class S3Service extends BaseStorageService {
 
     const uploadId = res.UploadId;
     if (!uploadId) {
-      throw new AppError({ code: "INTERNAL", message: "missing upload id" });
+      throw new Error("missing upload id");
     }
     return { uploadId };
   }
@@ -427,7 +434,10 @@ export class S3Service extends BaseStorageService {
       PartNumber: partNumber,
       UploadId: uploadId,
     });
-    const url = await getSignedUrl(this.client, cmd, {
+    const clientForPresign = this.client as unknown as Parameters<
+      typeof getSignedUrl
+    >[0];
+    const url = await getSignedUrl(clientForPresign, cmd, {
       expiresIn: expiresIn ?? 900,
     });
     return url;
@@ -440,7 +450,7 @@ export class S3Service extends BaseStorageService {
   }: {
     key: string;
     uploadId: string;
-    parts: Array<{ etag: string; partNumber: number }>;
+    parts: { etag: string; partNumber: number }[];
   }): Promise<string> {
     await this._retry(
       async () => {
@@ -499,12 +509,11 @@ export class S3Service extends BaseStorageService {
       const timer = setAbortTimeout(() => ac.abort(), timeoutMs);
       const t0 = Date.now();
       try {
-        // @ts-expect-error sometimes fn is sync
-        const res: T = await fn(ac);
+        const res = await Promise.resolve(fn(ac));
         const ms = Date.now() - t0;
         clearTimeout(timer);
         logger.info("s3 op", { op, key, ms, attempts });
-        return res;
+        return res as T;
       } catch (err) {
         clearTimeout(timer);
         lastErr = err;
@@ -513,10 +522,10 @@ export class S3Service extends BaseStorageService {
           await sleep(Math.pow(2, attempts) * 100);
           continue;
         }
-        throw this._formatError(err, key, op);
+        this._throwFormatted(err, key, op);
       }
     }
-    throw this._formatError(lastErr, key, op);
+    this._throwFormatted(lastErr, key, op);
   }
 
   private _isNotFound(err: unknown): boolean {
@@ -542,19 +551,11 @@ export class S3Service extends BaseStorageService {
     return false;
   }
 
-  private _formatError(err: unknown, key: string, op: string): Error {
+  private _throwFormatted(err: unknown, key: string, op: string): never {
     if (this._isNotFound(err)) {
-      return new AppError({
-        code: "NOT_FOUND",
-        message: `file ${key} not found`,
-        cause: err,
-      });
+      throw new Error(`file ${key} not found`);
     }
-    return new AppError({
-      code: "INTERNAL",
-      message: `s3 ${op} failed for key "${key}"`,
-      cause: err,
-    });
+    throw new Error(`s3 ${op} failed for key "${key}"`);
   }
 
   private async _streamToBuffer(stream: Readable): Promise<Buffer> {
