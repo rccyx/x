@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { useStore } from "~/app/stores";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 import type { PostArticleRo } from "@ashgw/api/rpc-models";
 import { UserRoleEnum } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
@@ -25,7 +25,7 @@ export function useEditorData() {
   const shouldFetchTrash =
     isLoggedIn && isAdmin && store.editor.viewMode === "trash";
 
-  const activePosts = trpcClientSide.post.getAllAdminPosts.useQuery(undefined, {
+  const activePosts = rpcClient.post.getAllAdminPosts.useQuery(undefined, {
     enabled: shouldFetchActive,
     retry: false, // do not waste time retrying 401 or 403
     refetchOnWindowFocus: false,
@@ -35,7 +35,7 @@ export function useEditorData() {
     gcTime: 5 * 60_000,
   });
 
-  const trashedPosts = trpcClientSide.post.getTrashedPosts.useQuery(undefined, {
+  const trashedPosts = rpcClient.post.getTrashedPosts.useQuery(undefined, {
     enabled: shouldFetchTrash,
     retry: false,
     refetchOnWindowFocus: false,
@@ -46,7 +46,7 @@ export function useEditorData() {
   });
 
   // Public read, only useful in the editor when logged in and trying to jump to a slug
-  const specificPost = trpcClientSide.post.getDetailedPublicPost.useQuery(
+  const specificPost = rpcClient.post.getDetailedPublicPost.useQuery(
     { slug: blogSlug ?? "" },
     {
       enabled:
@@ -98,7 +98,7 @@ export function useEditorData() {
     isLoadingTrashed: trashedPosts.isLoading,
     isLoadingSpecificPost: specificPost.isLoading && !!blogSlug,
     postsError: postsErrorMessage,
-    utils: trpcClientSide.useUtils(),
+    utils: rpcClient.useUtils(),
   };
 }
 

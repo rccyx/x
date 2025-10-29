@@ -24,12 +24,12 @@ import {
 import type { UserLoginDto } from "@ashgw/api/rpc-models";
 import { userLoginSchemaDto } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 
 export function LoginPage() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
-  const utils = trpcClientSide.useUtils();
+  const utils = rpcClient.useUtils();
 
   // If already logged in, redirect to editor
   useEffect(() => {
@@ -47,7 +47,7 @@ export function LoginPage() {
     },
   });
 
-  const loginMutation = trpcClientSide.user.login.useMutation({
+  const loginMutation = rpcClient.user.login.useMutation({
     onSuccess: () => {
       void utils.user.me.invalidate();
       toast.success("Successfully logged in", {

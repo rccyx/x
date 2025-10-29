@@ -18,7 +18,7 @@ import {
 
 import type { UserChangePasswordDto } from "@ashgw/api/rpc-models";
 import { userChangePasswordSchemaDto } from "@ashgw/api/rpc-models";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 
 export function ChangePasswordForm() {
   const form = useForm<UserChangePasswordDto>({
