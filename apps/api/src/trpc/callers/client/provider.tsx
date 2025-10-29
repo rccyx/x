@@ -6,11 +6,11 @@ import { httpBatchLink } from "@trpc/client";
 
 import { getOptimizedQueryClient, getTrpcUrl, rpcClient } from "./client";
 import { transformer } from "../../transformer";
+import { env } from "@ashgw/env";
 
 export function RPCProvider(
   props: Readonly<{
     children: React.ReactNode;
-    siteBaseUrl: string;
   }>,
 ) {
   // NOTE: Avoid useState when initializing the query client if you don't
@@ -22,7 +22,9 @@ export function RPCProvider(
     rpcClient.createClient({
       links: [
         httpBatchLink({
-          url: getTrpcUrl({ siteBaseUrl: props.siteBaseUrl }),
+          url: getTrpcUrl({
+            siteBaseUrl: env.NEXT_PUBLIC_API_URL,
+          }),
           transformer,
           fetch(url, options) {
             return fetch(url, {

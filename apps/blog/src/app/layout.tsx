@@ -33,7 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <DesignSystemProvider>
         <GoBack />
         <AnalyticsProvider>
-          <RPCProvider siteBaseUrl={siteUrl}>
+          <RPCProvider>
             <StoreProvider>{children}</StoreProvider>
           </RPCProvider>
         </AnalyticsProvider>
