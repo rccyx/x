@@ -58,7 +58,7 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
   };
 
   const terminateAllSessionsMutation =
-    trpcClientSide.user.terminateAllActiveSessions.useMutation({
+    rpcClient.user.terminateAllActiveSessions.useMutation({
       onMutate: () => setTerminatingAllSessions(true),
       onSuccess: async () => {
         toast.success("All sessions terminated");
@@ -74,7 +74,7 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
     });
 
   const terminateSpecificSessionMutation =
-    trpcClientSide.user.terminateSpecificSession.useMutation({
+    rpcClient.user.terminateSpecificSession.useMutation({
       onMutate: ({ sessionId }) => setSessionLoading(sessionId, true),
       onSuccess: async (_data, { sessionId }) => {
         toast.success("Session terminated");

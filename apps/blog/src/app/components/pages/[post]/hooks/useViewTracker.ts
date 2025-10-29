@@ -3,7 +3,7 @@
 import type { Optional } from "ts-roids";
 import { useEffect, useRef } from "react";
 import { logger } from "@ashgw/logger";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 import { useStore } from "~/app/stores";
 
 interface UseViewTrackerProps {
@@ -20,7 +20,7 @@ export function useViewTracker({
   const firedRef = useRef(false);
   const timeoutRef = useRef<Optional<ReturnType<typeof setTimeout>>>(null);
   const { store } = useStore();
-  const trackView = trpcClientSide.view.trackView.useMutation({
+  const trackView = rpcClient.view.trackView.useMutation({
     onMutate: () => logger.debug("trackView start", { postSlug }),
     onError: (error) =>
       logger.error("trackView error", { postSlug, error: error.message }),

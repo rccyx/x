@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@ashgw/design/ui";
 
-import type { PostEditorDto } from "~/api/models/post";
+import type { PostEditorDto } from "@ashgw/api/rpc-models";
 
 interface TagsFieldProps {
   form: UseFormReturn<PostEditorDto>;
