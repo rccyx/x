@@ -10,7 +10,8 @@
     "@ashgw/env": "workspace:*",
     "@ashgw/logger": "workspace:*",
     "@ashgw/runner": "workspace:*",
-    "@aws-sdk/client-s3": "3.803.0"
+    "@aws-sdk/client-s3": "3.803.0",
+    "@aws-sdk/s3-request-presigner": "3.919.0"
   },
   "devDependencies": {
     "@ashgw/eslint-config": "workspace:*",

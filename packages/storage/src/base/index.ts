@@ -1,38 +1,49 @@
 export const folders = ["mdx", "voice", "image", "other"] as const;
 export type Folder = (typeof folders)[number];
 
+export interface PutOptions {
+  contentType?: string;
+  cacheControl?: string;
+  contentDisposition?: string;
+  metadata?: Record<string, string>;
+  serverSideEncryption?: "AES256" | "aws:kms";
+  sseKmsKeyId?: string;
+}
+
+export interface PresignGetOptions {
+  expiresIn?: number;
+  responseContentType?: string;
+  responseContentDisposition?: string;
+}
+
+export interface PresignPutOptions {
+  expiresIn?: number;
+  contentType?: string;
+  cacheControl?: string;
+  contentDisposition?: string;
+  metadata?: Record<string, string>;
+  serverSideEncryption?: "AES256" | "aws:kms";
+  sseKmsKeyId?: string;
+}
+
+export interface ListKeysPage {
+  keys: string[];
+  nextToken?: string;
+}
+
 export abstract class BaseStorageService {
-  /**
-   * Fetches a file from the specified folder in storage
-   * @param params Fetch parameters including folder and filename
-   * @returns The file content as a Buffer
-   */
   public abstract fetchFile<F extends Folder>(params: {
     folder: F;
     filename: string;
   }): Promise<Buffer>;
 
-  /**
-   * Uploads a file to the specified S3 folder
-   * @param params Upload parameters object
-   * @param params.folder The folder to upload to (mdx, voice, image, other)
-   * @param params.filename The name of the file to upload
-   * @param params.body The file content as Buffer
-   * @param params.contentType Optional MIME type of the file
-   * @returns The full path/key of the uploaded file (e.g. "mdx/my-blog-post.mdx")
-   */
   public abstract uploadFile(params: {
     folder: Folder;
     filename: string;
     body: Buffer;
-    contentType?: string;
+    options?: PutOptions;
   }): Promise<string>;
 
-  /**
-   * Deletes a file from the specified folder in storage
-   * @param params Delete parameters including folder and filename
-   * @returns The full path/key of the deleted file
-   */
   public abstract deleteFile<F extends Folder>(params: {
     folder: F;
     filename: string;
@@ -43,6 +54,71 @@ export abstract class BaseStorageService {
   public abstract uploadAnyFile(params: {
     key: string;
     body: Buffer;
-    contentType?: string;
+    options?: PutOptions;
   }): Promise<string>;
+
+  public abstract head(params: { key: string }): Promise<{
+    contentLength: number;
+    contentType: string | undefined;
+    etag: string | undefined;
+    lastModified: Date | undefined;
+    metadata: Record<string, string> | undefined;
+  }>;
+
+  public abstract exists(params: { key: string }): Promise<boolean>;
+
+  public abstract listKeysPage(params: {
+    prefix: string;
+    maxKeys?: number;
+    token?: string;
+  }): Promise<ListKeysPage>;
+
+  public abstract listAllKeys(params: { prefix: string }): Promise<string[]>;
+
+  public abstract copyObject(params: {
+    sourceKey: string;
+    targetKey: string;
+  }): Promise<string>;
+
+  public abstract moveObject(params: {
+    sourceKey: string;
+    targetKey: string;
+  }): Promise<string>;
+
+  public abstract deletePrefix(params: { prefix: string }): Promise<number>;
+
+  public abstract getPresignedGetUrl(params: {
+    key: string;
+    options?: PresignGetOptions;
+  }): Promise<string>;
+
+  public abstract getPresignedPutUrl(params: {
+    key: string;
+    options?: PresignPutOptions;
+  }): Promise<string>;
+
+  public abstract getPublicUrl(params: { key: string }): string;
+
+  public abstract createMultipartUpload(params: {
+    key: string;
+    options?: PutOptions;
+  }): Promise<{ uploadId: string }>;
+
+  public abstract getPresignedUploadPartUrl(params: {
+    key: string;
+    uploadId: string;
+    partNumber: number;
+    expiresIn?: number;
+  }): Promise<string>;
+
+  public abstract completeMultipartUpload(params: {
+    key: string;
+    uploadId: string;
+    parts: { etag: string; partNumber: number }[];
+  }): Promise<string>;
+
+  public abstract abortMultipartUpload(params: {
+    key: string;
+    uploadId: string;
+  }): Promise<void>;
 }
