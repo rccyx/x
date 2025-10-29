@@ -40,6 +40,19 @@ try {
 const MAX_RETRIES = 3;
 const DEFAULT_TIMEOUT_MS = 8000;
 
+// single, local presign wrapper that isolates smithy type splits
+type PresignClient = Parameters<typeof getSignedUrl>[0];
+type PresignCommand = Parameters<typeof getSignedUrl>[1];
+
+async function presign(
+  client: AwsS3Client,
+  command: PresignCommand,
+  opts: { expiresIn: number },
+): Promise<string> {
+  // minimal, local cast to break cross-package smithy type incompatibility
+  return getSignedUrl(client as unknown as PresignClient, command, opts);
+}
+
 export class S3Service extends BaseStorageService {
   protected readonly client: AwsS3Client;
   protected readonly bucket: string;
@@ -339,13 +352,9 @@ export class S3Service extends BaseStorageService {
       ResponseContentType: options?.responseContentType,
       ResponseContentDisposition: options?.responseContentDisposition,
     });
-    const clientForPresign = this.client as unknown as Parameters<
-      typeof getSignedUrl
-    >[0];
-    const url = await getSignedUrl(clientForPresign, cmd, {
+    return presign(this.client, cmd as unknown as PresignCommand, {
       expiresIn: options?.expiresIn ?? 900,
     });
-    return url;
   }
 
   public override async getPresignedPutUrl({
@@ -365,13 +374,9 @@ export class S3Service extends BaseStorageService {
       ServerSideEncryption: options?.serverSideEncryption,
       SSEKMSKeyId: options?.sseKmsKeyId,
     });
-    const clientForPresign = this.client as unknown as Parameters<
-      typeof getSignedUrl
-    >[0];
-    const url = await getSignedUrl(clientForPresign, cmd, {
+    return presign(this.client, cmd as unknown as PresignCommand, {
       expiresIn: options?.expiresIn ?? 900,
     });
-    return url;
   }
 
   public override getPublicUrl({ key }: { key: string }): string {
@@ -434,13 +439,9 @@ export class S3Service extends BaseStorageService {
       PartNumber: partNumber,
       UploadId: uploadId,
     });
-    const clientForPresign = this.client as unknown as Parameters<
-      typeof getSignedUrl
-    >[0];
-    const url = await getSignedUrl(clientForPresign, cmd, {
+    return presign(this.client, cmd as unknown as PresignCommand, {
       expiresIn: expiresIn ?? 900,
     });
-    return url;
   }
 
   public override async completeMultipartUpload({
@@ -530,7 +531,7 @@ export class S3Service extends BaseStorageService {
 
   private _isNotFound(err: unknown): boolean {
     if (err instanceof S3ServiceException) {
-      const code = err.$metadata?.httpStatusCode ?? 0;
+      const code = err.$metadata.httpStatusCode ?? 0;
       if (code === 404 || err.name === "NotFound" || err.name === "NoSuchKey")
         return true;
     }
@@ -539,7 +540,7 @@ export class S3Service extends BaseStorageService {
 
   private _isRetryable(err: unknown): boolean {
     if (err instanceof S3ServiceException) {
-      const code = err.$metadata?.httpStatusCode ?? 0;
+      const code = err.$metadata.httpStatusCode ?? 0;
       if (code >= 500) return true;
       if (
         err.name === "SlowDown" ||
