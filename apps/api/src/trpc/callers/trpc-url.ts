@@ -1,11 +1,6 @@
 import { env } from "@ashgw/env";
-import { root } from "src/root-uris";
+import { root } from "../../root-uris";
 
-const isBrowser = typeof window !== "undefined";
-const trpcUri = root.rpc;
-
-export function getTrpcUrl(baseUrl?: string) {
-  return isBrowser
-    ? trpcUri
-    : `${baseUrl ?? env.NEXT_PUBLIC_API_URL}${trpcUri}`;
+export function getTrpcUrl() {
+  return env.NEXT_PUBLIC_API_URL + root.rpc;
 }
