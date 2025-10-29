@@ -25,7 +25,7 @@ jobs:
         uses: rccyx/pr-summarizer@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ env.OPENAI_PR_SUMMARIZER_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_PR_SUMMARIZER_TOKEN }}
           OPENAI_API_MODEL: "gpt-4o"
           exclude: "*.lock,dist/**,*.min.js,*.map"
           max_files: "130"
