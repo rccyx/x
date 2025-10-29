@@ -1,0 +1,25 @@
+{
+  "name": "@ashgw/runner",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "tsc --noEmit; eslint ."
+  },
+  "dependencies": {
+    "@ashgw/env": "workspace:*",
+    "@ashgw/logger": "workspace:*",
+    "@ashgw/monitor": "workspace:*",
+    "runyx": "0.15.0"
+  },
+  "devDependencies": {
+    "@ashgw/eslint-config": "workspace:*",
+    "@ashgw/tsconfig": "workspace:*",
+    "ts-roids": "catalog:",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "type": "module"
+}
