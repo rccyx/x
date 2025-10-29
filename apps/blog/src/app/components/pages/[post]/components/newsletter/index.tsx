@@ -18,7 +18,7 @@ import {
 
 import type { NewsletterSubscribeDto } from "@ashgw/api/rpc-models";
 import { newsletterSubscribeDtoSchema } from "@ashgw/api/rpc-models";
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClientSide } from "@ashgw/api/rpc-client";
 
 export function Newsletter() {
   const form = useForm<NewsletterSubscribeDto>({
@@ -26,7 +26,7 @@ export function Newsletter() {
     mode: "onSubmit",
   });
 
-  const subscribeMutation = trpcClientSide.newsletter.subscribe.useMutation({
+  const subscribeMutation = rpcClientSide.newsletter.subscribe.useMutation({
     onSuccess: () => {
       toast.success("You're in!", {
         description: "Welcome aboard!",
