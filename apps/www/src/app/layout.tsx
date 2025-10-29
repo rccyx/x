@@ -11,7 +11,7 @@ import { AnalyticsProvider } from "@ashgw/analytics/client";
 import { DesignSystemProvider } from "@ashgw/design/provider";
 
 import { env } from "@ashgw/env";
-import { TsrProvider } from "@ashgw/api/";
+import { RestProvider } from "@ashgw/api/rest-client";
 
 const description = "Building the future.";
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <JsonLdScript code={websiteJsonLd(siteUrl)} />
       <DesignSystemProvider>
         <AnalyticsProvider>
-          <TsrProvider>{children}</TsrProvider>
+          <RestProvider>{children}</RestProvider>
         </AnalyticsProvider>
       </DesignSystemProvider>
     </>
