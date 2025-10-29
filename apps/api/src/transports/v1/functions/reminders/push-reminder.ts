@@ -5,7 +5,6 @@ import type {
   RemindersPushReminderBodyRequest,
   RemindersPushReminderHeadersRequest,
 } from "../../models";
-import { scheduler } from "@ashgw/scheduler";
 import { v1 } from "../../uris";
 import { ReminderService } from "@ashgw/core/services";
 
@@ -54,50 +53,42 @@ export async function pushReminder({
       }),
     );
   } else {
-    const delayObjectNormalizer = () => {
-      const value = schedule.delay.value;
-      const unitMap = {
-        days: { days: value },
-        hours: { hours: value },
-        minutes: { minutes: value },
-        seconds: { seconds: value },
-      } as const;
-
-      return unitMap[schedule.delay.unit];
-    };
-
-    return scheduler
-      .headers({
+    return ReminderService.remind({
+      headers: {
         ...headers,
-      })
-      .schedule({
-        delay: { ...delayObjectNormalizer() },
-        url: notifyUrl,
-        payload: JSON.stringify(schedule.notification),
-      })
-      .then((r) =>
-        r.match({
-          ok: (v) => ({
-            status: 201,
-            body: {
-              created: {
-                type: "delay",
-                delay: schedule.delay.value,
-                id: v.messageId,
-              },
-            },
-          }),
-          err: {
-            SchedulerServiceExternalApiPublishFailure: (e) => {
-              return {
-                status: 502,
-                body: {
-                  message: e.message,
-                },
-              } as const;
-            },
+      },
+      url: notifyUrl,
+      schedule: {
+        kind: "delay",
+        delay: {
+          value: schedule.delay.value,
+          unit: schedule.delay.unit,
+        },
+        emailNotification: {
+          message: schedule.notification.message,
+          title: schedule.notification.title,
+          type: "reminder",
+        },
+      },
+    }).then((r) =>
+      r.match({
+        ok: (v) => ({
+          status: 201,
+          body: {
+            created: { id: v.id, delay: schedule.delay, type: "delay" },
           },
         }),
-      );
+        err: {
+          SchedulerServiceExternalApiPublishFailure: (e) => {
+            return {
+              status: 502,
+              body: {
+                message: e.message,
+              },
+            } as const;
+          },
+        },
+      }),
+    );
   }
 }
