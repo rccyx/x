@@ -84,7 +84,9 @@
   "exports": {
     "./rpc-models": "./src/transports/rpc/models/index.ts",
     "./rpc-client": "./src/trpc/callers/client/index.ts",
-    "./rpc-server": "./src/trpc/callers/server/index.ts"
+    "./rpc-server": "./src/trpc/callers/server/index.ts",
+    "./rest-client": "./src/ts-rest/callers/client/index.ts",
+    "./rest-server": "./src/ts-rest/callers/server/index.ts"
   },
   "keywords": [],
   "license": "ISC",
