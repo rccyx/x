@@ -1,8 +1,8 @@
 import { PostCardsPage } from "./components/PostCardsPage";
-import { HydrateRpcClient, rpcHttpServer } from "@ashgw/api/rpc-server";
+import { HydrateRpcClient, rpcServer } from "@ashgw/api/rpc-server";
 
 export async function HomePage() {
-  const posts = await rpcHttpServer.post.getPublicPostCards.query();
+  const posts = await rpcServer.post.getPublicPostCards.query();
   return (
     <HydrateRpcClient>
       <PostCardsPage posts={posts} />

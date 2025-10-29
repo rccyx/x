@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { monitor } from "@ashgw/monitor";
-import { rpcHttpServer } from "@ashgw/api/rpc-server";
+import { rpcServer } from "@ashgw/api/rpc-server";
 import { logger } from "@ashgw/logger";
 
 export const runtime = "nodejs";
@@ -26,7 +26,7 @@ const clamp = (s: string, n: number) =>
 
 export default async function Image(_: Request, { params }: RouteCtx) {
   try {
-    const post = await rpcHttpServer.post.getDetailedPublicPost.query({
+    const post = await rpcServer.post.getDetailedPublicPost.query({
       slug: params.post,
     });
 
