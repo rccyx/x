@@ -1,0 +1,21 @@
+{
+  "name": "@ashgw/security",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "tsc --noEmit; eslint ."
+  },
+  "dependencies": {
+    "argon2": "0.44.0"
+  },
+  "devDependencies": {
+    "@ashgw/eslint-config": "workspace:*",
+    "@ashgw/tsconfig": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "type": "module"
+}
