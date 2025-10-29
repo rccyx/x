@@ -3,10 +3,13 @@ import type { Metadata } from "next";
 import { NotFound } from "@ashgw/components";
 import { createMetadata } from "@ashgw/seo";
 import { BlogPostPage } from "~/app/components/pages/[post]";
-import { trpcHttpServerSideClient, HydrateTrpcClient } from "@ashgw/api/trpc";
+import {
+  HydrateRpcClient,
+  rpcHttpServerSideClient,
+} from "@ashgw/api/rpc-server";
 
 const getPostCached = cache((slug: string) =>
-  trpcHttpServerSideClient.post.getDetailedPublicPost.query({ slug }),
+  rpcHttpServerSideClient.post.getDetailedPublicPost.query({ slug }),
 );
 
 export async function generateMetadata({
@@ -47,8 +50,8 @@ export default async function Page({ params }: { params: { post: string } }) {
     return <NotFound message={`No post found that matches /${params.post}`} />;
 
   return (
-    <HydrateTrpcClient>
+    <HydrateRpcClient>
       <BlogPostPage postData={postData} />
-    </HydrateTrpcClient>
+    </HydrateRpcClient>
   );
 }
