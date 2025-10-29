@@ -7,8 +7,8 @@ import { CheckCheck, ChevronDown } from "@ashgw/design/icons";
 import { Footer } from "@ashgw/components";
 import { Button } from "@ashgw/design/ui";
 
-import type { PostCardRo } from "~/api/models";
-import { PostCategoryEnum } from "~/api/models";
+import type { PostCardRo } from "@ashgw/api/rpc-models";
+import { PostCategoryEnum } from "@ashgw/api/rpc-models";
 import { usePostsContext } from "./components/Context";
 import { PostCard } from "./components/Postcard";
 import { useStore } from "~/app/stores";

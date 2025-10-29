@@ -21,10 +21,10 @@ import {
   Loading,
 } from "@ashgw/design/ui";
 
-import type { UserLoginDto } from "~/api/models";
-import { userLoginSchemaDto } from "~/api/models";
+import type { UserLoginDto } from "@ashgw/api/rpc-models";
+import { userLoginSchemaDto } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
-import { trpcClientSide } from "~/trpc/callers/client";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 export function LoginPage() {
   const router = useRouter();

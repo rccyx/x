@@ -1,11 +1,11 @@
 import { PostCardsPage } from "./components/PostCardsPage";
-import { HydrateClient, trpcHttpServerSideClient } from "~/trpc/callers/server";
+import { HydrateTrpcClient, trpcHttpServerSideClient } from "@ashgw/api/trpc";
 
 export async function HomePage() {
   const posts = await trpcHttpServerSideClient.post.getPublicPostCards.query();
   return (
-    <HydrateClient>
+    <HydrateTrpcClient>
       <PostCardsPage posts={posts} />
-    </HydrateClient>
+    </HydrateTrpcClient>
   );
 }

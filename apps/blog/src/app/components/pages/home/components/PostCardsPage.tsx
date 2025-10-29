@@ -1,4 +1,4 @@
-import type { PostCardRo } from "~/api/models";
+import type { PostCardRo } from "@ashgw/api/rpc-models";
 import { PostCards } from "~/app/components/pages/home/components/postCards";
 import { PostsProvider } from "~/app/components/pages/home/components/postCards/components/Context";
 
