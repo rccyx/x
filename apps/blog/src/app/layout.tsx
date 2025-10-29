@@ -11,7 +11,7 @@ import { AnalyticsProvider } from "@ashgw/analytics/client";
 import { env } from "@ashgw/env";
 import { DesignSystemProvider } from "@ashgw/design/provider";
 
-import { TRPCProvider } from "@ashgw/api/trpc";
+import { RPCProvider } from "@ashgw/api/rpc-client";
 import { GoBack } from "./components/pages/root";
 import { StoreProvider } from "./stores";
 import { siteName } from "@ashgw/constants";
@@ -33,9 +33,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <DesignSystemProvider>
         <GoBack />
         <AnalyticsProvider>
-          <TRPCProvider siteBaseUrl={siteUrl}>
+          <RPCProvider siteBaseUrl={siteUrl}>
             <StoreProvider>{children}</StoreProvider>
-          </TRPCProvider>
+          </RPCProvider>
         </AnalyticsProvider>
         <FirstTimeVisitorBanner />
       </DesignSystemProvider>
