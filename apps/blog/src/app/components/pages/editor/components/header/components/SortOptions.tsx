@@ -27,8 +27,8 @@ import {
   DropdownMenuTrigger,
 } from "@ashgw/design/ui";
 
-import type { PostArticleRo } from "~/api/models/post";
-import { PostCategoryEnum } from "~/api/models/post";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import { PostCategoryEnum } from "@ashgw/api/rpc-models";
 
 export type SortField = "title" | "lastModDate" | "firstModDate";
 export type SortOrder = "asc" | "desc";
