@@ -3,8 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import type { PostArticleRo, PostEditorDto } from "~/api/models/post";
-import { PostCategoryEnum, postEditorSchemaDto } from "~/api/models/post";
+import type { PostArticleRo, PostEditorDto } from "@ashgw/api/rpc-models";
+import { PostCategoryEnum, postEditorSchemaDto } from "@ashgw/api/rpc-models";
 
 const DEFAULT_VALUES: PostEditorDto = {
   title: "",

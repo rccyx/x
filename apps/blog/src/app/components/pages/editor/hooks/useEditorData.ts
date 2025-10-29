@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { useStore } from "~/app/stores";
-import { trpcClientSide } from "~/trpc/callers/client";
-import type { PostArticleRo } from "~/api/models/post";
-import { UserRoleEnum } from "~/api/models";
+import { trpcClientSide } from "@ashgw/api/trpc";
+import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import { UserRoleEnum } from "@ashgw/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
 
 export function useEditorData() {
