@@ -1,2 +1,2 @@
-export { TRPCProvider } from "./provider";
-export { trpcClientSide } from "./client";
+export { RPCProvider as TRPCProvider } from "./provider";
+export { rpcClientSide as trpcClientSide } from "./client";

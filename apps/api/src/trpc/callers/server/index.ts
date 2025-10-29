@@ -49,8 +49,8 @@ const getQueryClient = cache(makeQueryClient);
  * - `HydrateClient`: react component that hydrates dehydrated queries into client cache
  */
 export const {
-  trpc: trpcBareServerSideClient,
-  HydrateClient: HydrateTrpcClient,
+  trpc: rpcBareServerSideClient,
+  HydrateClient: HydrateRpcClient,
 } = createHydrationHelpers<AppRouter>(serverSideCaller, getQueryClient);
 
 const getTrpcBaseUrl = (): string => {
@@ -97,4 +97,4 @@ const getHttpClient = cache(() =>
  * use this when you need headers/cookies (auth, csrf, etc),
  * and want to bridge to the http api instead of direct calls.
  */
-export const trpcHttpServerSideClient = getHttpClient();
+export const rpcHttpServerSideClient = getHttpClient();
