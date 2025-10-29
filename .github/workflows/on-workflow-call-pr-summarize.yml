@@ -22,7 +22,7 @@ jobs:
           ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
 
       - name: Summarize PR
-        uses: ashgw/pr-summarizer@main
+        uses: rccyx/pr-summarizer@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ env.OPENAI_PR_SUMMARIZER_TOKEN }}
