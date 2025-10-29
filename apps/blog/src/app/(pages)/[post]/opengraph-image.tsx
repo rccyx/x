@@ -3,7 +3,7 @@ import { monitor } from "@ashgw/monitor";
 import { rpcServer } from "@ashgw/api/rpc-server";
 import { logger } from "@ashgw/logger";
 
-export const runtime = "nodejss";
+export const runtime = "nodejs";
 
 export const alt = "Blog";
 export const size = { width: 1200, height: 630 };
