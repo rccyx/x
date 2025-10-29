@@ -6,10 +6,6 @@
 	path = packages/design
 	url = git@github.com:rccyx/design.git
 
-[submodule "security"]
-	path = packages/security
-	url = git@github.com:rccyx/security.git
-
 [submodule "auth"]
 	path = packages/auth
 	url = git@github.com:rccyx/auth.git
