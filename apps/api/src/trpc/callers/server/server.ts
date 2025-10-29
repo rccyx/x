@@ -15,7 +15,6 @@ import { appRouter } from "../../../transports/rpc/router";
 import { createCallerFactory } from "../../root";
 import { createTRPCContext } from "../../context";
 import { makeQueryClient } from "../client/query-client";
-import { getTrpcUrl } from "../client/client";
 import { transformer } from "../../transformer";
 
 /**
@@ -67,7 +66,7 @@ const getHttpClient = cache(() =>
       // add logger in dev
       ...(env.NEXT_PUBLIC_CURRENT_ENV === "development" ? [loggerLink()] : []),
       httpBatchLink({
-        url: getTrpcUrl({ siteBaseUrl: getTrpcBaseUrl() }),
+        url: getTrpcBaseUrl(),
         transformer,
         headers() {
           // forward incoming headers
