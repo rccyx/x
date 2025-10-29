@@ -16,9 +16,9 @@ import {
   Input,
 } from "@ashgw/design/ui";
 
-import type { UserChangePasswordDto } from "~/api/models";
-import { userChangePasswordSchemaDto } from "~/api/models";
-import { trpcClientSide } from "~/trpc/callers/client";
+import type { UserChangePasswordDto } from "@ashgw/api/rpc-models";
+import { userChangePasswordSchemaDto } from "@ashgw/api/rpc-models";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 export function ChangePasswordForm() {
   const form = useForm<UserChangePasswordDto>({

@@ -24,7 +24,7 @@ import {
   twoFactorDisableSchemaDto,
   twoFactorGenerateBackupCodesSchemaDto,
   twoFactorVerifyBackupCodeSchemaDto,
-} from "~/api/models";
+} from "@ashgw/api/rpc-models";
 
 import type {
   TwoFactorEnableDto,
@@ -33,9 +33,9 @@ import type {
   TwoFactorDisableDto,
   TwoFactorGenerateBackupCodesDto,
   TwoFactorVerifyBackupCodeDto,
-} from "~/api/models";
+} from "@ashgw/api/rpc-models";
 
-import { trpcClientSide } from "~/trpc/callers/client";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 /* utils */
 function parseTotpSecret(totpURI: string): string | null {
@@ -189,7 +189,7 @@ export function TwoFactorRevealSecretCard() {
     { enabled: false },
   );
 
-  const run = async () => {
+  const runIt = async () => {
     const { password } = form.getValues();
     if (!password) {
       form.setError("password", { message: "Password is required" });
@@ -216,7 +216,7 @@ export function TwoFactorRevealSecretCard() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void run();
+            void runIt();
           }}
           className="space-y-4"
           autoComplete="off"

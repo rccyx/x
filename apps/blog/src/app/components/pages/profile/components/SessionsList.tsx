@@ -16,15 +16,13 @@ import {
   TableRow,
 } from "@ashgw/design/ui";
 
-import { trpcClientSide } from "~/trpc/callers/client";
+import { trpcClientSide } from "@ashgw/api/trpc";
 
 interface SessionsListProps {
-  currentSessionToken: string;
+  currentSessionId: string;
 }
 
-export function SessionsList({
-  currentSessionToken: currentSessionId,
-}: SessionsListProps) {
+export function SessionsList({ currentSessionId }: SessionsListProps) {
   const [loadingSessionIds, setLoadingSessionIds] = useState<Set<string>>(
     new Set(),
   );

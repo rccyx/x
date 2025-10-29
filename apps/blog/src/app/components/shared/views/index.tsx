@@ -5,7 +5,7 @@ import { animate } from "@ashgw/design/motion";
 import { useEffect, useRef, useState } from "react";
 import { Eye } from "@ashgw/design/icons";
 import { useStore } from "~/app/stores";
-import { formatViews } from "~/utils/formatViews";
+import { ViewsService } from "@ashgw/cross-runtime";
 import type { Optional } from "ts-roids";
 
 interface ViewsProps {
@@ -49,7 +49,7 @@ export const Views = observer(function Views({
     >
       <Eye className="h-3 w-3 opacity-70" />
       <span className="text-sm font-semibold opacity-70">
-        {formatViews(display)}
+        {ViewsService.formatViews(display)}
       </span>
     </span>
   );

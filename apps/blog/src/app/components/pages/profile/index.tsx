@@ -18,7 +18,7 @@ import {
 } from "@ashgw/design/ui";
 
 import { useAuth } from "~/app/hooks/auth";
-import { trpcClientSide } from "~/trpc/callers/client";
+import { trpcClientSide } from "@ashgw/api/trpc";
 import { ChangePasswordForm } from "./components/ChangePasswordForm";
 import { SessionsList } from "./components/SessionsList";
 import { UserInfo } from "./components/UserInfo";
@@ -129,7 +129,7 @@ export function ProfilePage() {
             </CardHeader>
             <Separator />
             <CardContent className="pt-6">
-              <SessionsList currentSessionToken={user.session.token} />
+              <SessionsList currentSessionId={user.session.id} />
             </CardContent>
           </Card>
 
