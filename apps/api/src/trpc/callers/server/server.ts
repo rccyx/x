@@ -16,6 +16,7 @@ import { createCallerFactory } from "../../root";
 import { createTRPCContext } from "../../context";
 import { makeQueryClient } from "../client/query-client";
 import { transformer } from "../../transformer";
+import { root } from "src/root-uris";
 
 /**
  * create a "bare" trpc context for direct server-side calls.
@@ -50,10 +51,6 @@ const getQueryClient = cache(makeQueryClient);
 export const { trpc: rpcBareServer, HydrateClient: HydrateRpcClient } =
   createHydrationHelpers<AppRouter>(serverSideCaller, getQueryClient);
 
-const getTrpcBaseUrl = (): string => {
-  return env.NEXT_PUBLIC_API_URL;
-};
-
 /**
  * http-based trpc client for rsc.
  * in rsc we can’t call procs directly, bareCtx not available.
@@ -66,7 +63,7 @@ const getHttpClient = cache(() =>
       // add logger in dev
       ...(env.NEXT_PUBLIC_CURRENT_ENV === "development" ? [loggerLink()] : []),
       httpBatchLink({
-        url: getTrpcBaseUrl(),
+        url: env.NEXT_PUBLIC_API_URL + root.rpc,
         transformer,
         headers() {
           // forward incoming headers
