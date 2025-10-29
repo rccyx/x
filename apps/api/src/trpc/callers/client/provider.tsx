@@ -4,12 +4,8 @@ import { useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-import {
-  getOptimizedQueryClient,
-  getTrpcUrl,
-  trpcClientSide,
-} from "./callers/client";
-import { transformer } from "./transformer";
+import { getOptimizedQueryClient, getTrpcUrl, trpcClientSide } from "./client";
+import { transformer } from "../../transformer";
 
 export function TRPCProvider(
   props: Readonly<{

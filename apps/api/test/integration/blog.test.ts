@@ -6,11 +6,14 @@ import { expect, test } from "vitest";
 
 import { db } from "@ashgw/db";
 
-import type { AppRouter } from "~/transports/rpc/router";
-import { postCardSchemaRo, postArticleSchemaRo } from "~/transports/rpc/models";
-import { appRouter } from "~/transports/rpc/router";
-import { createTRPCContext } from "~/trpc/context";
-import { createCallerFactory } from "~/trpc/root";
+import type { AppRouter } from "../../src/transports/rpc/router";
+import {
+  postCardSchemaRo,
+  postArticleSchemaRo,
+} from "../../src/transports/rpc/models";
+import { appRouter } from "../../src/transports/rpc/router";
+import { createTRPCContext } from "../../src/trpc/context";
+import { createCallerFactory } from "../../src/trpc/root";
 
 function makeNextRequestStub(init?: {
   headers?: Record<string, string | string[]>;

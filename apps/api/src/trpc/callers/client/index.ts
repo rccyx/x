@@ -1,2 +1,2 @@
-export * from "./callers";
 export { TRPCProvider } from "./provider";
+export { trpcClientSide } from "./client";

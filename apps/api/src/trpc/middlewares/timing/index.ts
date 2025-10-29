@@ -1,6 +1,6 @@
 import { logger } from "@ashgw/logger";
 
-import { middleware, t } from "~/trpc/root";
+import { middleware, t } from "../../root";
 
 /**
  * Middleware for timing procedure execution and adding an articifial delay in development.
