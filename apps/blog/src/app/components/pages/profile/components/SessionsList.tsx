@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@ashgw/design/ui";
 
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 
 interface SessionsListProps {
   currentSessionId: string;
@@ -29,12 +29,12 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
   const [terminatingAllSessions, setTerminatingAllSessions] = useState(false);
 
   const router = useRouter();
-  const utils = trpcClientSide.useUtils();
+  const utils = rpcClient.useUtils();
 
   const { data: sessions = [], isLoading } =
-    trpcClientSide.user.listAllSessions.useQuery();
+    rpcClient.user.listAllSessions.useQuery();
 
-  const logoutMutation = trpcClientSide.user.logout.useMutation();
+  const logoutMutation = rpcClient.user.logout.useMutation();
 
   const hardLogout = async () => {
     try {

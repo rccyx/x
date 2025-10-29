@@ -35,7 +35,7 @@ import type {
   TwoFactorVerifyBackupCodeDto,
 } from "@ashgw/api/rpc-models";
 
-import { trpcClientSide } from "@ashgw/api/trpc";
+import { rpcClient } from "@ashgw/api/rpc-client";
 
 /* utils */
 function parseTotpSecret(totpURI: string): string | null {
@@ -77,7 +77,7 @@ export function TwoFactorEnableCard() {
   const [secret, setSecret] = React.useState<string | null>(null);
   const [backupCodes, setBackupCodes] = React.useState<string[] | null>(null);
 
-  const enable = trpcClientSide.user.enableTwoFactor.useMutation({
+  const enable = rpcClient.user.enableTwoFactor.useMutation({
     onSuccess: (data) => {
       const s = parseTotpSecret(data.totpURI);
       setSecret(s);
@@ -184,10 +184,9 @@ export function TwoFactorRevealSecretCard() {
   });
   const [secret, setSecret] = React.useState<string | null>(null);
 
-  const query = trpcClientSide.user.getTwoFactorTotpUri.useQuery(
-    form.getValues(),
-    { enabled: false },
-  );
+  const query = rpcClient.user.getTwoFactorTotpUri.useQuery(form.getValues(), {
+    enabled: false,
+  });
 
   const runIt = async () => {
     const { password } = form.getValues();
@@ -257,7 +256,7 @@ export function TwoFactorVerifyTotpCard() {
     mode: "onChange",
   });
 
-  const verify = trpcClientSide.user.verifyTwoFactorTotp.useMutation({
+  const verify = rpcClient.user.verifyTwoFactorTotp.useMutation({
     onSuccess: () => {
       toast.success("TOTP verified");
       form.reset({ code: "", trustDevice: false });
@@ -329,23 +328,21 @@ export function TwoFactorBackupCodesCard() {
   });
   const [codes, setCodes] = React.useState<string[] | null>(null);
 
-  const generate = trpcClientSide.user.generateTwoFactorBackupCodes.useMutation(
-    {
-      onSuccess: (data) => {
-        setCodes(data.backupCodes);
-        toast.success("New backup codes generated");
-        genForm.reset({ password: "" });
-      },
-      onError: (e) => toast.error(e.message),
+  const generate = rpcClient.user.generateTwoFactorBackupCodes.useMutation({
+    onSuccess: (data) => {
+      setCodes(data.backupCodes);
+      toast.success("New backup codes generated");
+      genForm.reset({ password: "" });
     },
-  );
+    onError: (e) => toast.error(e.message),
+  });
 
   const verifyForm = useForm<TwoFactorVerifyBackupCodeDto>({
     resolver: zodResolver(twoFactorVerifyBackupCodeSchemaDto),
     defaultValues: { code: "", trustDevice: false, disableSession: false },
     mode: "onChange",
   });
-  const verify = trpcClientSide.user.verifyTwoFactorBackupCode.useMutation({
+  const verify = rpcClient.user.verifyTwoFactorBackupCode.useMutation({
     onSuccess: () => {
       toast.success("Backup code accepted");
       verifyForm.reset({ code: "", trustDevice: false, disableSession: false });
@@ -512,7 +509,7 @@ export function TwoFactorDisableCard() {
     mode: "onChange",
   });
 
-  const disable = trpcClientSide.user.disableTwoFactor.useMutation({
+  const disable = rpcClient.user.disableTwoFactor.useMutation({
     onSuccess: () => {
       toast.success("Two factor disabled");
       form.reset({ password: "" });

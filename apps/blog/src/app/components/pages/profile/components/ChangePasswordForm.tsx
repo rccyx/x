@@ -31,17 +31,15 @@ export function ChangePasswordForm() {
     },
   });
 
-  const changePasswordMutation = trpcClientSide.user.changePassword.useMutation(
-    {
-      onSuccess: () => {
-        toast.success("Password changed");
-        form.reset();
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
+  const changePasswordMutation = rpcClient.user.changePassword.useMutation({
+    onSuccess: () => {
+      toast.success("Password changed");
+      form.reset();
     },
-  );
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSubmit: SubmitHandler<UserChangePasswordDto> = (data) => {
     changePasswordMutation.mutate({
