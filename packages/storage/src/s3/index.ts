@@ -40,7 +40,6 @@ try {
 const MAX_RETRIES = 3;
 const DEFAULT_TIMEOUT_MS = 8000;
 
-// single, local presign wrapper that isolates smithy type splits
 type PresignClient = Parameters<typeof getSignedUrl>[0];
 type PresignCommand = Parameters<typeof getSignedUrl>[1];
 
