@@ -49,7 +49,6 @@ async function presign(
   command: PresignCommand,
   opts: { expiresIn: number },
 ): Promise<string> {
-  // minimal, local cast to break cross-package smithy type incompatibility
   return getSignedUrl(client as unknown as PresignClient, command, opts);
 }
 
