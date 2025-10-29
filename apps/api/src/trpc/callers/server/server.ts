@@ -16,7 +16,7 @@ import { createCallerFactory } from "../../root";
 import { createTRPCContext } from "../../context";
 import { makeQueryClient } from "../client/query-client";
 import { transformer } from "../../transformer";
-import { root } from "src/root-uris";
+import { getTrpcUrl } from "../trpc-url";
 
 /**
  * create a "bare" trpc context for direct server-side calls.
@@ -63,7 +63,7 @@ const getHttpClient = cache(() =>
       // add logger in dev
       ...(env.NEXT_PUBLIC_CURRENT_ENV === "development" ? [loggerLink()] : []),
       httpBatchLink({
-        url: env.NEXT_PUBLIC_API_URL + root.rpc,
+        url: getTrpcUrl(),
         transformer,
         headers() {
           // forward incoming headers

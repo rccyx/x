@@ -4,9 +4,10 @@ import { useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-import { getOptimizedQueryClient, getTrpcUrl, rpcClient } from "./client";
+import { getOptimizedQueryClient, rpcClient } from "./client";
 import { transformer } from "../../transformer";
-import { env } from "@ashgw/env";
+import { getTrpcUrl } from "../trpc-url";
+import {} from "@ashgw/env";
 
 export function RPCProvider(
   props: Readonly<{
@@ -22,9 +23,7 @@ export function RPCProvider(
     rpcClient.createClient({
       links: [
         httpBatchLink({
-          url: getTrpcUrl({
-            siteBaseUrl: env.NEXT_PUBLIC_API_URL,
-          }),
+          url: getTrpcUrl(),
           transformer,
           fetch(url, options) {
             return fetch(url, {

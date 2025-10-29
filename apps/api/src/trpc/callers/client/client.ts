@@ -3,16 +3,12 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { Optional } from "ts-roids";
 import { createTRPCReact } from "@trpc/react-query";
 
-import { root } from "../../../root-uris";
 import { makeQueryClient } from "./query-client";
 import type { AppRouter } from "../../../transports/rpc/router";
 
 let clientQueryClientSingleton: Optional<QueryClient> = null;
 
 const isServer = typeof window === "undefined";
-const isBrowser = !isServer;
-
-const trpcUri = root.rpc;
 
 export function getOptimizedQueryClient() {
   if (isServer) {
@@ -21,10 +17,6 @@ export function getOptimizedQueryClient() {
   }
   // Browser: use singleton pattern to keep the same query client
   return (clientQueryClientSingleton ??= makeQueryClient());
-}
-
-export function getTrpcUrl({ siteBaseUrl }: { siteBaseUrl: string }) {
-  return isBrowser ? trpcUri : `${siteBaseUrl}${trpcUri}`;
 }
 
 export const rpcClient = createTRPCReact<AppRouter>();
