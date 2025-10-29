@@ -5,8 +5,8 @@ import type { SubmitHandler } from "react-hook-form";
 import { toast } from "@ashgw/design/ui";
 
 import { logger } from "@ashgw/logger";
-import type { PostArticleRo, PostEditorDto } from "~/api/models/post";
-import { trpcClientSide } from "~/trpc/callers/client";
+import type { PostArticleRo, PostEditorDto } from "@ashgw/api/rpc-models";
+import { trpcClientSide } from "@ashgw/api/trpc";
 import { useStore } from "~/app/stores";
 
 import type { useEditorData } from "./useEditorData";
