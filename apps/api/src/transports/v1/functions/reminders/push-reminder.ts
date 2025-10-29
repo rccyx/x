@@ -75,7 +75,7 @@ export async function pushReminder({
         ok: (v) => ({
           status: 201,
           body: {
-            created: { id: v.id, delay: schedule.delay, type: "delay" },
+            created: { id: v.id, delay: schedule.delay.value, type: "delay" },
           },
         }),
         err: {
