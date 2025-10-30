@@ -38,6 +38,7 @@
     "@ashgw/logger": "workspace:*",
     "@ashgw/monitor": "workspace:*",
     "@ashgw/runner": "workspace:*",
+    "@ashgw/security": "workspace:*",
     "@trpc/client": "catalog:trpc11",
     "@trpc/next": "catalog:trpc11",
     "@trpc/react-query": "catalog:trpc11",
