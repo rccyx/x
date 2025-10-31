@@ -34,21 +34,8 @@ export const userRouter = router({
     .input(z.void())
     .output(userSchemaRo.nullable())
     .query(async ({ ctx }) => {
-      return userService(ctx)
-        .getUserWithSession()
-        .then((r) =>
-          r.match({
-            ok: (user) => user,
-            err: {
-              UserServiceAuthApiGetSession: (_e) => {
-                return null;
-              },
-              UserServiceAuthApiInvalidSession: (_e) => {
-                return null;
-              },
-            },
-          }),
-        );
+      const r = await userService(ctx).getUserWithSession();
+      return r.ok ? r.value : null;
     }),
 
   login: publicProcedure({
@@ -59,11 +46,11 @@ export const userRouter = router({
   })
     .input(userLoginSchemaDto)
     .output(z.void())
-    .mutation(async ({ input, ctx }) => {
-      return userService(ctx)
+    .mutation(async ({ input, ctx }) =>
+      userService(ctx)
         .login(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   logout: publicProcedure({
     limiter: {
@@ -73,11 +60,11 @@ export const userRouter = router({
   })
     .input(z.void())
     .output(z.void())
-    .mutation(async ({ ctx }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx }) =>
+      userService(ctx)
         .logout()
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   changePassword: authenticatedProcedure({
     limiter: {
@@ -87,13 +74,11 @@ export const userRouter = router({
   })
     .input(userChangePasswordSchemaDto)
     .output(z.void())
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
-        .changePassword({
-          ...input,
-        })
-        .then((r) => r.unwrap());
-    }),
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
+        .changePassword({ ...input })
+        .then((r) => r.unwrap()),
+    ),
 
   listAllSessions: authenticatedProcedure({
     limiter: {
@@ -103,11 +88,11 @@ export const userRouter = router({
   })
     .input(z.void())
     .output(z.array(sessionSchemaRo))
-    .query(async ({ ctx }) => {
-      return userService(ctx)
+    .query(async ({ ctx }) =>
+      userService(ctx)
         .listSessions()
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   terminateAllActiveSessions: authenticatedProcedure({
     limiter: {
@@ -117,11 +102,11 @@ export const userRouter = router({
   })
     .input(z.void())
     .output(z.void())
-    .mutation(async ({ ctx }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx }) =>
+      userService(ctx)
         .terminateAllActiveSessions()
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   terminateSpecificSession: authenticatedProcedure({
     limiter: {
@@ -131,13 +116,11 @@ export const userRouter = router({
   })
     .input(userTerminateSpecificSessionSchemaDto)
     .output(z.void())
-    .mutation(async ({ ctx, input: { sessionId } }) => {
-      return userService(ctx)
-        .terminateSpecificSession({
-          sessionId,
-        })
-        .then((r) => r.unwrap());
-    }),
+    .mutation(async ({ ctx, input: { sessionId } }) =>
+      userService(ctx)
+        .terminateSpecificSession({ sessionId })
+        .then((r) => r.unwrap()),
+    ),
 
   enableTwoFactor: authenticatedProcedure({
     limiter: {
@@ -147,11 +130,11 @@ export const userRouter = router({
   })
     .input(twoFactorEnableSchemaDto)
     .output(twoFactorEnableSchemaRo)
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
         .enableTwoFactor(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   getTwoFactorTotpUri: authenticatedProcedure({
     limiter: {
@@ -161,11 +144,11 @@ export const userRouter = router({
   })
     .input(twoFactorGetTotpUriSchemaDto)
     .output(twoFactorGetTotpUriSchemaRo)
-    .query(async ({ ctx, input }) => {
-      return userService(ctx)
+    .query(async ({ ctx, input }) =>
+      userService(ctx)
         .getTwoFactorTotpUri(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   verifyTwoFactorTotp: publicProcedure({
     limiter: {
@@ -175,11 +158,11 @@ export const userRouter = router({
   })
     .input(twoFactorVerifyTotpSchemaDto)
     .output(z.void())
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
         .verifyTwoFactorTotp(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   disableTwoFactor: authenticatedProcedure({
     limiter: {
@@ -189,11 +172,11 @@ export const userRouter = router({
   })
     .input(twoFactorDisableSchemaDto)
     .output(z.void())
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
         .disableTwoFactor(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   generateTwoFactorBackupCodes: authenticatedProcedure({
     limiter: {
@@ -203,11 +186,11 @@ export const userRouter = router({
   })
     .input(twoFactorGenerateBackupCodesSchemaDto)
     .output(twoFactorGenerateBackupCodesSchemaRo)
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
         .generateTwoFactorBackupCodes(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 
   verifyTwoFactorBackupCode: publicProcedure({
     limiter: {
@@ -217,9 +200,9 @@ export const userRouter = router({
   })
     .input(twoFactorVerifyBackupCodeSchemaDto)
     .output(z.void())
-    .mutation(async ({ ctx, input }) => {
-      return userService(ctx)
+    .mutation(async ({ ctx, input }) =>
+      userService(ctx)
         .verifyTwoFactorBackupCode(input)
-        .then((r) => r.unwrap());
-    }),
+        .then((r) => r.unwrap()),
+    ),
 });
