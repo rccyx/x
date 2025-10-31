@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { User } from "@ashgw/design/icons";
+import { User } from "@rccyx/design/icons";
 
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
 export function ProfileButton() {
   return (

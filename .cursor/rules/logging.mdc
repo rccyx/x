@@ -2,7 +2,7 @@
 alwaysApply: true
 ---
 
-We use a centralized logger defined in the `@ashgw/logger` package. This ensures consistent, structured logging throughout the codebase for better maintainability.
+We use a centralized logger defined in the `@rccyx/logger` package. This ensures consistent, structured logging throughout the codebase for better maintainability.
 
 ---
 
@@ -11,7 +11,7 @@ We use a centralized logger defined in the `@ashgw/logger` package. This ensures
 Always import the logger from the package:
 
 ```ts
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 ```
 
 NEVER EVER USE `console.log`

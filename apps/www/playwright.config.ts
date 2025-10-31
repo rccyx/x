@@ -1,6 +1,6 @@
 import { defineConfig } from "@playwright/test";
 
-import { baseConfig } from "@ashgw/playwright-config";
+import { baseConfig } from "@rccyx/playwright-config";
 
 export default defineConfig({
   ...baseConfig,

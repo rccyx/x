@@ -2,8 +2,8 @@
 
 import type { Optional } from "ts-roids";
 import { useEffect, useRef } from "react";
-import { logger } from "@ashgw/logger";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { logger } from "@rccyx/logger";
+import { rpcClient } from "@rccyx/api/rpc-client";
 import { useStore } from "~/app/stores";
 
 interface UseViewTrackerProps {

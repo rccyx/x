@@ -1,4 +1,4 @@
-import type { Prisma } from "@ashgw/db/raw";
+import type { Prisma } from "@rccyx/db/raw";
 
 export type PostCardQuery = Prisma.PostGetPayload<{
   select: ReturnType<typeof PostQueryHelper.cardSelect>;

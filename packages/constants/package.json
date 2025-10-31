@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/constants",
+  "name": "@rccyx/constants",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,12 +7,12 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
-    "@ashgw/cross-runtime": "workspace:*",
-    "@ashgw/env": "workspace:*"
+    "@rccyx/cross-runtime": "workspace:*",
+    "@rccyx/env": "workspace:*"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "ts-roids": "catalog:",
     "typescript": "catalog:"
   },

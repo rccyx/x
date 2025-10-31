@@ -2,7 +2,7 @@ import { middleware } from "../../../trpc/root";
 import { TRPCError } from "@trpc/server";
 import type { RlWindow } from "limico";
 import { createLimiter } from "limico";
-import { getFingerprint } from "@ashgw/security";
+import { getFingerprint } from "@rccyx/security";
 
 interface Ops {
   hits: number;

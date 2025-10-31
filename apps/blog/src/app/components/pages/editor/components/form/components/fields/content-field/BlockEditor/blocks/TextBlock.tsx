@@ -1,4 +1,4 @@
-import { Textarea } from "@ashgw/design/ui";
+import { Textarea } from "@rccyx/design/ui";
 
 import type { BlockEditorProps } from "../types";
 

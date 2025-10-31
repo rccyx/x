@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/security",
+  "name": "@rccyx/security",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,8 @@
     "argon2": "0.44.0"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Eye, EyeOff, GripVertical, Trash2 } from "@ashgw/design/icons";
+import { Eye, EyeOff, GripVertical, Trash2 } from "@rccyx/design/icons";
 
-import { Button, cn } from "@ashgw/design/ui";
+import { Button, cn } from "@rccyx/design/ui";
 
 import type { Block, BlockProps } from "./types";
 import { blockRegistry } from "./registry";

@@ -29,13 +29,13 @@ jobs:
           fi
 
           echo "Running migration reset..."
-          pnpm --filter @ashgw/db migrate:reset --force
+          pnpm --filter @rccyx/db migrate:reset --force
 
           echo "Validating migrations..."
-          pnpm --filter @ashgw/db migrate:status
+          pnpm --filter @rccyx/db migrate:status
 
           # deploying migrations
-          pnpm --filter @ashgw/db migrate:deploy
+          pnpm --filter @rccyx/db migrate:deploy
 
       - name: stop ephermal DB
         if: always()
@@ -43,4 +43,4 @@ jobs:
         run: |
           set -euo pipefail
           echo "Cleaning up..."
-          pnpm --filter @ashgw/db stop
+          pnpm --filter @rccyx/db stop

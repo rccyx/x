@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { generateOpenApi } from "@ts-rest/open-api";
 import { contract } from "../../../transports/v1/contract";
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 import { root } from "../../../root-uris";
-import { ossEmail } from "@ashgw/constants";
+import { ossEmail } from "@rccyx/constants";
 
 export const runtime = "edge";
 export const revalidate = 3600; // doesn't change often

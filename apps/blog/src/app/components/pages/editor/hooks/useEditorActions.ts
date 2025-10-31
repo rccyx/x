@@ -2,11 +2,11 @@
 
 import { useCallback } from "react";
 import type { SubmitHandler } from "react-hook-form";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
-import { logger } from "@ashgw/logger";
-import type { PostArticleRo, PostEditorDto } from "@ashgw/api/rpc-models";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { logger } from "@rccyx/logger";
+import type { PostArticleRo, PostEditorDto } from "@rccyx/api/rpc-models";
+import { rpcClient } from "@rccyx/api/rpc-client";
 import { useStore } from "~/app/stores";
 
 import type { useEditorData } from "./useEditorData";

@@ -59,7 +59,7 @@ export const ciVars = {
       .max(255)
       .startsWith("sk-")
       .describe(
-        "Used to summarize PRs @see https://github.com/ashgw/pr-summarizer",
+        "Used to summarize PRs @see https://github.com/rccyx/pr-summarizer",
       ),
   ),
   CONTAINER_SERVICE_TOKEN: ci(

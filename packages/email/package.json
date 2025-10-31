@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/email",
+  "name": "@rccyx/email",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,10 +9,10 @@
     "send-test-email": "tsx src/test.ts"
   },
   "dependencies": {
-    "@ashgw/constants": "workspace:*",
-    "@ashgw/env": "workspace:*",
-    "@ashgw/logger": "workspace:*",
-    "@ashgw/runner": "workspace:*",
+    "@rccyx/constants": "workspace:*",
+    "@rccyx/env": "workspace:*",
+    "@rccyx/logger": "workspace:*",
+    "@rccyx/runner": "workspace:*",
     "@react-email/components": "0.5.3",
     "@react-email/markdown": "0.0.15",
     "react": "catalog:react18",
@@ -24,8 +24,8 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "@react-email/preview-server": "^4.2.11",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",

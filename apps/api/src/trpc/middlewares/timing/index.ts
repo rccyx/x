@@ -1,4 +1,4 @@
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 
 import { middleware, t } from "../../root";
 

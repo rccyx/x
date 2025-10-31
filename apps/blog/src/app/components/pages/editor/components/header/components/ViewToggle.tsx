@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 import { observer } from "mobx-react-lite";
 
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
 import { useStore } from "~/app/stores";
 

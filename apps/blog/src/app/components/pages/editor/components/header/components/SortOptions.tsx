@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 import {
   Check,
   SortAsc,
@@ -14,7 +14,7 @@ import {
   ListChecks,
   FolderTree,
   Tag,
-} from "@ashgw/design/icons";
+} from "@rccyx/design/icons";
 
 import {
   Badge,
@@ -25,10 +25,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
-import { PostCategoryEnum } from "@ashgw/api/rpc-models";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
+import { PostCategoryEnum } from "@rccyx/api/rpc-models";
 
 export type SortField = "title" | "lastModDate" | "firstModDate";
 export type SortOrder = "asc" | "desc";

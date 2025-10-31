@@ -1,4 +1,4 @@
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 import { root } from "../../root-uris";
 
 export function getTrpcUrl() {

@@ -1,6 +1,6 @@
 import { Client as QstashClient } from "@upstash/qstash";
-import { env } from "@ashgw/env";
-import { logger } from "@ashgw/logger";
+import { env } from "@rccyx/env";
+import { logger } from "@rccyx/logger";
 import type {
   Payload,
   ScheduleDto,
@@ -8,7 +8,7 @@ import type {
   ScheduleDelayResult,
   Delay,
 } from "./types";
-import { run } from "@ashgw/runner";
+import { run } from "@rccyx/runner";
 
 const qstashClient = new QstashClient({ token: env.QSTASH_TOKEN });
 

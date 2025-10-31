@@ -2,8 +2,8 @@ import type {
   NotificationsPushEmailNotifBodyRequest,
   NotificationsPushEmailNotifHandlerResponses,
 } from "../../models";
-import { env } from "@ashgw/env";
-import { NotificationService } from "@ashgw/core/services";
+import { env } from "@rccyx/env";
+import { NotificationService } from "@rccyx/core/services";
 
 export async function pushEmailNotif(input: {
   body: NotificationsPushEmailNotifBodyRequest;

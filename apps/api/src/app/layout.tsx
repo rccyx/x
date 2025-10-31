@@ -1,4 +1,4 @@
-import { creator } from "@ashgw/constants";
+import { creator } from "@rccyx/constants";
 
 export default function RootLayout() {
   return (

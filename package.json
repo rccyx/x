@@ -1,5 +1,5 @@
 {
-  "name": "ashgw",
+  "name": "rccyx",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "deps:fix": "syncpack fix-mismatches",
     "deps:format": "syncpack format",
     "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F @ashgw/nextjs...",
+    "dev:next": "turbo watch dev -F @rccyx/nextjs...",
     "env:validate:app": "turbo run env:validate:app",
     "env:validate:ci": "turbo run env:validate:ci",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
@@ -22,12 +22,12 @@
     "test:unit-integration": "turbo run test:unit-integration"
   },
   "author": {
-    "name": "@ashgw",
-    "url": "https://ashgw.me"
+    "name": "@rccyx",
+    "url": "https://rccyx.me"
   },
   "description": "Building.",
   "devDependencies": {
-    "@ashgw/prettier-config": "workspace:*",
+    "@rccyx/prettier-config": "workspace:*",
     "cspell": "^8.3.2",
     "knip": "^5.0.0",
     "markdownlint-cli": "^0.38.0",
@@ -39,8 +39,8 @@
     "node": "20.x",
     "pnpm": "^9.12.2"
   },
-  "homepage": "https://ashgw.me",
+  "homepage": "https://rccyx.me",
   "packageManager": "pnpm@9.12.2",
-  "prettier": "@ashgw/prettier-config",
-  "repository": "ashgw/x"
+  "prettier": "@rccyx/prettier-config",
+  "repository": "rccyx/x"
 }

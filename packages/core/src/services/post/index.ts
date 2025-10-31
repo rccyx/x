@@ -1,8 +1,8 @@
 import type { FrontMatterResult } from "front-matter";
 import fm from "front-matter";
-import { db } from "@ashgw/db";
-import { WordCounterService } from "@ashgw/cross-runtime";
-import { logger } from "@ashgw/logger";
+import { db } from "@rccyx/db";
+import { WordCounterService } from "@rccyx/cross-runtime";
+import { logger } from "@rccyx/logger";
 import type {
   FontMatterMdxContentRo,
   PostCardRo,
@@ -13,7 +13,7 @@ import type {
 import { PostMapper } from "../../mappers";
 import { fontMatterMdxContentSchemaRo } from "../../models";
 import { PostQueryHelper } from "../../query-helpers";
-import { err, ok, run, runner, runSync } from "@ashgw/runner";
+import { err, ok, run, runner, runSync } from "@rccyx/runner";
 
 export class PostService {
   private readonly serviceTag = "PostService";

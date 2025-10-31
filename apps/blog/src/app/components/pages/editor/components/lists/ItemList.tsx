@@ -1,11 +1,11 @@
 "use client";
 
 import React, { memo } from "react";
-import { motion, useReducedMotion } from "@ashgw/design/motion";
+import { motion, useReducedMotion } from "@rccyx/design/motion";
 
-import { Button, ScrollArea, Skeleton } from "@ashgw/design/ui";
+import { Button, ScrollArea, Skeleton } from "@rccyx/design/ui";
 
-import type { PostArticleRo, TrashPostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo, TrashPostArticleRo } from "@rccyx/api/rpc-models";
 
 interface BaseAction {
   label: string;

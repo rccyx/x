@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/env",
+  "name": "@rccyx/env",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "ts-roids": "catalog:",
     "tsx": "^4.19.4",
     "typescript": "catalog:"

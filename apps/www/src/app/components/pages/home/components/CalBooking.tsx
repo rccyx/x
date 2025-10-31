@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
 
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 
 interface CalBookingProps {
   calLink?: string;
@@ -16,7 +16,7 @@ interface CalBookingProps {
   };
 }
 
-export function CalBooking({ calLink = "ashgw", config }: CalBookingProps) {
+export function CalBooking({ calLink = "rccyx", config }: CalBookingProps) {
   useEffect(() => {
     void (async function () {
       try {

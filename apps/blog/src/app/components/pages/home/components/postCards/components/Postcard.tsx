@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Views } from "~/app/components/shared/views";
 
-import { DateService } from "@ashgw/cross-runtime";
+import { DateService } from "@rccyx/cross-runtime";
 
-import type { PostCardRo } from "@ashgw/api/rpc-models";
-import { Button, SurfaceCard } from "@ashgw/design/ui";
+import type { PostCardRo } from "@rccyx/api/rpc-models";
+import { Button, SurfaceCard } from "@rccyx/design/ui";
 
 export function PostCard({ postData }: { postData: PostCardRo }) {
   return (

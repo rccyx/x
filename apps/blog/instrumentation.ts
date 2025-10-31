@@ -1,5 +1,5 @@
-import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
+import { logger } from "@rccyx/logger";
+import { monitor } from "@rccyx/monitor";
 import { observer } from "runyx";
 
 export function register() {

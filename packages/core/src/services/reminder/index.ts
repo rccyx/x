@@ -1,9 +1,9 @@
-import { scheduler } from "@ashgw/scheduler";
+import { scheduler } from "@rccyx/scheduler";
 import type {
   ReminderSendEmailNotificationRo,
   ReminderSendEmailNotificationSchemaDto,
 } from "../../models";
-import { ok, runner } from "@ashgw/runner";
+import { ok, runner } from "@rccyx/runner";
 
 async function remind({
   headers,

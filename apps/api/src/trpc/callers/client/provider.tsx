@@ -7,7 +7,7 @@ import { httpBatchLink } from "@trpc/client";
 import { getOptimizedQueryClient, rpcClient } from "./client";
 import { transformer } from "../../transformer";
 import { getTrpcUrl } from "../trpc-url";
-import {} from "@ashgw/env";
+import {} from "@rccyx/env";
 
 export function RPCProvider(
   props: Readonly<{

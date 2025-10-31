@@ -19,7 +19,7 @@ catalog:
   # @see https://github.com/vercel/vercel/issues/11097
   vercel: "33.2.0"
   "@playwright/test": ^1.40.1
-  # used to load env TS files, like @ashgw/env since next 14 only supoorts js files
+  # used to load env TS files, like @rccyx/env since next 14 only supoorts js files
   "jiti": "^2.3.3"
   "@types/node": ^20.11.17
   zod: 3.23.8

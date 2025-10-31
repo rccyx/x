@@ -16,9 +16,9 @@ import type {
   SessionRo,
 } from "../../models";
 import { SessionMapper, UserMapper } from "../../mappers";
-import { auth } from "@ashgw/auth";
-import { logger as baseLogger } from "@ashgw/logger";
-import { err, ok, run, runner } from "@ashgw/runner";
+import { auth } from "@rccyx/auth";
+import { logger as baseLogger } from "@rccyx/logger";
+import { err, ok, run, runner } from "@rccyx/runner";
 
 const logger = baseLogger.withContext({
   service: "UserService",

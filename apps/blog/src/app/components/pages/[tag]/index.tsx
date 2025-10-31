@@ -1,4 +1,4 @@
-import type { PostCardRo } from "@ashgw/api/rpc-models";
+import type { PostCardRo } from "@rccyx/api/rpc-models";
 import { PostCardsPage } from "~/app/components/pages/home/components/PostCardsPage";
 import { NoTagsFound } from "./components/NoTagsFound";
 

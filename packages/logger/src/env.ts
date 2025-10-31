@@ -1,4 +1,4 @@
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 import type { RuntimeEnv } from "./types";
 
 export function detectRuntimeEnv(): RuntimeEnv {

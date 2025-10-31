@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Lock, LogIn } from "@ashgw/design/icons";
+import { Lock, LogIn } from "@rccyx/design/icons";
 
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
-import { UserRoleEnum } from "@ashgw/api/rpc-models";
+import { UserRoleEnum } from "@rccyx/api/rpc-models";
 import { useAuth } from "~/app/hooks";
 
 interface FormButtonsProps {

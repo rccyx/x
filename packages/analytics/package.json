@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/analytics",
+  "name": "@rccyx/analytics",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,15 +7,15 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
-    "@ashgw/env": "workspace:*",
     "@next/third-parties": "15.0.2",
+    "@rccyx/env": "workspace:*",
     "posthog-js": "1.227.0",
     "posthog-node": "4.9.0",
     "react": "catalog:react18"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

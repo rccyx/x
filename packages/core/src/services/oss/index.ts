@@ -1,9 +1,9 @@
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import type {
   OssGetGithubTextSchemaDto,
   OssGetDirectTextSchemaRo,
 } from "../../models";
-import { err, ok, run, runner } from "@ashgw/runner";
+import { err, ok, run, runner } from "@rccyx/runner";
 
 function getRepoMainBranchBaseUrl(opts: { repo: string; scriptPath: string }) {
   const { repo, scriptPath } = opts;

@@ -1,11 +1,11 @@
 "use client";
 
 import { observer } from "mobx-react-lite";
-import { animate } from "@ashgw/design/motion";
+import { animate } from "@rccyx/design/motion";
 import { useEffect, useRef, useState } from "react";
-import { Eye } from "@ashgw/design/icons";
+import { Eye } from "@rccyx/design/icons";
 import { useStore } from "~/app/stores";
-import { ViewsService } from "@ashgw/cross-runtime";
+import { ViewsService } from "@rccyx/cross-runtime";
 import type { Optional } from "ts-roids";
 
 interface ViewsProps {

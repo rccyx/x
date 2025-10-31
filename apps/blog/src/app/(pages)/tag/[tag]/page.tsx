@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import { createMetadata } from "@ashgw/seo";
+import { createMetadata } from "@rccyx/seo";
 
 import { TagsPage } from "~/app/components/pages/[tag]";
-import { HydrateRpcClient, rpcServer } from "@ashgw/api/rpc-server";
+import { HydrateRpcClient, rpcServer } from "@rccyx/api/rpc-server";
 
 interface DynamicRouteParams {
   params: { tag: string };

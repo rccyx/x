@@ -1,4 +1,4 @@
-import type { DatabaseClient } from "@ashgw/db";
+import type { DatabaseClient } from "@rccyx/db";
 import type { GlobalTsrContext as Base } from "ts-rest-kit/core";
 
 export interface TsrContext extends Base {

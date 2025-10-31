@@ -1,7 +1,7 @@
 "use client";
 
-import type { GlobalErrorProperties } from "@ashgw/components";
-import { ErrorBoundary } from "@ashgw/components";
+import type { GlobalErrorProperties } from "@rccyx/components";
+import { ErrorBoundary } from "@rccyx/components";
 
 export default function GlobalError({ error, reset }: GlobalErrorProperties) {
   return (

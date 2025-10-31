@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp } from "@ashgw/design/icons";
+import { ChevronDown, ChevronUp } from "@rccyx/design/icons";
 
-import { Button, Textarea } from "@ashgw/design/ui";
+import { Button, Textarea } from "@rccyx/design/ui";
 
 import type { BlockEditorProps } from "../types";
 

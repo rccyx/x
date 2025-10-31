@@ -15,7 +15,7 @@ import {
   SurfaceCard,
   toast,
   Checkbox,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
 import {
   twoFactorEnableSchemaDto,
@@ -24,7 +24,7 @@ import {
   twoFactorDisableSchemaDto,
   twoFactorGenerateBackupCodesSchemaDto,
   twoFactorVerifyBackupCodeSchemaDto,
-} from "@ashgw/api/rpc-models";
+} from "@rccyx/api/rpc-models";
 
 import type {
   TwoFactorEnableDto,
@@ -33,9 +33,9 @@ import type {
   TwoFactorDisableDto,
   TwoFactorGenerateBackupCodesDto,
   TwoFactorVerifyBackupCodeDto,
-} from "@ashgw/api/rpc-models";
+} from "@rccyx/api/rpc-models";
 
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 /* utils */
 function parseTotpSecret(totpURI: string): string | null {

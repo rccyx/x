@@ -2,8 +2,8 @@
 alwaysApply: false
 ---
 
-Almost all commands in the monorepo should be executed from the root of the monorepo. For example, installing packages for the `@ashgw/blog` app:
+Almost all commands in the monorepo should be executed from the root of the monorepo. For example, installing packages for the `@rccyx/blog` app:
 
 ```
-pnpm --filter @ashgw/blog add @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query zod
+pnpm --filter @rccyx/blog add @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query zod
 ```

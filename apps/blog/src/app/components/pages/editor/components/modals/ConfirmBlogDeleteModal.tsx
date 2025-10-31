@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "@ashgw/design/motion";
-import { Button, Input } from "@ashgw/design/ui";
+import { motion } from "@rccyx/design/motion";
+import { Button, Input } from "@rccyx/design/ui";
 import { ModalShell } from "./ModalShell";
 
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
 
 export function ConfirmBlogDeleteModal(props: {
   blog: PostArticleRo;

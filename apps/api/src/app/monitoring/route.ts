@@ -1,10 +1,10 @@
 import type { NextRequest } from "next/server";
-import { monitor } from "@ashgw/monitor";
+import { monitor } from "@rccyx/monitor";
 
 export const runtime = "nodejs";
 
 /**
- * Shared Sentry tunnel endpoint using @ashgw/monitor.
+ * Shared Sentry tunnel endpoint using @rccyx/monitor.
  */
 export function POST(request: NextRequest): Promise<Response> {
   const handle = monitor.next.tunnelHandler as (

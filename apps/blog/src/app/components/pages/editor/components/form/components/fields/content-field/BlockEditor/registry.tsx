@@ -9,7 +9,7 @@ import {
   LinkIcon,
   Minus,
   Text,
-} from "@ashgw/design/icons";
+} from "@rccyx/design/icons";
 
 import type { BlockProps, BlockRegistry, BlockType } from "./types";
 import {

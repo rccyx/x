@@ -3,7 +3,7 @@
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
 import {
   Button,
@@ -14,11 +14,11 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { UserChangePasswordDto } from "@ashgw/api/rpc-models";
-import { userChangePasswordSchemaDto } from "@ashgw/api/rpc-models";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import type { UserChangePasswordDto } from "@rccyx/api/rpc-models";
+import { userChangePasswordSchemaDto } from "@rccyx/api/rpc-models";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 export function ChangePasswordForm() {
   const form = useForm<UserChangePasswordDto>({

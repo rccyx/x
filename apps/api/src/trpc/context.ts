@@ -1,8 +1,8 @@
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import type { NextRequest, NextResponse } from "next/server";
 
-import { db } from "@ashgw/db";
-import type { DatabaseClient } from "@ashgw/db";
+import { db } from "@rccyx/db";
+import type { DatabaseClient } from "@rccyx/db";
 import type { UserRo } from "../transports/rpc/models";
 
 export function createTRPCContext(opts: {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { createMetadata } from "@ashgw/seo";
+import { createMetadata } from "@rccyx/seo";
 
 import { HomePage } from "~/app/components/pages/home";
 

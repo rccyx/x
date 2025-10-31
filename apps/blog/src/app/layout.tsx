@@ -5,17 +5,17 @@ import {
   JsonLdScript,
   organizationJsonLd,
   websiteJsonLd,
-} from "@ashgw/seo";
+} from "@rccyx/seo";
 
-import { AnalyticsProvider } from "@ashgw/analytics/client";
-import { env } from "@ashgw/env";
-import { DesignSystemProvider } from "@ashgw/design/provider";
+import { AnalyticsProvider } from "@rccyx/analytics/client";
+import { env } from "@rccyx/env";
+import { DesignSystemProvider } from "@rccyx/design/provider";
 
-import { RPCProvider } from "@ashgw/api/rpc-client";
+import { RPCProvider } from "@rccyx/api/rpc-client";
 import { GoBack } from "./components/pages/root";
 import { StoreProvider } from "./stores";
-import { siteName } from "@ashgw/constants";
-import { FirstTimeVisitorBanner } from "@ashgw/components";
+import { siteName } from "@rccyx/constants";
+import { FirstTimeVisitorBanner } from "@rccyx/components";
 
 const siteUrl = env.NEXT_PUBLIC_BLOG_URL;
 

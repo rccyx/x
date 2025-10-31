@@ -1,4 +1,4 @@
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import type {
   ThyxQueryRequest,
   ThyxResponses,
@@ -7,7 +7,7 @@ import type {
   BootstrapQueryRequest,
   WhisperQueryRequest,
 } from "../../models";
-import { OssService } from "@ashgw/core/services";
+import { OssService } from "@rccyx/core/services";
 
 type OssGetScriptQueryRequest = ThyxQueryRequest;
 type OssGetTextResponses = ThyxResponses;

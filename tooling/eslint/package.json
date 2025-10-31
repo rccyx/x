@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/eslint-config",
+  "name": "@rccyx/eslint-config",
   "version": "0.3.0",
   "private": true,
   "scripts": {
@@ -18,9 +18,9 @@
     "typescript-eslint": "8.9.0"
   },
   "devDependencies": {
-    "@ashgw/prettier-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
     "@eslint/js": "^9.36.0",
+    "@rccyx/prettier-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "@types/eslint": "^8.56.1",
     "eslint": "^9.12.0",
     "eslint-plugin-runyx": "^1.1.0",
@@ -34,6 +34,6 @@
     "./restricted-env": "./restricted-env.js",
     "./logging": "./logging.js"
   },
-  "prettier": "@ashgw/prettier-config",
+  "prettier": "@rccyx/prettier-config",
   "type": "module"
 }

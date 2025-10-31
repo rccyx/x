@@ -2,7 +2,7 @@
 
 import { useMemo, useEffect } from "react";
 
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
 import type { SortOptions } from "../components/header/components/SortOptions";
 
 import type { useEditorData } from "./useEditorData";

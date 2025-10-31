@@ -70,13 +70,13 @@ exp NEXT_PUBLIC_POSTHOG_HOST
 pnpm install --frozen-lockfile
 
 if [ "$IS_PREVIEW" = "true" ]; then
-  pnpm --filter @ashgw/blog build:preview
+  pnpm --filter @rccyx/blog build:preview
 else
-  pnpm --filter @ashgw/blog build
+  pnpm --filter @rccyx/blog build
 fi
 EOSH
 
 USER node
 EXPOSE ${PORT}
-CMD ["pnpm", "--filter", "@ashgw/blog", "start"]
+CMD ["pnpm", "--filter", "@rccyx/blog", "start"]
 

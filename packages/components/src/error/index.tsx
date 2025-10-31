@@ -3,8 +3,8 @@
 import type NextError from "next/error";
 import { useEffect } from "react";
 
-import { monitor } from "@ashgw/monitor";
-import { Button, toast } from "@ashgw/design/ui";
+import { monitor } from "@rccyx/monitor";
+import { Button, toast } from "@rccyx/design/ui";
 
 export interface GlobalErrorProperties {
   readonly error: NextError & { digest?: string };

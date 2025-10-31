@@ -1,3 +1,3 @@
-import { config } from "@ashgw/design/tailwind";
+import { config } from "@rccyx/design/tailwind";
 
 export default config;

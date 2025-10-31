@@ -12,7 +12,7 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'ashgw' && github.event.pull_request.head.repo.fork == false
+    if: github.repository_owner == 'rccyx' && github.event.pull_request.head.repo.fork == false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/labeler@v5

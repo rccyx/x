@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { cn } from "@ashgw/design/ui";
+import { cn } from "@rccyx/design/ui";
 
 import type { HProps } from "./types";
 

@@ -4,11 +4,11 @@ import type { SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 import { useForm } from "react-hook-form";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import {
   Button,
   Form,
@@ -19,12 +19,12 @@ import {
   FormMessage,
   Input,
   Loading,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { UserLoginDto } from "@ashgw/api/rpc-models";
-import { userLoginSchemaDto } from "@ashgw/api/rpc-models";
+import type { UserLoginDto } from "@rccyx/api/rpc-models";
+import { userLoginSchemaDto } from "@rccyx/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 export function LoginPage() {
   const router = useRouter();

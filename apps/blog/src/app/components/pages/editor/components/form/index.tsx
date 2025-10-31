@@ -1,8 +1,8 @@
 import type { SubmitHandler, UseFormReturn } from "react-hook-form";
 import { useMemo } from "react";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { WordCounterService } from "@ashgw/cross-runtime";
+import { WordCounterService } from "@rccyx/cross-runtime";
 import {
   Form,
   FormField,
@@ -10,9 +10,9 @@ import {
   FormControl,
   FormLabel,
   Checkbox,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { PostEditorDto } from "@ashgw/api/rpc-models";
+import type { PostEditorDto } from "@rccyx/api/rpc-models";
 import { CategoryField } from "./components/fields/CategoryField";
 import { ContentField } from "./components/fields/content-field";
 import { SummaryField } from "./components/fields/SummaryField";

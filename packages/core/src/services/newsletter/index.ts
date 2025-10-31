@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { env } from "@ashgw/env";
-import { logger } from "@ashgw/logger";
-import { err, ok, run, runner } from "@ashgw/runner";
+import { env } from "@rccyx/env";
+import { logger } from "@rccyx/logger";
+import { err, ok, run, runner } from "@rccyx/runner";
 
 interface SubscribeInput {
   email: string;

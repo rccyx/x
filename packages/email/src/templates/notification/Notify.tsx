@@ -63,7 +63,7 @@ export const NotificationTemplate = ({
                 </Section>
                 <Section style={footer}>
                   <Text style={footerText}>
-                    © 2025 @ashgw. All rights reserved.
+                    © 2025 @rccyx. All rights reserved.
                   </Text>
                   <Text style={footerSub}>
                     You’re receiving this notification because it was triggered

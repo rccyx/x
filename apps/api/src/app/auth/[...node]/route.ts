@@ -1,4 +1,4 @@
-import { auth } from "@ashgw/auth";
+import { auth } from "@rccyx/auth";
 
 export const runtime = "nodejs";
 

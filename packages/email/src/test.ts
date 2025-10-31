@@ -1,6 +1,6 @@
-import { observer } from "@ashgw/runner";
-import { logger } from "@ashgw/logger";
-import { env } from "@ashgw/env";
+import { observer } from "@rccyx/runner";
+import { logger } from "@rccyx/logger";
+import { env } from "@rccyx/env";
 import { send } from "./index";
 
 function sendInstantCall() {

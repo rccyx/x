@@ -1,4 +1,4 @@
-import { db } from "@ashgw/db";
+import { db } from "@rccyx/db";
 import { blogs } from "./../data/mdx";
 
 export async function seedPosts() {

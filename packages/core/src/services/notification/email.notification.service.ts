@@ -1,4 +1,4 @@
-import { send } from "@ashgw/email";
+import { send } from "@rccyx/email";
 import type { EmailNotificationCreateSchemaDto } from "../../models/notification";
 
 export class EmailNotificationService {

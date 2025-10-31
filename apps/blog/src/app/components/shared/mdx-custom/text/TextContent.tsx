@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
 export function TextContent({ children }: { children: React.ReactNode }) {
   // Use div to avoid nesting <p> inside <p> when MDX already yields paragraphs

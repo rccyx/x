@@ -116,7 +116,7 @@ runs:
 
     - name: Notify • Deploy OK
       if: success()
-      uses: ashgw/notify@main
+      uses: rccyx/notify@main
       with:
         token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
         title: "Deployment Succeeded"
@@ -136,7 +136,7 @@ runs:
 
     - name: Notify • Deploy Fail
       if: failure()
-      uses: ashgw/notify@main
+      uses: rccyx/notify@main
       with:
         token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
         title: "Deployment Failed"

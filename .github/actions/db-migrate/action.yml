@@ -26,7 +26,7 @@ runs:
     - name: Deploy pending migrations on the $NEXT_PUBLIC_CURRENT_ENV database
       shell: bash
       run: |
-        pnpm --filter @ashgw/db migrate:deploy 2>&1 | grep -v "schema" | grep -v "at"
+        pnpm --filter @rccyx/db migrate:deploy 2>&1 | grep -v "schema" | grep -v "at"
 
     - name: Comment on PR
       if: github.event_name == 'pull_request' && inputs.comment_on_pr == 'yes'

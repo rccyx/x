@@ -1,9 +1,9 @@
 import { cache } from "react";
 import type { Metadata } from "next";
-import { NotFound } from "@ashgw/components";
-import { createMetadata } from "@ashgw/seo";
+import { NotFound } from "@rccyx/components";
+import { createMetadata } from "@rccyx/seo";
 import { BlogPostPage } from "~/app/components/pages/[post]";
-import { HydrateRpcClient, rpcServer } from "@ashgw/api/rpc-server";
+import { HydrateRpcClient, rpcServer } from "@rccyx/api/rpc-server";
 
 const getPostCached = cache((slug: string) =>
   rpcServer.post.getDetailedPublicPost.query({ slug }),

@@ -19,13 +19,13 @@ variable "service_name" {
 variable "docker_image" {
   description = "Docker image to deploy"
   type        = string
-  default     = "docker.io/ashgw/blog:latest"
+  default     = "docker.io/rccyx/blog:latest"
 }
 
 variable "docker_image_preview" {
   description = "Docker image to deploy for preview environment"
   type        = string
-  default     = "docker.io/ashgw/blog:preview"
+  default     = "docker.io/rccyx/blog:preview"
 }
 
 variable "docker_username" {

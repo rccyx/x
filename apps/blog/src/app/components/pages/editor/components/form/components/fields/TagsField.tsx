@@ -1,7 +1,7 @@
 import type { UseFormReturn } from "react-hook-form";
 import { useState } from "react";
-import { AnimatePresence, motion } from "@ashgw/design/motion";
-import { X, Plus } from "@ashgw/design/icons";
+import { AnimatePresence, motion } from "@rccyx/design/motion";
+import { X, Plus } from "@rccyx/design/icons";
 
 import {
   Button,
@@ -10,9 +10,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { PostEditorDto } from "@ashgw/api/rpc-models";
+import type { PostEditorDto } from "@rccyx/api/rpc-models";
 
 interface TagsFieldProps {
   form: UseFormReturn<PostEditorDto>;

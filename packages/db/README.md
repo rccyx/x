@@ -13,7 +13,7 @@
 | `prisma validate`       | dev, CI            | Validates that `schema.prisma` is syntactically correct           |
 
 ```bash
-pnpm --filter @ashgw/db exec prisma migrate diff \
+pnpm --filter @rccyx/db exec prisma migrate diff \
   --from-url="$DATABASE_URL" \
   --to-schema-datamodel=./prisma/schema.prisma \
   --script
@@ -22,5 +22,5 @@ pnpm --filter @ashgw/db exec prisma migrate diff \
 To spinup the local DB run
 
 ```bash
-pnpm --filter @ashgw/db start
+pnpm --filter @rccyx/db start
 ```

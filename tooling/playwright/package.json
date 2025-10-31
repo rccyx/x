@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/playwright-config",
+  "name": "@rccyx/playwright-config",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,9 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
     "@playwright/test": "catalog:",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {

@@ -1,6 +1,6 @@
-import { Eye, EyeOff } from "@ashgw/design/icons";
+import { Eye, EyeOff } from "@rccyx/design/icons";
 
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
 interface PreviewToggleProps {
   isPreviewEnabled: boolean;

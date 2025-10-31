@@ -1,4 +1,4 @@
-import type { auth } from "@ashgw/auth";
+import type { auth } from "@rccyx/auth";
 
 type ExtractUser<T> = T extends { response: { user: infer U } }
   ? U

@@ -17,10 +17,10 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Maximize2, Minimize2, Plus } from "@ashgw/design/icons";
+import { Maximize2, Minimize2, Plus } from "@rccyx/design/icons";
 import { nanoid } from "nanoid";
 
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import {
   Button,
   Command,
@@ -30,7 +30,7 @@ import {
   CommandItem,
   Dialog,
   DialogContent,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
 import type { Block, BlockProps, BlockType } from "./types";
 import { BlockItem } from "./BlockItem";

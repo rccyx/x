@@ -65,12 +65,12 @@ export default tseslint.config(
         {
           selector: "MemberExpression[object.name='console']",
           message:
-            "Use import { logger } from '@ashgw/logger' instead of console.*",
+            "Use import { logger } from '@rccyx/logger' instead of console.*",
         },
         {
           selector: "Identifier[name='console']",
           message:
-            "Use import { logger } from '@ashgw/logger' instead of console",
+            "Use import { logger } from '@rccyx/logger' instead of console",
         },
       ],
     },

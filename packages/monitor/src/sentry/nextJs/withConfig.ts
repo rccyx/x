@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 
 /**
  * Wraps a Next.js config with Sentry's build-time plugin.

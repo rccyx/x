@@ -7,11 +7,11 @@ variable "neon_api_key" {
 variable "project_name" {
   description = "Name of the Neon project"
   type        = string
-  default     = "ashgw-project"
+  default     = "rccyx-project"
 }
 
 variable "db_owner" {
   description = "Database owner name"
   type        = string
-  default     = "ashgw"
+  default     = "rccyx"
 }

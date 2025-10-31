@@ -1,8 +1,8 @@
 "use client";
 
-import type { GlobalErrorProperties } from "@ashgw/components";
-import { ErrorBoundary, Footer } from "@ashgw/components";
-import { DesignSystemProvider } from "@ashgw/design/provider";
+import type { GlobalErrorProperties } from "@rccyx/components";
+import { ErrorBoundary, Footer } from "@rccyx/components";
+import { DesignSystemProvider } from "@rccyx/design/provider";
 import { GoBack } from "./components/pages/root";
 
 export default function GlobalError({ ...props }: GlobalErrorProperties) {

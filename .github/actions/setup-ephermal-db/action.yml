@@ -20,7 +20,7 @@ runs:
     - name: Setup ephemeral DB
       shell: bash
       run: |
-        pnpm --filter @ashgw/db start
+        pnpm --filter @rccyx/db start
 
         echo "Waiting for DB to be ready..."
         for i in {1..30}; do
@@ -33,5 +33,4 @@ runs:
     - name: Seed the database
       shell: bash
       run: |
-        pnpm --filter @ashgw/seeder seed
-
+        pnpm --filter @rccyx/seeder seed

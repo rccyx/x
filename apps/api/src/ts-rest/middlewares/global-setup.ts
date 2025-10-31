@@ -1,6 +1,6 @@
-import { db } from "@ashgw/db";
+import { db } from "@rccyx/db";
 import type { TsrContext } from "../context";
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import { responseHandlersFn } from "ts-rest-kit/core";
 import { createGlobalRequestMiddleware } from "ts-rest-kit/next";
 

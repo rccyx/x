@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, Copy } from "@ashgw/design/icons";
+import { Check, Copy } from "@rccyx/design/icons";
 import { useCopyToClipboard } from "react-use";
-import { cn } from "@ashgw/design/ui";
+import { cn } from "@rccyx/design/ui";
 
 interface CopyButtonProps {
   code: string;

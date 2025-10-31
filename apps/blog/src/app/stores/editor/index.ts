@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-import type { PostArticleRo, TrashPostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo, TrashPostArticleRo } from "@rccyx/api/rpc-models";
 
 export class EditorStore {
   public viewMode: "active" | "trash" = "active";

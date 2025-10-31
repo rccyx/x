@@ -116,7 +116,7 @@ runs:
             ``,
             `**App:** \`${app}\``,
             ``,
-            `**Preview URL:** [${app}-preview.ashgw.me](https://${app}-preview.ashgw.me)`,
+            `**Preview URL:** [${app}-preview.rccyx.me](https://${app}-preview.rccyx.me)`,
             ``,
             `---`,
             `This preview reflects the changes in this PR. It auto-deploys when the \`deploy-preview\` label is applied.`
@@ -130,7 +130,7 @@ runs:
 
     - name: Notify • Deploy OK
       if: success()
-      uses: ashgw/notify@main
+      uses: rccyx/notify@main
       with:
         token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
         title: "Deployment Succeeded"
@@ -148,7 +148,7 @@ runs:
 
     - name: Notify • Deploy Fail
       if: failure()
-      uses: ashgw/notify@main
+      uses: rccyx/notify@main
       with:
         token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
         title: "Deployment Failed"

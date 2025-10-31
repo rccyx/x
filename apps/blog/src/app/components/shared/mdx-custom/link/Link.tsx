@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 
-import { env } from "@ashgw/env";
-import { cn } from "@ashgw/design/ui";
+import { env } from "@rccyx/env";
+import { cn } from "@rccyx/design/ui";
 
 export function BlogLink({
   href,

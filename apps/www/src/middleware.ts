@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;

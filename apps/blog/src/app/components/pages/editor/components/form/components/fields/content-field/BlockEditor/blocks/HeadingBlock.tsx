@@ -1,4 +1,4 @@
-import { Input } from "@ashgw/design/ui";
+import { Input } from "@rccyx/design/ui";
 
 import type { BlockEditorProps } from "../types";
 

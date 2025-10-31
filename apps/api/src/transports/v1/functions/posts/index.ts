@@ -1,5 +1,5 @@
 import type { PostsPurgeTrashBinHandlerResponses } from "../../models";
-import { PostService } from "@ashgw/core/services";
+import { PostService } from "@rccyx/core/services";
 
 export async function postsPurgeTrashBin(): Promise<PostsPurgeTrashBinHandlerResponses> {
   return new PostService().purgeTrash().then((r) =>

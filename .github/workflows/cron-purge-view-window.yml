@@ -23,7 +23,7 @@ jobs:
 
       - name: Notify • cron ok
         if: success()
-        uses: ashgw/notify@main
+        uses: rccyx/notify@main
         with:
           token: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
 
@@ -37,7 +37,7 @@ jobs:
 
       - name: Notify • cron fail
         if: failure()
-        uses: ashgw/notify@main
+        uses: rccyx/notify@main
         with:
           token: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
 

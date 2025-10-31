@@ -19,8 +19,8 @@ import { setTimeout as setAbortTimeout } from "timers";
 import { setTimeout as sleep } from "timers/promises";
 import type { Readable } from "stream";
 import type { MaybeUndefined } from "ts-roids";
-import { env } from "@ashgw/env";
-import { logger } from "@ashgw/logger";
+import { env } from "@rccyx/env";
+import { logger } from "@rccyx/logger";
 
 import type {
   PutOptions,

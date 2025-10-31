@@ -1,4 +1,4 @@
-import { createMetadata } from "@ashgw/seo";
+import { createMetadata } from "@rccyx/seo";
 
 import { LoginPage } from "~/app/components/pages/login";
 

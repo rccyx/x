@@ -3,7 +3,7 @@ version: "3.9"
 services:
   db:
     image: postgres:15
-    container_name: ashgw_local_pg
+    container_name: rccyx_local_pg
     restart: unless-stopped
     ports:
       - "5432:5432"
@@ -21,7 +21,7 @@ services:
 
   neon-proxy:
     image: ghcr.io/timowilhelm/local-neon-http-proxy:main
-    container_name: ashgw_neon_proxy
+    container_name: rccyx_neon_proxy
     depends_on:
       db:
         condition: service_healthy

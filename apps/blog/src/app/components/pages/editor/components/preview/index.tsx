@@ -1,12 +1,12 @@
 "use client";
 
 import type { UseFormReturn } from "react-hook-form";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { DateService } from "@ashgw/cross-runtime";
-import { Badge, Skeleton } from "@ashgw/design/ui";
+import { DateService } from "@rccyx/cross-runtime";
+import { Badge, Skeleton } from "@rccyx/design/ui";
 
-import type { PostEditorDto } from "@ashgw/api/rpc-models";
+import type { PostEditorDto } from "@rccyx/api/rpc-models";
 import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/blog";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { ClientMDX } from "../../../../shared/mdx-custom/mdx/client";

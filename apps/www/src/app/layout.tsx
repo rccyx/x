@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
-import { siteName } from "@ashgw/constants";
+import { siteName } from "@rccyx/constants";
 import {
   createMetadata,
   organizationJsonLd,
   websiteJsonLd,
   JsonLdScript,
-} from "@ashgw/seo";
-import { AnalyticsProvider } from "@ashgw/analytics/client";
-import { DesignSystemProvider } from "@ashgw/design/provider";
+} from "@rccyx/seo";
+import { AnalyticsProvider } from "@rccyx/analytics/client";
+import { DesignSystemProvider } from "@rccyx/design/provider";
 
-import { env } from "@ashgw/env";
-import { RestProvider } from "@ashgw/api/rest-client";
+import { env } from "@rccyx/env";
+import { RestProvider } from "@rccyx/api/rest-client";
 
 const description = "Building the future.";
 

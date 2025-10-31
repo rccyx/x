@@ -2,9 +2,9 @@
 
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 import { useForm } from "react-hook-form";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
 import {
   Button,
@@ -14,11 +14,11 @@ import {
   FormItem,
   FormMessage,
   Input,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { NewsletterSubscribeDto } from "@ashgw/api/rpc-models";
-import { newsletterSubscribeDtoSchema } from "@ashgw/api/rpc-models";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import type { NewsletterSubscribeDto } from "@rccyx/api/rpc-models";
+import { newsletterSubscribeDtoSchema } from "@rccyx/api/rpc-models";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 export function Newsletter() {
   const form = useForm<NewsletterSubscribeDto>({

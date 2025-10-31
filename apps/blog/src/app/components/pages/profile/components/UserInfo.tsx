@@ -1,10 +1,10 @@
 "use client";
 
-import { Crown, User } from "@ashgw/design/icons";
-import { Badge } from "@ashgw/design/ui";
+import { Crown, User } from "@rccyx/design/icons";
+import { Badge } from "@rccyx/design/ui";
 
-import type { UserRo } from "@ashgw/api/rpc-models";
-import { UserRoleEnum } from "@ashgw/api/rpc-models";
+import type { UserRo } from "@rccyx/api/rpc-models";
+import { UserRoleEnum } from "@rccyx/api/rpc-models";
 
 interface UserInfoProps {
   user: UserRo;

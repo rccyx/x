@@ -1,4 +1,4 @@
-import type { PostCategory as DbPostCategory } from "@ashgw/db/raw";
+import type { PostCategory as DbPostCategory } from "@rccyx/db/raw";
 
 import type {
   FontMatterMdxContentRo,

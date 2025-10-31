@@ -1,4 +1,4 @@
-import { creator } from "@ashgw/constants";
+import { creator } from "@rccyx/constants";
 import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {

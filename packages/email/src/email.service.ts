@@ -1,9 +1,9 @@
 import { Resend } from "resend";
 import type { CreateEmailOptions } from "resend";
-import { err, ok, run, runner } from "@ashgw/runner";
-import { logger } from "@ashgw/logger";
-import { env } from "@ashgw/env";
-import { defaultEmail, defaultEmailFrom } from "@ashgw/constants";
+import { err, ok, run, runner } from "@rccyx/runner";
+import { logger } from "@rccyx/logger";
+import { env } from "@rccyx/env";
+import { defaultEmail, defaultEmailFrom } from "@rccyx/constants";
 import type { SendParams, SendResult } from "./types";
 
 export class EmailService {

@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Shield, XCircle } from "@ashgw/design/icons";
-import { toast } from "@ashgw/design/ui";
+import { Shield, XCircle } from "@rccyx/design/icons";
+import { toast } from "@rccyx/design/ui";
 import {
   Badge,
   Button,
@@ -14,9 +14,9 @@ import {
   TableHeader,
   Loading,
   TableRow,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 interface SessionsListProps {
   currentSessionId: string;

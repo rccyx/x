@@ -1,5 +1,5 @@
 ---
-"@ashgw/blog": patch
+"@rccyx/blog": patch
 ---
 
 perf optimizations

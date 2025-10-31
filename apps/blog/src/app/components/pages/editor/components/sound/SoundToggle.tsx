@@ -1,7 +1,7 @@
 "use client";
 
 import { useSound } from "./SoundContext";
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
 export function SoundToggle() {
   const { isPlaying, toggleSound, isLoading } = useSound();

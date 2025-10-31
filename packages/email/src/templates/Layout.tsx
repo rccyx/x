@@ -8,7 +8,7 @@ import {
   Text,
   Hr,
 } from "@react-email/components";
-import { siteName } from "@ashgw/constants";
+import { siteName } from "@rccyx/constants";
 
 interface LayoutProps {
   title?: string;
@@ -48,7 +48,7 @@ export default function Layout({
                 <Hr style={styles.hr} />
                 <Section style={styles.footer}>
                   <Text style={styles.footerText}>
-                    © {new Date().getFullYear()} @ashgw. All rights reserved.
+                    © {new Date().getFullYear()} @rccyx. All rights reserved.
                   </Text>
                   {footerNote ? (
                     <Text style={styles.footerSub}>{footerNote}</Text>

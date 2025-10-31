@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import {
   Badge,
   Button,
@@ -15,10 +15,10 @@ import {
   CardTitle,
   Loading,
   Separator,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
 import { useAuth } from "~/app/hooks/auth";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import { rpcClient } from "@rccyx/api/rpc-client";
 import { ChangePasswordForm } from "./components/ChangePasswordForm";
 import { SessionsList } from "./components/SessionsList";
 import { UserInfo } from "./components/UserInfo";

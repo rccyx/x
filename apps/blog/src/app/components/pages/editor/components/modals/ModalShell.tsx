@@ -1,7 +1,7 @@
 "use client";
 
-import type { Variants } from "@ashgw/design/motion";
-import { motion } from "@ashgw/design/motion";
+import type { Variants } from "@rccyx/design/motion";
+import { motion } from "@rccyx/design/motion";
 import type { PropsWithChildren, MouseEvent } from "react";
 
 interface ModalShellProps {

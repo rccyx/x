@@ -1,1 +1,1 @@
-export * from "@ashgw/core/models";
+export * from "@rccyx/core/models";

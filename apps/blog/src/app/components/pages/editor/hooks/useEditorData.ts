@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { useStore } from "~/app/stores";
-import { rpcClient } from "@ashgw/api/rpc-client";
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
-import { UserRoleEnum } from "@ashgw/api/rpc-models";
+import { rpcClient } from "@rccyx/api/rpc-client";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
+import { UserRoleEnum } from "@rccyx/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
 
 export function useEditorData() {

@@ -5,7 +5,7 @@ import type { ComponentType } from "react";
 import type { Optional } from "ts-roids";
 import { useEffect, useState } from "react";
 
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 
 import { CodeBlock } from "../code";
 import { Divider } from "../divider";

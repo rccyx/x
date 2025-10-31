@@ -18,7 +18,7 @@ Example:
 
 ```ts
 import type { Metadata } from "next";
-import { createMetadata } from "@ashgw/seo";
+import { createMetadata } from "@rccyx/seo";
 import { AboutPage } from "~/app/components/pages/about";
 
 export const metadata: Metadata = createMetadata({
@@ -56,7 +56,7 @@ Rules:
 
 Use clear, predictable import aliases:
 
-- `@` → monorepo-level internal packages (`@ashgw/seo`, `@ashgw/design`, etc.) or installed packages e.g `@sentry/nextjs`
+- `@` → monorepo-level internal packages (`@rccyx/seo`, `@rccyx/design`, etc.) or installed packages e.g `@sentry/nextjs`
 - `~` → app-local files (`~/app/components/pages/about`)
 - Avoid `../` everywhere.
 

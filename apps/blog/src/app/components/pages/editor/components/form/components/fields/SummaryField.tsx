@@ -7,9 +7,9 @@ import {
   FormLabel,
   FormMessage,
   Textarea,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { PostEditorDto } from "@ashgw/api/rpc-models";
+import type { PostEditorDto } from "@rccyx/api/rpc-models";
 
 interface SummaryFieldProps {
   control: Control<PostEditorDto>;

@@ -1,4 +1,4 @@
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 import { root } from "../../../../root-uris";
 import type {
   RemindersPushReminderHandlerResponses,
@@ -6,7 +6,7 @@ import type {
   RemindersPushReminderHeadersRequest,
 } from "../../models";
 import { v1 } from "../../uris";
-import { ReminderService } from "@ashgw/core/services";
+import { ReminderService } from "@rccyx/core/services";
 
 const notifyUrl = env.NEXT_PUBLIC_WWW_URL + root.v1 + v1.notifications;
 

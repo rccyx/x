@@ -1,5 +1,5 @@
 import type { Control } from "react-hook-form";
-import { Check } from "@ashgw/design/icons";
+import { Check } from "@rccyx/design/icons";
 
 import {
   Button,
@@ -14,10 +14,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ashgw/design/ui";
+} from "@rccyx/design/ui";
 
-import type { PostEditorDto } from "@ashgw/api/rpc-models";
-import { PostCategoryEnum } from "@ashgw/api/rpc-models";
+import type { PostEditorDto } from "@rccyx/api/rpc-models";
+import { PostCategoryEnum } from "@rccyx/api/rpc-models";
 
 interface CategoryFieldProps {
   control: Control<PostEditorDto>;

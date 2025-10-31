@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "@ashgw/design/motion";
-import { CheckCheck, ChevronDown } from "@ashgw/design/icons";
+import { motion } from "@rccyx/design/motion";
+import { CheckCheck, ChevronDown } from "@rccyx/design/icons";
 
-import { Footer } from "@ashgw/components";
-import { Button } from "@ashgw/design/ui";
+import { Footer } from "@rccyx/components";
+import { Button } from "@rccyx/design/ui";
 
-import type { PostCardRo } from "@ashgw/api/rpc-models";
-import { PostCategoryEnum } from "@ashgw/api/rpc-models";
+import type { PostCardRo } from "@rccyx/api/rpc-models";
+import { PostCategoryEnum } from "@rccyx/api/rpc-models";
 import { usePostsContext } from "./components/Context";
 import { PostCard } from "./components/Postcard";
 import { useStore } from "~/app/stores";

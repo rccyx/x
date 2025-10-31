@@ -1,14 +1,14 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 import { useCopyToClipboard } from "react-use";
-import { toast } from "@ashgw/design/ui";
+import { toast } from "@rccyx/design/ui";
 
-import { ossEmail, links } from "@ashgw/constants";
+import { ossEmail, links } from "@rccyx/constants";
 
 import Link from "./components/Link";
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 
 export function HomePage() {
   const [, copyToClipboard] = useCopyToClipboard();

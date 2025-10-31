@@ -1,5 +1,5 @@
 import type { ViewsPurgeWithCutoffHandlerResponses } from "../../models";
-import { ViewService } from "@ashgw/core/services";
+import { ViewService } from "@rccyx/core/services";
 
 const retainDays = 2;
 const oneDayInMs = 1000 * 60 * 60 * 24;

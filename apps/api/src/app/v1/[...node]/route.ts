@@ -1,5 +1,5 @@
-import { logger } from "@ashgw/logger";
-import { monitor } from "@ashgw/monitor";
+import { logger } from "@rccyx/logger";
+import { monitor } from "@rccyx/monitor";
 import { createNextHandler } from "@ts-rest/serverless/next";
 import { contract } from "../../../transports/v1/contract";
 import { router } from "../../../transports/v1/router";

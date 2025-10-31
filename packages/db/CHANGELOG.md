@@ -1,4 +1,4 @@
-# @ashgw/db
+# @rccyx/db
 
 ## 0.1.1
 

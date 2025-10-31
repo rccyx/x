@@ -1,7 +1,7 @@
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import { seedPosts } from "./seeds/posts";
 import { seedUser } from "./seeds/user";
-import { db } from "@ashgw/db";
+import { db } from "@rccyx/db";
 
 async function seed() {
   await seedPosts();

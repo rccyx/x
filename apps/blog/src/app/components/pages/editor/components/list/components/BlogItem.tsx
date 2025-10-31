@@ -1,9 +1,9 @@
 import { memo } from "react";
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { Button } from "@ashgw/design/ui";
+import { Button } from "@rccyx/design/ui";
 
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
 
 interface BlogItemProps {
   blog: PostArticleRo;

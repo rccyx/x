@@ -2,7 +2,7 @@ import { response, middlewareFn } from "ts-rest-kit/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
 import type { TsrContext } from "../../context";
-import { getFingerprint } from "@ashgw/security";
+import { getFingerprint } from "@rccyx/security";
 
 type RlKind = "interval" | "quota";
 

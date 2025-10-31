@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   echo "Usage: $0 --env [preview|production] --service <service> --image <image>"
-  echo "Example: $0 --env production --service blog --image ghcr.io/ashgw/blog:production"
+  echo "Example: $0 --env production --service blog --image ghcr.io/rccyx/blog:production"
   exit 1
 }
 

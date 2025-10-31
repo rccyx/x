@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link";
-import { Edit } from "@ashgw/design/icons";
+import { Edit } from "@rccyx/design/icons";
 
-import { DateService } from "@ashgw/cross-runtime";
-import { Badge } from "@ashgw/design/ui";
+import { DateService } from "@rccyx/cross-runtime";
+import { Badge } from "@rccyx/design/ui";
 import { Views } from "~/app/components/shared/views";
 
 import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/blog";
 import { ScrollUp } from "~/app/components/pages/home/components/postCards/components/ScrollUp";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { MDX } from "../../../../shared/mdx-custom/mdx";
-import type { PostArticleRo } from "@ashgw/api/rpc-models";
+import type { PostArticleRo } from "@rccyx/api/rpc-models";
 import { ReleaseDate } from "./ReleaseDate";
 import { ViewTracker } from "./ViewTracker";
 

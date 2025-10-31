@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { expect, test } from "vitest";
 
-import { db } from "@ashgw/db";
+import { db } from "@rccyx/db";
 
 import type { AppRouter } from "../../src/transports/rpc/router";
 import {

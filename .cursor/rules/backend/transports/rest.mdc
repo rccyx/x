@@ -282,9 +282,8 @@ Rules:
 ## General Rules
 
 - Never reuse core `models` inside REST.
-- Only call `@ashgw/core/services` for logic.
+- Only call `@rccyx/core/services` for logic.
 - Every new version (`v2/`, `v3/`) copies the previous folder and evolves from there.
 - Every handler must explicitly type its output with `<OperationId>HandlerResponses`.
 - Keep files small and isolated. Never mix multiple unrelated operations in one file.
 - If it’s not shared by multiple resources, don’t put it in `_shared`.
-

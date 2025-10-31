@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { DateService } from "@ashgw/cross-runtime";
+import { DateService } from "@rccyx/cross-runtime";
 
 export function ReleaseDate({ date }: { date: string }) {
   return (

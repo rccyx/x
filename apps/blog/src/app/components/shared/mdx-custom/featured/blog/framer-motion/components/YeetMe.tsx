@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
 export function YeetMe() {
   const initial = {

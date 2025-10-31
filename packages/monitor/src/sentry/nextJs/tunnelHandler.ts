@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
-import { logger } from "@ashgw/logger";
-import { env } from "@ashgw/env";
+import { logger } from "@rccyx/logger";
+import { env } from "@rccyx/env";
 import { z } from "zod";
 
 /**

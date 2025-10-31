@@ -4,31 +4,31 @@ const baseConfig = {
   productionBrowserSourceMaps: true,
   /** Enables hot reloading for local packages without a build step */
   transpilePackages: [
-    "@ashgw/design",
-    "@ashgw/env",
-    "@ashgw/auth",
-    "@ashgw/components",
-    "@ashgw/hooks",
-    "@ashgw/models",
-    "@ashgw/constants",
-    "@ashgw/cross-runtime",
-    "@ashgw/monitor",
-    "@ashgw/logger",
-    "@ashgw/seo",
-    "@ashgw/vitest",
-    "@ashgw/playwright",
-    "@ashgw/eslint",
-    "@ashgw/typescript",
-    "@ashgw/db",
-    "@ashgw/analytics",
-    "@ashgw/storage",
+    "@rccyx/design",
+    "@rccyx/env",
+    "@rccyx/auth",
+    "@rccyx/components",
+    "@rccyx/hooks",
+    "@rccyx/models",
+    "@rccyx/constants",
+    "@rccyx/cross-runtime",
+    "@rccyx/monitor",
+    "@rccyx/logger",
+    "@rccyx/seo",
+    "@rccyx/vitest",
+    "@rccyx/playwright",
+    "@rccyx/eslint",
+    "@rccyx/typescript",
+    "@rccyx/db",
+    "@rccyx/analytics",
+    "@rccyx/storage",
   ],
 
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 
-  // https://github.com/ashgw/security-header-middlewares
+  // https://github.com/rccyx/security-header-middlewares
   headers() {
     return Promise.resolve([
       {

@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/prettier-config",
+  "name": "@rccyx/prettier-config",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,12 +13,12 @@
     "prettier-plugin-tailwindcss": "0.6.8"
   },
   "devDependencies": {
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {
     ".": "./index.js"
   },
-  "prettier": "@ashgw/prettier-config",
+  "prettier": "@rccyx/prettier-config",
   "type": "module"
 }

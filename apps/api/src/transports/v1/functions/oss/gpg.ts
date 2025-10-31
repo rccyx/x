@@ -1,6 +1,6 @@
 import type { GpgQueryRequest, GpgResponses } from "../../models";
-import { OssService } from "@ashgw/core/services";
-import { gpg as gpgConstants } from "@ashgw/constants";
+import { OssService } from "@rccyx/core/services";
+import { gpg as gpgConstants } from "@rccyx/constants";
 
 function error(status: GpgResponses["status"], message: string): GpgResponses {
   return {

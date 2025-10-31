@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Banner, cn, Button } from "@ashgw/design/ui";
-import { useAnalytics } from "@ashgw/analytics/client";
+import { Banner, cn, Button } from "@rccyx/design/ui";
+import { useAnalytics } from "@rccyx/analytics/client";
 
 type Stage =
   | "init"

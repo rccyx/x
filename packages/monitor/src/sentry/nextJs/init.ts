@@ -1,6 +1,6 @@
 // @see https://docs.sentry.io/platforms/javascript/guides/nextjs/
-import { env } from "@ashgw/env";
-import { logger } from "@ashgw/logger";
+import { env } from "@rccyx/env";
+import { logger } from "@rccyx/logger";
 import { init as SentryInit, replayIntegration } from "@sentry/nextjs";
 
 /**

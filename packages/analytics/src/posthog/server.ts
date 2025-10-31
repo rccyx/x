@@ -2,7 +2,7 @@ import "server-only";
 
 import { PostHog } from "posthog-node";
 
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 
 export const posthogNode = new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {
   host: env.NEXT_PUBLIC_POSTHOG_HOST,

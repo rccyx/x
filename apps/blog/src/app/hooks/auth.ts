@@ -2,8 +2,8 @@ import type { Optional } from "ts-roids";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-import type { UserRo } from "@ashgw/api/rpc-models";
-import { rpcClient } from "@ashgw/api/rpc-client";
+import type { UserRo } from "@rccyx/api/rpc-models";
+import { rpcClient } from "@rccyx/api/rpc-client";
 
 export function useAuth(): {
   user: Optional<UserRo>;

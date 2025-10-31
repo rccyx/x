@@ -9,7 +9,7 @@ import ResetPasswordTemplate from "./templates/auth/ResetPassword";
 import EmailIsVerifiedTemplate from "./templates/auth/EmailIsVerified";
 import AccountDeletedTemplate from "./templates/auth/AccountDeleted";
 import NotifyTemplate from "./templates/notification/Notify";
-import { run, runner } from "@ashgw/runner";
+import { run, runner } from "@rccyx/runner";
 
 export interface VerifyEmailParams {
   readonly to: Recipient;

@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronLeft } from "@ashgw/design/icons";
+import { ChevronLeft } from "@rccyx/design/icons";
 
 function BackContent() {
   const router = useRouter();

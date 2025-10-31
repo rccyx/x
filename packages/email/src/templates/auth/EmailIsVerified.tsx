@@ -4,7 +4,7 @@ import Layout from "./../Layout";
 const styles = {
   p: { color: "#333", fontSize: "15px", lineHeight: "1.5" },
 } as const;
-import { siteName } from "@ashgw/constants";
+import { siteName } from "@rccyx/constants";
 
 export interface EmailIsVerifiedProps {
   readonly userName?: string;

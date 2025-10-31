@@ -9,7 +9,7 @@ import {
   usePostHog,
 } from "posthog-js/react";
 
-import { env } from "@ashgw/env";
+import { env } from "@rccyx/env";
 
 export const PostHogProvider = (
   properties: Omit<PropsWithChildren<NonNullable<unknown>>, "client">,
