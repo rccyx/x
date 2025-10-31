@@ -1,11 +1,10 @@
-import { createEnv } from "envyx";
+import { createEnv, tuple } from "envyx";
 import { colors } from "./colors";
 
-import { envTuple } from "./env-tuple";
 import { ciVars, clientVars, serverVars } from "./vars";
 
-const serverVarsTuple = envTuple(serverVars);
-const ciVarsTuple = envTuple(ciVars);
+const serverVarsTuple = tuple(serverVars);
+const ciVarsTuple = tuple(ciVars);
 
 export const env = createEnv({
   vars: {

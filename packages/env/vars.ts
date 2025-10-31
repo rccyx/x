@@ -15,7 +15,9 @@ export const ciVars = {
       .string()
       .min(1)
       .max(128)
-      .startsWith("github_pat_")
+      .refine((val) => val.startsWith("github_pat") || val.startsWith("ghp"), {
+        message: 'GitHub PAT must start with "github_pat_" or "ghp"',
+      })
       .describe("GitHub PAT SOLELY for submodule sync")
       .describe(
         "GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)",
