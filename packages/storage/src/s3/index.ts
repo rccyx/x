@@ -23,7 +23,6 @@ import { env } from "@ashgw/env";
 import { logger } from "@ashgw/logger";
 
 import type {
-  Folder,
   PutOptions,
   PresignGetOptions,
   PresignPutOptions,
@@ -76,44 +75,6 @@ export class S3Service extends BaseStorageService {
       bucket: this.bucket,
       maxAttempts: 2,
     });
-  }
-
-  public override async fetchFile<F extends Folder>({
-    folder,
-    filename,
-  }: {
-    folder: F;
-    filename: string;
-  }): Promise<Buffer> {
-    return this.fetchAnyFile({ key: `${folder}/${filename}` });
-  }
-
-  public override async uploadFile({
-    folder,
-    filename,
-    body,
-    options,
-  }: {
-    folder: Folder;
-    filename: string;
-    body: Buffer;
-    options?: PutOptions;
-  }): Promise<string> {
-    const key = `${folder}/${filename}`;
-    await this.uploadAnyFile({ key, body, options });
-    return key;
-  }
-
-  public override async deleteFile<F extends Folder>({
-    folder,
-    filename,
-  }: {
-    folder: F;
-    filename: string;
-  }): Promise<string> {
-    const key = `${folder}/${filename}`;
-    await this.deleteAnyFile({ key });
-    return key;
   }
 
   public override async deleteAnyFile({

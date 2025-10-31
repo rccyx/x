@@ -1,6 +1,3 @@
-export const folders = ["mdx", "voice", "image", "other"] as const;
-export type Folder = (typeof folders)[number];
-
 export interface PutOptions {
   contentType?: string;
   cacheControl?: string;
@@ -32,23 +29,6 @@ export interface ListKeysPage {
 }
 
 export abstract class BaseStorageService {
-  public abstract fetchFile<F extends Folder>(params: {
-    folder: F;
-    filename: string;
-  }): Promise<Buffer>;
-
-  public abstract uploadFile(params: {
-    folder: Folder;
-    filename: string;
-    body: Buffer;
-    options?: PutOptions;
-  }): Promise<string>;
-
-  public abstract deleteFile<F extends Folder>(params: {
-    folder: F;
-    filename: string;
-  }): Promise<string>;
-
   public abstract deleteAnyFile(params: { key: string }): Promise<string>;
   public abstract fetchAnyFile(params: { key: string }): Promise<Buffer>;
   public abstract uploadAnyFile(params: {
