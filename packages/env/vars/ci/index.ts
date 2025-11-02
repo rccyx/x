@@ -7,7 +7,7 @@ export const ciVars = {
   // github
   GITHUB_TOKEN: ci(
     z.string().min(1).max(64).describe("GitHub token (classic)"),
-  ),
+  ).describe("CI runs already got it"),
   SUBMODULE_SYNC_PAT: ci(
     z
       .string()
@@ -44,14 +44,28 @@ export const ciVars = {
       ),
   ),
   // doppler
-  VERCEL_TOKEN: ci(z.string().min(1).max(64)),
-  VERCEL_ORG_ID: ci(z.string().min(1).max(64)),
-  TURBO_TOKEN: ci(z.string().min(1).max(64)).describe(
-    "inject these two for automatic caches",
+  VERCEL_TOKEN: ci(z.string().min(1).max(64)).describe(
+    "Dashboard -> Settings -> API Tokens -> Project Tokens -> Create Token",
   ),
+  VERCEL_ORG_ID: ci(z.string().min(1).max(64)).describe(
+    "Dashboard -> Settings -> General -> Organization ID",
+  ),
+  VERCEL_WWW_PROJECT_ID: ci(
+    z.string().min(1).max(64).startsWith("prj_"),
+  ).describe(
+    "just hit: cd apps/www && pnpm build:vercel-preview, this will automatically set this inside .vercel/project.json",
+  ),
+  VERCEL_BLOG_PROJECT_ID: ci(
+    z.string().min(1).max(64).startsWith("prj_").describe("same"),
+  ),
+  VERCEL_API_PROJECT_ID: ci(
+    z.string().min(1).max(64).startsWith("prj_").describe("same"),
+  ),
+  TURBO_TOKEN: ci(z.string().min(1).max(64))
+    .describe("inject these two for automatic caches")
+    .describe("just run: npx turbo login, they'll guide through"),
   TURBO_TEAM: ci(z.string().min(1).max(64)),
-  VERCEL_WWW_PROJECT_ID: ci(z.string().min(1).max(64).startsWith("prj_")),
-  VERCEL_BLOG_PROJECT_ID: ci(z.string().min(1).max(64).startsWith("prj_")),
+
   OPENAI_PR_SUMMARIZER_TOKEN: ci(
     z
       .string()
@@ -61,6 +75,8 @@ export const ciVars = {
       .describe(
         "Used to summarize PRs @see https://github.com/rccyx/pr-summarizer",
       ),
+  ).describe(
+    "this is just for the pr-summarizer action, @see https://github.com/rccyx/pr-summarizer",
   ),
   CONTAINER_SERVICE_TOKEN: ci(
     z
@@ -68,5 +84,7 @@ export const ciVars = {
       .min(1)
       .max(64)
       .describe("Token used to auth with the container service"),
+  ).describe(
+    "this is the token youll use for deploying to whatever container service, e.g Koyeb or AWS ECS or etc",
   ),
 } as const;
