@@ -1,5 +1,4 @@
 import { createEnv, tuple } from "envyx";
-import { colors } from "./colors";
 import { serverVars } from "./vars";
 import { ciVars } from "./vars";
 import { clientVars } from "./vars";
@@ -59,11 +58,5 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
   skipValidation: typeof window !== "undefined", // don't validate on the client, we validate at build time
+  log: true,
 });
-
-// eslint-disable-next-line no-restricted-syntax
-console.log(
-  `${colors.magenta("ENV")} → loaded ${colors.green(
-    String(Object.keys(env).length),
-  )} vars successfully.`,
-);
