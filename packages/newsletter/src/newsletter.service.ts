@@ -1,33 +1,22 @@
-import { z } from "zod";
 import { env } from "@rccyx/env";
 import { logger } from "@rccyx/logger";
-import { err, ok, run, runner } from "@rccyx/runner";
+import { ok, run, runner } from "@rccyx/runner";
+import { Kit } from "@anthonyhagi/kit-node-sdk";
 
-const kitAPIResponseSchema = z.object({
-  errors: z.array(z.string().min(1)).optional(),
-  message: z.string().min(1).optional(),
-});
+const kit = new Kit({ apiKey: env.KIT_API_KEY });
 
 export class NewsletterService {
-  private readonly API_BASE = "https://api.kit.com/v4";
   private readonly SERVICE_TAG = "NewsletterService";
-  private readonly HEADERS = {
-    "Content-Type": "application/json",
-    "X-Kit-Api-Key": env.KIT_API_KEY,
-  } as const;
-
+  private readonly client = kit;
   public async subscribe({ email }: { email: string }) {
     logger.info("creating/updating subscriber", { email });
-
     return runner(
       run(
         () =>
-          fetch(`${this.API_BASE}/subscribers`, {
-            method: "POST",
-            headers: this.HEADERS,
-            body: JSON.stringify({ email_address: email }),
+          this.client.subscribers.create({
+            email_address: email,
           }),
-        `${this.SERVICE_TAG}SubscriberApiFailure`,
+        `${this.SERVICE_TAG}SubscribeApiFailure`,
         {
           message:
             "looks like something went wrong with our newsletter provider",
@@ -37,46 +26,12 @@ export class NewsletterService {
           },
         },
       ),
-    )
-      .next((res) => this._parse(res))
-      .next((kitRes) => {
-        if (kitRes.errors) {
-          return err({
-            severity: "error",
-            message: "failed to subscribe to newsletter",
-            tag: "NewsletterServiceSubscribeFailure",
-            meta: {
-              note: "kit response doesnt look like what it's supposed to be",
-              apiResponse: {
-                errors: kitRes.errors,
-                message: kitRes.message,
-              },
-            },
-          });
-        }
-        return ok();
+    ).next((res) => {
+      logger.info("created/updated subscriber", {
+        id: res.subscriber.id,
+        at: res.subscriber.created_at,
       });
-  }
-
-  private _parse(res: Response) {
-    return run(
-      () => {
-        if (
-          res.status === 204 ||
-          !res.headers.get("content-type")?.includes("application/json")
-        ) {
-          return {};
-        }
-        return kitAPIResponseSchema.parse(res.json());
-      },
-      `${this.SERVICE_TAG}ParseResponseFailure`,
-      {
-        message: "looks like something went wrong with our newsletter provider",
-        severity: "error",
-        meta: {
-          reason: "response is not valid JSON, could not parse properly",
-        },
-      },
-    );
+      return ok();
+    });
   }
 }

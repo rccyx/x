@@ -7,6 +7,7 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
+    "@anthonyhagi/kit-node-sdk": "0.2.3",
     "@rccyx/env": "workspace:*",
     "@rccyx/logger": "workspace:*",
     "@rccyx/runner": "workspace:*"
