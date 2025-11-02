@@ -17,7 +17,6 @@
     "lint-all": "pnpm run lint:ts && pnpm run lint:md && pnpm run format && pnpm run lint:knip && pnpm run lint:spelling",
     "lint:knip": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
     "lint:ts": "tsc --noEmit; eslint .",
-    "postbuild": "echo 'next-sitemap'",
     "start": "pnpm next start",
     "test": "pnpm test:unit-integration; pnpm test:e2e",
     "test:e2e": "cd test/e2e && npx playwright test",
