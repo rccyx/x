@@ -3,26 +3,18 @@ import type { CreateEmailOptions } from "resend";
 import { err, ok, run, runner } from "@rccyx/runner";
 import { logger } from "@rccyx/logger";
 import { env } from "@rccyx/env";
-import { defaultEmail, defaultEmailFrom } from "@rccyx/constants";
+import { defaultEmail } from "@rccyx/constants";
 import type { SendParams, SendResult } from "./types";
 
 export class EmailService {
   private _defaultEmail: string = defaultEmail;
   private _cached?: Resend;
 
-  public get defaultEmail(): string {
-    return this._defaultEmail;
-  }
-
-  public get defaultFrom(): string {
-    return defaultEmailFrom;
-  }
-
   public async sendHtml(params: SendParams) {
-    const client = this._client();
+    const client = this.client();
     const to = typeof params.to === "string" ? [params.to] : params.to;
     const options: CreateEmailOptions = {
-      from: params.from ?? this.defaultFrom,
+      from: params.from ?? this._defaultEmail,
       to,
       subject: params.subject,
       html: params.html,
@@ -61,7 +53,7 @@ export class EmailService {
     });
   }
 
-  private _client(): Resend {
+  protected client(): Resend {
     if (!this._cached) this._cached = new Resend(env.RESEND_API_KEY);
     return this._cached;
   }
