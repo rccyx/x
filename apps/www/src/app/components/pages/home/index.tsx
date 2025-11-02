@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
 import { motion } from "@rccyx/design/motion";
 import { useCopyToClipboard } from "react-use";
 import { toast } from "@rccyx/design/ui";
 
-import { ossEmail, links } from "@rccyx/constants";
+import { email, links } from "@rccyx/constants";
 
 import Link from "./components/Link";
 import { env } from "@rccyx/env";
@@ -13,10 +12,7 @@ import { env } from "@rccyx/env";
 export function HomePage() {
   const [, copyToClipboard] = useCopyToClipboard();
 
-  const emailAddress = useMemo(
-    () => (ossEmail.startsWith("mailto:") ? ossEmail.slice(7) : ossEmail),
-    [],
-  );
+  const emailAddress = email.oss.address;
 
   const copyEmail = () => {
     copyToClipboard(emailAddress);
