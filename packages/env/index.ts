@@ -4,16 +4,13 @@ import { serverVars } from "./vars";
 import { ciVars } from "./vars";
 import { clientVars } from "./vars";
 
-const serverVarsTuple = tuple(serverVars);
-const ciVarsTuple = tuple(ciVars);
-
 export const env = createEnv({
   vars: {
     ...serverVars,
     ...ciVars,
     ...clientVars,
   },
-  disablePrefix: [...serverVarsTuple, ...ciVarsTuple],
+  disablePrefix: [...tuple(serverVars), ...tuple(ciVars)],
   prefix: "NEXT_PUBLIC",
   runtimeEnv: {
     // server vars
@@ -42,6 +39,7 @@ export const env = createEnv({
     TURBO_TOKEN: process.env.TURBO_TOKEN,
     VERCEL_WWW_PROJECT_ID: process.env.VERCEL_WWW_PROJECT_ID,
     VERCEL_BLOG_PROJECT_ID: process.env.VERCEL_BLOG_PROJECT_ID,
+    VERCEL_API_PROJECT_ID: process.env.VERCEL_API_PROJECT_ID,
     OPENAI_PR_SUMMARIZER_TOKEN: process.env.OPENAI_PR_SUMMARIZER_TOKEN,
     ENV_SERVICE_TOKEN: process.env.ENV_SERVICE_TOKEN,
     SUBMODULE_SYNC_PAT: process.env.SUBMODULE_SYNC_PAT,

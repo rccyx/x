@@ -59,7 +59,13 @@ export const ciVars = {
     z.string().min(1).max(64).startsWith("prj_").describe("same"),
   ),
   VERCEL_API_PROJECT_ID: ci(
-    z.string().min(1).max(64).startsWith("prj_").describe("same"),
+    z
+      .string()
+      .min(1)
+      .max(64)
+      .startsWith("prj_")
+      .describe("API as in the API app, nothing major here chief")
+      .describe("same"),
   ),
   TURBO_TOKEN: ci(z.string().min(1).max(64))
     .describe("inject these two for automatic caches")
