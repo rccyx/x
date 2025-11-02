@@ -44,18 +44,6 @@ export const blogs: Blog[] = [
     mdxContentRaw: getCorresponsingMdxContent("bounce-tracking"),
   },
   {
-    slug: "branded-types",
-    title: "Branded Types",
-    summary: "Write safer TypeScript with branded types",
-    isReleased: true,
-    firstModDate: new Date("2024-04-27T09:15:00-04:00"),
-    lastModDate: new Date("2024-04-27T09:15:00-04:00"),
-    minutesToRead: 4,
-    tags: ["typescript", "typing"],
-    category: "SOFTWARE",
-    mdxContentRaw: getCorresponsingMdxContent("branded-types"),
-  },
-  {
     slug: "cholesterol",
     title: "Cholesterol",
     summary: "How bad science hijacked medicine and destroyed public health",
@@ -67,19 +55,6 @@ export const blogs: Blog[] = [
     category: "HEALTH",
     mdxContentRaw: getCorresponsingMdxContent("cholesterol"),
   },
-  {
-    slug: "debates",
-    title: "Debates",
-    summary: "I won't debate you",
-    isReleased: true,
-    firstModDate: new Date("2024-01-01T19:45:00-04:00"),
-    lastModDate: new Date("2024-01-01T19:45:00-04:00"),
-    minutesToRead: 3,
-    tags: ["debates", "communication"],
-    category: "PHILOSOPHY",
-    mdxContentRaw: getCorresponsingMdxContent("debates"),
-  },
-
   {
     slug: "dumb-questions",
     title: "Dumb Questions",
