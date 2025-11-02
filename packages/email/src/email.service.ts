@@ -3,31 +3,33 @@ import type { CreateEmailOptions } from "resend";
 import { err, ok, run, runner } from "@rccyx/runner";
 import { logger } from "@rccyx/logger";
 import { env } from "@rccyx/env";
-import { defaultEmail } from "@rccyx/constants";
+import { email } from "@rccyx/constants";
+import type { EmailSender } from "@rccyx/constants";
 import type { SendParams, SendResult } from "./types";
 
 export class EmailService {
-  private _defaultEmail: string = defaultEmail;
   private _cached?: Resend;
 
-  public async sendHtml(params: SendParams) {
+  public async sendHtml(params: SendParams & { from?: EmailSender }) {
     const client = this.client();
     const to = typeof params.to === "string" ? [params.to] : params.to;
+
+    const sender = params.from ?? "bot";
+    const from = email[sender].from;
+
     const options: CreateEmailOptions = {
-      from: params.from ?? this._defaultEmail,
+      from,
       to,
       subject: params.subject,
       html: params.html,
     };
 
-    if (params.cc) {
+    if (params.cc)
       options.cc = typeof params.cc === "string" ? [params.cc] : params.cc;
-    }
-    if (params.bcc) {
+    if (params.bcc)
       options.bcc = typeof params.bcc === "string" ? [params.bcc] : params.bcc;
-    }
 
-    logger.info("sending email...");
+    logger.info("sending email", { from, to, subject: params.subject });
 
     return runner(
       run(() => client.emails.send(options), "EmailClientApiSendingFailure", {
@@ -41,7 +43,7 @@ export class EmailService {
           tag: "EmailClientApiResponseFailure",
           severity: "error",
           meta: {
-            note: "verify the domain, if you have changed it",
+            note: "verify the domain if you changed it",
             resendErrorResponse: {
               message: error.message,
               name: error.name,

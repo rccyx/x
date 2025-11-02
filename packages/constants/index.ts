@@ -1,11 +1,19 @@
 export const email = {
-  personal: "me@rccyx.com",
-  oss: "oss@rccyx.com",
-  noReply: {
-    adress: "no-reply@notify.rccyx.com",
+  oss: {
+    address: "oss@rccyx.com",
+    from: "rccyx oss <oss@rccyx.com>",
+  },
+  personal: {
+    address: "x@rccyx.com",
+    from: "rccyx <x@rccyx.com>",
+  },
+  bot: {
+    address: "no-reply@notify.rccyx.com",
     from: "rccyx[bot] <no-reply@notify.rccyx.com>",
   },
-};
+} as const;
+
+export type EmailSender = keyof typeof email;
 
 export const links = {
   gitHub: {
