@@ -20,15 +20,11 @@ export const notificationsPushEmailNotifBodySchemaRequest = z
     to: z
       .string()
       .email()
-      .optional()
-      .describe(
-        "The email address to send the notification to. If not provided, the notification will be sent to my personal email address.",
-      ),
+      .describe("The email address to send the notification to."),
     subject: z
       .string()
       .min(1)
       .max(30)
-      .optional()
       .describe("The subject of the notification."),
     title: z.string().min(1).max(30).describe("The title of the notification."),
     message: z

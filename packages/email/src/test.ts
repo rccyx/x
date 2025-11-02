@@ -1,7 +1,7 @@
 import { observer } from "@rccyx/runner";
 import { logger } from "@rccyx/logger";
-import { env } from "@rccyx/env";
 import { send } from "./index";
+import { email } from "@rccyx/constants";
 
 function sendInstantCall() {
   // noop
@@ -30,7 +30,7 @@ observer((err) => {
 async function main(): Promise<void> {
   await send.auth
     .verifyEmail({
-      to: env.PERSONAL_EMAIL,
+      to: email.personal.address,
       verifyUrl: `https://example.com/verify?token=example`,
       userName: "John Doe",
     })

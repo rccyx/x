@@ -2,7 +2,6 @@ import type {
   NotificationsPushEmailNotifBodyRequest,
   NotificationsPushEmailNotifHandlerResponses,
 } from "../../models";
-import { env } from "@rccyx/env";
 import { NotificationService } from "@rccyx/core/services";
 
 export async function pushEmailNotif(input: {
@@ -11,10 +10,10 @@ export async function pushEmailNotif(input: {
   return NotificationService.email
     .sendNotification({
       body: {
-        to: input.body.to ?? env.PERSONAL_EMAIL,
+        to: input.body.to,
         type: "reminder",
         message: input.body.message,
-        subject: input.body.subject ?? input.body.title,
+        subject: input.body.subject,
         title: input.body.title,
       },
     })
