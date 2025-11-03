@@ -47,9 +47,6 @@ runs:
         APP="${{ inputs.app_name }}"
         ENVIRONMENT="${{ inputs.deployment_environment }}"
 
-        echo "→ Pull env: $ENVIRONMENT"
-        pnpm vercel pull --yes --environment="$ENVIRONMENT" --token="$VERCEL_TOKEN"
-
         echo "→ Build ($ENVIRONMENT)"
         if [ "$ENVIRONMENT" = "production" ]; then
           pnpm vercel build --prod --yes --token="$VERCEL_TOKEN"
