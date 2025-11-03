@@ -57,7 +57,9 @@ export const ciVars = {
     .describe(
       "this will auto create VERCEL_ORG_ID  & VERCEL_PROJECT_ID, paste them in your CI env tool e.g. GitHub Actions or Doppler or etc",
     )
-    .describe("the CI will take care of reset")
+    .describe(
+      "make sure to upwloed all the app env vars to the vercel app tho if they are linked already, the CI will take care of reset",
+    )
     .describe(
       "the only manual thing you have to do is set the root directory to apps/www on the www project on Vercel dashboard",
     ),

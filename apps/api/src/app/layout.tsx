@@ -1,6 +1,6 @@
-import { creator } from "@rccyx/constants";
+import type { ReactNode } from "react";
 
-export default function RootLayout() {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
@@ -16,7 +16,7 @@ export default function RootLayout() {
           flexDirection: "column",
         }}
       >
-        <p style={{ margin: 0 }}>{creator}</p>
+        {children}
         <p style={{ margin: 0 }}>
           © {new Date().getFullYear()} All rights reserved.
         </p>
