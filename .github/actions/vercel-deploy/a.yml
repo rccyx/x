@@ -1,0 +1,62 @@
+name: Vercel Preview Deployment
+
+description: Deploy to Vercel and set the preview URL
+
+inputs:
+  project_name:
+    description: "The working directory/project name you're trying to deploy. Example: 'www', 'blog'"
+    required: true
+  add_comment:
+    description: "Add a comment notification to the PR"
+    required: false
+    default: "false"
+  NODE_ENV:
+    description: "Vercel takes care of this"
+    required: true
+  VERCEL_TOKEN:
+    description: "Vercel token for authentication"
+    required: true
+  GITHUB_TOKEN:
+    description: "GitHub toaken"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Deploy to Vercel
+      shell: bash
+      run: |
+        if [ "${{ inputs.NODE_ENV }}" == "preview" ]; then
+          cd apps/${{ inputs.project_name }} && \
+          PREVIEW_URL=$(pnpm --filter @ashgw/${{ inputs.project_name }} deploy:vercel-preview --token=${{ inputs.VERCEL_TOKEN }} | grep -Eo 'https?://[^ ]+')
+          echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_ENV
+          echo "::notice title=Preview URL::$PREVIEW_URL"
+          echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+        else
+          cd apps/${{ inputs.project_name }} && \
+          PROD_URL=$(pnpm --filter @ashgw/${{ inputs.project_name }} deploy:vercel-production --token=${{ inputs.VERCEL_TOKEN }} | grep -Eo 'https?://[^ ]+')
+          echo "::notice title=Production URL::$PROD_URL"
+          echo "production-url=$PROD_URL" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Notify mfs about the deployment URL
+      if: ${{ inputs.NODE_ENV == 'preview' && inputs.add_comment == 'true' }}
+      uses: actions/github-script@v6
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        PROJECT_NAME: ${{ inputs.project_name }}
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `## Preview Deployment Ready! 
+
+            ### Project: \`${process.env.PROJECT_NAME}\`
+            
+            **Preview URL:** [Check it out here](${process.env.PREVIEW_URL})
+            
+            ---
+            > This preview environment reflects the changes in this PR. And deploys this version of the app as soons as the "deploy-preview" label is added`
+          })
