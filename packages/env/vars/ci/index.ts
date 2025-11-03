@@ -53,10 +53,15 @@ export const ciVars = {
   VERCEL_WWW_PROJECT_ID: ci(
     z.string().min(1).max(64).startsWith("prj_"),
   ).describe(
-    "just hit: cd apps/www && pnpm build:vercel-preview, this will automatically set this inside .vercel/project.json",
+    "just hit: pnpm --filter @rccyx/wwwbuild:vercel-preview, this will automatically set this inside .vercel/project.json",
   ),
   VERCEL_BLOG_PROJECT_ID: ci(
-    z.string().min(1).max(64).startsWith("prj_").describe("same"),
+    z
+      .string()
+      .min(1)
+      .max(64)
+      .startsWith("prj_")
+      .describe("simply run: pnpm --filter @rccyx/blog build:vercel-preview"),
   ),
   VERCEL_API_PROJECT_ID: ci(
     z
@@ -65,7 +70,7 @@ export const ciVars = {
       .max(64)
       .startsWith("prj_")
       .describe("API as in the API app, nothing major here chief")
-      .describe("same"),
+      .describe("simply run: pnpm --filter @rccyx/api build:vercel-preview"),
   ),
   TURBO_TOKEN: ci(z.string().min(1).max(64))
     .describe("inject these two for automatic caches")
