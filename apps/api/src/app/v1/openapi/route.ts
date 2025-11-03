@@ -5,7 +5,7 @@ import { env } from "@rccyx/env";
 import { root } from "../../../root-uris";
 import { email } from "@rccyx/constants";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const revalidate = 3600; // doesn't change often
 
 export function GET() {

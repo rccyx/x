@@ -48,13 +48,19 @@ export const ciVars = {
     "Dashboard -> Settings -> API Tokens -> Project Tokens -> Create Token",
   ),
   VERCEL_ORG_ID: ci(z.string().min(1).max(64)).describe(
-    "Dashboard -> Settings -> General -> Organization ID",
+    "Dashboard -> Settings -> General -> Organization ID or the method below",
   ),
-  VERCEL_WWW_PROJECT_ID: ci(
-    z.string().min(1).max(64).startsWith("prj_"),
-  ).describe(
-    "just hit: pnpm --filter @rccyx/wwwbuild:vercel-preview, this will automatically set this inside .vercel/project.json",
-  ),
+  VERCEL_WWW_PROJECT_ID: ci(z.string().min(1).max(64).startsWith("prj_"))
+    .describe(
+      "just hit: pnpm --filter @rccyx/www build:vercel-preview, this will automatically set this inside .vercel/project.json",
+    )
+    .describe(
+      "this will auto create VERCEL_ORG_ID  & VERCEL_PROJECT_ID, paste them in your CI env tool e.g. GitHub Actions or Doppler or etc",
+    )
+    .describe("the CI will take care of reset")
+    .describe(
+      "the only manual thing you have to do is set the root directory to apps/www on the www project on Vercel dashboard",
+    ),
   VERCEL_BLOG_PROJECT_ID: ci(
     z
       .string()
@@ -63,7 +69,8 @@ export const ciVars = {
       .startsWith("prj_")
       .describe(
         "simply run: pnpm --filter @rccyx/blog build:vercel-preview, and fetch the project id from the output",
-      ),
+      )
+      .describe("same"),
   ),
   VERCEL_API_PROJECT_ID: ci(
     z
