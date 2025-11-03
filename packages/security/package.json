@@ -6,9 +6,6 @@
     "format": "prettier . --write",
     "lint": "tsc --noEmit; eslint ."
   },
-  "dependencies": {
-    "argon2": "0.44.0"
-  },
   "devDependencies": {
     "@rccyx/eslint-config": "workspace:*",
     "@rccyx/tsconfig": "workspace:*",
@@ -17,5 +14,8 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@node-rs/argon2": "2.0.2"
+  }
 }

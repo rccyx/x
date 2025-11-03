@@ -1206,9 +1206,9 @@ importers:
 
   packages/security:
     dependencies:
-      argon2:
-        specifier: 0.44.0
-        version: 0.44.0
+      '@node-rs/argon2':
+        specifier: 2.0.2
+        version: 2.0.2
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -2200,20 +2200,23 @@ packages:
     peerDependencies:
       effect: ^3.6.5
 
+  '@emnapi/core@1.7.0':
+    resolution: {integrity: sha512-pJdKGq/1iquWYtv1RRSljZklxHCOCAJFJrImO5ZLKPJVJlVUcs8yFwNQlqS0Lo8xT1VAXXTCZocF9n26FWEKsw==}
+
   '@emnapi/runtime@0.45.0':
     resolution: {integrity: sha512-Txumi3td7J4A/xTTwlssKieHKTGl3j4A1tglBx72auZ49YK7ePY6XZricgIg9mnZT4xPfA+UPCUdnhRuEFDL+w==}
 
   '@emnapi/runtime@1.5.0':
     resolution: {integrity: sha512-97/BJ3iXHww3djw6hYIfErCZFee7qCtrneuLa20UXFCOTCfBM2cvQHjWJ2EG0s0MtdNwInarqCTz35i4wWXHsQ==}
 
+  '@emnapi/wasi-threads@1.1.0':
+    resolution: {integrity: sha512-WI0DdZ8xFSbgMjR1sFsKABJ/C5OnRrjT06JXbZKexJGrDuPTzZdDYfFlsgcCXCyf+suG5QU2e/y1Wo2V/OapLQ==}
+
   '@emotion/is-prop-valid@0.8.8':
     resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
 
   '@emotion/memoize@0.7.4':
     resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
-
-  '@epic-web/invariant@1.0.0':
-    resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -3184,6 +3187,9 @@ packages:
     resolution: {integrity: sha512-VxS+okLpNp6YUDLz3rAXv6sE8G4W5cX039bumkPub65xRr9BFxjHaT5ebX4DsiixIGaBwitjWTvx3mAbyI2EUQ==}
     engines: {node: '>=16'}
 
+  '@napi-rs/wasm-runtime@0.2.12':
+    resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
+
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
 
@@ -3308,6 +3314,93 @@ packages:
   '@noble/hashes@2.0.1':
     resolution: {integrity: sha512-XlOlEbQcE9fmuXxrVTXCTlG2nlRXa9Rj3rr5Ue/+tX+nmkgbX720YHh0VR3hBF9xDvwnb8D2shVGOwNx+ulArw==}
     engines: {node: '>= 20.19.0'}
+
+  '@node-rs/argon2-android-arm-eabi@2.0.2':
+    resolution: {integrity: sha512-DV/H8p/jt40lrao5z5g6nM9dPNPGEHL+aK6Iy/og+dbL503Uj0AHLqj1Hk9aVUSCNnsDdUEKp4TVMi0YakDYKw==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+
+  '@node-rs/argon2-android-arm64@2.0.2':
+    resolution: {integrity: sha512-1LKwskau+8O1ktKx7TbK7jx1oMOMt4YEXZOdSNIar1TQKxm6isZ0cRXgHLibPHEcNHgYRsJWDE9zvDGBB17QDg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@node-rs/argon2-darwin-arm64@2.0.2':
+    resolution: {integrity: sha512-3TTNL/7wbcpNju5YcqUrCgXnXUSbD7ogeAKatzBVHsbpjZQbNb1NDxDjqqrWoTt6XL3z9mJUMGwbAk7zQltHtA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@node-rs/argon2-darwin-x64@2.0.2':
+    resolution: {integrity: sha512-vNPfkLj5Ij5111UTiYuwgxMqE7DRbOS2y58O2DIySzSHbcnu+nipmRKg+P0doRq6eKIJStyBK8dQi5Ic8pFyDw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@node-rs/argon2-freebsd-x64@2.0.2':
+    resolution: {integrity: sha512-M8vQZk01qojQfCqQU0/O1j1a4zPPrz93zc9fSINY7Q/6RhQRBCYwDw7ltDCZXg5JRGlSaeS8cUXWyhPGar3cGg==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@node-rs/argon2-linux-arm-gnueabihf@2.0.2':
+    resolution: {integrity: sha512-7EmmEPHLzcu0G2GDh30L6G48CH38roFC2dqlQJmtRCxs6no3tTE/pvgBGatTp/o2n2oyOJcfmgndVFcUpwMnww==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@node-rs/argon2-linux-arm64-gnu@2.0.2':
+    resolution: {integrity: sha512-6lsYh3Ftbk+HAIZ7wNuRF4SZDtxtFTfK+HYFAQQyW7Ig3LHqasqwfUKRXVSV5tJ+xTnxjqgKzvZSUJCAyIfHew==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@node-rs/argon2-linux-arm64-musl@2.0.2':
+    resolution: {integrity: sha512-p3YqVMNT/4DNR67tIHTYGbedYmXxW9QlFmF39SkXyEbGQwpgSf6pH457/fyXBIYznTU/smnG9EH+C1uzT5j4hA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@node-rs/argon2-linux-x64-gnu@2.0.2':
+    resolution: {integrity: sha512-ZM3jrHuJ0dKOhvA80gKJqBpBRmTJTFSo2+xVZR+phQcbAKRlDMSZMFDiKbSTnctkfwNFtjgDdh5g1vaEV04AvA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@node-rs/argon2-linux-x64-musl@2.0.2':
+    resolution: {integrity: sha512-of5uPqk7oCRF/44a89YlWTEfjsftPywyTULwuFDKyD8QtVZoonrJR6ZWvfFE/6jBT68S0okAkAzzMEdBVWdxWw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@node-rs/argon2-wasm32-wasi@2.0.2':
+    resolution: {integrity: sha512-U3PzLYKSQYzTERstgtHLd4ZTkOF9co57zTXT77r0cVUsleGZOrd6ut7rHzeWwoJSiHOVxxa0OhG1JVQeB7lLoQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+
+  '@node-rs/argon2-win32-arm64-msvc@2.0.2':
+    resolution: {integrity: sha512-Eisd7/NM0m23ijrGr6xI2iMocdOuyl6gO27gfMfya4C5BODbUSP7ljKJ7LrA0teqZMdYHesRDzx36Js++/vhiQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@node-rs/argon2-win32-ia32-msvc@2.0.2':
+    resolution: {integrity: sha512-GsE2ezwAYwh72f9gIjbGTZOf4HxEksb5M2eCaj+Y5rGYVwAdt7C12Q2e9H5LRYxWcFvLH4m4jiSZpQQ4upnPAQ==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@node-rs/argon2-win32-x64-msvc@2.0.2':
+    resolution: {integrity: sha512-cJxWXanH4Ew9CfuZ4IAEiafpOBCe97bzoKowHCGk5lG/7kR4WF/eknnBlHW9m8q7t10mKq75kruPLtbSDqgRTw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@node-rs/argon2@2.0.2':
+    resolution: {integrity: sha512-t64wIsPEtNd4aUPuTAyeL2ubxATCBGmeluaKXEMAFk/8w6AJIVVkeLKMBpgLW6LU2t5cQxT+env/c6jxbtTQBg==}
+    engines: {node: '>= 10'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3550,10 +3643,6 @@ packages:
 
   '@peculiar/x509@1.14.0':
     resolution: {integrity: sha512-Yc4PDxN3OrxUPiXgU63c+ZRXKGE8YKF2McTciYhUHFtHVB0KMnjeFSU0qpztGhsp4P0uKix4+J2xEpIEDu8oXg==}
-
-  '@phc/format@1.0.0':
-    resolution: {integrity: sha512-m7X9U6BG2+J+R1lSOdCiITLLrxm+cWlNI3HUFA92oLO77ObGNzaKdh8pMLqdZcshtkKuV84olNNXDfMc4FezBQ==}
-    engines: {node: '>=10'}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -5350,6 +5439,9 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
+  '@tybys/wasm-util@0.10.1':
+    resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
+
   '@types/better-sqlite3@7.6.13':
     resolution: {integrity: sha512-NMv9ASNARoKksWtsq/SHakpYAYnhBrQgGD8zkLYk/jaK8jUGn08CfEdTRgYhMypUQAfzSP8W6gNLe0q19/t4VA==}
 
@@ -5773,10 +5865,6 @@ packages:
 
   arg@5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
-
-  argon2@0.44.0:
-    resolution: {integrity: sha512-zHPGN3S55sihSQo0dBbK0A5qpi2R31z7HZDZnry3ifOyj8bZZnpZND2gpmhnRGO1V/d555RwBqIK5W4Mrmv3ig==}
-    engines: {node: '>=16.17.0'}
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -6329,11 +6417,6 @@ packages:
 
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
-
-  cross-env@10.0.0:
-    resolution: {integrity: sha512-aU8qlEK/nHYtVuN4p7UQgAwVljzMg8hB4YK5ThRqD2l/ziSnryncPNn7bMLt5cFYsKVKBh8HqLqyCoTupEUu7Q==}
-    engines: {node: '>=20'}
-    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -8480,10 +8563,6 @@ packages:
   node-abi@3.77.0:
     resolution: {integrity: sha512-DSmt0OEcLoK4i3NuscSbGjOf3bqiDEutejqENSplMSFA/gmB8mkED9G4pKWnPl7MDU4rSHebKPHeitpDfyH0cQ==}
     engines: {node: '>=10'}
-
-  node-addon-api@8.5.0:
-    resolution: {integrity: sha512-/bRZty2mXUIFY/xU5HLvveNHlswNJej+RnxBjOMkidWfwZzgTbPG1E3K5TOxRLOR+5hX7bSofy8yf1hZevMS8A==}
-    engines: {node: ^18 || ^20 || >= 21}
 
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
@@ -11811,12 +11890,23 @@ snapshots:
       effect: 3.6.5
       fast-check: 3.21.0
 
+  '@emnapi/core@1.7.0':
+    dependencies:
+      '@emnapi/wasi-threads': 1.1.0
+      tslib: 2.8.1
+    optional: true
+
   '@emnapi/runtime@0.45.0':
     dependencies:
       tslib: 2.8.1
     optional: true
 
   '@emnapi/runtime@1.5.0':
+    dependencies:
+      tslib: 2.8.1
+    optional: true
+
+  '@emnapi/wasi-threads@1.1.0':
     dependencies:
       tslib: 2.8.1
     optional: true
@@ -11828,8 +11918,6 @@ snapshots:
 
   '@emotion/memoize@0.7.4':
     optional: true
-
-  '@epic-web/invariant@1.0.0': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -12524,6 +12612,13 @@ snapshots:
       chevrotain: 10.5.0
       lilconfig: 2.1.0
 
+  '@napi-rs/wasm-runtime@0.2.12':
+    dependencies:
+      '@emnapi/core': 1.7.0
+      '@emnapi/runtime': 1.5.0
+      '@tybys/wasm-util': 0.10.1
+    optional: true
+
   '@next/env@14.2.3': {}
 
   '@next/env@15.5.2': {}
@@ -12592,6 +12687,67 @@ snapshots:
   '@noble/ciphers@2.0.1': {}
 
   '@noble/hashes@2.0.1': {}
+
+  '@node-rs/argon2-android-arm-eabi@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-android-arm64@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-darwin-arm64@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-darwin-x64@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-freebsd-x64@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-linux-arm-gnueabihf@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-linux-arm64-gnu@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-linux-arm64-musl@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-linux-x64-gnu@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-linux-x64-musl@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-wasm32-wasi@2.0.2':
+    dependencies:
+      '@napi-rs/wasm-runtime': 0.2.12
+    optional: true
+
+  '@node-rs/argon2-win32-arm64-msvc@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-win32-ia32-msvc@2.0.2':
+    optional: true
+
+  '@node-rs/argon2-win32-x64-msvc@2.0.2':
+    optional: true
+
+  '@node-rs/argon2@2.0.2':
+    optionalDependencies:
+      '@node-rs/argon2-android-arm-eabi': 2.0.2
+      '@node-rs/argon2-android-arm64': 2.0.2
+      '@node-rs/argon2-darwin-arm64': 2.0.2
+      '@node-rs/argon2-darwin-x64': 2.0.2
+      '@node-rs/argon2-freebsd-x64': 2.0.2
+      '@node-rs/argon2-linux-arm-gnueabihf': 2.0.2
+      '@node-rs/argon2-linux-arm64-gnu': 2.0.2
+      '@node-rs/argon2-linux-arm64-musl': 2.0.2
+      '@node-rs/argon2-linux-x64-gnu': 2.0.2
+      '@node-rs/argon2-linux-x64-musl': 2.0.2
+      '@node-rs/argon2-wasm32-wasi': 2.0.2
+      '@node-rs/argon2-win32-arm64-msvc': 2.0.2
+      '@node-rs/argon2-win32-ia32-msvc': 2.0.2
+      '@node-rs/argon2-win32-x64-msvc': 2.0.2
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -12951,8 +13107,6 @@ snapshots:
       reflect-metadata: 0.2.2
       tslib: 2.8.1
       tsyringe: 4.10.0
-
-  '@phc/format@1.0.0': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -15054,6 +15208,11 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
+  '@tybys/wasm-util@0.10.1':
+    dependencies:
+      tslib: 2.8.1
+    optional: true
+
   '@types/better-sqlite3@7.6.13':
     dependencies:
       '@types/node': 22.14.1
@@ -15499,7 +15658,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
+      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   '@vitest/utils@2.1.8':
     dependencies:
@@ -15674,13 +15833,6 @@ snapshots:
   arg@4.1.3: {}
 
   arg@5.0.2: {}
-
-  argon2@0.44.0:
-    dependencies:
-      '@phc/format': 1.0.0
-      cross-env: 10.0.0
-      node-addon-api: 8.5.0
-      node-gyp-build: 4.8.4
 
   argparse@1.0.10:
     dependencies:
@@ -16267,11 +16419,6 @@ snapshots:
       typescript: 5.6.3
 
   create-require@1.1.1: {}
-
-  cross-env@10.0.0:
-    dependencies:
-      '@epic-web/invariant': 1.0.0
-      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
@@ -18848,8 +18995,6 @@ snapshots:
   node-abi@3.77.0:
     dependencies:
       semver: 7.7.2
-
-  node-addon-api@8.5.0: {}
 
   node-fetch-native@1.6.7: {}
 
