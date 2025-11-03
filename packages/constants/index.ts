@@ -1,3 +1,5 @@
+import { env } from "@rccyx/env";
+
 export const email = {
   oss: {
     address: "oss@rccyx.com",
@@ -34,3 +36,9 @@ export const gpg = {
 export const repoSource = "https://github.com/rccyx/x";
 export const creator = "@rccyx";
 export const siteName = "Rccyx";
+
+export const origins = [
+  env.NEXT_PUBLIC_WWW_URL,
+  env.NEXT_PUBLIC_API_URL,
+  env.NEXT_PUBLIC_BLOG_URL,
+];
