@@ -61,7 +61,9 @@ export const ciVars = {
       .min(1)
       .max(64)
       .startsWith("prj_")
-      .describe("simply run: pnpm --filter @rccyx/blog build:vercel-preview"),
+      .describe(
+        "simply run: pnpm --filter @rccyx/blog build:vercel-preview, and fetch the project id from the output",
+      ),
   ),
   VERCEL_API_PROJECT_ID: ci(
     z
