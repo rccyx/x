@@ -6,7 +6,7 @@
     "build": "next build",
     "build:vercel-preview": "vercel build --yes",
     "build:vercel-production": "vercel build --prod --yes",
-    "clean": "git clean -xdf .cache .next .turbo node_modules",
+    "clean": "git clean -xdf node_modules .vercel .turbo .next .cache",
     "deploy:vercel-preview": "vercel deploy --prebuilt",
     "deploy:vercel-production": "vercel deploy --prod --prebuilt",
     "dev": "next dev -p 3000",
