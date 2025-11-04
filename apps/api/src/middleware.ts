@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
-import { cors } from "./cors";
+import { cors } from "@rccyx/next/middlewares";
 
 export function middleware(req: NextRequest) {
   return cors(req);
 }
 
-export const config = { matcher: ["/api/:path*"] };
+// run on every single path (api, pages, static, assets, etc.)
+export const config = {
+  matcher: ["/:path*"],
+};

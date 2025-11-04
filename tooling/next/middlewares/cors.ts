@@ -29,5 +29,3 @@ export function cors(req: NextRequest) {
 
   return res;
 }
-
-export const config = { matcher: ["/api/:path*"] };

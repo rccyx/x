@@ -2,7 +2,7 @@ import { createJiti } from "jiti";
 
 const jiti = createJiti(import.meta.url);
 
-const baseConfig = jiti("@rccyx/next-config/base.js");
+const baseConfig = jiti("@rccyx/next/config");
 const { monitor } = jiti("@rccyx/monitor");
 
 jiti("@rccyx/env");

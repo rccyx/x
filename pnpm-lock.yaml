@@ -210,9 +210,6 @@ importers:
       '@ts-rest/serverless':
         specifier: catalog:ts-rest3
         version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
-      headyx:
-        specifier: 0.1.1
-        version: 0.1.1(typescript@5.6.3)
       limico:
         specifier: 'catalog:'
         version: 2.0.9
@@ -250,7 +247,7 @@ importers:
       '@rccyx/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@rccyx/next-config':
+      '@rccyx/next':
         specifier: workspace:*
         version: link:../../tooling/next
       '@rccyx/playwright-config':
@@ -401,7 +398,7 @@ importers:
       '@rccyx/logger':
         specifier: workspace:*
         version: link:../../packages/logger
-      '@rccyx/next-config':
+      '@rccyx/next':
         specifier: workspace:*
         version: link:../../tooling/next
       '@rccyx/playwright-config':
@@ -555,7 +552,7 @@ importers:
       '@rccyx/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@rccyx/next-config':
+      '@rccyx/next':
         specifier: workspace:*
         version: link:../../tooling/next
       '@rccyx/playwright-config':
@@ -1403,6 +1400,9 @@ importers:
 
   tooling/next:
     dependencies:
+      '@rccyx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       headyx:
         specifier: 0.1.1
         version: 0.1.1(typescript@5.6.3)
@@ -15493,7 +15493,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
+      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   '@vitest/utils@2.1.8':
     dependencies:

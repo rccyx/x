@@ -7,7 +7,7 @@ const monorepoRoot = path.join(__dirname, "../../"); // repo root
 
 const jiti = createJiti(import.meta.url);
 
-const baseConfig = jiti("@rccyx/next-config/base.js");
+const baseConfig = jiti("@rccyx/next/base");
 const { monitor } = jiti("@rccyx/monitor");
 
 // validate at build

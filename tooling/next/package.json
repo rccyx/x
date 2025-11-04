@@ -1,15 +1,16 @@
 {
-  "name": "@rccyx/next-config",
+  "name": "@rccyx/next",
   "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "@rccyx/constants": "workspace:*",
+    "headyx": "0.1.1"
+  },
   "devDependencies": {
     "next": "catalog:"
   },
-  "dependencies": {
-    "headyx": "0.1.1"
-  },
   "exports": {
-    "./cors": "./middlewares/cors.ts",
-    "./config": "./base.js"
+    "./middlewares": "./middlewares/index.ts",
+    "./config": "./config.js"
   }
 }

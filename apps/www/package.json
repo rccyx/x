@@ -59,7 +59,7 @@
   "devDependencies": {
     "@playwright/test": "catalog:",
     "@rccyx/eslint-config": "workspace:*",
-    "@rccyx/next-config": "workspace:*",
+    "@rccyx/next": "workspace:*",
     "@rccyx/playwright-config": "workspace:*",
     "@rccyx/prettier-config": "workspace:*",
     "@rccyx/tsconfig": "workspace:*",
