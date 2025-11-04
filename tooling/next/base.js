@@ -1,4 +1,3 @@
-import { cors } from "headyx";
 import { generateTranspileList } from "./transpile";
 
 const { transpilePackages } = generateTranspileList();
@@ -13,18 +12,7 @@ const baseConfig = {
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-
-  // https://github.com/rccyx/security-header-middlewares
-  // https://github.com/rccyx/headyx
-  headers() {
-    return cors({
-      origin: "*",
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true,
-      maxAge: 600,
-    });
-  },
+  optimizeFonts: true,
 };
 
 module.exports = baseConfig;

@@ -2,11 +2,6 @@
   "name": "@rccyx/next-config",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@rccyx/constants": "workspace:*",
-    "@rccyx/env": "workspace:*",
-    "headyx": "0.1.0"
-  },
   "devDependencies": {
     "next": "catalog:"
   },
