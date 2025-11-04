@@ -6,6 +6,9 @@
     "format": "prettier . --write",
     "lint": "tsc --noEmit; eslint ."
   },
+  "dependencies": {
+    "@rccyx/scrypt": "1.0.0"
+  },
   "devDependencies": {
     "@rccyx/eslint-config": "workspace:*",
     "@rccyx/tsconfig": "workspace:*",
@@ -14,8 +17,5 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "type": "module",
-  "dependencies": {
-    "@rccyx/scrypt": "1.0.0"
-  }
+  "type": "module"
 }
