@@ -1,12 +1,7 @@
 import { readdirSync, readFileSync, statSync } from "fs";
 import { join, resolve } from "path";
 
-export interface TranspileListResult {
-  transpilePackages: string[];
-  count: number;
-}
-
-const ROOT_PATH = resolve(__dirname, "../../..");
+const ROOT_PATH = resolve(__dirname, "../..");
 const SEARCH_DIRS = ["apps", "packages", "tooling"];
 
 function isPackageDir(path: string): boolean {
@@ -28,7 +23,7 @@ function readPackageName(pkgPath: string): string | null {
   }
 }
 
-export function generateTranspileList(): TranspileListResult {
+export function transpilePackages(): string[] {
   const transpilePackages: string[] = [];
 
   for (const dir of SEARCH_DIRS) {
@@ -48,8 +43,5 @@ export function generateTranspileList(): TranspileListResult {
     }
   }
 
-  return {
-    transpilePackages,
-    count: transpilePackages.length,
-  };
+  return transpilePackages;
 }
