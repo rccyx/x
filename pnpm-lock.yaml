@@ -211,8 +211,8 @@ importers:
         specifier: catalog:ts-rest3
         version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
       headyx:
-        specifier: 0.1.0
-        version: 0.1.0(typescript@5.6.3)
+        specifier: 0.1.1
+        version: 0.1.1(typescript@5.6.3)
       limico:
         specifier: 'catalog:'
         version: 2.0.9
@@ -1402,6 +1402,10 @@ importers:
         version: 5.6.3
 
   tooling/next:
+    dependencies:
+      headyx:
+        specifier: 0.1.1
+        version: 0.1.1(typescript@5.6.3)
     devDependencies:
       next:
         specifier: 'catalog:'
@@ -7534,8 +7538,8 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
-  headyx@0.1.0:
-    resolution: {integrity: sha512-MRc6xEsE5sNd6IqnYP4+jmNE5MksWTS/Qd0eZDOxHN3Oyz0j4FBJVTscvdQvFClmbinVPVQbaQ6+MUSIbEWZWA==}
+  headyx@0.1.1:
+    resolution: {integrity: sha512-Qtz4KrzO1eGe25DwoqL340yCnsd6AX05ZCAJp5tmD1psSPsm1rv5XPagkrCyCd9c6m/nFlxJgfN+OPWlyNkPUg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       typescript: '>=5.0.0'
@@ -15489,7 +15493,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
+      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   '@vitest/utils@2.1.8':
     dependencies:
@@ -17640,7 +17644,7 @@ snapshots:
 
   he@1.2.0: {}
 
-  headyx@0.1.0(typescript@5.6.3):
+  headyx@0.1.1(typescript@5.6.3):
     dependencies:
       typescript: 5.6.3
 

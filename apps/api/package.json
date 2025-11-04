@@ -46,7 +46,6 @@
     "@ts-rest/open-api": "catalog:ts-rest3",
     "@ts-rest/react-query": "catalog:ts-rest3",
     "@ts-rest/serverless": "catalog:ts-rest3",
-    "headyx": "0.1.0",
     "limico": "catalog:",
     "next": "catalog:",
     "react": "catalog:react18",

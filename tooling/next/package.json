@@ -5,7 +5,11 @@
   "devDependencies": {
     "next": "catalog:"
   },
-  "files": [
-    "base.js"
-  ]
+  "dependencies": {
+    "headyx": "0.1.1"
+  },
+  "exports": {
+    "./cors": "./middlewares/cors.ts",
+    "./config": "./base.js"
+  }
 }
