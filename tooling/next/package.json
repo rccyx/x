@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rccyx/constants": "workspace:*",
     "headyx": "0.1.1"
   },
   "devDependencies": {

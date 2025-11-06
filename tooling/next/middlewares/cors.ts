@@ -1,23 +1,19 @@
-import { origins } from "@rccyx/constants";
 import { cors as baseCors } from "headyx";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const allowed = origins;
-
-export function cors(req: NextRequest) {
+export function cors(req: NextRequest, allowedOrigins: string[]) {
   const origin = req.headers.get("origin");
-  const isAllowed = origin && allowed.includes(origin);
 
-  // block immediately if origin not in allowlist
-  if (!isAllowed) {
+  // if there's no origin or it's not in the allowlist -> block it
+  if (!origin || !allowedOrigins.includes(origin)) {
     return new Response("Forbidden", { status: 403 });
   }
 
   const res = NextResponse.next();
 
   const headers = baseCors({
-    origin, // safe since we already validated
+    origin,
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"],
   });
