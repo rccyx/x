@@ -1,5 +1,5 @@
-import { auth } from "@rccyx/auth";
+import { nextJsHandler } from "@rccyx/auth";
 
 export const runtime = "nodejs";
 
-export const { POST, GET } = auth.nextJsHandler;
+export const { POST, GET } = nextJsHandler;

@@ -19,7 +19,7 @@ export function GET() {
         contact: { email: email.oss.address },
       },
       openapi: "3.1.0",
-      servers: [{ url: new URL(root.v1, env.NEXT_PUBLIC_WWW_URL).toString() }],
+      servers: [{ url: new URL(root.v1, env.NEXT_PUBLIC_API_URL).toString() }],
     },
     {
       setOperationId: true,
