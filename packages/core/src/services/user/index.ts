@@ -127,7 +127,7 @@ export class UserService {
           () =>
             api.revokeSession({
               body: { token: rawSession.token },
-              headers: this.requestHeaders,
+              headers: this._cookies(),
             }),
           `${this.serviceTag}${this.authApiTag}RevokeSessionFailure`,
           { severity: "error", message: "failed to revoke session" },
@@ -143,7 +143,7 @@ export class UserService {
         () =>
           api.changePassword({
             body: { ...input, revokeOtherSessions: true },
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}ChangePasswordFailure`,
         { severity: "error", message: "failed to change password" },
@@ -180,7 +180,7 @@ export class UserService {
         () =>
           api.enableTwoFactor({
             body: { ...input },
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}EnableTwoFactorFailure`,
         { severity: "error", message: "failed to enable two factor" },
@@ -197,7 +197,7 @@ export class UserService {
         () =>
           api.getTOTPURI({
             body: input,
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}GetTOTPURIFailure`,
         { severity: "error", message: "failed to get totp uri" },
@@ -212,7 +212,7 @@ export class UserService {
         () =>
           api.verifyTOTP({
             body: input,
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}VerifyTOTPFailure`,
         { severity: "error", message: "failed to verify totp" },
@@ -227,7 +227,7 @@ export class UserService {
         () =>
           api.disableTwoFactor({
             body: input,
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}DisableTwoFactorFailure`,
         { severity: "error", message: "failed to disable two factor" },
@@ -244,7 +244,7 @@ export class UserService {
         () =>
           api.generateBackupCodes({
             body: input,
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}GenerateBackupCodesFailure`,
         { severity: "error", message: "failed to generate backup codes" },
@@ -261,11 +261,16 @@ export class UserService {
         () =>
           api.verifyBackupCode({
             body: input,
-            headers: this.requestHeaders,
+            headers: this._cookies(),
           }),
         `${this.serviceTag}${this.authApiTag}VerifyBackupCodeFailure`,
         { severity: "error", message: "failed to verify backup code" },
       ),
     ).next(() => ok());
+  }
+
+  private _cookies(): HeadersInit {
+    const cookie = this.requestHeaders.get("cookie");
+    return cookie ? { cookie } : {};
   }
 }
