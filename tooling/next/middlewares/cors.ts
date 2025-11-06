@@ -2,26 +2,34 @@ import { cors as baseCors } from "headyx";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function cors(req: NextRequest, allowedOrigins: string[]) {
-  const origin = req.headers.get("origin");
-
-  // if there's no origin or it's not in the allowlist -> block it
-  if (!origin || !allowedOrigins.includes(origin)) {
-    return new Response("Forbidden", { status: 403 });
-  }
-
+export function cors(req: NextRequest, allowedOrigins: readonly string[]) {
+  // always generate a response so the middleware can continue normally
   const res = NextResponse.next();
 
+  const origin = req.headers.get("origin");
+
+  // strict allowlist check
+  const isAllowed = !!origin && allowedOrigins.includes(origin);
+
+  // delegate CORS header creation entirely to headyx
   const headers = baseCors({
-    origin,
+    origin: isAllowed ? origin : undefined,
     credentials: true,
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["content-type", "authorization"],
   });
 
   for (const { key, value } of headers) res.headers.set(key, value);
 
-  if (req.method === "OPTIONS")
+  // reply properly to preflight
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: res.headers });
+  }
+
+  // reject non-preflight requests only when not allowed
+  if (!isAllowed) {
+    return new Response("Forbidden", { status: 403, headers: res.headers });
+  }
 
   return res;
 }
