@@ -9,4 +9,4 @@ async function seed() {
   await db.$disconnect();
 }
 
-seed().catch((error) => logger.error("Error happned while seeding", error));
+seed().catch((error) => logger.error("Error happened while seeding", error));
