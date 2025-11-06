@@ -3,7 +3,7 @@ import { env } from "@rccyx/env";
 export const email = {
   oss: {
     address: "oss@rccyx.com",
-    from: "rccyx oss <oss@rccyx.com>",
+    from: "rccyx <oss@rccyx.com>",
   },
   personal: {
     address: "x@rccyx.com",
