@@ -1,7 +1,7 @@
 "use client";
 
 import type { Dispatch, PropsWithChildren, SetStateAction } from "react";
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { createContext, useContext, useState } from "react";
 
 interface PostsContextType {

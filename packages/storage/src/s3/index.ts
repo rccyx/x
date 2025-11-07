@@ -18,7 +18,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { setTimeout as setAbortTimeout } from "timers";
 import { setTimeout as sleep } from "timers/promises";
 import type { Readable } from "stream";
-import type { MaybeUndefined } from "ts-roids";
+import type { MaybeUndefined } from "typyx";
 import { env } from "@rccyx/env";
 import { logger } from "@rccyx/logger";
 

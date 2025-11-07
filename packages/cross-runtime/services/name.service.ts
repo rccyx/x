@@ -1,4 +1,4 @@
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 
 const OPTIONAL_PROTOCOL_URL_REGEX =
   /^(?:https?:\/\/)?(?:www\.)?([^/]+)(?:\/.*)?$/;

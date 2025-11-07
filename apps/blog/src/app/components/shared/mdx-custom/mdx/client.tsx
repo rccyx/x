@@ -2,7 +2,7 @@
 
 import type { MDXRemoteProps, MDXRemoteSerializeResult } from "next-mdx-remote";
 import type { ComponentType } from "react";
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { useEffect, useState } from "react";
 
 import { logger } from "@rccyx/logger";

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { useEffect, useRef } from "react";
 import { logger } from "@rccyx/logger";
 import { rpcClient } from "@rccyx/api/rpc-client";

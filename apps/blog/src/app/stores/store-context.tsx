@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { createContext, useMemo } from "react";
 
 import { RootStore } from "./root-store";

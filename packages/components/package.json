@@ -22,8 +22,8 @@
     "@types/react": "catalog:react18",
     "prettier": "catalog:",
     "react": "catalog:react18",
-    "ts-roids": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typyx": "catalog:"
   },
   "exports": {
     ".": {

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Eye } from "@rccyx/design/icons";
 import { useStore } from "~/app/stores";
 import { ViewsService } from "@rccyx/cross-runtime";
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 
 interface ViewsProps {
   slug: string;

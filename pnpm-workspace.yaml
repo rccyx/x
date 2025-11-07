@@ -12,7 +12,7 @@ catalog:
   tailwindcss: 3.4.14
   autoprefixer: 10.0.1
   typescript: 5.6.3
-  ts-roids: 2.7.0 # always update this btw
+  typyx: 3.0.0 # always update this btw
   "@vitest/ui": 2.1.8
   vitest: "2.1.8"
   # There's a bug with the latest version as of 01.25

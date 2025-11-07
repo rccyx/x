@@ -73,8 +73,8 @@
     "jiti": "catalog:",
     "prettier": "catalog:",
     "tailwindcss": "catalog:",
-    "ts-roids": "catalog:",
     "typescript": "catalog:",
+    "typyx": "catalog:",
     "vercel": "catalog:",
     "vitest": "catalog:"
   },

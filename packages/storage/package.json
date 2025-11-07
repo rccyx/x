@@ -16,8 +16,8 @@
   "devDependencies": {
     "@rccyx/eslint-config": "workspace:*",
     "@rccyx/tsconfig": "workspace:*",
-    "ts-roids": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typyx": "catalog:"
   },
   "exports": {
     ".": {

@@ -1,4 +1,4 @@
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { defaultShouldDehydrateQuery } from "@tanstack/react-query";
 import superjson from "superjson";
 import { QueryClient } from "@ts-rest/react-query/tanstack"; // PREFER @ts-rest for compatabilty

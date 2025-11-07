@@ -1,5 +1,5 @@
 import { env } from "@rccyx/env";
-import type { EmptyObject } from "ts-roids";
+import type { EmptyObject } from "typyx";
 import { response, middlewareFn } from "ts-rest-kit/core";
 import type { TsrContext } from "../../context";
 

@@ -1,5 +1,5 @@
 import type { PrismaClientOptions } from "@prisma/client/runtime/library";
-import type { MaybeUndefined } from "ts-roids";
+import type { MaybeUndefined } from "typyx";
 import { env } from "@rccyx/env";
 import { PrismaClient as FullPrismaClient } from "./raw";
 import { PrismaPg } from "@prisma/adapter-pg";

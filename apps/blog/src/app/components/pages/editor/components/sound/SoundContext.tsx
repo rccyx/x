@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { MaybeUndefined } from "ts-roids";
+import type { MaybeUndefined } from "typyx";
 import {
   createContext,
   useCallback,

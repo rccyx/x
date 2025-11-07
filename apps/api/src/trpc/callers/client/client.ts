@@ -1,6 +1,6 @@
 "use client";
 import type { QueryClient } from "@tanstack/react-query";
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { createTRPCReact } from "@trpc/react-query";
 
 import { makeQueryClient } from "./query-client";

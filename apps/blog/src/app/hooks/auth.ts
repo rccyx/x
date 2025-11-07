@@ -1,4 +1,4 @@
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 

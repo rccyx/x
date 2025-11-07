@@ -39,12 +39,12 @@ catalogs:
     tailwindcss:
       specifier: 3.4.14
       version: 3.4.14
-    ts-roids:
-      specifier: 2.7.0
-      version: 2.7.0
     typescript:
       specifier: 5.6.3
       version: 5.6.3
+    typyx:
+      specifier: 3.0.0
+      version: 3.0.0
     vercel:
       specifier: 33.2.0
       version: 33.2.0
@@ -286,12 +286,12 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
       vercel:
         specifier: 'catalog:'
         version: 33.2.0
@@ -443,12 +443,12 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.16.15)(typescript@5.6.3)
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -591,12 +591,12 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
       vercel:
         specifier: 'catalog:'
         version: 33.2.0
@@ -717,12 +717,12 @@ importers:
       react:
         specifier: catalog:react18
         version: 18.3.1
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/constants:
     dependencies:
@@ -739,12 +739,12 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/core:
     dependencies:
@@ -809,12 +809,12 @@ importers:
       '@vitest/ui':
         specifier: 'catalog:'
         version: 2.1.8(vitest@2.1.8)
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -834,12 +834,12 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^0.34.6
         version: 0.34.6(vitest@2.1.8)
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -886,12 +886,12 @@ importers:
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/design:
     dependencies:
@@ -980,12 +980,12 @@ importers:
       react:
         specifier: catalog:react18
         version: 18.3.1
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/email:
     dependencies:
@@ -1069,15 +1069,15 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       tsx:
         specifier: ^4.19.4
         version: 4.19.4
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/logger:
     dependencies:
@@ -1169,12 +1169,12 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/scheduler:
     dependencies:
@@ -1190,9 +1190,9 @@ importers:
       '@upstash/qstash':
         specifier: 2.8.2
         version: 2.8.2
-      ts-roids:
+      typyx:
         specifier: 'catalog:'
-        version: 2.7.0
+        version: 3.0.0
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -1244,15 +1244,15 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       tsx:
         specifier: ^4.19.4
         version: 4.19.4
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/seo:
     dependencies:
@@ -1318,12 +1318,12 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   packages/ts-rest-kit:
     devDependencies:
@@ -1339,12 +1339,12 @@ importers:
       '@ts-rest/serverless':
         specifier: catalog:ts-rest3
         version: 3.52.1(@ts-rest/core@3.52.1(@types/node@22.14.1)(zod@3.24.3))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@19.0.0(react@19.1.0))(react@19.1.0))(zod@3.24.3)
-      ts-roids:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.0.0
 
   tooling/eslint:
     dependencies:
@@ -9965,9 +9965,6 @@ packages:
       '@swc/wasm':
         optional: true
 
-  ts-roids@2.7.0:
-    resolution: {integrity: sha512-D/fjcUCHRpU1y46UMgaqP+m2auKAptnlM7+evR0ysgtOWtDjyaeDgSw1+Bv2XX30rHT+UEB7QerE1TTDSdRIow==}
-
   ts-toolbelt@6.15.5:
     resolution: {integrity: sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==}
 
@@ -10085,6 +10082,9 @@ packages:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  typyx@3.0.0:
+    resolution: {integrity: sha512-uM9UP057AEB7XwUrCOKg/jLeHyvigvvmb4l8PhflF1Q9Q3XyIK/SoCX1ucInS5d0sI94MT8mgnTefJyNdAkbcA==}
 
   uc.micro@1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
@@ -20580,8 +20580,6 @@ snapshots:
       yn: 3.1.1
     optional: true
 
-  ts-roids@2.7.0: {}
-
   ts-toolbelt@6.15.5: {}
 
   ts-toolbelt@9.6.0: {}
@@ -20705,6 +20703,8 @@ snapshots:
   typescript@4.9.5: {}
 
   typescript@5.6.3: {}
+
+  typyx@3.0.0: {}
 
   uc.micro@1.0.6: {}
 

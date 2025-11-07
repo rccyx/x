@@ -1,4 +1,4 @@
-import type { ExclusiveUnion } from "ts-roids";
+import type { ExclusiveUnion } from "typyx";
 
 export type Payload = string;
 

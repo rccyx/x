@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import type { Optional } from "ts-roids";
+import type { Optional } from "typyx";
 import type { EntityViewState } from "@rccyx/design/ui";
 import type { PostArticleRo } from "@rccyx/api/rpc-models";
 import type { SortOptions } from "../components/header/components/SortOptions";

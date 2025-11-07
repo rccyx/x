@@ -1,53 +1,67 @@
-import { cors as baseCors } from "headyx";
+import { cors as buildCors } from "headyx";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function cors(req: NextRequest, allowedOrigins: readonly string[]) {
-  const origin = req.headers.get("origin") ?? "";
-  const isAllowed = allowedOrigins.includes(origin);
+export function cors(req: NextRequest, origins: string[]) {
+  const origin = req.headers.get("origin");
+  const isCors = !!origin;
+  const isPreflight = req.method === "OPTIONS";
+  const isAllowed = origins.includes(origin!);
 
-  // handle preflight first
-  if (req.method === "OPTIONS") {
-    const requested = req.headers
-      .get("access-control-request-headers")
+  // mirror browser preflight ask, or fall back
+  const requested = req.headers.get("access-control-request-headers");
+  const allowedHeaders =
+    (requested
       ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
+      .map((h) => h.trim())
+      .filter(Boolean) as readonly string[] | undefined) ??
+    (["content-type", "authorization"] as const);
 
-    const res = new Response(null, { status: 204 });
-    const headers = baseCors({
-      origin: isAllowed ? origin : "*", // "*" only on preflight for disallowed origins
-      credentials: isAllowed, // creds only for allowed origins
-      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-      allowedHeaders:
-        requested && requested.length
-          ? requested
-          : ["content-type", "authorization"],
+  const methods = [
+    "GET",
+    "HEAD",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+  ] as const;
+
+  if (isPreflight) {
+    const opts: Parameters<typeof buildCors>[0] = {
+      origin: isAllowed ? origin! : "*",
+      credentials: isAllowed,
+      methods,
+      allowedHeaders,
       maxAge: 600,
-    });
-    for (const { key, value } of headers) res.headers.set(key, value);
-    res.headers.set("Vary", "Origin");
+      varyOrigin: true,
+    };
+    const res = new Response(null, { status: 204 });
+    for (const { key, value } of buildCors(opts)) res.headers.set(key, value);
     return res;
   }
 
-  // block actual requests if not allowed
-  if (!isAllowed) {
+  if (isCors && !isAllowed) {
     return new Response("Forbidden", {
       status: 403,
       headers: { Vary: "Origin" },
     });
   }
 
-  // allowed: continue and attach proper CORS
   const res = NextResponse.next();
-  const headers = baseCors({
-    origin,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["content-type", "authorization"],
-    maxAge: 600,
-  });
-  for (const { key, value } of headers) res.headers.set(key, value);
-  res.headers.set("Vary", "Origin");
+
+  if (isCors) {
+    const opts: Parameters<typeof buildCors>[0] = {
+      origin: origin!, // safe here because isCors === true
+      credentials: true,
+      methods,
+      allowedHeaders,
+      maxAge: 600,
+      varyOrigin: true,
+    };
+    for (const { key, value } of buildCors(opts)) res.headers.set(key, value);
+    res.headers.append("Vary", "Origin");
+  }
+
   return res;
 }

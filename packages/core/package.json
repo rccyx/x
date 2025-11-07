@@ -37,8 +37,8 @@
     "@rccyx/tsconfig": "workspace:*",
     "@rccyx/vitest-config": "workspace:*",
     "@vitest/ui": "catalog:",
-    "ts-roids": "catalog:",
     "typescript": "catalog:",
+    "typyx": "catalog:",
     "vitest": "catalog:"
   },
   "engines": {
