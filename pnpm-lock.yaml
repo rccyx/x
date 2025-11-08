@@ -43,8 +43,8 @@ catalogs:
       specifier: 5.6.3
       version: 5.6.3
     typyx:
-      specifier: 3.0.0
-      version: 3.0.0
+      specifier: 3.1.0
+      version: 3.1.0
     vercel:
       specifier: 33.2.0
       version: 33.2.0
@@ -291,7 +291,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
       vercel:
         specifier: 'catalog:'
         version: 33.2.0
@@ -448,7 +448,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -596,7 +596,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
       vercel:
         specifier: 'catalog:'
         version: 33.2.0
@@ -722,7 +722,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/constants:
     dependencies:
@@ -744,7 +744,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/core:
     dependencies:
@@ -814,7 +814,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -839,7 +839,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
@@ -891,7 +891,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/design:
     dependencies:
@@ -985,7 +985,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/email:
     dependencies:
@@ -1077,7 +1077,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/logger:
     dependencies:
@@ -1174,7 +1174,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/scheduler:
     dependencies:
@@ -1192,7 +1192,7 @@ importers:
         version: 2.8.2
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -1252,7 +1252,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/seo:
     dependencies:
@@ -1323,7 +1323,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   packages/ts-rest-kit:
     devDependencies:
@@ -1344,7 +1344,7 @@ importers:
         version: 5.6.3
       typyx:
         specifier: 'catalog:'
-        version: 3.0.0
+        version: 3.1.0
 
   tooling/eslint:
     dependencies:
@@ -10083,8 +10083,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typyx@3.0.0:
-    resolution: {integrity: sha512-uM9UP057AEB7XwUrCOKg/jLeHyvigvvmb4l8PhflF1Q9Q3XyIK/SoCX1ucInS5d0sI94MT8mgnTefJyNdAkbcA==}
+  typyx@3.1.0:
+    resolution: {integrity: sha512-Ipb1DVZoor5iJ606sD6PK+/GWkck+FJH86K4YHI8wCyWIouqCB/dRnUMcb+fikhiNcBBM0UGtOpj2KAv9ZMk7w==}
 
   uc.micro@1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
@@ -20704,7 +20704,7 @@ snapshots:
 
   typescript@5.6.3: {}
 
-  typyx@3.0.0: {}
+  typyx@3.1.0: {}
 
   uc.micro@1.0.6: {}
 

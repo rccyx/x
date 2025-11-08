@@ -1,5 +1,5 @@
-import type { auth } from "@rccyx/auth";
+import type { api } from "@rccyx/auth";
 
 export type SessionAuthQuery = Awaited<
-  ReturnType<typeof auth.api.listSessions>
+  ReturnType<typeof api.listSessions>
 >[number];

@@ -1,4 +1,4 @@
-import type { auth } from "@rccyx/auth";
+import type { api } from "@rccyx/auth";
 
 type ExtractUser<T> = T extends { response: { user: infer U } }
   ? U
@@ -7,5 +7,5 @@ type ExtractUser<T> = T extends { response: { user: infer U } }
     : never;
 
 export type UserAuthQuery = ExtractUser<
-  Awaited<ReturnType<typeof auth.api.getSession>>
+  Awaited<ReturnType<typeof api.getSession>>
 >;
