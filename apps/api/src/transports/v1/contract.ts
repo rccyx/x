@@ -1,4 +1,5 @@
 /** 
+ * TODO: use the shit from the blog to name especially across domains
  * 
  * Name and convention should be going like this.
  The number one we gotta put is the resource name.
