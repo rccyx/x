@@ -1,6 +1,6 @@
 [submodule "ts-rest-kit"]
 	path = packages/ts-rest-kit
-	url = git@github.com:rccyx/ts-rest-kit.git
+	url = git@github.com:ashgw/ts-rest-kit.git
 
 [submodule "design"]
 	path = packages/design
