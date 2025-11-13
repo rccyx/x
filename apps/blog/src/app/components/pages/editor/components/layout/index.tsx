@@ -61,7 +61,7 @@ export function EditorLayout({ editor }: EditorLayoutProps) {
                   isSubmitting={editor.form.isSubmitting}
                   isHidden={editor.preview.isEnabled}
                 />
-                {editor.preview.isEnabled && (
+                {editor.preview.isEnabled ? (
                   <BlogPreview
                     key="preview"
                     isVisible={editor.preview.isEnabled}
@@ -69,7 +69,7 @@ export function EditorLayout({ editor }: EditorLayoutProps) {
                     title={editor.preview.title}
                     creationDate={editor.preview.date}
                   />
-                )}
+                ) : null}
               </AnimatePresence>
             </div>
           )}
