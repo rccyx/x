@@ -26,10 +26,10 @@ export class NewsletterService {
           },
         },
       ),
-    ).next((res) => {
+    ).next(({ subscriber }) => {
       logger.info("created/updated subscriber", {
-        id: res.subscriber.id,
-        at: res.subscriber.created_at,
+        id: subscriber.id,
+        at: subscriber.created_at,
       });
       return ok();
     });
