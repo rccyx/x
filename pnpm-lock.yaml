@@ -285,7 +285,7 @@ importers:
         version: 3.3.3
       tailwindcss:
         specifier: 'catalog:'
-        version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
+        version: 3.4.14(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3))
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -439,10 +439,7 @@ importers:
         version: 3.3.3
       tailwindcss:
         specifier: 'catalog:'
-        version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
-      ts-node:
-        specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.16.15)(typescript@5.6.3)
+        version: 3.4.14(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3))
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -452,9 +449,6 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
-      webpack:
-        specifier: ^5.96.1
-        version: 5.96.1
 
   apps/www:
     dependencies:
@@ -590,7 +584,7 @@ importers:
         version: 3.3.3
       tailwindcss:
         specifier: 'catalog:'
-        version: 3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
+        version: 3.4.14(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3))
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -1037,7 +1031,7 @@ importers:
         version: link:../../tooling/typescript
       '@react-email/preview-server':
         specifier: ^4.2.11
-        version: 4.2.11(@emotion/is-prop-valid@0.8.8)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3))
+        version: 4.2.11(@emotion/is-prop-valid@0.8.8)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(postcss@8.5.6)(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3))
       '@types/react':
         specifier: catalog:react18
         version: 18.3.18
@@ -9951,20 +9945,6 @@ packages:
       '@swc/wasm':
         optional: true
 
-  ts-node@10.9.2:
-    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-
   ts-toolbelt@6.15.5:
     resolution: {integrity: sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==}
 
@@ -14020,7 +14000,7 @@ snapshots:
       md-to-react-email: 5.0.5(react@18.3.1)
       react: 18.3.1
 
-  '@react-email/preview-server@4.2.11(@emotion/is-prop-valid@0.8.8)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3))':
+  '@react-email/preview-server@4.2.11(@emotion/is-prop-valid@0.8.8)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(postcss@8.5.6)(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3))':
     dependencies:
       '@babel/core': 7.26.10
       '@babel/parser': 7.27.0
@@ -14060,7 +14040,7 @@ snapshots:
       spamc: 0.0.5
       stacktrace-parser: 0.1.11
       tailwind-merge: 3.2.0
-      tailwindcss: 3.4.0(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3))
+      tailwindcss: 3.4.0(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3))
       use-debounce: 10.0.4(react@19.0.0)
       zod: 3.24.3
     transitivePeerDependencies:
@@ -19194,21 +19174,21 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.5.6
 
-  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3)):
+  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.6.0
     optionalDependencies:
       postcss: 8.5.6
-      ts-node: 10.9.2(@types/node@20.16.15)(typescript@5.6.3)
+      ts-node: 10.9.1(@types/node@20.16.15)(typescript@5.6.3)
 
-  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3)):
+  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.6.0
     optionalDependencies:
       postcss: 8.5.6
-      ts-node: 10.9.2(@types/node@22.14.1)(typescript@5.6.3)
+      ts-node: 10.9.1(@types/node@22.14.1)(typescript@5.6.3)
 
   postcss-nested@6.2.0(postcss@8.5.6):
     dependencies:
@@ -20334,7 +20314,7 @@ snapshots:
 
   tailwindcss-animate@1.0.7: {}
 
-  tailwindcss@3.4.0(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3)):
+  tailwindcss@3.4.0(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -20353,7 +20333,7 @@ snapshots:
       postcss: 8.5.6
       postcss-import: 15.1.0(postcss@8.5.6)
       postcss-js: 4.0.1(postcss@8.5.6)
-      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3))
+      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3))
       postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.8
@@ -20361,7 +20341,7 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  tailwindcss@3.4.14(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3)):
+  tailwindcss@3.4.14(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -20380,7 +20360,7 @@ snapshots:
       postcss: 8.5.6
       postcss-import: 15.1.0(postcss@8.5.6)
       postcss-js: 4.0.1(postcss@8.5.6)
-      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3))
+      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3))
       postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.8
@@ -20543,7 +20523,7 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  ts-node@10.9.2(@types/node@20.16.15)(typescript@5.6.3):
+  ts-node@10.9.1(@types/node@20.16.15)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -20560,8 +20540,9 @@ snapshots:
       typescript: 5.6.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    optional: true
 
-  ts-node@10.9.2(@types/node@22.14.1)(typescript@5.6.3):
+  ts-node@10.9.1(@types/node@22.14.1)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11

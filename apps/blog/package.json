@@ -71,11 +71,9 @@
     "jiti": "catalog:",
     "prettier": "catalog:",
     "tailwindcss": "catalog:",
-    "ts-node": "^10.9.2",
     "typescript": "catalog:",
     "typyx": "catalog:",
-    "vitest": "catalog:",
-    "webpack": "^5.96.1"
+    "vitest": "catalog:"
   },
   "engines": {
     "node": "20.x"
