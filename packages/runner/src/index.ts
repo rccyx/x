@@ -11,7 +11,7 @@ import {
   run as baseRun,
   runSync as baseRunSync,
   err as baseErr,
-  makeRunResult,
+  runResult,
 } from "runyx";
 
 export type Severity = "warn" | "error" | "fatal";
@@ -111,7 +111,7 @@ export async function run<O, T extends Tag>(
   if (signal?.aborted) {
     const e = new Error("aborted");
     e.name = "AbortError";
-    return makeRunResult<O, T>({
+    return runResult<O, T>({
       ok: false,
       tag,
       message: m,

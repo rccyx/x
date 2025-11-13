@@ -1154,8 +1154,8 @@ importers:
         specifier: workspace:*
         version: link:../monitor
       runyx:
-        specifier: 0.15.0
-        version: 0.15.0
+        specifier: 0.21.0
+        version: 0.21.0
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -9359,8 +9359,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  runyx@0.15.0:
-    resolution: {integrity: sha512-8tQq8Mw3C6WMUEL7A4CejjthjexwkL3jf5B5PMvGqAqfglY7662gzs4RuCnh+UlWy8yHxA6iebuzxcJr6Dz61Q==}
+  runyx@0.21.0:
+    resolution: {integrity: sha512-TtvyBZedZnLbSAy/kOThJfgKLg89TMBn9Hv+Gm2lcrWltRmE076l02weh4E0eKs25CuPPKMq4piaHR4/lS8eMw==}
 
   safe-array-concat@1.1.2:
     resolution: {integrity: sha512-vj6RsCsWBCf19jIeHEfkRMw8DPiBb+DMXklQ/1SGDHOMlHdPUkZXFQ2YdplS23zESTijAcurb1aSgJA3AgMu1Q==}
@@ -19768,7 +19768,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  runyx@0.15.0: {}
+  runyx@0.21.0: {}
 
   safe-array-concat@1.1.2:
     dependencies:
