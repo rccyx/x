@@ -6,12 +6,12 @@ import { expect, test } from "vitest";
 
 import { db } from "@rccyx/db";
 
-import type { AppRouter } from "../../src/transports/rpc/router";
+import type { AppRouter } from "../../src/boundary/rpc/router";
 import {
   postCardSchemaRo,
   postArticleSchemaRo,
-} from "../../src/transports/rpc/models";
-import { appRouter } from "../../src/transports/rpc/router";
+} from "../../src/boundary/rpc/models";
+import { appRouter } from "../../src/boundary/rpc/router";
 import { createTRPCContext } from "../../src/trpc/context";
 import { createCallerFactory } from "../../src/trpc/root";
 

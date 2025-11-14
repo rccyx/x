@@ -6,8 +6,8 @@ import { db } from "@rccyx/db";
 import { monitor } from "@rccyx/monitor";
 import { logger } from "@rccyx/logger";
 
-import { createTRPCContext } from "../../../trpc/context";
-import { appRouter } from "../../../transports/rpc/router";
+import { createTRPCContext } from "../../../adapters/trpc/context";
+import { appRouter } from "../../../boundary/rpc/router";
 import { root } from "../../../root-uris";
 
 export const runtime = "nodejs";
