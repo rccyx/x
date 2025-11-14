@@ -1,4 +1,3 @@
-// no need for client-side only code here
 import {
   defaultShouldDehydrateQuery,
   QueryClient,

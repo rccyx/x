@@ -12,8 +12,8 @@ import {
   postArticleSchemaRo,
 } from "../../src/boundary/rpc/models";
 import { appRouter } from "../../src/boundary/rpc/router";
-import { createTRPCContext } from "../../src/trpc/context";
-import { createCallerFactory } from "../../src/trpc/root";
+import { createTRPCContext } from "../../src/adapters/trpc/context";
+import { createCallerFactory } from "../../src/adapters/trpc/root";
 
 function makeNextRequestStub(init?: {
   headers?: Record<string, string | string[]>;

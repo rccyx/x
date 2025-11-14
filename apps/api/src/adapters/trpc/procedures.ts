@@ -1,4 +1,4 @@
-import { UserRoleEnum } from "../transports/rpc/models";
+import { UserRoleEnum } from "../../boundary/rpc/models";
 import { authMiddleware } from "./middlewares/auth";
 import { timingMiddleware } from "./middlewares/timing";
 import { procedure } from "./root";

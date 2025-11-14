@@ -3,7 +3,7 @@ import { cache } from "react";
 import { headers, cookies } from "next/headers";
 import { createTRPCClient, loggerLink } from "@trpc/client";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
-import type { AppRouter } from "../../../transports/rpc/router";
+import type { AppRouter } from "../../../../boundary/rpc/router";
 import { env } from "@rccyx/env";
 import type { TRPCRequestInfo } from "@trpc/server/unstable-core-do-not-import"; // game is game
 import type { NextRequest, NextResponse } from "next/server";
@@ -11,7 +11,7 @@ import { createHydrationHelpers } from "@trpc/react-query/rsc";
 
 import { db } from "@rccyx/db";
 
-import { appRouter } from "../../../transports/rpc/router";
+import { appRouter } from "../../../../boundary/rpc/router";
 import { createCallerFactory } from "../../root";
 import { createTRPCContext } from "../../context";
 import { makeQueryClient } from "../client/query-client";

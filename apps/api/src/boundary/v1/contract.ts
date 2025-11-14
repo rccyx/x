@@ -174,8 +174,8 @@ import {
   postPurgeTrashBinHeadersSchemaRequest,
   postsPurgeTrashBinSchemaResponses,
   whisperSchemaResponses,
-} from "../../transports/v1/models";
-import { v1 } from "../../transports/v1/uris";
+} from "../../boundary/v1/models";
+import { v1 } from "../../boundary/v1/uris";
 
 export const contract = createContract(c)({
   remindersPushReminder: {
