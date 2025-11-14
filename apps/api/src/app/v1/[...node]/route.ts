@@ -1,12 +1,12 @@
 import { logger } from "@rccyx/logger";
 import { monitor } from "@rccyx/monitor";
 import { createNextHandler } from "@ts-rest/serverless/next";
-import { contract } from "../../../transports/v1/contract";
-import { router } from "../../../transports/v1/router";
+import { contract } from "../../../boundary/v1/contract";
+import { router } from "../../../boundary/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
-} from "../../../ts-rest/middlewares";
+} from "../../../adapters/ts-rest/middlewares";
 import { root } from "../../../root-uris";
 
 export const runtime = "nodejs";
