@@ -30,10 +30,10 @@ tags:
   <L href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context">
     top level context
   </L>
-  , writes first party state for itself, tags the redirect, then sends you on. Classic
-  third party cookies got squeezed, so vendors pivoted. They take the brief moment
-  where the hop is first party, set state, and let the server side graph stitch everything
-  later. One hop. Set state. Forward. You carry the tag.
+  , writes first party state for itself, tags the redirect, then sends you on.
+  Classic third party cookies got squeezed, so vendors pivoted. They take the
+  brief moment where the hop is first party, set state, and let the server side
+  graph stitch everything later. One hop. Set state. Forward. You carry the tag.
 </C>
 
 <C>
@@ -47,7 +47,8 @@ tags:
     <code>302</code>
   </L>{" "}
   with link decoration so the target can read a partner id or a handoff token.
-  No third party cookie needed. The state lived where the hop was first party. The correlation happens off site. 
+  No third party cookie needed. The state lived where the hop was first party.
+  The correlation happens off site.
 </C>
 
 <C>A real hop looks like this on the way in:</C>
@@ -141,24 +142,36 @@ Location: https://store.example/p/sku123?aff=net_42&rid=aa7c.169983
   <L href="https://webkit.org/blog/8613/intelligent-tracking-prevention-2-1/">
     storage partitioning
   </L>
-  , storage culling for suspected bouncers, and link decoration stripping in a bunch
-  of flows. <strong>Firefox</strong> ships <L href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Redirect_tracking_protection">
+  , storage culling for suspected bouncers, and link decoration stripping in a
+  bunch of flows. <strong>Firefox</strong> ships{" "}
+  <L href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Redirect_tracking_protection">
     Redirect Tracking Protection
-  </L> and <L href="https://firefox-source-docs.mozilla.org/toolkit/components/antitracking/anti-tracking/bounce-tracking-protection/">
+  </L>{" "}
+  and{" "}
+  <L href="https://firefox-source-docs.mozilla.org/toolkit/components/antitracking/anti-tracking/bounce-tracking-protection/">
     Bounce Tracking Protection
-  </L> that purge storage for short lived top level loads that only exist to set
-  state. <strong>Chromium family</strong> ships <L href="https://privacysandbox.google.com/protections/bounce-tracking-mitigations">
+  </L>{" "}
+  that purge storage for short lived top level loads that only exist to set
+  state. <strong>Chromium family</strong> ships{" "}
+  <L href="https://privacysandbox.google.com/protections/bounce-tracking-mitigations">
     Bounce Tracking Mitigations
-  </L> that delete state for suspected bouncers after brief visits, plus partitioned
-  cookie options like <L href="https://developer.chrome.com/docs/privacy-sandbox/chips">
-    CHIPS
-  </L> and <L href="https://wicg.github.io/attribution-reporting-api">
+  </L>{" "}
+  that delete state for suspected bouncers after brief visits, plus partitioned
+  cookie options like{" "}
+  <L href="https://developer.chrome.com/docs/privacy-sandbox/chips">CHIPS</L>{" "}
+  and{" "}
+  <L href="https://wicg.github.io/attribution-reporting-api">
     Attribution Reporting
-  </L> so ad stacks have a path that doesn’t need raw cross site ids. <strong>
-    Brave
-  </strong> adds <L href="https://brave.com/privacy-features/#de-amp">De AMP</L>,
-  aggressive param stripping, and per session randomization for some API outputs{" "}
-  <L href="https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections"> (fingerprinting protections) </L>.
+  </L>{" "}
+  so ad stacks have a path that doesn’t need raw cross site ids.{" "}
+  <strong>Brave</strong> adds{" "}
+  <L href="https://brave.com/privacy-features/#de-amp">De AMP</L>, aggressive
+  param stripping, and per session randomization for some API outputs{" "}
+  <L href="https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections">
+    {" "}
+    (fingerprinting protections){" "}
+  </L>
+  .
 </C>
 
 <C>
@@ -182,8 +195,11 @@ Location: https://store.example/p/sku123?aff=net_42&rid=aa7c.169983
   <L href="https://www.macrumors.com/how-to/remove-tracking-information-urls-safari/">
     (Safari)
   </L>
-  <L href="https://github.com/brave/brave-browser/wiki/Overview-of-URL-modifying-features-in-Brave-Browsers#url-clean-copy">, (Brave) </L>. Don’t stack ten privacy extensions that make your setup unique. Entropy still
-  matters from the fingerprinting side.
+  <L href="https://github.com/brave/brave-browser/wiki/Overview-of-URL-modifying-features-in-Brave-Browsers#url-clean-copy">
+    , (Brave){" "}
+  </L>
+  . Don’t stack ten privacy extensions that make your setup unique. Entropy
+  still matters from the fingerprinting side.
 </C>
 
 <C>
@@ -249,11 +265,13 @@ return dirty ? NextResponse.redirect(url, 301) : NextResponse.next()
   <L href="https://webkit.org/blog/11529/introducing-private-click-measurement-pcm/">
     Private Click Measurement
   </L>
-  . Chromium ships <L href="https://wicg.github.io/attribution-reporting-api">
+  . Chromium ships{" "}
+  <L href="https://wicg.github.io/attribution-reporting-api">
     Attribution Reporting
-  </L>. Both deliver campaign signal without raw cross site ids or bounce hacks.
-  If a vendor insists they can’t measure without full cross site identity, the vendor
-  is lying or addicted.
+  </L>
+  . Both deliver campaign signal without raw cross site ids or bounce hacks. If
+  a vendor insists they can’t measure without full cross site identity, the
+  vendor is lying or addicted.
 </C>
 
 <C>
