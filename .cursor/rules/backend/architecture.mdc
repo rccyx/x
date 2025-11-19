@@ -142,3 +142,43 @@ In Services, immediately after the client call, then return an RO.
 
 **How to deprecate a REST field?**
 Add a replacement field, run both for a period, mark old field as deprecated in OpenAPI, remove in the next version.
+
+->>>><
+
+Now, when it comes to models and formation of models,
+models can map directly to databases,
+meaning that a model, for example,
+if you talk about identity, which is a domain,
+we map identity to a bunch of models, of course,
+because we eventually got to be using database models.
+And how do you model this?
+We get databases data from the fucking database itself,
+from tables and shit.
+There's no table called identity,
+but there's a table called accounts,
+there's a table called session,
+there's a table called user.
+So models should follow the fucking tables.
+They should not follow our design ideology domains.
+The name and convention follows that when it comes to services,
+and also when it comes to file names or function names
+or operation IDs and shit and so on.
+But when it comes to actual implementations
+of the models themselves and the query helpers,
+we have to put exactly how they are in the database.
+We should not, for example, if we have,
+instead of doing user service,
+we can create an identity service.
+Now, this identity service is the external SDK
+that we're going to use for all identity things,
+which means user stuff, to a phase, sessions,
+fucking whatever, oh off, oh off of all kinds, whatever the fuck.
+And all of these can be subsections, subsets, for example,
+the identity service encapsulates everything
+and exposes only the public APIs.
+The user service, the session service, whatever the fuck,
+2FA, whatever, they all get encapsulated
+inside this one big-ass API service, right?
+But again, the models actually model the actual models on the database,
+meaning that the query helpers get the right thing from the database.
+that's the deepest exact thing I was trying to comply with.
