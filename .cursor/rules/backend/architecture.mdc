@@ -42,8 +42,6 @@ Keep logic out of the transport. If a handler contains branching that is not aut
 
 ### General
 
-s
-
 - No `any` or `z.any()`. Use precise primitives, enums, unions.
 - Every schema gets `.describe()` in REST. It becomes spec text for auto docs.
 - Numbers from query are strings. Validate as string, transform to number, then pipe to bounded `z.number()`.
