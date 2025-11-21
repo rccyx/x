@@ -1,7 +1,3 @@
-// Follow this naming convention for zod schemas and types
-// <entity(s)>-<Intent/View>schemaRo for zod schemas
-// <Entity(s)>-<Intent/View>Ro for the types of the schemas
-
 import { z } from "zod";
 
 import { id, slug } from "../shared";

@@ -12,25 +12,12 @@ export const viewRouter = router({
   })
     .input(trackViewSchemaDto)
     .output(trackViewSchemaRo)
-    .mutation(
-      async ({
-        input: { slug },
-        ctx: {
-          req: { headers },
-        },
-      }) => {
-        const ipAddress =
-          headers.get("x-forwarded-for") ??
-          headers.get("x-real-ip") ??
-          "127.0.0.1";
-        const userAgent = headers.get("user-agent") ?? "unknown";
-        return new ViewService()
-          .trackView({
-            slug,
-            ipAddress,
-            userAgent,
-          })
-          .then((r) => r.unwrap());
-      },
-    ),
+    .mutation(async ({ input: { slug }, ctx: { req } }) => {
+      return new ViewService()
+        .trackView({
+          slug,
+          request: req,
+        })
+        .then((r) => r.unwrap());
+    }),
 });

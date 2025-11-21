@@ -1203,6 +1203,9 @@ importers:
       '@rccyx/scrypt':
         specifier: 1.0.0
         version: 1.0.0(zod@4.1.11)
+      fpyx:
+        specifier: 1.0.0
+        version: 1.0.0(typescript@5.6.3)
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -7258,6 +7261,12 @@ packages:
 
   forwarded-parse@2.1.2:
     resolution: {integrity: sha512-alTFZZQDKMporBH77856pXgzhEzaUVmLCDk+egLgIgHst3Tpndzz8MnKe+GzRJRfvVdn69HhpW7cmXzvtLvJAw==}
+
+  fpyx@1.0.0:
+    resolution: {integrity: sha512-MHQeSiwE3tIcFxWoh2HML7JSmUg2dcjp/+Kxky6pzMW5MWn8QB7mvjM9BPlmZbfeOq6wAFuEhZLTqH41UKlIZg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      typescript: '>=5.0.0'
 
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
@@ -15470,7 +15479,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@20.16.15)(@vitest/ui@2.1.8)(terser@5.36.0)
+      vitest: 2.1.8(@edge-runtime/vm@3.1.7)(@types/node@22.14.1)(@vitest/ui@2.1.8)(terser@5.36.0)
 
   '@vitest/utils@2.1.8':
     dependencies:
@@ -17296,6 +17305,10 @@ snapshots:
   format@0.2.2: {}
 
   forwarded-parse@2.1.2: {}
+
+  fpyx@1.0.0(typescript@5.6.3):
+    dependencies:
+      typescript: 5.6.3
 
   fraction.js@4.3.7: {}
 

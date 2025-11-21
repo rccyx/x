@@ -1,6 +1,4 @@
-import { createHash } from "crypto";
 import { db } from "@rccyx/db";
-import { env } from "@rccyx/env";
 import { logger } from "@rccyx/logger";
 import type {
   TrackViewDto,
@@ -9,17 +7,17 @@ import type {
   ViewWindowPurgeWithCutoffRo,
 } from "../../models/view";
 import { ok, run, runner, runSync } from "@rccyx/runner";
+import { fingerprint } from "@rccyx/security";
 
 export class ViewService {
   private readonly serviceTag = "ViewService";
   public async trackView({
     slug,
-    ipAddress,
-    userAgent,
-  }: TrackViewDto & { ipAddress: string; userAgent: string }) {
+    request,
+  }: TrackViewDto & { request: Request }) {
     return runner(
       runSync(
-        () => this._fingerprint({ slug, ipAddress, userAgent }),
+        () => this._fingerprint({ slug, request }),
         `${this.serviceTag}FingerprintFailure`,
         {
           severity: "error",
@@ -94,19 +92,13 @@ export class ViewService {
 
   private _fingerprint({
     slug,
-    ipAddress,
-    userAgent,
+    request,
   }: {
     slug: string;
-    ipAddress: string;
-    userAgent: string;
+    request: Request;
   }): string {
-    const hashedIp = createHash("sha256")
-      .update(ipAddress + env.IP_HASH_SALT)
-      .digest("hex");
-    return createHash("sha256")
-      .update(`${slug}:${hashedIp}:${userAgent}`)
-      .digest("hex");
+    const a = fingerprint(request);
+    return slug + ":" + a.hash;
   }
 
   public async purgeViewWindowWithCutoff({
