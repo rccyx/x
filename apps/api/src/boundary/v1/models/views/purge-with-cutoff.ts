@@ -26,17 +26,17 @@ const mw = createSchemaResponses({
   ...tokenAuthMiddlewareSchemaResponse,
 });
 
-const __viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
+const viewPurgeWithCutoffHandlerSchemaResponses = createSchemaResponses({
   ...noContentSchemaResponse,
   ...internalErrorSchemaResponse,
 });
 
 export const viewsPurgeWithCutoffSchemaResponses = createSchemaResponses({
   ...mw,
-  ...__viewPurgeWithCutoffHandlerSchemaResponses,
+  ...viewPurgeWithCutoffHandlerSchemaResponses,
 });
 
 // the handler type is always exported while it's schema isnt
 export type ViewsPurgeWithCutoffHandlerResponses = InferResponses<
-  typeof __viewPurgeWithCutoffHandlerSchemaResponses
+  typeof viewPurgeWithCutoffHandlerSchemaResponses
 >;
