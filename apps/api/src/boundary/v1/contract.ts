@@ -1,27 +1,9 @@
-/** 
- * TODO: use the shit from the blog to name especially across domains
- * 
- * Name and convention should be going like this.
- The number one we gotta put is the resource name.
- It's either Pro or Singleton.
- If you gotta do an action over a single resource,
- for example, I just call it a user.
- We call it a user, and then we do the action.
- What we're gonna do right here?
- Create, delete, purge, remove, yank.
- Fucking bill, fucking pay, fucking do anything.
- A verb later.
- And then the verb after the part.
- If we have any action, for example,
- like the action itself, for example,
- it can either be a single verb,
- or it can be basically many,
- I would say, like, delete something,
- like delete plus, like a verb plus a noun,
- basically describing this stuff.
- And it's supposed to be unique
- because these things are IDs basically for the open API, right?
- 
+/**
+the operation id is structured as resource(s)<unique-action>, where unqiue action is the unqiue action within that given resource
+
+ functions do mirror REST resources, where we make it plural, Post is a single databse entity right? and in teh core we have it as 
+
+ PostService, but actually here in rest we have to make it plural, thus the functions package has directories called posts, reminders, notifications etc
 
   Now, for the naming of the immune conventions, almost all of them are going to be almost
  like plural, unless they actually deserve to be singular, like "ah" or some single
@@ -62,13 +44,6 @@
  notificationsCreateNotification, another exmaple is postsPurgeTrashBin, it means we will call a function from the posts called purgeTrashBin, 
 
 (notice how the operation id ALWAYS starts wit hthe resource, in plural)
-
-
-the operation id is structured as resource(s)<unique-action>, where unqiue action is the unqiue action within that given resource
-
- functions do mirror REST resources, where we make it plural, Post is a single databse entity right? and in teh core we have it as 
-
- PostService, but actually here in rest we have to make it plural, thus the functions package has directories called posts, reminders, notifications etc
 
 
  it maps 1:1 to /notifications from th rest endpoint, tho the convention, now of, we can break the conveion if the resrouce can never be plural for exmaple 
