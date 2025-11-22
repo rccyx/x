@@ -1,3 +1,4 @@
+import { fingerprint } from "@rccyx/security";
 import { publicProcedure } from "../../../../adapters/trpc/procedures";
 import { router } from "../../../../adapters/trpc/root";
 import { trackViewSchemaRo, trackViewSchemaDto } from "../../models";
@@ -16,7 +17,7 @@ export const viewRouter = router({
       return new ViewService()
         .trackView({
           slug,
-          request: req,
+          uniqueViewerHash: fingerprint(req).hash,
         })
         .then((r) => r.unwrap());
     }),

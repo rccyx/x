@@ -6,25 +6,17 @@ import type {
   ViewWindowPurgeWithCutoffDto,
   ViewWindowPurgeWithCutoffRo,
 } from "../../models/view";
-import { ok, run, runner, runSync } from "@rccyx/runner";
-import { fingerprint } from "@rccyx/security";
+import { ok, run, runner } from "@rccyx/runner";
+
+type Fingerprint = string;
 
 export class ViewService {
   private readonly serviceTag = "ViewService";
   public async trackView({
     slug,
-    request,
-  }: TrackViewDto & { request: Request }) {
-    return runner(
-      runSync(
-        () => this._fingerprint({ slug, request }),
-        `${this.serviceTag}FingerprintFailure`,
-        {
-          severity: "error",
-          message: "failed to fingerprint",
-        },
-      ),
-    )
+    uniqueViewerHash,
+  }: TrackViewDto & { uniqueViewerHash: string }) {
+    return runner(ok<Fingerprint>(slug + ":" + uniqueViewerHash))
       .next(() => {
         const bucketStart = new Date(
           Date.UTC(
@@ -88,17 +80,6 @@ export class ViewService {
       }
     });
     return { total };
-  }
-
-  private _fingerprint({
-    slug,
-    request,
-  }: {
-    slug: string;
-    request: Request;
-  }): string {
-    const a = fingerprint(request);
-    return slug + ":" + a.hash;
   }
 
   public async purgeViewWindowWithCutoff({

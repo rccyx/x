@@ -96,7 +96,7 @@ export class SessionMapper {
 }
 ```
 
-Notice how if you look at the Sysia query, which is a hot raw one that we got from our own external service, which is deployed somewhere in a pod somewhere, returns unsafe data like the tokens, secretive stuff, IP address, things that we don't want to actually use and want.
+Notice how if you look at the Session query, which is a hot raw one that we got from our own external service, which is deployed somewhere in a pod somewhere, returns unsafe data like the tokens, secretive stuff, IP address, things that we don't want to actually use and want.
 So this is what this stuff does, and you can expose it to other people.
 
 ```ts
