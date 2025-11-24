@@ -8,7 +8,7 @@ import type {
   PostCardRo,
   PostArticleRo,
   PostEditorDto,
-  TrashPostArticleRo,
+  PostTrashArticleRo,
 } from "../../models";
 import { PostMapper } from "../../mappers";
 import { fontMatterMdxContentSchemaRo } from "../../models";
@@ -104,7 +104,7 @@ export class PostService {
           message: "no trashed posts found",
           tag: `${this.serviceTag}NoTrashedPostsFound`,
         });
-      return ok<TrashPostArticleRo[]>(
+      return ok<PostTrashArticleRo[]>(
         trashed.map((post) => PostMapper.toTrashRo({ post })),
       );
     });

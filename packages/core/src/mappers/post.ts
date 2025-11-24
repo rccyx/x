@@ -4,7 +4,7 @@ import type {
   FontMatterMdxContentRo,
   PostCardRo,
   PostArticleRo,
-  TrashPostArticleRo,
+  PostTrashArticleRo,
 } from "../models";
 import type { PostCardRaw, PostArticleRaw, PostTrashRaw } from "../projections";
 import { PostCategoryEnum } from "../models";
@@ -46,7 +46,7 @@ export class PostMapper {
     post,
   }: {
     post: PostTrashRaw;
-  }): TrashPostArticleRo {
+  }): PostTrashArticleRo {
     return {
       category: this._mapCategory({
         category: post.category,
