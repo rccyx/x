@@ -1,27 +1,27 @@
 import type { Prisma } from "@rccyx/db/raw";
 
-export type PostCardQuery = Prisma.PostGetPayload<{
-  select: ReturnType<typeof PostQueryHelper.cardSelect>;
+export type PostCardRaw = Prisma.PostGetPayload<{
+  select: ReturnType<typeof PostProjection.card>;
 }>;
 
-export type PostArticleQuery = Prisma.PostGetPayload<{
-  include: ReturnType<typeof PostQueryHelper.articleInclude>;
+export type PostArticleRaw = Prisma.PostGetPayload<{
+  include: ReturnType<typeof PostProjection.article>;
 }>;
 
-export type PostAdminQuery = Prisma.PostGetPayload<{
-  include: ReturnType<typeof PostQueryHelper.adminInclude>;
+export type PostAdminRaw = Prisma.PostGetPayload<{
+  include: ReturnType<typeof PostProjection.admin>;
 }>;
 
-export type TrashPostArticleQuery = Prisma.TrashPostGetPayload<{
-  select: ReturnType<typeof PostQueryHelper.trashArticleSelect>;
+export type TrashPostRaw = Prisma.TrashPostGetPayload<{
+  select: ReturnType<typeof PostProjection.trash>;
 }>;
 
-export class PostQueryHelper {
-  public static articleInclude() {
+export class PostProjection {
+  public static article() {
     return {} satisfies Prisma.PostInclude;
   }
 
-  public static cardSelect() {
+  public static card() {
     return {
       slug: true,
       category: true,
@@ -34,20 +34,20 @@ export class PostQueryHelper {
     } satisfies Prisma.PostSelect;
   }
 
-  public static adminInclude() {
+  public static admin() {
     return {
-      ...this.articleInclude(),
+      ...this.article(),
     } satisfies Prisma.PostInclude;
   }
 
-  public static whereReleasedToPublic() {
+  public static public() {
     return {
       isReleased: true,
       firstModDate: { lte: new Date() },
     } satisfies Prisma.PostWhereInput;
   }
 
-  public static trashArticleSelect() {
+  public static trash() {
     return {
       id: true,
       originalSlug: true,

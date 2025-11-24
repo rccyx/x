@@ -1,7 +1,7 @@
 import type { UserRo } from "../models";
-import type { UserAuthQuery } from "../query-helpers/user";
+import type { UserRaw } from "../projections/user";
 import { UserRoleEnum } from "../models";
-import type { SessionAuthQuery } from "../query-helpers/session";
+import type { SessionRaw } from "../projections/session";
 import { SessionMapper } from "./session";
 
 export class UserMapper {
@@ -9,8 +9,8 @@ export class UserMapper {
     user,
     session,
   }: {
-    user: UserAuthQuery;
-    session: SessionAuthQuery;
+    user: UserRaw;
+    session: SessionRaw;
   }): UserRo {
     return {
       id: user.id,

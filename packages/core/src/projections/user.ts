@@ -6,6 +6,4 @@ type ExtractUser<T> = T extends { response: { user: infer U } }
     ? U
     : never;
 
-export type UserAuthQuery = ExtractUser<
-  Awaited<ReturnType<typeof api.getSession>>
->;
+export type UserRaw = ExtractUser<Awaited<ReturnType<typeof api.getSession>>>;

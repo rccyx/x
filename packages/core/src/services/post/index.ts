@@ -12,7 +12,7 @@ import type {
 } from "../../models";
 import { PostMapper } from "../../mappers";
 import { fontMatterMdxContentSchemaRo } from "../../models";
-import { PostQueryHelper } from "../../query-helpers";
+import { PostProjection } from "../../projections";
 import { err, ok, run, runner, runSync } from "@rccyx/runner";
 
 export class PostService {
@@ -22,8 +22,8 @@ export class PostService {
       run(
         () =>
           db.post.findMany({
-            where: PostQueryHelper.whereReleasedToPublic(),
-            select: { ...PostQueryHelper.cardSelect() },
+            where: PostProjection.public(),
+            select: { ...PostProjection.card() },
             orderBy: { firstModDate: "desc" },
           }),
         `${this.serviceTag}DatabaseFailure`,
@@ -42,7 +42,7 @@ export class PostService {
       run(
         () =>
           db.post.findMany({
-            include: PostQueryHelper.adminInclude(),
+            include: PostProjection.admin(),
             orderBy: { firstModDate: "desc" },
           }),
         `${this.serviceTag}DatabaseFailure`,
@@ -115,8 +115,8 @@ export class PostService {
       run(
         () =>
           db.post.findUnique({
-            where: { slug, ...PostQueryHelper.whereReleasedToPublic() },
-            include: PostQueryHelper.articleInclude(),
+            where: { slug, ...PostProjection.public() },
+            include: PostProjection.article(),
           }),
         `${this.serviceTag}DatabaseFailure`,
         {
@@ -212,7 +212,7 @@ export class PostService {
                 category: data.category,
                 mdxText: data.mdxText,
               },
-              include: PostQueryHelper.articleInclude(),
+              include: PostProjection.article(),
             });
           },
           `${this.serviceTag}DatabaseFailure`,
@@ -294,7 +294,7 @@ export class PostService {
                 category: data.category,
                 mdxText: data.mdxText,
               },
-              include: PostQueryHelper.articleInclude(),
+              include: PostProjection.article(),
             }),
           `${this.serviceTag}DatabaseFailure`,
           {

@@ -1,8 +1,8 @@
 import type { SessionRo } from "../models";
-import type { SessionAuthQuery } from "../query-helpers/session";
+import type { SessionRaw } from "../projections/session";
 
 export class SessionMapper {
-  public static toRo({ session }: { session: SessionAuthQuery }): SessionRo {
+  public static toRo({ session }: { session: SessionRaw }): SessionRo {
     return {
       id: session.id,
       createdAt: session.createdAt,

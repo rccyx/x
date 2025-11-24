@@ -6,15 +6,11 @@ import type {
   PostArticleRo,
   TrashPostArticleRo,
 } from "../models";
-import type {
-  PostCardQuery,
-  PostArticleQuery,
-  TrashPostArticleQuery,
-} from "../query-helpers";
+import type { PostCardRaw, PostArticleRaw, TrashPostRaw } from "../projections";
 import { PostCategoryEnum } from "../models";
 
 export class PostMapper {
-  public static toCardRo({ post }: { post: PostCardQuery }): PostCardRo {
+  public static toCardRo({ post }: { post: PostCardRaw }): PostCardRo {
     return {
       slug: post.slug,
       title: post.title,
@@ -32,7 +28,7 @@ export class PostMapper {
   public static toArticleRo({
     post,
   }: {
-    post: PostArticleQuery;
+    post: PostArticleRaw;
     fontMatterMdxContent: FontMatterMdxContentRo;
   }): PostArticleRo {
     return {
@@ -49,7 +45,7 @@ export class PostMapper {
   public static toTrashRo({
     post,
   }: {
-    post: TrashPostArticleQuery;
+    post: TrashPostRaw;
   }): TrashPostArticleRo {
     return {
       category: this._mapCategory({
