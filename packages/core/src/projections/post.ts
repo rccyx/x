@@ -12,7 +12,7 @@ export type PostAdminRaw = Prisma.PostGetPayload<{
   include: ReturnType<typeof PostProjection.admin>;
 }>;
 
-export type TrashPostRaw = Prisma.TrashPostGetPayload<{
+export type PostTrashRaw = Prisma.TrashPostGetPayload<{
   select: ReturnType<typeof PostProjection.trash>;
 }>;
 

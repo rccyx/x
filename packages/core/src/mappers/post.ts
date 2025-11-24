@@ -6,7 +6,7 @@ import type {
   PostArticleRo,
   TrashPostArticleRo,
 } from "../models";
-import type { PostCardRaw, PostArticleRaw, TrashPostRaw } from "../projections";
+import type { PostCardRaw, PostArticleRaw, PostTrashRaw } from "../projections";
 import { PostCategoryEnum } from "../models";
 
 export class PostMapper {
@@ -45,7 +45,7 @@ export class PostMapper {
   public static toTrashRo({
     post,
   }: {
-    post: TrashPostRaw;
+    post: PostTrashRaw;
   }): TrashPostArticleRo {
     return {
       category: this._mapCategory({
