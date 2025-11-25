@@ -28,7 +28,7 @@ const mws = createSchemaResponses({
 
 const postsPurgeTrashBinHandlerSchemaResponses = createSchemaResponses({
   ...noContentSchemaResponse,
-  ...internalErrorSchemaResponse, // TODO: remove this annoying ass error reposne when erryx is done
+  ...internalErrorSchemaResponse,
 });
 
 export const postsPurgeTrashBinSchemaResponses = createSchemaResponses({

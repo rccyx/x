@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { c } from "../../../../adapters/ts-rest/root";
 import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
-import { internalErrorSchemaResponse } from "../_shared/responses";
 import type { InferResponses } from "ts-rest-kit/core";
+import { internalErrorSchemaResponse } from "../_shared";
 
 // ========== Schemas ==========
 
@@ -10,7 +10,6 @@ const _githubErrorSchemaResponses = createSchemaResponses({
   424: httpErrorSchema
     .upstream()
     .describe("GitHub failed to serve content (Raw URL error)"),
-  ...internalErrorSchemaResponse, // REMOVE THIS
 });
 
 const _getScriptSchemaResponses = createSchemaResponses({
@@ -19,6 +18,7 @@ const _getScriptSchemaResponses = createSchemaResponses({
     body: z.string().min(1).describe("Raw text body returned by upstream"),
   }),
   ..._githubErrorSchemaResponses,
+  ...internalErrorSchemaResponse,
 });
 
 export const gpgSchemaResponses = createSchemaResponses({
