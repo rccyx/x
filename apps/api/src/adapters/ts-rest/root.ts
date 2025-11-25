@@ -1,3 +1,3 @@
-import { initContract } from "@ts-rest/core";
+import { createContractInstance } from "@restyx/next/core";
 
-export const c = initContract();
+export const c = createContractInstance();

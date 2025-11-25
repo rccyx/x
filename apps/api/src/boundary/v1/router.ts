@@ -1,7 +1,7 @@
 import { contract } from "../../boundary/v1/contract";
 import { rateLimiter, authed } from "../../adapters/ts-rest/middlewares";
-import type { TsrContext } from "../../adapters/ts-rest/context";
-import { createRouterWithContext, middleware } from "restyx/next";
+import type { RestyxContext } from "../../adapters/ts-rest/context";
+import { createRouterWithContext, middleware } from "@restyx/next/next";
 
 import {
   health,
@@ -12,7 +12,7 @@ import {
   posts,
 } from "../../boundary/v1/functions";
 
-export const router = createRouterWithContext(contract)<TsrContext>({
+export const router = createRouterWithContext(contract)<RestyxContext>({
   remindersPushReminder: middleware()
     .use(
       rateLimiter({

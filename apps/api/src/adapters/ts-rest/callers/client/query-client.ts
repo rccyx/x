@@ -1,7 +1,7 @@
 import type { Optional } from "typyx";
 import { defaultShouldDehydrateQuery } from "@tanstack/react-query";
 import superjson from "superjson";
-import { QueryClient } from "@ts-rest/react-query/tanstack"; // PREFER @ts-rest for compatabilty
+import { QueryClient } from "@tanstack/react-query";
 
 // Create a v5 QueryClient with SSR-friendly (de)hydration using superjson
 export function makeQueryClient(): QueryClient {

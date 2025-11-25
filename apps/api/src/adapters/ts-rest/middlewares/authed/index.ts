@@ -1,10 +1,10 @@
 import { env } from "@rccyx/env";
 import type { EmptyObject } from "typyx";
-import { response, middlewareFn } from "restyx/core";
-import type { TsrContext } from "../../context";
+import { response, middlewareFn } from "@restyx/next/core";
+import type { RestyxContext } from "../../context";
 
 export function authed() {
-  return middlewareFn<TsrContext, EmptyObject>((req, _res) => {
+  return middlewareFn<RestyxContext, EmptyObject>((req, _res) => {
     if (req.headers.get("x-api-token") !== env.X_API_TOKEN) {
       return response.error.unauthorized({
         message: "Invalid token. You cannot perform this action",

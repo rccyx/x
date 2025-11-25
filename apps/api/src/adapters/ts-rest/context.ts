@@ -1,7 +1,7 @@
 import type { DatabaseClient } from "@rccyx/db";
-import type { GlobalTsrContext as Base } from "restyx/core";
+import type { GlobalContext as Base } from "@restyx/next/core";
 
-export interface TsrContext extends Base {
+export interface RestyxContext extends Base {
   ctx: {
     requestedAt: Date;
     db: DatabaseClient;

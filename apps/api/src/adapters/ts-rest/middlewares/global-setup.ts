@@ -1,10 +1,10 @@
 import { db } from "@rccyx/db";
-import type { TsrContext } from "../context";
+import type { RestyxContext } from "../context";
 import { logger } from "@rccyx/logger";
-import { responseHandlersFn } from "restyx/core";
-import { createGlobalRequestMiddleware } from "restyx/next";
+import { responseHandlersFn } from "@restyx/next/core";
+import { createGlobalRequestMiddleware } from "@restyx/next/next";
 
-const createGlobalContext = createGlobalRequestMiddleware<TsrContext>(
+const createGlobalContext = createGlobalRequestMiddleware<RestyxContext>(
   (request) => {
     request.ctx = { requestedAt: new Date(), db };
   },
@@ -12,7 +12,7 @@ const createGlobalContext = createGlobalRequestMiddleware<TsrContext>(
 
 export const setupRequestMiddleware = () => createGlobalContext;
 
-export const setupResponseHandlers = responseHandlersFn<void, TsrContext>(
+export const setupResponseHandlers = responseHandlersFn<void, RestyxContext>(
   (_res, req) => {
     logger.info("[REST] took %sms", {
       took: new Date().getTime() - req.ctx.requestedAt.getTime(),

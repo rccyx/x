@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import { notificationsPushEmailNotifBodySchemaRequest } from "../notifications";
-import type { InferResponses } from "restyx/core";
-import { createSchemaResponses, httpErrorSchema } from "restyx/core";
+import type { InferResponses } from "@restyx/next/core";
+import { createSchemaResponses, httpErrorSchema } from "@restyx/next/core";
 import {
   tokenAuthMiddlewareSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,

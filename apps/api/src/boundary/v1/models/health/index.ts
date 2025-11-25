@@ -1,5 +1,5 @@
-import { createSchemaResponses } from "restyx/core";
-import type { InferResponses } from "restyx/core";
+import { createSchemaResponses } from "@restyx/next/core";
+import type { InferResponses } from "@restyx/next/core";
 import { okSchemaResponse } from "../_shared";
 
 export const healthSchemaResponses = createSchemaResponses({
