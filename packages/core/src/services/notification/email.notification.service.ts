@@ -1,9 +1,9 @@
 import { send } from "@rccyx/email";
-import type { EmailNotificationCreateSchemaDto } from "../../models/notification";
+import type { EmailNotificationCreateDto } from "../../models/notification";
 
 export class EmailNotificationService {
   public static async sendNotification(input: {
-    body: EmailNotificationCreateSchemaDto;
+    body: EmailNotificationCreateDto;
   }) {
     return send.notification.notify({
       to: input.body.to,

@@ -8,6 +8,6 @@ export const emailNotificationCreateSchemaDto = z.object({
   message: z.string().min(1).max(10000),
 });
 
-export type EmailNotificationCreateSchemaDto = z.infer<
+export type EmailNotificationCreateDto = z.infer<
   typeof emailNotificationCreateSchemaDto
 >;

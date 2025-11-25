@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { publicProcedure } from "../../../../adapters/trpc/procedures";
 import { router } from "../../../../adapters/trpc/root";
-import { newsletterSubscribeDtoSchema } from "../../models";
+import { newsletterSubscribeSchemaDto } from "../../models";
 import { NewsletterService } from "../../services";
 
 export const newsletterRouter = router({
@@ -12,7 +12,7 @@ export const newsletterRouter = router({
       every: "10s",
     },
   })
-    .input(newsletterSubscribeDtoSchema)
+    .input(newsletterSubscribeSchemaDto)
     .output(z.void())
     .mutation(async ({ input: { email } }) => {
       return await new NewsletterService()
