@@ -1,7 +1,7 @@
 import { logger } from "@rccyx/logger";
 import type {
   OssGetGithubTextSchemaDto,
-  OssGetDirectTextSchemaRo,
+  OssGetDirectTextRo,
 } from "../../models";
 import { err, ok, run, runner } from "@rccyx/runner";
 
@@ -66,6 +66,6 @@ export class OssService {
           },
         }),
       )
-      .next((text) => ok<OssGetDirectTextSchemaRo>({ text }));
+      .next((text) => ok<OssGetDirectTextRo>({ text }));
   }
 }

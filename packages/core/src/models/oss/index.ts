@@ -24,4 +24,4 @@ export const ossGetDirectTextSchemaRo = z.object({
   text: z.string().min(1),
 });
 
-export type OssGetDirectTextSchemaRo = z.infer<typeof ossGetDirectTextSchemaRo>;
+export type OssGetDirectTextRo = z.infer<typeof ossGetDirectTextSchemaRo>;
