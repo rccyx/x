@@ -3,17 +3,12 @@ import { monitor } from "@rccyx/monitor";
 
 export const runtime = "nodejs";
 
-/**
- * Shared Sentry tunnel endpoint using @rccyx/monitor.
- */
 export function POST(request: NextRequest): Promise<Response> {
-  const handle = monitor.next.tunnelHandler as (
-    request: NextRequest,
-  ) => Promise<Response>;
+  const handle = monitor.next.tunnelHandler;
   return handle(request);
 }
 
 export function GET(): Response {
-  const health = monitor.next.tunnelHandlerHealthcheck as () => Response;
+  const health = monitor.next.tunnelHandlerHealthcheck;
   return health();
 }

@@ -6,23 +6,23 @@ import { root } from "../../../root-uris";
 import { email } from "@rccyx/constants";
 
 export const runtime = "nodejs";
-export const revalidate = 3600; // doesn't change often
+export const revalidate = 60; // 1 minute
 
 export function GET() {
   const doc = generateOpenApi(
     contract,
     {
       info: {
-        title: "www API v1",
+        title: "API",
         version: "1.0.0",
         description: "REST",
-        contact: { email: email.oss.address },
+        contact: { email: email.personal.address },
       },
       openapi: "3.1.0",
       servers: [{ url: new URL(root.v1, env.NEXT_PUBLIC_API_URL).toString() }],
     },
     {
-      setOperationId: true,
+      setOperationId: true, // important!
     },
   );
 
