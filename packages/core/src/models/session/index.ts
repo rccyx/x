@@ -6,7 +6,7 @@ export const sessionSchemaRo = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
   isExpired: z.boolean(),
-  userAgent: z.string().min(1).max(2048).optional(),
+  userAgent: z.string().min(1).max(2048).nullable(),
 });
 
 export type SessionRo = z.infer<typeof sessionSchemaRo>;

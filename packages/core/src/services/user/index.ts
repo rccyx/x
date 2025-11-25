@@ -93,7 +93,7 @@ export class UserService {
       ),
     ).next((rawSessions) =>
       ok<SessionRo[]>(
-        rawSessions.map((session) => SessionMapper.toRo({ session })),
+        rawSessions.map((session) => SessionMapper.toSessionRo({ session })),
       ),
     );
   }

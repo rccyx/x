@@ -20,13 +20,13 @@ export class UserMapper {
       emailVerified: user.emailVerified,
       updatedAt: user.updatedAt,
       image: user.image ?? null,
-      role: this._mapRoleFromAuthQuery(user.role),
+      role: this._mapRole(user.role),
       twoFactorEnabled: user.twoFactorEnabled ?? false,
-      session: SessionMapper.toRo({ session }),
+      session: SessionMapper.toSessionRo({ session }),
     };
   }
 
-  private static _mapRoleFromAuthQuery(role: string): UserRoleEnum {
+  private static _mapRole(role: string): UserRoleEnum {
     const normalized = role.toLowerCase().trim();
 
     const map: Record<"admin" | "visitor", UserRoleEnum> = {
