@@ -1,6 +1,6 @@
 import { env } from "@rccyx/env";
 import type { EmptyObject } from "typyx";
-import { response, middlewareFn } from "ts-rest-kit/core";
+import { response, middlewareFn } from "restyx/core";
 import type { TsrContext } from "../../context";
 
 export function authed() {

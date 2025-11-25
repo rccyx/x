@@ -51,9 +51,9 @@
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
     "react-hook-form": "catalog:rhf",
+    "restyx": "workspace:*",
     "sharp": "catalog:",
     "superjson": "catalog:",
-    "ts-rest-kit": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

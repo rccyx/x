@@ -1,5 +1,5 @@
 import type { DatabaseClient } from "@rccyx/db";
-import type { GlobalTsrContext as Base } from "ts-rest-kit/core";
+import type { GlobalTsrContext as Base } from "restyx/core";
 
 export interface TsrContext extends Base {
   ctx: {

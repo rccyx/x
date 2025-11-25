@@ -1,4 +1,4 @@
-import { response, middlewareFn } from "ts-rest-kit/core";
+import { response, middlewareFn } from "restyx/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
 import type { TsrContext } from "../../context";

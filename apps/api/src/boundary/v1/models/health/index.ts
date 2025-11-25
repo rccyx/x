@@ -1,5 +1,5 @@
-import { createSchemaResponses } from "ts-rest-kit/core";
-import type { InferResponses } from "ts-rest-kit/core";
+import { createSchemaResponses } from "restyx/core";
+import type { InferResponses } from "restyx/core";
 import { okSchemaResponse } from "../_shared";
 
 export const healthSchemaResponses = createSchemaResponses({

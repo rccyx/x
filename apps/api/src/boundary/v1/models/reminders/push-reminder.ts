@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { tokenAuthMiddlewareHeaderSchemaRequest } from "../_shared";
 import { notificationsPushEmailNotifBodySchemaRequest } from "../notifications";
-import type { InferResponses } from "ts-rest-kit/core";
-import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
+import type { InferResponses } from "restyx/core";
+import { createSchemaResponses, httpErrorSchema } from "restyx/core";
 import {
   tokenAuthMiddlewareSchemaResponse,
   rateLimiterMiddlewareSchemaResponse,

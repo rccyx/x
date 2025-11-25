@@ -1,5 +1,5 @@
 import { c } from "../../../../adapters/ts-rest/root";
-import { createSchemaResponses, httpErrorSchema } from "ts-rest-kit/core";
+import { createSchemaResponses, httpErrorSchema } from "restyx/core";
 
 export const okSchemaResponse = createSchemaResponses({
   200: c.noBody(),

@@ -1,4 +1,4 @@
-import { createContract } from "ts-rest-kit/core";
+import { createContract } from "restyx/core";
 import {
   healthSchemaResponses,
   gpgQuerySchemaRequest,
