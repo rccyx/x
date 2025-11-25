@@ -21,7 +21,7 @@ import {
   whisperSchemaResponses,
 } from "../../boundary/v1/models";
 import { v1 } from "../../boundary/v1/uris";
-import { c } from "src/adapters/ts-rest/root";
+import { c } from "../../adapters/ts-rest/root";
 
 export const contract = createContract(c)({
   remindersPushReminder: {
