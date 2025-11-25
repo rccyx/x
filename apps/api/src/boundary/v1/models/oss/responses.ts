@@ -30,6 +30,7 @@ export const gpgSchemaResponses = createSchemaResponses({
       .describe("Armored PGP public key block in text format"),
   }),
   ..._githubErrorSchemaResponses,
+  ...internalErrorSchemaResponse,
 });
 
 export const thyxSchemaResponses = _getScriptSchemaResponses;

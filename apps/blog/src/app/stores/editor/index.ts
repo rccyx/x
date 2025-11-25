@@ -1,11 +1,11 @@
 import { makeAutoObservable } from "mobx";
 
-import type { PostArticleRo, TrashPostArticleRo } from "@rccyx/api/rpc-models";
+import type { PostArticleRo, PostTrashArticleRo } from "@rccyx/api/rpc-models";
 
 export class EditorStore {
   public viewMode: "active" | "trash" = "active";
   public activePosts: PostArticleRo[] = [];
-  public trashedPosts: TrashPostArticleRo[] = [];
+  public trashedPosts: PostTrashArticleRo[] = [];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -23,7 +23,7 @@ export class EditorStore {
     this.activePosts = posts;
   }
 
-  public setTrashedPosts(posts: TrashPostArticleRo[]): void {
+  public setTrashedPosts(posts: PostTrashArticleRo[]): void {
     this.trashedPosts = posts;
   }
 
@@ -42,7 +42,7 @@ export class EditorStore {
     this.trashedPosts = this.trashedPosts.filter((post) => post.id !== trashId);
   }
 
-  public addTrashPost(post: TrashPostArticleRo): void {
+  public addTrashPost(post: PostTrashArticleRo): void {
     // Add to trash (for real-time updates)
     this.trashedPosts = [post, ...this.trashedPosts];
   }

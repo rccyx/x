@@ -17,12 +17,12 @@ import {
 } from "@rccyx/design/ui";
 
 import type { NewsletterSubscribeDto } from "@rccyx/api/rpc-models";
-import { newsletterSubscribeDtoSchema } from "@rccyx/api/rpc-models";
+import { newsletterSubscribeSchemaDto } from "@rccyx/api/rpc-models";
 import { rpcClient } from "@rccyx/api/rpc-client";
 
 export function Newsletter() {
   const form = useForm<NewsletterSubscribeDto>({
-    resolver: zodResolver(newsletterSubscribeDtoSchema),
+    resolver: zodResolver(newsletterSubscribeSchemaDto),
     mode: "onSubmit",
   });
 

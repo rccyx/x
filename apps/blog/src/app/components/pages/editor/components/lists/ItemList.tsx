@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "@rccyx/design/motion";
 
 import { Button, ScrollArea, Skeleton } from "@rccyx/design/ui";
 
-import type { PostArticleRo, TrashPostArticleRo } from "@rccyx/api/rpc-models";
+import type { PostArticleRo, PostTrashArticleRo } from "@rccyx/api/rpc-models";
 
 interface BaseAction {
   label: string;
@@ -223,9 +223,9 @@ export const createBlogListConfig = (
 
 // Trash-specific configuration factory
 export const createTrashListConfig = (
-  onRestore: (item: TrashPostArticleRo) => void,
-  onPurge: (item: TrashPostArticleRo) => void,
-): BaseItemListConfig<TrashPostArticleRo> => ({
+  onRestore: (item: PostTrashArticleRo) => void,
+  onPurge: (item: PostTrashArticleRo) => void,
+): BaseItemListConfig<PostTrashArticleRo> => ({
   title: "Trash",
   emptyMessage: "Trash is empty.",
   getItemKey: (item) => item.id,
@@ -280,9 +280,9 @@ export const TrashList = ({
   onPurge,
   isLoading,
 }: {
-  items: TrashPostArticleRo[];
-  onRestore: (item: TrashPostArticleRo) => void;
-  onPurge: (item: TrashPostArticleRo) => void;
+  items: PostTrashArticleRo[];
+  onRestore: (item: PostTrashArticleRo) => void;
+  onPurge: (item: PostTrashArticleRo) => void;
   isLoading?: boolean;
 }) => {
   const config = createTrashListConfig(onRestore, onPurge);
