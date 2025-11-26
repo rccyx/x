@@ -41,7 +41,7 @@ export function BlogPostData({ postData }: BlogPostProps) {
           <Views
             slug={postData.slug}
             initial={postData.views}
-            className="text-sm font-semibold opacity-70"
+            className="hidden text-sm font-semibold opacity-70"
             titlePrefix=""
           />
         </div>

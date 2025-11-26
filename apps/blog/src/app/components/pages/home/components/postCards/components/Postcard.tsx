@@ -21,7 +21,7 @@ export function PostCard({ postData }: { postData: PostCardRo }) {
             <Views
               slug={postData.slug}
               initial={postData.views}
-              className="flex items-center gap-1 opacity-70"
+              className="hidden items-center gap-1 opacity-70"
             />
           </div>
 
