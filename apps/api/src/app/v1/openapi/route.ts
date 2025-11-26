@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateOpenApi } from "@ts-rest/open-api";
+import { generateOpenApi } from "restyx/openapi";
 import { contract } from "../../../boundary/v1/contract";
 import { env } from "@rccyx/env";
 import { root } from "../../../root-uris";

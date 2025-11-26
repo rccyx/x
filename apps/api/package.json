@@ -42,10 +42,6 @@
     "@trpc/next": "catalog:trpc11",
     "@trpc/react-query": "catalog:trpc11",
     "@trpc/server": "catalog:trpc11",
-    "@ts-rest/core": "catalog:ts-rest3",
-    "@ts-rest/open-api": "catalog:ts-rest3",
-    "@ts-rest/react-query": "catalog:ts-rest3",
-    "@ts-rest/serverless": "catalog:ts-rest3",
     "limico": "catalog:",
     "next": "catalog:",
     "react": "catalog:react18",
@@ -85,8 +81,8 @@
     "./rpc-models": "./src/boundary/rpc/models/index.ts",
     "./rpc-client": "./src/adapters/trpc/callers/client/index.ts",
     "./rpc-server": "./src/adapters/trpc/callers/server/index.ts",
-    "./rest-client": "./src/adapters/ts-rest/callers/client/index.ts",
-    "./rest-server": "./src/adapters/ts-rest/callers/server/index.ts"
+    "./rest-client": "./src/adapters/restyx/callers/client/index.ts",
+    "./rest-server": "./src/adapters/restyx/callers/server/index.ts"
   },
   "keywords": [],
   "license": "ISC",

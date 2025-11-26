@@ -1,15 +1,15 @@
-import { createNextHandler } from "@ts-rest/serverless/next";
+import { createHandler } from "restyx/next";
 import { contract } from "../../../boundary/v1/contract";
 import { router } from "../../../boundary/v1/router";
 import {
   setupRequestMiddleware,
   setupResponseHandlers,
-} from "../../../adapters/ts-rest/middlewares";
+} from "../../../adapters/restyx/middlewares";
 import { root } from "../../../root-uris";
 
 export const runtime = "nodejs";
 
-const handler = createNextHandler(contract, router, {
+const handler = createHandler(contract, router, {
   basePath: root.v1,
   handlerType: "app-router",
   responseValidation: true,

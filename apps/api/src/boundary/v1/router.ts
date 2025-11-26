@@ -1,6 +1,6 @@
 import { contract } from "../../boundary/v1/contract";
-import { rateLimiter, authed } from "../../adapters/ts-rest/middlewares";
-import type { RestyxContext } from "../../adapters/ts-rest/context";
+import { rateLimiter, authed } from "../../adapters/restyx/middlewares";
+import type { RestyxContext } from "../../adapters/restyx/context";
 import { createRouterWithContext, middleware } from "@restyx/next/next";
 
 import {

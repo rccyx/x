@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { c } from "../../../../adapters/ts-rest/root";
+import { c } from "../../../../adapters/restyx/root";
 import { createSchemaResponses, httpErrorSchema } from "@restyx/next/core";
 import type { InferResponses } from "@restyx/next/core";
 import { internalErrorSchemaResponse } from "../_shared";

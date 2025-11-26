@@ -1,4 +1,4 @@
-import { c } from "../../../../adapters/ts-rest/root";
+import { c } from "../../../../adapters/restyx/root";
 import { createSchemaResponses, httpErrorSchema } from "@restyx/next/core";
 
 export const okSchemaResponse = createSchemaResponses({

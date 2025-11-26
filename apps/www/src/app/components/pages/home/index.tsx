@@ -37,7 +37,7 @@ export function HomePage() {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="my-2 text-5xl font-bold leading-10"
                 >
-                  <code>~</code>
+                  <code>@rccyx</code>
                 </motion.h1>
                 <div className="mx-auto max-w-[600px]">
                   <motion.p
@@ -46,7 +46,7 @@ export function HomePage() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="text-dim-300 mx-2 my-1 p-2 font-normal"
                   >
-                    I just pushed some new content to my{" "}
+                    Just pushed some new content to my{" "}
                     <Link href={links.gitHub.link} name="Onlyfans" />
                     <br /> You might want to read my{" "}
                     <Link href={env.NEXT_PUBLIC_BLOG_URL} name="blog" />
