@@ -2,12 +2,21 @@
 
 import { motion } from "@rccyx/design/motion";
 import { useCopyToClipboard } from "react-use";
-import { toast } from "@rccyx/design/ui";
-
+import { toast, Button, Badge } from "@rccyx/design/ui";
+import { ArrowUpRight, Mail, GitBranch } from "@rccyx/design/icons";
 import { email, links } from "@rccyx/constants";
-
-import Link from "./components/Link";
 import { env } from "@rccyx/env";
+
+function XIcon(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className}>
+      <path
+        d="M4 4h4.5L12 9.25 15.5 4H20l-6 8 6 8h-4.5L12 14.75 8.5 20H4l6-8z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
 export function HomePage() {
   const [, copyToClipboard] = useCopyToClipboard();
@@ -19,62 +28,197 @@ export function HomePage() {
     toast.success("Email copied");
   };
 
-  const copyX = () => {
-    copyToClipboard(links.twitter.link);
-    toast.success("X copied");
-  };
+  const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <main className="flex-1">
-        <section className="-mt-8 flex min-h-screen w-full items-center justify-center px-4 md:px-6">
-          <div className="space-y-6 text-center">
-            <div className="space-y-6 text-center">
-              <div className="space-y-2">
-                <motion.h1
-                  animate={{ opacity: 1, y: 0 }}
-                  initial={{ opacity: 0, y: -30 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="my-2 text-5xl font-bold leading-10"
+        <section
+          aria-labelledby="hero-title"
+          className="relative flex min-h-screen items-center py-16 md:py-24"
+        >
+          {/* Floating geometric background */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
+          >
+            <motion.div
+              className="hidden w-full max-w-6xl grid-cols-2 gap-x-10 gap-y-16 px-4 md:grid md:px-6"
+              animate={{ opacity: [0.9, 1, 0.95, 1] }}
+              transition={{
+                duration: 18,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {/* LEFT COLUMN */}
+              <div className="flex flex-col gap-12">
+                {/* Top-left card */}
+                <motion.div
+                  className="aspect-[4/3] overflow-hidden rounded-[3rem] border border-border/40 bg-surface/30 shadow-subtle"
+                  animate={{
+                    y: [0, -22, -10, 0],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut",
+                    delay: 0.1,
+                  }}
                 >
-                  <code>@rccyx</code>
-                </motion.h1>
-                <div className="mx-auto max-w-[600px]">
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="text-dim-300 mx-2 my-1 p-2 font-normal"
+                  <div className="h-full w-full bg-gradient-to-tr from-foreground/5 via-foreground/10 to-foreground/5" />
+                </motion.div>
+
+                {/* Bottom-left card */}
+                <motion.div
+                  className="aspect-[5/2] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
+                  animate={{
+                    y: [0, 20, 8, 0],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut",
+                    delay: 0.25,
+                  }}
+                >
+                  <div className="h-full w-full bg-gradient-to-br from-accent/20 via-accent/5 to-accent/10" />
+                </motion.div>
+              </div>
+
+              {/* RIGHT COLUMN */}
+              <div className="flex flex-col gap-12">
+                {/* Top-right card */}
+                <motion.div
+                  className="aspect-[3/4] overflow-hidden rounded-[3rem] border border-border/35 bg-surface/25"
+                  animate={{
+                    y: [0, -26, -12, 0],
+                  }}
+                  transition={{
+                    duration: 7.5,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut",
+                    delay: 0.18,
+                  }}
+                >
+                  <div className="h-full w-full bg-gradient-to-b from-foreground/15 via-transparent to-foreground/10" />
+                </motion.div>
+
+                {/* Bottom-right card */}
+                <motion.div
+                  className="aspect-[7/3] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
+                  animate={{
+                    y: [0, 18, 6, 0],
+                  }}
+                  transition={{
+                    duration: 9,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut",
+                    delay: 0.32,
+                  }}
+                >
+                  <div className="h-full w-full bg-gradient-to-r from-accent/25 via-transparent to-accent/15" />
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* CONTENT */}
+          <div className="layout relative z-10 w-full">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+              <div className="space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: -16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="space-y-4"
+                >
+                  <Badge
+                    size="md"
+                    tone="neutral"
+                    appearance="soft"
+                    className="bg-foreground/5 text-xs tracking-[0.18em] uppercase"
                   >
-                    Just pushed some new content to my{" "}
-                    <Link href={links.gitHub.link} name="Onlyfans" />
-                    <br /> You might want to read my{" "}
-                    <Link href={env.NEXT_PUBLIC_BLOG_URL} name="blog" />
+                    RCCYX
+                  </Badge>
+
+                  <h1
+                    id="hero-title"
+                    className="text-4xl font-bold leading-tight text-text-strong sm:text-5xl md:text-6xl"
+                  >
+                    Modeling cognition
                     <br />
-                    You can{" "}
+                    on a binary substrate
+                  </h1>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
+                  className="space-y-6"
+                >
+                  {/* CTA Buttons */}
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      asChild
+                      variant="default"
+                      className="rounded-full px-5 py-2.5"
+                    >
+                      <a href={primaryCtaHref} target="_blank" rel="noreferrer">
+                        Read latest
+                        <ArrowUpRight className="ml-1 h-4 w-4" />
+                      </a>
+                    </Button>
+
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="rounded-full px-5 py-2.5"
+                    >
+                      <a
+                        href={links.gitHub.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <GitBranch className="mr-2 h-4 w-4" />
+                        Open Source
+                      </a>
+                    </Button>
+                  </div>
+
+                  {/* EMAIL + X */}
+
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold  tracking-[0.12em] text-dim-300">
                     <button
                       type="button"
                       onClick={copyEmail}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") copyEmail();
                       }}
+                      className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/60 px-3 py-1.5 hover:bg-foreground/5"
                       aria-label="Copy email address"
                     >
-                      <strong className="glow-300 text-white">email</strong>
-                    </button>{" "}
-                    or{" "}
-                    <button
-                      type="button"
-                      onClick={copyX}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") copyX();
-                      }}
-                      aria-label="Copy X handle"
-                    >
-                      <strong className="glow-300 text-white">x</strong>
+                      <Mail className="h-3.5 w-3.5" />
+                      <span>Email</span>
                     </button>
-                  </motion.p>
-                </div>
+
+                    <a
+                      href={links.twitter.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/60 px-3 py-1.5 hover:bg-foreground/5"
+                      aria-label="Open X profile"
+                    >
+                      <XIcon className="h-3.5 w-3.5" />
+                      <span>/ Twitter</span>
+                    </a>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
