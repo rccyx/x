@@ -22,6 +22,12 @@ const LS_FLOW = "onboard:theme-flow";
 const LS_THEME_INFO = "onboard:theme-info";
 const LS_COOKIE = "onboard:cookie-consent";
 
+type KeyboardNavigator = Navigator & {
+  keyboard?: {
+    getLayoutMap?: () => Promise<unknown>;
+  };
+};
+
 function Kbd({
   children,
   className,
@@ -44,10 +50,43 @@ function Kbd({
 export function FirstTimeVisitorBanner({ className }: Props) {
   const analytics = useAnalytics();
   const [stage, setStage] = useState<Stage>("init");
+  const [hasKeyboard, setHasKeyboard] = useState<boolean | null>(null);
 
-  // On mount: read consent, rehydrate PostHog, then resolve stage
+  // Detect whether this looks like a real keyboard device
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    const nav = navigator as KeyboardNavigator;
+
+    const detectKeyboard = async (): Promise<void> => {
+      try {
+        if (nav.keyboard?.getLayoutMap) {
+          await nav.keyboard.getLayoutMap();
+          setHasKeyboard(true);
+          return;
+        }
+
+        const isSmallViewport = window.innerWidth < 900;
+        const isTouchDevice =
+          "ontouchstart" in window ||
+          navigator.maxTouchPoints > 0 ||
+          /Mobi|Android|iPad|Tablet|Touch/i.test(navigator.userAgent);
+
+        const looksLikeMobileOrTablet = isSmallViewport || isTouchDevice;
+
+        setHasKeyboard(!looksLikeMobileOrTablet);
+      } catch {
+        setHasKeyboard(false);
+      }
+    };
+
+    void detectKeyboard();
+  }, []);
+
+  // On mount: read consent, rehydrate analytics, then resolve stage
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (hasKeyboard !== true) return;
 
     const cookie = localStorage.getItem(LS_COOKIE);
     if (!cookie) {
@@ -55,44 +94,53 @@ export function FirstTimeVisitorBanner({ className }: Props) {
       return;
     }
 
-    // Rehydrate analytics consent for returning visitors
-    if (cookie === "accepted") analytics.opt_in_capturing();
-    else if (cookie === "rejected") {
-      // fully opt out if they had previously rejected
+    if (cookie === "accepted") {
+      analytics.opt_in_capturing();
+    } else if (cookie === "rejected") {
       analytics.opt_out_capturing();
-      // optional: if you ever identified this user, also clear IDs
-      // analytics.reset?.(true);
     }
 
     const flow = localStorage.getItem(LS_FLOW);
     const legacy = localStorage.getItem(LS_THEME_INFO);
+
     if (flow === "completed" || legacy === "done") {
       setStage("done");
     } else {
       setStage("kWait");
     }
-  }, [analytics]);
+  }, [analytics, hasKeyboard]);
 
   // Keep consent in sync across tabs
   useEffect(() => {
-    function onStorage(e: StorageEvent) {
-      if (e.key !== LS_COOKIE) return;
-      const v = e.newValue;
-      if (v === "accepted") analytics.opt_in_capturing();
-      else if (v === "rejected") analytics.opt_out_capturing();
+    if (hasKeyboard !== true) return;
+
+    function onStorage(event: StorageEvent) {
+      if (event.key !== LS_COOKIE) return;
+      const value = event.newValue;
+      if (value === "accepted") {
+        analytics.opt_in_capturing();
+      } else if (value === "rejected") {
+        analytics.opt_out_capturing();
+      }
     }
+
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-  }, [analytics]);
+  }, [analytics, hasKeyboard]);
 
-  // Key handling for theme flow
+  // Keyboard flow: K, L, D
   useEffect(() => {
+    if (hasKeyboard !== true) return;
     if (stage === "done" || stage === "init" || stage === "cookie") return;
 
-    function handleKey(e: KeyboardEvent) {
-      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+    function handleKey(event: KeyboardEvent) {
+      if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) {
+        return;
+      }
 
-      const target = e.target as HTMLElement;
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+
       if (
         target.tagName === "INPUT" ||
         target.tagName === "TEXTAREA" ||
@@ -102,31 +150,45 @@ export function FirstTimeVisitorBanner({ className }: Props) {
         return;
       }
 
-      const key = e.key.toLowerCase();
-      if (stage === "kWait" && key === "k") setStage("lWait");
-      else if (stage === "lWait" && key === "l") setStage("dWait");
-      else if (stage === "dWait" && key === "d") setStage("final");
+      const key = event.key.toLowerCase();
+      if (stage === "kWait" && key === "k") {
+        setStage("lWait");
+      } else if (stage === "lWait" && key === "l") {
+        setStage("dWait");
+      } else if (stage === "dWait" && key === "d") {
+        setStage("final");
+      }
     }
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [stage]);
+  }, [stage, hasKeyboard]);
 
   // Persist completion for theme flow
   useEffect(() => {
+    if (hasKeyboard !== true) return;
     if (stage !== "final") return;
-    localStorage.setItem(LS_FLOW, "completed");
-    localStorage.setItem(LS_THEME_INFO, "done");
-    const t = setTimeout(() => setStage("closing"), 3000);
-    return () => clearTimeout(t);
-  }, [stage]);
+
+    const timeoutId = window.setTimeout(() => {
+      localStorage.setItem(LS_FLOW, "completed");
+      localStorage.setItem(LS_THEME_INFO, "done");
+      setStage("closing");
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [stage, hasKeyboard]);
 
   // After closing, mark done
   useEffect(() => {
+    if (hasKeyboard !== true) return;
     if (stage !== "closing") return;
-    const t = setTimeout(() => setStage("done"), 320);
-    return () => clearTimeout(t);
-  }, [stage]);
+
+    const timeoutId = window.setTimeout(() => setStage("done"), 320);
+    return () => window.clearTimeout(timeoutId);
+  }, [stage, hasKeyboard]);
+
+  // Do not render on devices that do not look like keyboard PCs
+  if (hasKeyboard !== true) return null;
 
   const show =
     stage === "cookie" ||
@@ -135,9 +197,9 @@ export function FirstTimeVisitorBanner({ className }: Props) {
     stage === "dWait" ||
     stage === "final" ||
     stage === "closing";
+
   if (!show) return null;
 
-  // Cookie consent handlers
   function handleAcceptCookies() {
     analytics.opt_in_capturing();
     localStorage.setItem(LS_COOKIE, "accepted");
@@ -146,8 +208,6 @@ export function FirstTimeVisitorBanner({ className }: Props) {
 
   function handleRejectCookies() {
     analytics.opt_out_capturing();
-    // optional: if you identify users elsewhere, consider clearing IDs too
-    // analytics.reset?.(true);
     localStorage.setItem(LS_COOKIE, "rejected");
     setStage("kWait");
   }
@@ -165,7 +225,8 @@ export function FirstTimeVisitorBanner({ className }: Props) {
       {stage === "cookie" ? (
         <>
           <div className="text-semibold text-dim-400">
-            New here? I use cookies to improve your experience.
+            I do not believe we met before. Just so you know, I would like to
+            use cookies to improve your experience.
           </div>
           <div className="-mt-3 flex items-center justify-end gap-3">
             <Button variant="outline" onClick={handleRejectCookies}>
@@ -181,18 +242,18 @@ export function FirstTimeVisitorBanner({ className }: Props) {
           <div className="text-semibold text-dim-400">
             {stage === "kWait" ? (
               <>
-                Press <Kbd>K</Kbd> to cycle through dark themes.
+                Suit your eyes, press <Kbd>K</Kbd> to cycle dark themes.
               </>
             ) : stage === "lWait" ? (
               <>
-                Prefer light? Press <Kbd>L</Kbd> to switch.
+                Prefer light? Press <Kbd>L</Kbd>.
               </>
             ) : stage === "dWait" ? (
               <>
-                Press <Kbd>D</Kbd> to return to dark.
+                Press <Kbd>D</Kbd> to return to default.
               </>
             ) : (
-              <>All set. Enjoy!</>
+              <>All set. Enjoy your reading.</>
             )}
           </div>
           <div className="mt-3 flex items-center justify-end gap-2" />
