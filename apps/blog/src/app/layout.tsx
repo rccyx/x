@@ -22,7 +22,7 @@ const siteUrl = env.NEXT_PUBLIC_BLOG_URL;
 export const metadata: Metadata = createMetadata({
   metadataBase: new URL(siteUrl),
   title: siteName,
-  description: "Blog",
+  description: "Public writings.",
 });
 
 export default function RootLayout({ children }: PropsWithChildren) {

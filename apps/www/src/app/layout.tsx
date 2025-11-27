@@ -9,12 +9,11 @@ import {
 } from "@rccyx/seo";
 import { AnalyticsProvider } from "@rccyx/analytics/client";
 import { DesignSystemProvider } from "@rccyx/design/provider";
-import { FirstTimeVisitorBanner } from "@rccyx/components";
 
 import { env } from "@rccyx/env";
 import { RestProvider } from "@rccyx/api/rest-client";
 
-const description = "Building the future.";
+const description = "Modern renaissance spirit.";
 
 const siteUrl = env.NEXT_PUBLIC_WWW_URL;
 
@@ -33,7 +32,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <AnalyticsProvider>
           <RestProvider>{children}</RestProvider>
         </AnalyticsProvider>
-        <FirstTimeVisitorBanner />
       </DesignSystemProvider>
     </>
   );

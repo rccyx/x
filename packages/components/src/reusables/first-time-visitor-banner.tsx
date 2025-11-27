@@ -228,10 +228,18 @@ export function FirstTimeVisitorBanner({ className }: Props) {
             This place runs a very small amount of analytics.
           </div>
           <div className="-mt-3 flex items-center justify-end gap-3">
-            <Button variant="outline" onClick={handleRejectCookies}>
+            <Button
+              variant="outline"
+              className="rounded-full"
+              onClick={handleRejectCookies}
+            >
               Reject
             </Button>
-            <Button variant="default" onClick={handleAcceptCookies}>
+            <Button
+              variant="default"
+              className="rounded-full"
+              onClick={handleAcceptCookies}
+            >
               Accept Cookies
             </Button>
           </div>
@@ -241,7 +249,7 @@ export function FirstTimeVisitorBanner({ className }: Props) {
           <div className="text-semibold text-dim-400">
             {stage === "kWait" ? (
               <>
-                Suit your eyes, press <Kbd>K</Kbd> to cycle dark themes.
+                Suit your eyes, press <Kbd>K</Kbd> for dark themes.
               </>
             ) : stage === "lWait" ? (
               <>
