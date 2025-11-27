@@ -223,20 +223,19 @@ export function FirstTimeVisitorBanner({ className }: Props) {
       ariaLabel={stage === "cookie" ? "Cookie consent" : "Theme onboarding"}
     >
       {stage === "cookie" ? (
-        <>
+        <div>
           <div className="text-semibold text-dim-400">
-            I do not believe we met before. Just so you know, I would like to
-            use cookies to improve your experience.
+            This place runs a very small amount of analytics.
           </div>
           <div className="-mt-3 flex items-center justify-end gap-3">
             <Button variant="outline" onClick={handleRejectCookies}>
               Reject
             </Button>
             <Button variant="default" onClick={handleAcceptCookies}>
-              Accept
+              Accept Cookies
             </Button>
           </div>
-        </>
+        </div>
       ) : (
         <>
           <div className="text-semibold text-dim-400">

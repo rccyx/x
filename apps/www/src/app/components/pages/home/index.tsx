@@ -3,7 +3,7 @@
 import { motion } from "@rccyx/design/motion";
 import { useCopyToClipboard } from "react-use";
 import { toast, Button, Badge } from "@rccyx/design/ui";
-import { ArrowUpRight, Mail, GitBranch } from "@rccyx/design/icons";
+import { ArrowUpRight, GitBranch, AtSign } from "@rccyx/design/icons";
 import { email, links } from "@rccyx/constants";
 import { env } from "@rccyx/env";
 
@@ -203,7 +203,7 @@ export function HomePage() {
                       className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/60 px-3 py-1.5 hover:bg-foreground/5"
                       aria-label="Copy email address"
                     >
-                      <Mail className="h-3.5 w-3.5" />
+                      <AtSign className="h-3.5 w-3.5" />
                       <span>Email</span>
                     </button>
 
