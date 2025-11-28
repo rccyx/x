@@ -131,14 +131,14 @@ export function HomePage() {
                     size="md"
                     tone="neutral"
                     appearance="soft"
-                    className="bg-foreground/5 text-xs tracking-[0.18em] uppercase"
+                    className="bg-foreground/5 text-xs tracking-[0.18em] "
                   >
                     RCCYX
                   </Badge>
 
                   <h1
                     id="hero-title"
-                    className="text-4xl font-medium text-text-strong sm:text-5xl md:text-6xl"
+                    className="text-4xl -tracking-tight font-display font-medium text-text-strong sm:text-5xl md:text-6xl"
                   >
                     Modeling reality
                     <br />
