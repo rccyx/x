@@ -6,14 +6,18 @@ import { toast, Button, Badge } from "@rccyx/design/ui";
 import { ArrowUpRight, GitBranch, AtSign } from "@rccyx/design/icons";
 import { email, links } from "@rccyx/constants";
 import { env } from "@rccyx/env";
+import Link from "next/link";
 
 function XIcon(props: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className}>
-      <path
-        d="M4 4h4.5L12 9.25 15.5 4H20l-6 8 6 8h-4.5L12 14.75 8.5 20H4l6-8z"
-        fill="currentColor"
-      />
+    <svg
+      viewBox="0 0 300 300"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      aria-hidden="true"
+      className={props.className}
+    >
+      <path d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
     </svg>
   );
 }
@@ -191,32 +195,29 @@ export function HomePage() {
                     </Button>
                   </div>
 
-                  {/* EMAIL + X */}
+                  {/* EMAIL + X Links */}
 
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold  tracking-[0.12em] text-dim-300">
-                    <button
-                      type="button"
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] text-dim-300">
+                    <Button
+                      variant="outline:rounded"
+                      aria-label="Copy email address"
                       onClick={copyEmail}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") copyEmail();
                       }}
-                      className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/60 px-3 py-1.5 hover:bg-foreground/5"
-                      aria-label="Copy email address"
                     >
                       <AtSign className="h-3.5 w-3.5" />
-                      <span>Email</span>
-                    </button>
-
-                    <a
-                      href={links.twitter.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/60 px-3 py-1.5 hover:bg-foreground/5"
-                      aria-label="Open X profile"
-                    >
-                      <XIcon className="h-3.5 w-3.5" />
-                      <span>/ Twitter</span>
-                    </a>
+                    </Button>
+                    <Button variant="outline:rounded">
+                      <Link
+                        href={links.twitter.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Open X profile"
+                      >
+                        <XIcon className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
                   </div>
                 </motion.div>
               </div>
