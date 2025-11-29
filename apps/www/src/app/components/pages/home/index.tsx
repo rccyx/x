@@ -35,13 +35,18 @@ export function HomePage() {
   const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
 
   return (
-    <div className="flex bg-nebula ml-32 flex-col scale-125 h-screen w-screen overflow-hidden">
+    <div
+      className="
+        flex bg-nebula flex-col min-h-screen w-full overflow-hidden
+        px-4 sm:px-6
+        lg:px-0 lg:ml-32 lg:scale-125 lg:h-screen lg:w-screen
+      "
+    >
       <main className="flex-1">
         <section
           aria-labelledby="hero-title"
           className="relative flex h-full items-center"
         >
-          {/* floating geometric background */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
@@ -55,9 +60,7 @@ export function HomePage() {
                 ease: "easeInOut",
               }}
             >
-              {/* left column */}
               <div className="flex flex-col gap-12">
-                {/* top-left card */}
                 <motion.div
                   className="aspect-[4/3] overflow-hidden rounded-[3rem] border border-border/40 bg-surface/30 shadow-subtle"
                   animate={{
@@ -74,7 +77,6 @@ export function HomePage() {
                   <div className="h-full w-full bg-gradient-to-tr from-foreground/5 via-foreground/10 to-foreground/5" />
                 </motion.div>
 
-                {/* bottom-left card */}
                 <motion.div
                   className="aspect-[5/2] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
                   animate={{
@@ -92,9 +94,7 @@ export function HomePage() {
                 </motion.div>
               </div>
 
-              {/* right column */}
               <div className="flex flex-col gap-12">
-                {/* top-right card */}
                 <motion.div
                   className="aspect-[3/4] overflow-hidden rounded-[3rem] border border-border/35 bg-surface/25"
                   animate={{
@@ -111,7 +111,6 @@ export function HomePage() {
                   <div className="h-full w-full bg-gradient-to-b from-foreground/15 via-transparent to-foreground/10" />
                 </motion.div>
 
-                {/* bottom-right card */}
                 <motion.div
                   className="aspect-[7/3] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
                   animate={{
@@ -131,10 +130,9 @@ export function HomePage() {
             </motion.div>
           </div>
 
-          {/* content */}
           <div className="layout relative z-10 w-full h-full">
-            <div className="grid h-full gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-              <div className="space-y-8">
+            <div className="grid h-full gap-10 items-center lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+              <div className="space-y-8 max-w-md sm:max-w-lg md:max-w-xl">
                 <motion.div
                   initial={{ opacity: 0, y: -16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -166,7 +164,6 @@ export function HomePage() {
                   transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
                   className="space-y-6"
                 >
-                  {/* cta buttons */}
                   <div className="flex flex-wrap gap-3">
                     <Button
                       asChild
@@ -195,7 +192,6 @@ export function HomePage() {
                     </Button>
                   </div>
 
-                  {/* email + x links */}
                   <div className="flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] text-dim-300">
                     <Button
                       variant="outline:rounded"
