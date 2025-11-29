@@ -37,12 +37,12 @@ export function HomePage() {
   return (
     <div
       className="
-        flex bg-nebula flex-col min-h-screen w-full overflow-hidden
-        px-4 sm:px-6 xs:pt-10
+        flex bg-nebula flex-col h-screen w-full overflow-hidden
+        px-4 sm:px-6
         lg:px-0 lg:ml-32 lg:scale-125 lg:h-screen lg:w-screen
       "
     >
-      <main className="flex-1">
+      <main className="flex flex-1 items-center justify-center lg:block">
         <section
           aria-labelledby="hero-title"
           className="relative flex h-full items-center"
