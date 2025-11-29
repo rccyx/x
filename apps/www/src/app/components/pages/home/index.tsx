@@ -154,7 +154,7 @@ export function HomePage() {
                     id="hero-title"
                     className="text-4xl -tracking-tight font-display font-medium text-text-strong sm:text-5xl md:text-6xl"
                   >
-                    Modeling reality
+                    Modern renaissance
                     <br />
                     on a binary substrate
                   </h1>
