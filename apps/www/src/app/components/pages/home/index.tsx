@@ -171,7 +171,7 @@ export function HomePage() {
                       className="rounded-full px-5 py-2.5"
                     >
                       <a href={primaryCtaHref} target="_blank" rel="noreferrer">
-                        Read latest
+                        Writings
                         <ArrowUpRight className="ml-1 h-4 w-4" />
                       </a>
                     </Button>
