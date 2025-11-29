@@ -38,7 +38,7 @@ export function HomePage() {
     <div
       className="
         flex bg-nebula flex-col min-h-screen w-full overflow-hidden
-        px-4 sm:px-6
+        px-4 sm:px-6 xs:pt-10
         lg:px-0 lg:ml-32 lg:scale-125 lg:h-screen lg:w-screen
       "
     >
