@@ -1,7 +1,6 @@
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import type { NextRequest, NextResponse } from "next/server";
 
-import { db } from "@rccyx/db";
 import type { DatabaseClient } from "@rccyx/db";
 import type { UserRo } from "../../boundary/rpc/models";
 
@@ -15,7 +14,7 @@ export function createTRPCContext(opts: {
     req: opts.req,
     res: opts.res,
     trpcInfo: opts.trpcInfo,
-    db: db,
+    db: opts.db,
   };
 }
 
