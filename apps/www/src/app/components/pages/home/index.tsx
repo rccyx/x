@@ -12,7 +12,7 @@ import Link from "next/link";
 export function HomePage() {
   const [, copyToClipboard] = useCopyToClipboard();
 
-  const emailAddress = email.oss.address;
+  const emailAddress = email.personal.address;
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -190,7 +190,7 @@ export function HomePage() {
                         rel="noreferrer"
                       >
                         <GitBranch className="mr-2 h-4 w-4" />
-                        Open Source
+                        Open source
                       </a>
                     </Button>
                   </div>
