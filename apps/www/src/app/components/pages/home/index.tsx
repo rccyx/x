@@ -35,7 +35,7 @@ export function HomePage() {
   const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
 
   return (
-    <div className="flex ml-32 flex-col scale-125 h-screen w-screen overflow-hidden">
+    <div className="flex bg-nebula ml-32 flex-col scale-125 h-screen w-screen overflow-hidden">
       <main className="flex-1">
         <section
           aria-labelledby="hero-title"
