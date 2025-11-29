@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "@rccyx/design/motion";
 import { useCopyToClipboard } from "react-use";
 import { toast, Button, Badge } from "@rccyx/design/ui";
@@ -13,6 +14,19 @@ export function HomePage() {
 
   const emailAddress = email.oss.address;
 
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    const originalHeight = document.body.style.height;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.height = originalHeight;
+    };
+  }, []);
+
   const copyEmail = () => {
     copyToClipboard(emailAddress);
     toast.success("Email copied");
@@ -21,13 +35,13 @@ export function HomePage() {
   const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex ml-32 flex-col scale-125 h-screen w-screen overflow-hidden">
       <main className="flex-1">
         <section
           aria-labelledby="hero-title"
-          className="relative flex min-h-screen items-center py-16 md:py-24"
+          className="relative flex h-full items-center"
         >
-          {/* Floating geometric background */}
+          {/* floating geometric background */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
@@ -41,9 +55,9 @@ export function HomePage() {
                 ease: "easeInOut",
               }}
             >
-              {/* LEFT COLUMN */}
+              {/* left column */}
               <div className="flex flex-col gap-12">
-                {/* Top-left card */}
+                {/* top-left card */}
                 <motion.div
                   className="aspect-[4/3] overflow-hidden rounded-[3rem] border border-border/40 bg-surface/30 shadow-subtle"
                   animate={{
@@ -60,7 +74,7 @@ export function HomePage() {
                   <div className="h-full w-full bg-gradient-to-tr from-foreground/5 via-foreground/10 to-foreground/5" />
                 </motion.div>
 
-                {/* Bottom-left card */}
+                {/* bottom-left card */}
                 <motion.div
                   className="aspect-[5/2] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
                   animate={{
@@ -78,9 +92,9 @@ export function HomePage() {
                 </motion.div>
               </div>
 
-              {/* RIGHT COLUMN */}
+              {/* right column */}
               <div className="flex flex-col gap-12">
-                {/* Top-right card */}
+                {/* top-right card */}
                 <motion.div
                   className="aspect-[3/4] overflow-hidden rounded-[3rem] border border-border/35 bg-surface/25"
                   animate={{
@@ -97,7 +111,7 @@ export function HomePage() {
                   <div className="h-full w-full bg-gradient-to-b from-foreground/15 via-transparent to-foreground/10" />
                 </motion.div>
 
-                {/* Bottom-right card */}
+                {/* bottom-right card */}
                 <motion.div
                   className="aspect-[7/3] overflow-hidden rounded-[3rem] border border-border/30 bg-surface/20"
                   animate={{
@@ -117,9 +131,9 @@ export function HomePage() {
             </motion.div>
           </div>
 
-          {/* CONTENT */}
-          <div className="layout relative z-10 w-full">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+          {/* content */}
+          <div className="layout relative z-10 w-full h-full">
+            <div className="grid h-full gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
               <div className="space-y-8">
                 <motion.div
                   initial={{ opacity: 0, y: -16 }}
@@ -131,7 +145,7 @@ export function HomePage() {
                     size="md"
                     tone="neutral"
                     appearance="soft"
-                    className="bg-foreground/5 text-xs tracking-[0.18em] "
+                    className="bg-foreground/5 text-xs tracking-[0.18em]"
                   >
                     RCCYX
                   </Badge>
@@ -152,7 +166,7 @@ export function HomePage() {
                   transition={{ duration: 0.35, ease: "easeOut", delay: 0.1 }}
                   className="space-y-6"
                 >
-                  {/* CTA Buttons */}
+                  {/* cta buttons */}
                   <div className="flex flex-wrap gap-3">
                     <Button
                       asChild
@@ -181,8 +195,7 @@ export function HomePage() {
                     </Button>
                   </div>
 
-                  {/* EMAIL + X Links */}
-
+                  {/* email + x links */}
                   <div className="flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] text-dim-300">
                     <Button
                       variant="outline:rounded"
@@ -194,6 +207,7 @@ export function HomePage() {
                     >
                       <AtSign className="h-3.5 w-3.5" />
                     </Button>
+
                     <Button variant="outline:rounded">
                       <Link
                         href={links.twitter.link}
