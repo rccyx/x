@@ -1,7 +1,7 @@
 import { logger } from "@rccyx/logger";
 
-import { middleware, t } from "../../root";
-
+import { middleware } from "../../root";
+import { env } from "@rccyx/env";
 /**
  * Middleware for timing procedure execution and adding an articifial delay in development.
  *
@@ -12,7 +12,7 @@ import { middleware, t } from "../../root";
 export const timingMiddleware = middleware(async ({ next, path }) => {
   const start = Date.now();
 
-  if (t._config.isDev) {
+  if (env.NEXT_PUBLIC_CURRENT_ENV === "development") {
     // artificial delay in dev 100-500ms
     const waitMs = Math.floor(Math.random() * 400) + 100;
     await new Promise((resolve) => setTimeout(resolve, waitMs));

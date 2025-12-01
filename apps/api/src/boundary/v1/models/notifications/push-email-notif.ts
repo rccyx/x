@@ -24,9 +24,9 @@ export const notificationsPushEmailNotifBodySchemaRequest = z
     subject: z
       .string()
       .min(1)
-      .max(30)
+      .max(12)
       .describe("The subject of the notification."),
-    title: z.string().min(1).max(30).describe("The title of the notification."),
+    title: z.string().min(1).max(12).describe("The title of the notification."),
     message: z
       .string()
       .min(1)
