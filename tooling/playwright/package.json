@@ -6,6 +6,9 @@
     "format": "prettier . --write",
     "lint": "tsc --noEmit; eslint ."
   },
+  "dependencies": {
+    "@rccyx/env": "workspace:*"
+  },
   "devDependencies": {
     "@playwright/test": "catalog:",
     "@rccyx/eslint-config": "workspace:*",

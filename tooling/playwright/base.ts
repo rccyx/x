@@ -1,6 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
 
-/* eslint-disable turbo/no-undeclared-env-vars */
 const isRunningInCI = !!process.env.CI;
 
 /**

@@ -1376,6 +1376,10 @@ importers:
         version: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@19.0.0(react@19.1.0))(react@19.1.0)
 
   tooling/playwright:
+    dependencies:
+      '@rccyx/env':
+        specifier: workspace:*
+        version: link:../../packages/env
     devDependencies:
       '@playwright/test':
         specifier: 'catalog:'

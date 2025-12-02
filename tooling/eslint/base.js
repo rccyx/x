@@ -41,6 +41,12 @@ export default tseslint.config(
           fixStyle: "separate-type-imports",
         },
       ],
+      "@typescript-eslint/require-await": "error",
+      "@typescript-eslint/await-thenable": "error",
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        { ignoreVoid: false },
+      ],
       "@typescript-eslint/no-unsafe-assignment": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
