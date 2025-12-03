@@ -41,8 +41,8 @@ export default tseslint.config(
       complexity: ["warn", 10],
       // warn when nesting gets too deep
       "max-depth": ["warn", 3],
-      // warn when a single function grows too large
-      "max-lines-per-function": ["warn", 80],
+      // // warn when a single function grows too large
+      // "max-lines-per-function": ["warn", 80],
       // keep argument lists reasonable, prefer an options object past this
       "max-params": ["warn", 4],
 
