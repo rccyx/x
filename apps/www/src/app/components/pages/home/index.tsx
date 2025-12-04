@@ -169,7 +169,7 @@ export function HomePage() {
                       className="rounded-full px-5 py-2.5"
                     >
                       <a href={primaryCtaHref} target="_blank" rel="noreferrer">
-                        Writings
+                        Essays
                         <ArrowUpRight className="ml-1 h-4 w-4" />
                       </a>
                     </Button>
@@ -184,8 +184,7 @@ export function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <GitBranch className="mr-2 h-4 w-4" />
-                        Open source
+                        Rosetta stone
                       </a>
                     </Button>
                   </div>
@@ -210,6 +209,17 @@ export function HomePage() {
                         aria-label="Open X profile"
                       >
                         <XIcon className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+
+                    <Button variant="outline:rounded">
+                      <Link
+                        href={links.gitHub.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Open GitHub profile"
+                      >
+                        <GitBranch className="h-3.5 w-3.5" />
                       </Link>
                     </Button>
                   </div>
