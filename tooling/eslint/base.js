@@ -38,7 +38,7 @@ export default tseslint.config(
 
       // general code shape for app logic
       // warn when functions get too branchy
-      complexity: ["warn", 10],
+      complexity: ["warn", 18],
       // warn when nesting gets too deep
       "max-depth": ["warn", 3],
       // // warn when a single function grows too large
