@@ -1,9 +1,19 @@
 "use client";
 
+import { QueryClientProvider } from "@ts-rest/react-query/tanstack";
+import { getOptimizedQueryClient } from "./query-client";
 import { restClient } from "./client";
 
-export function RestProvider({ children }: { children: React.ReactNode }) {
+export function RestProvider(
+  props: Readonly<{
+    children: React.ReactNode;
+  }>,
+) {
   return (
-    <restClient.ReactQueryProvider>{children}</restClient.ReactQueryProvider>
+    <QueryClientProvider client={getOptimizedQueryClient()}>
+      <restClient.ReactQueryProvider>
+        {props.children}
+      </restClient.ReactQueryProvider>
+    </QueryClientProvider>
   );
 }

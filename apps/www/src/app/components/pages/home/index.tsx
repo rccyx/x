@@ -152,9 +152,7 @@ export function HomePage() {
                     id="hero-title"
                     className="select-none text-4xl -tracking-tight font-display font-medium text-text-strong sm:text-5xl md:text-6xl"
                   >
-                    Modern renaissance
-                    <br />
-                    on a binary substrate
+                    Modern Renaissance <br /> An Era Resurrected
                   </h1>
                 </motion.div>
 
