@@ -184,7 +184,7 @@ export function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Read latest
+                        Rosetta piece
                       </a>
                     </Button>
                   </div>
