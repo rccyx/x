@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": ".next",
+  "buildCommand": "cd ../.. && pnpm --filter @rccyx/www build",
+  "installCommand": "pnpm i"
+}
