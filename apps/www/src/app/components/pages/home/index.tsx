@@ -152,7 +152,7 @@ export function HomePage() {
                     id="hero-title"
                     className="select-none text-4xl -tracking-tight font-display font-medium text-text-strong sm:text-5xl md:text-6xl"
                   >
-                    Modern Renaissance <br /> An Era Resurrected
+                    Modern Renaissance <br /> On a binary substrate
                   </h1>
                 </motion.div>
 
@@ -170,7 +170,7 @@ export function HomePage() {
                       className="px-5 py-2.5"
                     >
                       <a href={primaryCtaHref} target="_blank" rel="noreferrer">
-                        Essays
+                        Continuum
                         <ArrowUpRight className="ml-1 h-4 w-4" />
                       </a>
                     </Button>
@@ -186,7 +186,7 @@ export function HomePage() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Quick pick
+                        Rosetta piece
                       </a>
                     </Button>
                   </div>
