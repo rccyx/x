@@ -32,7 +32,8 @@ function LanguageSelect({
   return (
     <div className="relative">
       <Button
-        variant="outline"
+        role="secondary"
+        appearance="outline"
         className="flex w-[180px] items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
         type="button"

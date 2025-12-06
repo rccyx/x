@@ -119,7 +119,6 @@ export function ChangePasswordForm() {
         <div className="sm:col-span-2 flex justify-end">
           <Button
             type="submit"
-            variant="default"
             loading={changePasswordMutation.isPending}
             className="min-w-36"
           >

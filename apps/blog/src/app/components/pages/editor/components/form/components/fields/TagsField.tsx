@@ -135,7 +135,7 @@ export function TagsField({ form }: TagsFieldProps) {
 
                 <Button
                   type="button"
-                  variant="outline"
+                  role="secondary"
                   className="h-9 px-3"
                   onClick={handleAdd}
                 >

@@ -70,7 +70,7 @@ export function BlockItem({
       {/* action buttons */}
       <div className="absolute right-2 top-2 flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
         <Button
-          variant="outline"
+          role="secondary"
           onClick={() => setIsPreview(!isPreview)}
           title={isPreview ? "Edit" : "Preview"}
           type="button"
@@ -82,7 +82,9 @@ export function BlockItem({
           )}
         </Button>
         <Button
-          variant="destructive:outline"
+          appearance="outline"
+          tone="danger"
+          role="secondary"
           onClick={onDelete}
           title="Delete block"
           type="button"
@@ -90,7 +92,7 @@ export function BlockItem({
           <Trash2 className="h-4 w-4" />
         </Button>
         <Button
-          variant="outline"
+          role="secondary"
           {...attributes}
           {...listeners}
           title="Drag to reorder"

@@ -165,8 +165,9 @@ export function HomePage() {
                   <div className="flex flex-wrap gap-3">
                     <Button
                       asChild
-                      variant="default"
-                      className="rounded-full px-5 py-2.5"
+                      role="primary"
+                      shape="rounded"
+                      className="px-5 py-2.5"
                     >
                       <a href={primaryCtaHref} target="_blank" rel="noreferrer">
                         Essays
@@ -176,8 +177,9 @@ export function HomePage() {
 
                     <Button
                       asChild
-                      variant="outline"
-                      className="rounded-full px-5 py-2.5"
+                      role="secondary"
+                      shape="rounded"
+                      className="px-5 py-2.5"
                     >
                       <a
                         href={links.gitHub.link}
@@ -191,7 +193,9 @@ export function HomePage() {
 
                   <div className="flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] text-dim-300">
                     <Button
-                      variant="outline:rounded"
+                      role="secondary"
+                      shape="rounded"
+                      size="sm"
                       aria-label="Copy email address"
                       onClick={copyEmail}
                       onKeyDown={(e) => {
@@ -201,7 +205,7 @@ export function HomePage() {
                       <AtSign className="h-3.5 w-3.5" />
                     </Button>
 
-                    <Button variant="outline:rounded">
+                    <Button role="secondary" shape="rounded" size="sm">
                       <Link
                         href={links.twitter.link}
                         target="_blank"
@@ -212,7 +216,7 @@ export function HomePage() {
                       </Link>
                     </Button>
 
-                    <Button variant="outline:rounded">
+                    <Button role="secondary" shape="rounded" size="sm">
                       <Link
                         href={links.gitHub.link}
                         target="_blank"

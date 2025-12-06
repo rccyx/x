@@ -152,7 +152,7 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
                     <Badge
                       size={"sm"}
                       appearance={"outlineFilled"}
-                      tone={session.isExpired ? "destructive" : "success"}
+                      tone={session.isExpired ? "danger" : "success"}
                     >
                       {session.isExpired
                         ? "Expired"
@@ -163,7 +163,9 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
                   </TableCell>
                   <TableCell className="text-right">
                     <Button
-                      variant="destructive:outline"
+                      appearance="outline"
+                      tone="danger"
+                      role="secondary"
                       onClick={() =>
                         terminateSpecificSessionMutation.mutate({
                           sessionId: session.id,
@@ -198,7 +200,9 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
           {sessions.length === 1 ? "session" : "sessions"}
         </p>
         <Button
-          variant="destructive:outline"
+          appearance="outline"
+          tone="danger"
+          role="secondary"
           onClick={() => terminateAllSessionsMutation.mutate()}
           disabled={terminatingAllSessions}
           className="relative"

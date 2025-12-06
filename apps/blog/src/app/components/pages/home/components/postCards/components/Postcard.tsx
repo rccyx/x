@@ -34,7 +34,7 @@ export function PostCard({ postData }: { postData: PostCardRo }) {
 
           <div className="text-dim-400 flex flex-wrap items-center gap-[0.625rem] text-sm font-semibold">
             {postData.tags.map((tag) => (
-              <Button variant="outline:rounded" key={tag}>
+              <Button role="secondary" shape="rounded" size="sm" key={tag}>
                 <Link href={`/tag/${tag}`} key={tag}>
                   {tag}
                 </Link>

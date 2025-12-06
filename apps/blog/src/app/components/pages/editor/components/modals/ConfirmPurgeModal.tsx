@@ -38,14 +38,16 @@ export function ConfirmPurgeModal(props: {
         transition={{ delay: 0.3 }}
       >
         <Button
-          variant="outline"
+          role="secondary"
           onClick={props.onCancel}
           disabled={props.isPurging}
         >
           Cancel
         </Button>
         <Button
-          variant="destructive:outline"
+          appearance="outline"
+          tone="danger"
+          role="secondary"
           onClick={props.onConfirm}
           disabled={props.isPurging}
           loading={props.isPurging}

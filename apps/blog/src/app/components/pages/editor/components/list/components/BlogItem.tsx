@@ -54,10 +54,15 @@ export const BlogItem = memo(
             delay: shouldReduceMotion ? 0 : 0.1 + index * 0.05,
           }}
         >
-          <Button variant="outline" onClick={() => onEdit(blog)}>
+          <Button role="secondary" onClick={() => onEdit(blog)}>
             Edit
           </Button>
-          <Button variant="destructive:outline" onClick={() => onDelete(blog)}>
+          <Button
+            appearance="outline"
+            tone="danger"
+            role="secondary"
+            onClick={() => onDelete(blog)}
+          >
             Delete
           </Button>
         </motion.div>

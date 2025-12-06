@@ -100,7 +100,11 @@ export function SortOptions({
       <motion.div variants={itemVariants}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex h-8 items-center gap-1">
+            <Button
+              role="secondary"
+              className="flex h-8 items-center gap-1"
+              size="sm"
+            >
               <span>Sort</span>
               {options.sortOrder === "asc" ? (
                 <SortAsc className="h-4 w-4" />
@@ -170,7 +174,11 @@ export function SortOptions({
       <motion.div variants={itemVariants}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex h-8 items-center gap-1">
+            <Button
+              role="secondary"
+              className="flex h-8 items-center gap-1"
+              size="sm"
+            >
               <span>Status</span>
               <ListChecks className="h-4 w-4" />
               {options.statusFilter !== "all" && (
@@ -225,7 +233,11 @@ export function SortOptions({
       <motion.div variants={itemVariants}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex h-8 items-center gap-1">
+            <Button
+              role="secondary"
+              className="flex h-8 items-center gap-1"
+              size="sm"
+            >
               <span>Category</span>
               <FolderTree className="h-4 w-4" />
               {options.categoryFilter !== "all" && (
@@ -268,7 +280,11 @@ export function SortOptions({
         <motion.div variants={itemVariants}>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="flex h-8 items-center gap-1">
+              <Button
+                role="secondary"
+                className="flex h-8 items-center gap-1"
+                size="sm"
+              >
                 <span>Tag</span>
                 <Tag className="h-4 w-4" />
                 {options.tagFilter && (

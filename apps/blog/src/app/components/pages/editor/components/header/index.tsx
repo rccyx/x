@@ -57,7 +57,7 @@ export function Header({
             isPreviewEnabled={isPreviewEnabled}
             onToggle={onTogglePreview}
           />
-          <Button variant="default" onClick={onClick}>
+          <Button onClick={onClick}>
             <Plus className="mr-2 h-4 w-4" />
             New Blog
           </Button>

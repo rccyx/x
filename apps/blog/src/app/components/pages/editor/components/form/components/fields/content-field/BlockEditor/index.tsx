@@ -553,7 +553,8 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
         <h3 className="text-lg font-semibold">Block Editor</h3>
         <div className="flex gap-2">
           <Button
-            variant="outline"
+            role="secondary"
+            appearance="outline"
             className="relative"
             onClick={() => setIsExpanded(true)}
             type="button"
@@ -562,7 +563,8 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
             Expand Editor
           </Button>
           <Button
-            variant="outline"
+            role="secondary"
+            appearance="outline"
             className="relative"
             onClick={() => setShowAddCommand(true)}
             type="button"
@@ -634,7 +636,8 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
             <h2 className="text-xl font-semibold">Content Editor</h2>
             <div className="flex gap-2">
               <Button
-                variant="outline"
+                role="secondary"
+                appearance="outline"
                 onClick={() => {
                   setIsExpanded(false);
                   // Reset user interaction flag when closing
@@ -648,7 +651,8 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
                 Minimize Editor
               </Button>
               <Button
-                variant="outline"
+                role="secondary"
+                appearance="outline"
                 onClick={() => setShowAddCommand(true)}
                 type="button"
               >

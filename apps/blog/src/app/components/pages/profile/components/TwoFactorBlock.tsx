@@ -55,7 +55,7 @@ function CopyableRow({ value }: { value: string }) {
       <Input readOnly value={value} className="font-mono" />
       <Button
         type="button"
-        variant="outline"
+        role="secondary"
         onClick={() => {
           void navigator.clipboard.writeText(value);
           toast.success("Copied");
@@ -143,7 +143,7 @@ export function TwoFactorEnableCard() {
           <div className="flex gap-2">
             <Button
               type="button"
-              variant="outline"
+              role="secondary"
               onClick={() => {
                 void navigator.clipboard.writeText(backupCodes.join("\n"));
                 toast.success("Backup codes copied");
@@ -153,7 +153,7 @@ export function TwoFactorEnableCard() {
             </Button>
             <Button
               type="button"
-              variant="outline"
+              role="secondary"
               onClick={() => {
                 const blob = new Blob([backupCodes.join("\n")], {
                   type: "text/plain",
@@ -402,7 +402,7 @@ export function TwoFactorBackupCodesCard() {
               <div className="flex gap-2">
                 <Button
                   type="button"
-                  variant="outline"
+                  role="secondary"
                   onClick={() => {
                     void navigator.clipboard.writeText(codes.join("\n"));
                     toast.success("Backup codes copied");
@@ -412,7 +412,7 @@ export function TwoFactorBackupCodesCard() {
                 </Button>
                 <Button
                   type="button"
-                  variant="outline"
+                  role="secondary"
                   onClick={() => {
                     const blob = new Blob([codes.join("\n")], {
                       type: "text/plain",
@@ -546,7 +546,9 @@ export function TwoFactorDisableCard() {
           <div className="flex justify-end gap-2">
             <Button
               type="submit"
-              variant="destructive:outline"
+              appearance="outline"
+              tone="danger"
+              role="secondary"
               loading={disable.isPending}
             >
               {disable.isPending ? "Disabling…" : "Disable 2FA"}

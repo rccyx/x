@@ -160,7 +160,6 @@ export function LoginPage() {
                 transition={{ delay: 0.4 }}
               >
                 <Button
-                  variant="default"
                   type="submit"
                   disabled={loginMutation.isPending}
                   loading={loginMutation.isPending}

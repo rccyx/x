@@ -68,7 +68,9 @@ export function PostCards({ posts }: PostsProps) {
   function CategoryButton({ category }: { category: Category }) {
     return (
       <Button
-        variant="toggle"
+        role="secondary"
+        appearance="outline"
+        shape="rounded"
         active={selectedCategory === category}
         onClick={() => setSelectedCategory(category)}
       >

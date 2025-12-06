@@ -229,17 +229,13 @@ export function FirstTimeVisitorBanner({ className }: Props) {
           </div>
           <div className="-mt-3 flex items-center justify-end gap-3">
             <Button
-              variant="outline"
-              className="rounded-full"
+              role="secondary"
+              shape="rounded"
               onClick={handleRejectCookies}
             >
               Reject
             </Button>
-            <Button
-              variant="default"
-              className="rounded-full"
-              onClick={handleAcceptCookies}
-            >
+            <Button shape="rounded" onClick={handleAcceptCookies}>
               Accept Cookies
             </Button>
           </div>

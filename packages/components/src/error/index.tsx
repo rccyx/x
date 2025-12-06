@@ -47,9 +47,7 @@ export const ErrorBoundary = ({ error, reset }: GlobalErrorProperties) => {
           I've logged this error and will look into it as soon as possible.
         </p>
       </div>
-      <Button variant="default" onClick={handleReset}>
-        Try again
-      </Button>
+      <Button onClick={handleReset}>Try again</Button>
     </div>
   );
 };

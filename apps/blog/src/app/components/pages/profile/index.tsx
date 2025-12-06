@@ -85,7 +85,9 @@ export function ProfilePage() {
             Member since {new Date(user.createdAt).toLocaleDateString()}
           </Badge>
           <Button
-            variant="destructive:outline"
+            appearance="outline"
+            tone="danger"
+            role="secondary"
             onClick={handleLogout}
             className="ml-2"
           >
