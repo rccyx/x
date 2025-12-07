@@ -81,4 +81,7 @@ export const serverVars = {
     .string()
     .min(20, "Stripe webhook secret too short")
     .startsWith("whsec_", "Stripe webhook secret must start with whsec_"),
+  WHOP_APP_API_KEY: z.string().min(20, "Whop app API key too short"),
+  WHOP_APP_ID: z.string().min(1, "Whop app ID required"),
+  WHOP_WEBHOOK_SECRET: z.string().min(10, "Whop webhook secret too short"),
 } as const;

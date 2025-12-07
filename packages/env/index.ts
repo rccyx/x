@@ -32,6 +32,9 @@ export const env = createEnv({
     AUTH_ENCRYPTION_KEY: process.env.AUTH_ENCRYPTION_KEY,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    WHOP_APP_API_KEY: process.env.WHOP_APP_API_KEY,
+    WHOP_APP_ID: process.env.WHOP_APP_ID,
+    WHOP_WEBHOOK_SECRET: process.env.WHOP_WEBHOOK_SECRET,
     // ci vars
     VERCEL_TOKEN: process.env.VERCEL_TOKEN,
     VERCEL_ORG_ID: process.env.VERCEL_ORG_ID,
