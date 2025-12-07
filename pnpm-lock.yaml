@@ -1374,6 +1374,9 @@ importers:
       '@eslint/js':
         specifier: ^9.36.0
         version: 9.36.0
+      '@rccyx/eslint-plugin-classes':
+        specifier: 1.0.0
+        version: 1.0.0(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3)
       '@rccyx/prettier-config':
         specifier: workspace:*
         version: link:../prettier
@@ -4493,6 +4496,12 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
+
+  '@rccyx/eslint-plugin-classes@1.0.0':
+    resolution: {integrity: sha512-kZwT5HjAEypbsDZ1onA3eSEadum15h0rxEaIRYj5oAULwqTUgOfuQR3/OHR/7HO5YNIgRM9kVuzw0eDn+Lnwsg==}
+    peerDependencies:
+      eslint: '>=8.57 <11'
+      typescript: ^5
 
   '@rccyx/scrypt@1.0.0':
     resolution: {integrity: sha512-zR5M6R+rsCLb6qINlBC445JpMQI7KDoTYvrFnPlmujxCWgLBplNVN2/+LlyxeWtE2CtycFgP9D3e3s04DfWW7g==}
@@ -13972,6 +13981,11 @@ snapshots:
   '@radix-ui/rect@1.1.0': {}
 
   '@radix-ui/rect@1.1.1': {}
+
+  '@rccyx/eslint-plugin-classes@1.0.0(eslint@9.12.0(jiti@2.6.0))(typescript@5.6.3)':
+    dependencies:
+      eslint: 9.12.0(jiti@2.6.0)
+      typescript: 5.6.3
 
   '@rccyx/scrypt@1.0.0(zod@4.1.11)':
     dependencies:

@@ -7,6 +7,7 @@ import importPlugin from "eslint-plugin-import";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
 import runyx from "eslint-plugin-runyx";
+import classes from "@rccyx/eslint-plugin-classes";
 
 export default tseslint.config(
   // ignore files not tracked by git and any config files
@@ -18,6 +19,7 @@ export default tseslint.config(
       import: importPlugin,
       turbo: turboPlugin,
       runyx,
+      classes,
     },
     extends: [
       // base eslint js rules
@@ -31,6 +33,9 @@ export default tseslint.config(
       // plugin: turbo
       // enforce turborepo graph rules and pipeline constraints
       ...turboPlugin.configs.recommended.rules,
+
+      // enforce consistent class member ordering so classes read the same everywhere
+      "classes/enforce": "error",
 
       // plugin: runyx
       // forbid "hanging" runyx calls that are not properly handled
