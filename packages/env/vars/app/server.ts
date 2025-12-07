@@ -73,4 +73,12 @@ export const serverVars = {
   AUTH_ENCRYPTION_KEY: z
     .string()
     .length(32, "Auth encryption key must be 32 characters long"),
+  STRIPE_SECRET_KEY: z
+    .string()
+    .min(20, "Stripe secret key too short")
+    .startsWith("sk_", "Stripe secret key must start with sk_"),
+  STRIPE_WEBHOOK_SECRET: z
+    .string()
+    .min(20, "Stripe webhook secret too short")
+    .startsWith("whsec_", "Stripe webhook secret must start with whsec_"),
 } as const;

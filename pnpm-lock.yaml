@@ -1107,15 +1107,18 @@ importers:
 
   packages/payments:
     dependencies:
-      '@rccyx/db':
+      '@rccyx/env':
         specifier: workspace:*
-        version: link:../db
-      '@rccyx/email':
+        version: link:../env
+      '@rccyx/logger':
         specifier: workspace:*
-        version: link:../email
+        version: link:../logger
+      '@rccyx/runner':
+        specifier: workspace:*
+        version: link:../runner
       stripe:
-        specifier: 16.0.0
-        version: 16.0.0
+        specifier: ^16.12.0
+        version: 16.12.0
     devDependencies:
       '@rccyx/eslint-config':
         specifier: workspace:*
@@ -1126,6 +1129,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
+      typyx:
+        specifier: 'catalog:'
+        version: 3.1.0
 
   packages/restyx:
     dependencies:
@@ -9707,8 +9713,8 @@ packages:
     resolution: {integrity: sha512-0fk9zBqO67Nq5M/m45qHCJxylV/DhBlIOVExqgOMiCCrzrhU6tCibRXNqE3jwJLftzE9SNuZtYbpzcO+i9FiKw==}
     engines: {node: '>=14.16'}
 
-  stripe@16.0.0:
-    resolution: {integrity: sha512-HNPTzXrSompUxeGqDpbNmPvH/UEzziIxGWvTDTZwIBLlL6CFqR+3YLpV+g4HXOsPKbQRguauptQwVWO7Y/yEGg==}
+  stripe@16.12.0:
+    resolution: {integrity: sha512-H7eFVLDxeTNNSn4JTRfL2//LzCbDrMSZ+2q1c7CanVWgK2qIW5TwS+0V7N9KcKZZNpYh/uCqK0PyZh/2UsaAtQ==}
     engines: {node: '>=12.*'}
 
   strnum@1.1.2:
@@ -20227,7 +20233,7 @@ snapshots:
 
   strip-json-comments@5.0.1: {}
 
-  stripe@16.0.0:
+  stripe@16.12.0:
     dependencies:
       '@types/node': 22.14.1
       qs: 6.14.0

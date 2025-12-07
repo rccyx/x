@@ -84,6 +84,8 @@
     "S3_BUCKET_URL",
     "IP_HASH_SALT",
     "AUTH_ENCRYPTION_KEY",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
     // ci vars
     "VERCEL_TOKEN",
     "VERCEL_ORG_ID",
