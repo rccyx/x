@@ -53,4 +53,4 @@ async function main(): Promise<void> {
     .catch((e) => logger.error("error", e));
 }
 
-void main();
+main().catch((e) => logger.error("error", e));

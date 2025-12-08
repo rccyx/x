@@ -4,9 +4,9 @@ import { emailService } from "./email.service";
 import type { Recipient } from "./types";
 import type { NotificationType } from "./types";
 
-import VerifyEmailTemplate from "./templates/auth/VerifyEmail";
 import ResetPasswordTemplate from "./templates/auth/ResetPassword";
 import EmailIsVerifiedTemplate from "./templates/auth/EmailIsVerified";
+import VerifyEmailTemplate from "./templates/auth/VerifyEmail";
 import AccountDeletedTemplate from "./templates/auth/AccountDeleted";
 import NotifyTemplate from "./templates/notification/Notify";
 import { run, runner } from "@rccyx/runner";
@@ -40,8 +40,8 @@ export interface NotificationParams {
   readonly subject?: string;
 }
 
-class EmailSenders {
-  public readonly auth = {
+export const senders = {
+  auth: {
     verifyEmail: async (params: VerifyEmailParams) => {
       return runner(
         run(
@@ -133,9 +133,8 @@ class EmailSenders {
         });
       });
     },
-  };
-
-  public readonly notification = {
+  },
+  notification: {
     notify: async (params: NotificationParams) => {
       return runner(
         run(
@@ -161,7 +160,7 @@ class EmailSenders {
         });
       });
     },
-  };
-}
+  },
+};
 
-export const send = new EmailSenders();
+export const send = senders;
