@@ -6,7 +6,7 @@ packages:
 catalog:
   next:
     14.2.3
-    # using this for this blog because of an irritiating bug
+    # using this for this because of an irritiating bug
     # @see https://github.com/hashicorp/next-mdx-remote/issues/467
   prettier: 3.3.3
   tailwindcss: 3.4.14

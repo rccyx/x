@@ -6,17 +6,17 @@ import { Kit } from "@anthonyhagi/kit-node-sdk";
 const kit = new Kit({ apiKey: env.KIT_API_KEY });
 
 export class NewsletterService {
-  private readonly SERVICE_TAG = "NewsletterService";
-  private readonly client = kit;
+  private readonly _SERVICE_TAG = "NewsletterService";
+  private readonly _client = kit;
   public async subscribe({ email }: { email: string }) {
     logger.info("creating/updating subscriber", { email });
     return runner(
       run(
         () =>
-          this.client.subscribers.create({
+          this._client.subscribers.create({
             email_address: email,
           }),
-        `${this.SERVICE_TAG}SubscribeApiFailure`,
+        `${this._SERVICE_TAG}SubscribeApiFailure`,
         {
           message:
             "looks like something went wrong with our newsletter provider",
