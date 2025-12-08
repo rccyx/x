@@ -334,12 +334,11 @@ declare global {
 }
 
 /** singleton stripe payments client. cached on global in dev for hot reload. */
-export const stripePaymentsClient =
+export const stripe =
   global._paymentsClient ?? new StripeCheckoutPaymentsService();
 
 /** type alias for stripe payments client instance. */
-export type StripePaymentsClient = typeof stripePaymentsClient;
+export type StripePaymentsClient = typeof stripe;
 
 // node dev, not global dev
-if (env.NODE_ENV !== "production")
-  global._paymentsClient = stripePaymentsClient;
+if (env.NODE_ENV !== "production") global._paymentsClient = stripe;

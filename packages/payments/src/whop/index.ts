@@ -14,6 +14,8 @@ import type {
 } from "../base";
 import { BasePaymentsService } from "../base";
 
+const companyId = "TODO:CHANGEME";
+
 /** whop implementation. uses whop checkout and billing portal. */
 export class WhopPaymentsService extends BasePaymentsService {
   private readonly _sdk: ReturnType<typeof WhopServerSdk>;
@@ -317,3 +319,5 @@ export function createWhopPaymentsClient(
 
 /** type alias for whop payments client instance. */
 export type WhopPaymentsClient = WhopPaymentsService;
+
+export const whop = createWhopPaymentsClient(companyId);
