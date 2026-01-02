@@ -1,4 +1,3 @@
-import { createReactQueryClient } from "restyx/react-query";
 import { createSdkClient } from "restyx/sdk";
 import { env } from "@rccyx/env";
 import { contract } from "../../../../boundary/v1/contract";
@@ -16,5 +15,3 @@ const args = {
 } satisfies CreateClientArgs;
 
 export const sdk = createSdkClient(contract, args);
-
-export const restClient = createReactQueryClient(contract, args);
