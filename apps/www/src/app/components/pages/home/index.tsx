@@ -2,18 +2,20 @@
 
 import { useEffect } from "react";
 import { motion } from "@rccyx/design/motion";
-import { useCopyToClipboard } from "react-use";
-import { toast, Button, Badge } from "@rccyx/design/ui";
-import { ArrowUpRight, GitBranch, AtSign, XIcon } from "@rccyx/design/icons";
-import { email, links } from "@rccyx/constants";
+import { Button, Badge } from "@rccyx/design/ui";
+import {
+  ArrowUpRight,
+  GitBranch,
+  XIcon,
+  Braces,
+  Code2,
+  Terminal,
+} from "@rccyx/design/icons";
+import { links } from "@rccyx/constants";
 import { env } from "@rccyx/env";
 import Link from "next/link";
 
 export function HomePage() {
-  const [, copyToClipboard] = useCopyToClipboard();
-
-  const emailAddress = email.personal.address;
-
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     const originalHeight = document.body.style.height;
@@ -26,11 +28,6 @@ export function HomePage() {
       document.body.style.height = originalHeight;
     };
   }, []);
-
-  const copyEmail = () => {
-    copyToClipboard(emailAddress);
-    toast.success("Email copied");
-  };
 
   const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
 
@@ -193,37 +190,49 @@ export function HomePage() {
 
                   <div className="flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.12em] text-dim-300">
                     <Button
+                      asChild
                       role="secondary"
                       shape="rounded"
                       size="sm"
-                      aria-label="Copy email address"
-                      onClick={copyEmail}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") copyEmail();
-                      }}
+                      aria-label="Open GitHub profile"
                     >
-                      <AtSign className="h-3.5 w-3.5" />
-                    </Button>
-
-                    <Button role="secondary" shape="rounded" size="sm">
-                      <Link
-                        href={links.twitter.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Open X profile"
-                      >
-                        <XIcon className="h-3.5 w-3.5" />
-                      </Link>
-                    </Button>
-
-                    <Button role="secondary" shape="rounded" size="sm">
                       <Link
                         href={links.gitHub.link}
                         target="_blank"
                         rel="noreferrer"
-                        aria-label="Open GitHub profile"
                       >
                         <GitBranch className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+
+                    <Button
+                      asChild
+                      role="secondary"
+                      shape="rounded"
+                      size="sm"
+                      aria-label="Open Gist"
+                    >
+                      <Link
+                        href={links.gist.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <Braces className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      role="secondary"
+                      shape="rounded"
+                      size="sm"
+                      aria-label="Open X profile"
+                    >
+                      <Link
+                        href={links.twitter.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <XIcon className="h-3.5 w-3.5" />
                       </Link>
                     </Button>
                   </div>

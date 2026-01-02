@@ -3,6 +3,8 @@ packages:
   - packages/*
   - tooling/*
 
+linkWorkspacePackages: true
+
 catalog:
   next:
     14.2.3

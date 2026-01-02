@@ -5,10 +5,7 @@ export const email = {
     address: "oss@rccyx.com",
     from: "rccyx <oss@rccyx.com>",
   },
-  personal: {
-    address: "x@rccyx.com",
-    from: "rccyx <x@rccyx.com>",
-  },
+
   bot: {
     address: "no-reply@notify.rccyx.com",
     from: "rccyx[bot] <no-reply@notify.rccyx.com>",
@@ -21,6 +18,10 @@ export const links = {
   gitHub: {
     username: "rccyx",
     link: "https://github.com/rccyx",
+  },
+  gist: {
+    username: "rccyx",
+    link: "https://gist.github.com/rccyx",
   },
   twitter: {
     link: "https://x.com/rccyx_",
