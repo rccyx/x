@@ -15,6 +15,9 @@ import { fontMatterMdxContentSchemaRo } from "../../models";
 import { PostProjection } from "../../projections";
 import { err, ok, run, runner, runSync } from "@rccyx/runner";
 
+// TODO: do this
+// publish()
+// & call it Post, and abtract away statics
 export class PostService {
   private readonly serviceTag = "PostService";
   public async getPublicPostCards() {
