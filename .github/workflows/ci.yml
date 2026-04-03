@@ -10,26 +10,6 @@ on:
       - opened
       - synchronize
 
-  workflow_dispatch:
-    inputs:
-      app:
-        description: "App to deploy (manual runs only)"
-        required: true
-        type: choice
-        options:
-          - both
-          - www
-          - blog
-        default: both
-      environment:
-        description: "Target environment (manual runs only)"
-        required: true
-        type: choice
-        options:
-          - preview
-          - production
-        default: preview
-
 permissions:
   contents: write
   issues: write
@@ -40,17 +20,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-pr:
-    if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/on-workflow-call-pr-validate-title.yml
-    secrets: inherit
-
-  summarize-pr:
-    if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/on-workflow-call-pr-summarize.yml
+  secrets-leaks:
+    uses: ./.github/workflows/on-workflow-call-secrets-leaks.yml
     secrets: inherit
 
   validate-env:
+    needs: [secrets-leaks]
     uses: ./.github/workflows/on-workflow-call-validate-env.yml
     secrets: inherit
 
@@ -66,19 +41,18 @@ jobs:
     uses: ./.github/workflows/on-workflow-call-lint.yml
     secrets: inherit
 
-  secrets-leaks:
-    uses: ./.github/workflows/on-workflow-call-secrets-leaks.yml
-    secrets: inherit
-
   build:
+    needs: [validate-env]
     uses: ./.github/workflows/on-workflow-call-build.yml
     secrets: inherit
 
   test:
+    needs: [validate-env]
     uses: ./.github/workflows/on-workflow-call-test.yml
     secrets: inherit
 
   db-fresh-migration:
+    needs: [validate-env]
     uses: ./.github/workflows/on-workflow-call-ephermal-db-migrate.yml
     secrets: inherit
 
@@ -100,9 +74,12 @@ jobs:
         with:
           jobs: ${{ toJSON(needs) }}
 
-  # trigger preview gate
+  # this is just a trigger preview gate
   preview-deployment:
     needs: [mergeable]
+    # If someone pushes code directly to main (or merges a PR into main), run this job automatically.
+    # OR
+    # If a developer manually triggers this workflow and explicitly chooses the 'preview' environment, run this job.
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'preview')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
