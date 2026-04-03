@@ -29,7 +29,7 @@ RUN --mount=type=secret,id=DATABASE_URL \
     --mount=type=secret,id=S3_BUCKET_URL \
     --mount=type=secret,id=KIT_API_KEY \
     --mount=type=secret,id=IP_HASH_SALT \
-    --mount=type=secret,id=X_API_TOKEN \
+    --mount=type=secret,id=X_API_KEY \
     --mount=type=secret,id=SENTRY_ORG \
     --mount=type=secret,id=SENTRY_PROJECT \
     --mount=type=secret,id=SENTRY_AUTH_TOKEN \
@@ -54,7 +54,7 @@ exp S3_BUCKET_SECRET_KEY
 exp S3_BUCKET_URL 
 exp KIT_API_KEY 
 exp IP_HASH_SALT 
-exp X_API_TOKEN 
+exp X_API_KEY 
 exp SENTRY_ORG 
 exp SENTRY_PROJECT 
 exp SENTRY_AUTH_TOKEN 

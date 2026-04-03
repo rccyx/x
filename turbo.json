@@ -72,7 +72,7 @@
     "DATABASE_URL",
     "DIRECT_URL",
     "RESEND_API_KEY",
-    "X_API_TOKEN",
+    "X_API_KEY",
     "SENTRY_PROJECT",
     "QSTASH_TOKEN",
     "SENTRY_ORG",

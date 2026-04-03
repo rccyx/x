@@ -14,7 +14,7 @@ export const env = createEnv({
   runtimeEnv: {
     // server vars
     QSTASH_TOKEN: process.env.QSTASH_TOKEN,
-    X_API_TOKEN: process.env.X_API_TOKEN,
+    X_API_KEY: process.env.X_API_KEY,
     IP_HASH_SALT: process.env.IP_HASH_SALT,
     KIT_API_KEY: process.env.KIT_API_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,

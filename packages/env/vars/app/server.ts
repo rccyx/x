@@ -35,7 +35,7 @@ export const serverVars = {
     .optional()
     .describe("NextJS is taking care of this basically"),
   SENTRY_ORG: z.string().min(2).max(255),
-  X_API_TOKEN: z.string().length(32).max(255),
+  X_API_KEY: z.string().length(32).max(255),
   SENTRY_PROJECT: z.string().min(2).max(255),
   SENTRY_AUTH_TOKEN: z.string().min(20).max(255),
   IP_HASH_SALT: z

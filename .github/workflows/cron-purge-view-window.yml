@@ -24,7 +24,7 @@ jobs:
         if: success()
         uses: rccyx/notify@main
         with:
-          token: ${{ secrets.X_API_TOKEN }}
+          token: ${{ secrets.X_API_KEY }}
 
           title: "Cron Succeeded"
           message: >-

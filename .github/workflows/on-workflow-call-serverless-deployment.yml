@@ -7,10 +7,10 @@ on:
         required: true
         type: string
         description: "Environment to deploy to (preview or production)"
-      app_name:
+      app:
         required: true
         type: string
-        description: "App name, either 'www' or 'blog'"
+        description: "App name, follows the folder structure of ../../packages"
 
 permissions:
   pull-requests: write
@@ -34,29 +34,31 @@ jobs:
         with:
           ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
 
-      - name: Select Vercel Project Secrets
-        id: vercel-secrets
-        run: |
-          if [ "${{ inputs.app_name }}" = "blog" ]; then
-            echo "VERCEL_PROJECT_ID=${{ env.VERCEL_BLOG_PROJECT_ID }}" >> $GITHUB_OUTPUT
-          else
-            echo "VERCEL_PROJECT_ID=${{ env.VERCEL_WWW_PROJECT_ID }}" >> $GITHUB_OUTPUT
-          fi
-
-          # Common ones
-          echo "VERCEL_ORG_ID=${{ env.VERCEL_ORG_ID }}" >> $GITHUB_OUTPUT
-          echo "VERCEL_TOKEN=${{ env.VERCEL_TOKEN }}" >> $GITHUB_OUTPUT
-
       - uses: ./.github/actions/db-migrate
         with:
           comment_on_pr: ${{ github.event_name == 'pull_request' && 'yes' || 'no' }}
 
+        # hardcored part
+      - name: Select Vercel Project Secrets
+        id: vercel-secrets
+        run: |
+          if [ "${{ inputs.app }}" = "continuum" ]; then
+            echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_CONTINUUM_PROJECT_ID }}" >> $GITHUB_OUTPUT
+          else
+            echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_WWW_PROJECT_ID }}" >> $GITHUB_OUTPUT
+          fi
+
+          # Common ones
+          echo "VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}" >> $GITHUB_OUTPUT
+          echo "VERCEL_TOKEN=${{ secrets.VERCEL_TOKEN }}" >> $GITHUB_OUTPUT
+
+        # normal
       - uses: ./.github/actions/vercel-deploy
         with:
-          deployment_environment: ${{ inputs.deployment_environment }}
-          app_name: ${{ inputs.app_name }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INTERNAL_NOTIFICATION_TOKEN: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
+          environment: ${{ inputs.environment }}
+          app: ${{ inputs.app }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
           VERCEL_TOKEN: ${{ steps.vercel-secrets.outputs.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ steps.vercel-secrets.outputs.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ steps.vercel-secrets.outputs.VERCEL_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
