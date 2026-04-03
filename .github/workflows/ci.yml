@@ -67,9 +67,9 @@ jobs:
     uses: ./.github/workflows/on-workflow-call-test.yml
     secrets: inherit
 
-  db-fresh-migration:
+  db-migrate-ephermal:
     needs: [validate-env]
-    uses: ./.github/workflows/on-workflow-call-ephermal-db-migrate.yml
+    uses: ./.github/workflows/on-workflow-call-db-migrate-ephermal.yml
     secrets: inherit
 
   mergeable:
@@ -81,7 +81,7 @@ jobs:
       - secrets-leaks
       - build
       - dependencies-check
-      - db-fresh-migration
+      - db-migrate-ephermal
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@release/v1
@@ -89,12 +89,10 @@ jobs:
         with:
           jobs: ${{ toJSON(needs) }}
 
-  # this is just a trigger preview gate
+  #### PREVIEW
+  # requires manual trigger by the owner
   preview-deployment:
     needs: [mergeable]
-    # If someone pushes code directly to main (or merges a PR into main), run this job automatically.
-    # OR
-    # If a developer manually triggers this workflow and explicitly chooses the 'preview' environment, run this job.
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'preview')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
@@ -119,6 +117,17 @@ jobs:
       app: continuum
     secrets: inherit
 
+  api-preview-deployment:
+    needs: [preview-deployment]
+    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
+    uses: ./.github/workflows/on-workflow-call-container-deployment.yml
+    with:
+      environment: preview
+      app: api
+    secrets: inherit
+
+  ##### PRODUCTION
+  # requires manual trigger by the owner
   production-deployment:
     needs: [mergeable]
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'production')
@@ -143,4 +152,13 @@ jobs:
     with:
       environment: production
       app: continuum
+    secrets: inherit
+
+  api-production-deployment:
+    needs: [production-deployment]
+    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
+    uses: ./.github/workflows/on-workflow-call-container-deployment.yml
+    with:
+      environment: production
+      app: api
     secrets: inherit

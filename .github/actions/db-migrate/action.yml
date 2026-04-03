@@ -32,7 +32,7 @@ runs:
       if: github.event_name == 'pull_request' && inputs.comment_on_pr == 'yes'
       shell: bash
       env:
-        GH_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
 
       run: |
         pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
@@ -41,7 +41,7 @@ runs:
         comment_body="Database migrations were successfully deployed to the $NEXT_PUBLIC_CURRENT_ENV branch of the database."
 
         curl -s -X POST \
-          -H "Authorization: token $GH_TOKEN" \
+          -H "Authorization: token $GITHUB_TOKEN" \
           -H "Content-Type: application/json" \
           -d "{\"body\": \"${comment_body}\"}" \
           "https://api.github.com/repos/${repo}/issues/${pr_number}/comments"

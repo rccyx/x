@@ -1,5 +1,5 @@
 name: Ephermal DB
-description: Create an ephermal local Postgres DB
+description: Create an ephermal local Postgres DB and migrate and deploy
 
 runs:
   using: "composite"
@@ -34,3 +34,29 @@ runs:
       shell: bash
       run: |
         pnpm --filter @rccyx/seeder seed
+
+    - name: Run fresh migrations on the ephermal database
+      shell: bash
+      run: |
+        # already using zod for validation against which DB is which, of which env, but extra paranoia won't hurt
+        if [[ "$DATABASE_URL" != *"localhost"* ]] && [[ "$DATABASE_URL" != *"127.0.0.1"* ]]; then
+          echo "❌ DATABASE_URL is not local! Aborting."
+          exit 1
+        fi
+
+        echo "Running migration reset..."
+        pnpm --filter @rccyx/db migrate:reset --force
+
+        echo "Validating migrations..."
+        pnpm --filter @rccyx/db migrate:status
+
+        # deploying migrations
+        pnpm --filter @rccyx/db migrate:deploy
+
+    - name: stop ephermal DB
+      if: always()
+      shell: bash
+      run: |
+        set -euo pipefail
+        echo "Cleaning up..."
+        pnpm --filter @rccyx/db stop

@@ -116,9 +116,10 @@ runs:
       uses: rccyx/notify@main
       with:
         token: ${{ inputs.X_API_KEY }}
-        title: "Deployment Succeeded"
+        title: "YX Deployment Succeeded"
         message: |
           ### Details
+
 
           - **App:** ${{ inputs.app }}
           - **Environment:** ${{ inputs.deployment_environment }}
@@ -136,7 +137,7 @@ runs:
       uses: rccyx/notify@main
       with:
         token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
-        title: "Deployment Failed"
+        title: "YX Deployment Failed"
         message: |
           ### Details
           - **App:** ${{ inputs.app_name }}

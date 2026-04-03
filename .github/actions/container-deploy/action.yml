@@ -3,14 +3,14 @@ name: Container Deployment
 description: Build and deploy container image
 
 inputs:
-  deployment_environment:
+  environment:
     description: "Environment, either 'production' or 'preview' (this will determine which image is pushed and where it redeploys)"
     required: true
     default: "preview"
-  app_name:
+  app:
     description: "App name, either 'blog' or 'www' or whatever app you're running"
     required: true
-  INTERNAL_NOTIFICATION_TOKEN:
+  X_API_KEY:
     description: "Notify token"
     required: true
   CONTAINER_SERVICE_TOKEN:
@@ -36,18 +36,18 @@ runs:
         START_TS=$(date +%s)
         echo "start_ts=$START_TS" >> "$GITHUB_OUTPUT"
 
-        IMAGE="ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}:${{ inputs.deployment_environment }}"
-        ./deployment/${{ inputs.app_name }}/build \
-          --env "${{ inputs.deployment_environment }}" \
-          --service "${{ inputs.app_name }}" \
+        IMAGE="ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}:${{ inputs.environment }}"
+        ./deployment/${{ inputs.app }}/build \
+          --env "${{ inputs.environment }}" \
+          --service "${{ inputs.app }}" \
           --image "$IMAGE"
 
     - name: Push image (production + latest)
-      if: ${{ inputs.deployment_environment == 'production' }}
+      if: ${{ inputs.environment == 'production' }}
       shell: bash
       run: |
-        IMAGE="ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}:production"
-        LATEST="ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}:latest"
+        IMAGE="ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}:production"
+        LATEST="ghcr.io/${{ github.repository_owner }}/${{ inputs.app }}:latest"
         docker push "$IMAGE"
         docker tag "$IMAGE" "$LATEST"
         docker push "$LATEST"
@@ -75,20 +75,21 @@ runs:
         export PATH="$HOME/.koyeb/bin:$PATH"
 
         # Choose target
-        if [[ "${{ inputs.deployment_environment }}" == "production" ]]; then
+        if [[ "${{ inputs.environment }}" == "production" ]]; then
           echo "Deploying to production environment"
-          DEPLOY_TARGET="${{ inputs.app_name }}/${{ inputs.app_name }}"
-        elif [[ "${{ inputs.deployment_environment }}" == "preview" ]]; then
+          DEPLOY_TARGET="${{ inputs.app }}/${{ inputs.app }}" # no need to append environment for prod since it's the default
+        elif [[ "${{ inputs.environment }}" == "preview" ]]; then
           echo "Deploying to preview environment"
-          DEPLOY_TARGET="${{ inputs.app_name }}-preview/${{ inputs.app_name }}-preview"
+          DEPLOY_TARGET="${{ inputs.app }}-preview/${{ inputs.app }}-preview"
         else
-          echo "Unknown environment: ${{ inputs.deployment_environment }}"
+          echo "Unknown environment: ${{ inputs.environment }}"
           exit 1
         fi
 
         # Redeploy
         koyeb service redeploy "$DEPLOY_TARGET"
 
+    ########## NOTFY ###########
     - name: Capture end timestamp
       id: end
       shell: bash
@@ -102,10 +103,10 @@ runs:
       run: |
         echo "seconds=$(( ${{ steps.end.outputs.end_ts }} - ${{ steps.build.outputs.start_ts }} ))" >> "$GITHUB_OUTPUT"
 
-    - name: Notify about preview deployment
+    - name: Notify about preview deployment (PR only)
       if: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' }}
       env:
-        DEPLOYED_APP: ${{ inputs.app_name }}
+        DEPLOYED_APP: ${{ inputs.app }}
       uses: actions/github-script@v7
       with:
         github-token: ${{ inputs.GITHUB_TOKEN }}
@@ -119,7 +120,7 @@ runs:
             `**Preview URL:** [${app}-preview.rccyx.me](https://${app}-preview.rccyx.me)`,
             ``,
             `---`,
-            `This preview reflects the changes in this PR. It auto-deploys when the \`deploy-preview\` label is applied.`
+            `This preview reflects the changes in this PR. It auto-deploys when the deployment label is applied.`
           ].join("\n");
           await github.rest.issues.createComment({
             issue_number: context.issue.number,
@@ -132,12 +133,12 @@ runs:
       if: success()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
+        token: ${{ inputs.X_API_KEY }}
         title: "Deployment Succeeded"
         message: |
           ### Details
-          - **App:** ${{ inputs.app_name }}
-          - **Environment:** `${{ inputs.deployment_environment }}`
+          - **App:** ${{ inputs.app }}
+          - **Environment:** `${{ inputs.environment }}`
           - **Actor:** @${{ github.actor }}
           - **Commit:** [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
           - **Run:** [View Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
@@ -150,13 +151,13 @@ runs:
       if: failure()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
+        token: ${{ inputs.X_API_KEY }}
         title: "Deployment Failed"
         message: |
           ### Details
 
-          - **App:** ${{ inputs.app_name }}
-          - **Environment:** ${{ inputs.deployment_environment }}
+          - **App:** ${{ inputs.app }}
+          - **Environment:** ${{ inputs.environment }}
           - **Actor:** @${{ github.actor }}
           - **Commit:** [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
           - **Run:** [View Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})

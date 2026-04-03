@@ -44,11 +44,16 @@ jobs:
         run: |
           if [ "${{ inputs.app }}" = "continuum" ]; then
             echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_CONTINUUM_PROJECT_ID }}" >> $GITHUB_OUTPUT
-          else
+          elif [ "${{ inputs.app }}" = "api" ]; then
+            echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_API_PROJECT_ID }}" >> $GITHUB_OUTPUT
+          elif [ "${{ inputs.app }}" = "www" ]; then
             echo "VERCEL_PROJECT_ID=${{ secrets.VERCEL_WWW_PROJECT_ID }}" >> $GITHUB_OUTPUT
+          else
+            echo "ERROR: Invalid app selection '${{ inputs.app }}'. Deployment aborted."
+            exit 1
           fi
 
-          # Common ones
+          # Common ones - only reached if the app check passes
           echo "VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}" >> $GITHUB_OUTPUT
           echo "VERCEL_TOKEN=${{ secrets.VERCEL_TOKEN }}" >> $GITHUB_OUTPUT
 
