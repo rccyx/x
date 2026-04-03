@@ -2,13 +2,29 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
   pull_request:
-    types:
-      - opened
-      - synchronize
+    types: [opened, synchronize]
+
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "Which app to deploy?"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - www
+          - continuum
+          - both
+      environment:
+        description: "Target environment"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - production
 
 permissions:
   contents: write
@@ -57,7 +73,6 @@ jobs:
     secrets: inherit
 
   mergeable:
-    if: always()
     needs:
       - validate-env
       - format
@@ -83,7 +98,7 @@ jobs:
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'preview')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
-      deployment_environment: preview
+      environment: preview
     secrets: inherit
 
   www-preview-deployment:
@@ -91,17 +106,17 @@ jobs:
     if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'www' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-serverless-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: www
+      environment: preview
+      app: www
     secrets: inherit
 
-  blog-preview-deployment:
+  continuum-preview-deployment:
     needs: [preview-deployment]
-    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'blog' || inputs.app == 'both')
+    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-container-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: blog
+      environment: preview
+      app: continuum
     secrets: inherit
 
   production-deployment:
@@ -109,7 +124,7 @@ jobs:
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'production')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
-      deployment_environment: production
+      environment: production
     secrets: inherit
 
   www-production-deployment:
@@ -117,15 +132,15 @@ jobs:
     if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'www' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-serverless-deployment.yml
     with:
-      deployment_environment: production
-      app_name: www
+      environment: production
+      app: www
     secrets: inherit
 
-  blog-production-deployment:
+  continuum-production-deployment:
     needs: [production-deployment]
-    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'blog' || inputs.app == 'both')
+    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-container-deployment.yml
     with:
-      deployment_environment: production
-      app_name: blog
+      environment: production
+      app: continuum
     secrets: inherit

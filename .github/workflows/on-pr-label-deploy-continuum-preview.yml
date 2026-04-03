@@ -11,10 +11,10 @@ permissions:
   issues: write
 
 jobs:
-  blog-deploy-preview:
+  continuum-deploy-preview:
     if: github.event.label.name == 'deploy-preview'
     uses: ./.github/workflows/on-workflow-call-container-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: blog
+      environment: preview
+      app: continuum
     secrets: inherit

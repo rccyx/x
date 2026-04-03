@@ -15,6 +15,6 @@ jobs:
     if: github.event.label.name == 'deploy-preview'
     uses: ./.github/workflows/on-workflow-call-serverless-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: www
+      environment: preview
+      app: www
     secrets: inherit

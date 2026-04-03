@@ -9,7 +9,6 @@ on:
 jobs:
   purge_view_window:
     runs-on: ubuntu-latest
-    # environment: production //  no need so it doesn't ask me for permission, this runs auto on prod creds
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,19 +18,19 @@ jobs:
 
       - name: Purge View Window
         shell: bash
-        run: .github/scripts/cron/purge-view-window.sh
+        run: .github/scripts/cron/purge-view-window
 
       - name: Notify • cron ok
         if: success()
         uses: rccyx/notify@main
         with:
-          token: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
+          token: ${{ secrets.X_API_TOKEN }}
 
           title: "Cron Succeeded"
           message: >-
             ## Details
 
-            - Monthly trash purge succeeded on ${{ env.NEXT_PUBLIC_WWW_URL }}.
+            - Monthly trash purge succeeded on ${{ env.NEXT_PUBLIC_API_URL }}.
 
             - **Run:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
@@ -45,6 +44,6 @@ jobs:
           message: >-
             ## Details
 
-            - Monthly trash purge failed on ${{ env.NEXT_PUBLIC_WWW_URL }}.
+            - Monthly trash purge failed on ${{ env.NEXT_PUBLIC_API_URL }}.
 
             - **Run:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

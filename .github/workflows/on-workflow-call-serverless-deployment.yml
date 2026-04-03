@@ -3,7 +3,7 @@ name: CD / Serverless Deployment
 on:
   workflow_call:
     inputs:
-      deployment_environment:
+      environment:
         required: true
         type: string
         description: "Environment to deploy to (preview or production)"
@@ -20,7 +20,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.deployment_environment }}
+    environment: ${{ inputs.environment }}
 
     steps:
       - uses: actions/checkout@v4
