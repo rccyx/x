@@ -7,25 +7,25 @@ variable "koyeb_token" {
 variable "app_name" {
   description = "Name of the Koyeb app"
   type        = string
-  default     = "blog"
+  default     = "continuum"
 }
 
 variable "service_name" {
   description = "Name of the Koyeb service"
   type        = string
-  default     = "blog"
+  default     = "continuum"
 }
 
 variable "docker_image" {
   description = "Docker image to deploy"
   type        = string
-  default     = "docker.io/rccyx/blog:latest"
+  default     = "docker.io/rccyx/continuum:latest"
 }
 
 variable "docker_image_preview" {
   description = "Docker image to deploy for preview environment"
   type        = string
-  default     = "docker.io/rccyx/blog:preview"
+  default     = "docker.io/rccyx/continuum:preview"
 }
 
 variable "docker_username" {
@@ -57,7 +57,7 @@ variable "environment_variables" {
 variable "instance_type" {
   description = "Koyeb instance type"
   type        = string
-  default     = "micro" // smol blog frfr
+  default     = "micro" // smol continuum frfr
 }
 
 variable "region" {

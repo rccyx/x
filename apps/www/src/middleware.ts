@@ -5,9 +5,9 @@ import { env } from "@rccyx/env";
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  if (pathname.startsWith("/blog")) {
+  if (pathname.startsWith("/continuum")) {
     const targetBaseUrl = env.NEXT_PUBLIC_BLOG_URL;
-    const cleanPath = pathname.replace(/^\/blog/, "");
+    const cleanPath = pathname.replace(/^\/continuum/, "");
     const targetUrl = `${targetBaseUrl}${cleanPath}${search}`;
     return NextResponse.redirect(targetUrl);
   }
@@ -16,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/blog/:path*", "/booking/:path*"],
+  matcher: ["/continuum/:path*", "/booking/:path*"],
 };

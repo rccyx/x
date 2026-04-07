@@ -1,5 +1,5 @@
 ---
-"@rccyx/blog": patch
+"@rccyx/continuum": patch
 ---
 
 perf optimizations

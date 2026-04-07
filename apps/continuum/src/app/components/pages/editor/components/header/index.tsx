@@ -48,7 +48,7 @@ export function Header({
             stiffness: 100,
           }}
         >
-          Blog Editor
+          Continuum Editor
         </motion.h1>
         <div className="flex items-center gap-3">
           {user ? <ProfileButton /> : null}
@@ -59,7 +59,7 @@ export function Header({
           />
           <Button onClick={onClick}>
             <Plus className="mr-2 h-4 w-4" />
-            New Blog
+            New Continuum
           </Button>
         </div>
       </div>

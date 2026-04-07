@@ -24,7 +24,7 @@ export function TitleField({ control }: TitleFieldProps) {
         <FormItem>
           <FormLabel>Title</FormLabel>
           <FormControl>
-            <Input placeholder="Blog Title" {...field} />
+            <Input placeholder="Continuum Title" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

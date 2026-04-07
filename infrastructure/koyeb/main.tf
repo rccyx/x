@@ -1,9 +1,9 @@
-resource "koyeb_app" "blog" {
-  name = "blog" 
+resource "koyeb_app" "continuum" {
+  name = "continuum" 
 }
 
-resource "koyeb_service" "blog" {
-  app_name = koyeb_app.blog.name
+resource "koyeb_service" "continuum" {
+  app_name = koyeb_app.continuum.name
   
   definition {
     name = var.service_name
@@ -44,11 +44,11 @@ resource "koyeb_service" "blog" {
     }
   }
   
-  depends_on = [koyeb_app.blog]
+  depends_on = [koyeb_app.continuum]
 }
 
 resource "koyeb_app" "blog_preview" {
-  name = "blog-preview"
+  name = "continuum-preview"
 }
 
 resource "koyeb_service" "blog_preview" {

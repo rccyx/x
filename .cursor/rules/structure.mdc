@@ -27,7 +27,7 @@ This document defines the exact structure and intent of every directory in the r
 
 ## Apps
 
--> www, blog, app, mobile, etc: every app directly calls the API layer. No backend, just UI that depends on the same transport abstraction to call the API.
+-> www, continuum, app, mobile, etc: every app directly calls the API layer. No backend, just UI that depends on the same transport abstraction to call the API.
 -> server: minimal backend app. It only connects the chosen framework (Next.js, Express, etc) to the API transport. No logic lives here. It initializes the transport layer. Set up once & forget.
 
 ## Tooling
@@ -65,7 +65,7 @@ This document defines the exact structure and intent of every directory in the r
 
 ## Apps
 
--> www, blog, app, mobile, etc: every app directly calls the API layer. No backend, just UI that depends on the same transport abstraction to call the API.
+-> www, continuum, app, mobile, etc: every app directly calls the API layer. No backend, just UI that depends on the same transport abstraction to call the API.
 -> server: minimal backend app. It only connects the chosen framework (Next.js, Express, etc) to the API transport. No logic lives here. It initializes the transport layer. Set up once & forget.
 
 ## Tooling

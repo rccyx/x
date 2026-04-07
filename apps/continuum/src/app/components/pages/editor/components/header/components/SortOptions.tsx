@@ -60,7 +60,8 @@ export function SortOptions({
   blogs,
 }: SortOptionsProps) {
   const allTags = useMemo(
-    () => Array.from(new Set(blogs.flatMap((blog) => blog.tags))).sort(),
+    () =>
+      Array.from(new Set(blogs.flatMap((continuum) => continuum.tags))).sort(),
     [blogs],
   );
 

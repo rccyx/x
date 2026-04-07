@@ -70,7 +70,7 @@ export const ciVars = {
       .max(64)
       .startsWith("prj_")
       .describe(
-        "simply run: pnpm --filter @rccyx/blog build:vercel-preview, and fetch the project id from the output",
+        "simply run: pnpm --filter @rccyx/continuum build:vercel-preview, and fetch the project id from the output",
       )
       .describe("same"),
   ),

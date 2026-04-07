@@ -2,34 +2,34 @@ import { db } from "@rccyx/db";
 import { blogs } from "./../data/mdx";
 
 export async function seedPosts() {
-  for (const blog of blogs) {
+  for (const continuum of blogs) {
     await db.post.upsert({
-      where: { slug: blog.slug },
+      where: { slug: continuum.slug },
       update: {
-        title: blog.title,
-        summary: blog.summary,
-        isReleased: blog.isReleased,
-        firstModDate: blog.firstModDate,
-        lastModDate: blog.lastModDate,
-        minutesToRead: blog.minutesToRead,
-        tags: blog.tags,
-        category: blog.category,
-        mdxText: blog.mdxContentRaw,
+        title: continuum.title,
+        summary: continuum.summary,
+        isReleased: continuum.isReleased,
+        firstModDate: continuum.firstModDate,
+        lastModDate: continuum.lastModDate,
+        minutesToRead: continuum.minutesToRead,
+        tags: continuum.tags,
+        category: continuum.category,
+        mdxText: continuum.mdxContentRaw,
       },
       create: {
-        slug: blog.slug,
-        title: blog.title,
-        summary: blog.summary,
-        isReleased: blog.isReleased,
-        firstModDate: blog.firstModDate,
-        lastModDate: blog.lastModDate,
-        minutesToRead: blog.minutesToRead,
-        tags: blog.tags,
-        category: blog.category,
-        mdxText: blog.mdxContentRaw,
+        slug: continuum.slug,
+        title: continuum.title,
+        summary: continuum.summary,
+        isReleased: continuum.isReleased,
+        firstModDate: continuum.firstModDate,
+        lastModDate: continuum.lastModDate,
+        minutesToRead: continuum.minutesToRead,
+        tags: continuum.tags,
+        category: continuum.category,
+        mdxText: continuum.mdxContentRaw,
       },
     });
     // eslint-disable-next-line no-restricted-syntax
-    console.log(`[seed] upserted post: ${blog.slug}`);
+    console.log(`[seed] upserted post: ${continuum.slug}`);
   }
 }

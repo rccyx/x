@@ -66,10 +66,10 @@ env:
   - changed-files:
       - any-glob-to-any-file:
           - packages/env/*
-blog:
+continuum:
   - changed-files:
       - any-glob-to-any-file:
-          - apps/blog/*
+          - apps/continuum/*
 
 www:
   - changed-files:

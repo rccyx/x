@@ -51,7 +51,7 @@ export function LoginPage() {
     onSuccess: () => {
       void utils.user.me.invalidate();
       toast.success("Successfully logged in", {
-        description: "You can now create and edit blog posts.",
+        description: "You can now create and edit continuum posts.",
       });
       router.push("/editor");
     },
@@ -98,7 +98,7 @@ export function LoginPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          Enter your credentials to access the blog editor
+          Enter your credentials to access the continuum editor
         </motion.p>
 
         <Form {...form}>

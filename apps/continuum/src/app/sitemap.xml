@@ -16,7 +16,7 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog</loc>
+  <loc>https://rccyx.me/continuum</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.80</priority>
 </url>
@@ -31,117 +31,117 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/skill-issues</loc>
+  <loc>https://rccyx.me/continuum/tag/skill-issues</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/typescript</loc>
+  <loc>https://rccyx.me/continuum/tag/typescript</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/typing</loc>
+  <loc>https://rccyx.me/continuum/tag/typing</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/rants</loc>
+  <loc>https://rccyx.me/continuum/tag/rants</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/scams</loc>
+  <loc>https://rccyx.me/continuum/tag/scams</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/testing</loc>
+  <loc>https://rccyx.me/continuum/tag/testing</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/management</loc>
+  <loc>https://rccyx.me/continuum/tag/management</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/user-stories</loc>
+  <loc>https://rccyx.me/continuum/tag/user-stories</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/architecture</loc>
+  <loc>https://rccyx.me/continuum/tag/architecture</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/srs</loc>
+  <loc>https://rccyx.me/continuum/tag/srs</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/audits</loc>
+  <loc>https://rccyx.me/continuum/tag/audits</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/quality</loc>
+  <loc>https://rccyx.me/continuum/tag/quality</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/python</loc>
+  <loc>https://rccyx.me/continuum/tag/python</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/react</loc>
+  <loc>https://rccyx.me/continuum/tag/react</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/anti-patterns</loc>
+  <loc>https://rccyx.me/continuum/tag/anti-patterns</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/async</loc>
+  <loc>https://rccyx.me/continuum/tag/async</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/protocols</loc>
+  <loc>https://rccyx.me/continuum/tag/protocols</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/interviews</loc>
+  <loc>https://rccyx.me/continuum/tag/interviews</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/cybersec</loc>
+  <loc>https://rccyx.me/continuum/tag/cybersec</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/performance</loc>
+  <loc>https://rccyx.me/continuum/tag/performance</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/front-end</loc>
+  <loc>https://rccyx.me/continuum/tag/front-end</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/csrf</loc>
+  <loc>https://rccyx.me/continuum/tag/csrf</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.41</priority>
 </url>
 <url>
-  <loc>https://rccyx.me/blog/tag/referer</loc>
+  <loc>https://rccyx.me/continuum/tag/referer</loc>
   <lastmod>2024-05-20T23:12:17+00:00</lastmod>
   <priority>0.41</priority>
 </url>

@@ -26,14 +26,14 @@ export function useEditorFormState() {
     form.reset(DEFAULT_VALUES);
   };
 
-  const loadFromBlog = (blog: PostArticleRo) => {
+  const loadFromBlog = (continuum: PostArticleRo) => {
     form.reset({
-      title: blog.title,
-      summary: blog.summary,
-      category: blog.category,
-      tags: blog.tags,
-      isReleased: blog.isReleased,
-      mdxText: blog.fontMatterMdxContent.body,
+      title: continuum.title,
+      summary: continuum.summary,
+      category: continuum.category,
+      tags: continuum.tags,
+      isReleased: continuum.isReleased,
+      mdxText: continuum.fontMatterMdxContent.body,
     });
   };
 

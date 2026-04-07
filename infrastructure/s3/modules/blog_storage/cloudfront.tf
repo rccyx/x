@@ -1,6 +1,6 @@
 # CloudFront Origin Access Identity (OAI)
 resource "aws_cloudfront_origin_access_identity" "blog_oai" {
-  comment = "OAI for ${var.project_name} blog content"
+  comment = "OAI for ${var.project_name} continuum content"
 }
 
 # CloudFront distribution

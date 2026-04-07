@@ -6,15 +6,21 @@ import { Button } from "@rccyx/design/ui";
 import type { PostArticleRo } from "@rccyx/api/rpc-models";
 
 interface BlogItemProps {
-  blog: PostArticleRo;
+  continuum: PostArticleRo;
   index: number;
-  onEdit: (blog: PostArticleRo) => void;
-  onDelete: (blog: PostArticleRo) => void;
+  onEdit: (continuum: PostArticleRo) => void;
+  onDelete: (continuum: PostArticleRo) => void;
   shouldReduceMotion: boolean;
 }
 
 export const BlogItem = memo(
-  ({ blog, index, onEdit, onDelete, shouldReduceMotion }: BlogItemProps) => {
+  ({
+    continuum,
+    index,
+    onEdit,
+    onDelete,
+    shouldReduceMotion,
+  }: BlogItemProps) => {
     const initialAnimation = shouldReduceMotion
       ? { opacity: 0 }
       : { opacity: 0, x: -30 };
@@ -25,7 +31,7 @@ export const BlogItem = memo(
 
     return (
       <motion.div
-        key={blog.slug}
+        key={continuum.slug}
         initial={initialAnimation}
         animate={animateAnimation}
         transition={{
@@ -36,13 +42,13 @@ export const BlogItem = memo(
         }}
         className="rounded-md border-b p-3 pb-4 last:border-0 last:pb-0"
       >
-        <h3 className="font-semibold">{blog.title}</h3>
+        <h3 className="font-semibold">{continuum.title}</h3>
         <div className="text-muted-foreground mb-2 flex text-xs font-semibold">
           <span className="mr-2 font-semibold">
-            {blog.isReleased ? "Released" : "Draft"}
+            {continuum.isReleased ? "Released" : "Draft"}
           </span>
           <span className="font-semibold">
-            {new Date(blog.lastModDate).toLocaleDateString()}
+            {new Date(continuum.lastModDate).toLocaleDateString()}
           </span>
         </div>
         <motion.div
@@ -54,14 +60,14 @@ export const BlogItem = memo(
             delay: shouldReduceMotion ? 0 : 0.1 + index * 0.05,
           }}
         >
-          <Button role="secondary" onClick={() => onEdit(blog)}>
+          <Button role="secondary" onClick={() => onEdit(continuum)}>
             Edit
           </Button>
           <Button
             appearance="outline"
             tone="danger"
             role="secondary"
-            onClick={() => onDelete(blog)}
+            onClick={() => onDelete(continuum)}
           >
             Delete
           </Button>

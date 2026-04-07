@@ -92,7 +92,7 @@ export function EditorLayout({ editor }: EditorLayoutProps) {
 
       {editor.modals.delete.visible ? (
         <ConfirmBlogDeleteModal
-          blog={editor.modals.delete.entity}
+          continuum={editor.modals.delete.entity}
           onConfirm={editor.actions.confirmDelete}
           onCancel={editor.actions.cancelDelete}
           isDeleting={editor.actions.isDeletingPost}

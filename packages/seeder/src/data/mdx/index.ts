@@ -7,7 +7,7 @@ import type { PostCategory } from "@rccyx/db/raw";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-interface Blog {
+interface Continuum {
   slug: string;
   title: string;
   summary: string;
@@ -30,7 +30,7 @@ function getCorresponsingMdxContent(slug: string): string {
   return fileContent.trim();
 }
 
-export const blogs: Blog[] = [
+export const blogs: Continuum[] = [
   {
     slug: "bounce-tracking",
     title: "Bounce Tracking",

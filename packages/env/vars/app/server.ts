@@ -42,7 +42,7 @@ export const serverVars = {
     .string()
     .min(32, "IP hash salt must be at least 32 characters long")
     .describe(
-      "This is used to has the IP with other fingerprinting info to see if the user is spamming my blog or nah",
+      "This is used to has the IP with other fingerprinting info to see if the user is spamming my continuum or nah",
     ),
   DATABASE_URL: databaseUrlSchema,
   DIRECT_URL: databaseUrlSchema,

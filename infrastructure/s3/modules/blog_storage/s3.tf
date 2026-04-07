@@ -1,4 +1,4 @@
-# Main bucket for blog content
+# Main bucket for continuum content
 resource "aws_s3_bucket" "blog_content" {
   bucket = local.bucket_name
 }

@@ -409,7 +409,7 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
       return;
     }
 
-    // Only update blocks if value has changed significantly (different blog loaded)
+    // Only update blocks if value has changed significantly (different continuum loaded)
     // and we haven't manually edited the content
     if (value !== initialValueRef.current && !manuallyEdited) {
       logger.debug("External value change detected, updating blocks", {
@@ -528,7 +528,7 @@ export function BlockEditor({ value, onChange }: BlockEditorProps) {
     return () => clearTimeout(timeoutId);
   }, [blocks, onChange, manuallyEdited, isExpanded]);
 
-  // Reset component when value becomes empty (new blog creation)
+  // Reset component when value becomes empty (new continuum creation)
   useEffect(() => {
     if (!value || value.trim() === "") {
       setBlocks([]);

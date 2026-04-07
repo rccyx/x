@@ -12,7 +12,7 @@ interface DynamicRouteParams {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = createMetadata({
-  title: "Blog",
+  title: "Continuum",
   description: "Sort by tag.",
 });
 

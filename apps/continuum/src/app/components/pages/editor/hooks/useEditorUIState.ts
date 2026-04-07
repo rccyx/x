@@ -44,17 +44,17 @@ export function useEditorUIState() {
 
   const togglePreview = () => setIsPreviewMode((prev) => !prev);
 
-  const openEditModal = (blog: PostArticleRo) => {
-    setEditModal({ visible: true, entity: blog });
+  const openEditModal = (continuum: PostArticleRo) => {
+    setEditModal({ visible: true, entity: continuum });
   };
 
   const closeEditModal = () => {
     setEditModal({ visible: false });
   };
 
-  const openDeleteModal = (blog: PostArticleRo) => {
+  const openDeleteModal = (continuum: PostArticleRo) => {
     setIsTrashingBlog(true);
-    setDeleteModal({ visible: true, entity: blog });
+    setDeleteModal({ visible: true, entity: continuum });
   };
 
   const closeDeleteModal = () => {

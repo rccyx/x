@@ -107,7 +107,7 @@ Location: https://store.example/p/sku123?aff=net_42&rid=aa7c.169983
   They also seed long lived paths. Short pages that exist for a few hundred
   milliseconds run inline JS, persist identifiers, maybe prime{" "}
   <code>CacheStorage</code> with a versioned key, then 302. Some abuse{" "}
-  <L href="https://blog.mozilla.org/security/2021/04/19/firefox-88-combats-window-name-privacy-abuses/">
+  <L href="https://continuum.mozilla.org/security/2021/04/19/firefox-88-combats-window-name-privacy-abuses/">
     <code>window.name</code>
   </L>{" "}
   as a cross load scratch pad. Good engines scrub that across sites. Weaker ones
@@ -139,7 +139,7 @@ Location: https://store.example/p/sku123?aff=net_42&rid=aa7c.169983
     Intelligent Tracking Prevention
   </L>{" "}
   with bounce defenses,{" "}
-  <L href="https://webkit.org/blog/8613/intelligent-tracking-prevention-2-1/">
+  <L href="https://webkit.org/continuum/8613/intelligent-tracking-prevention-2-1/">
     storage partitioning
   </L>
   , storage culling for suspected bouncers, and link decoration stripping in a
@@ -262,7 +262,7 @@ return dirty ? NextResponse.redirect(url, 301) : NextResponse.next()
 
 <C>
   You still need attribution. Use privacy preserving paths. WebKit ships{" "}
-  <L href="https://webkit.org/blog/11529/introducing-private-click-measurement-pcm/">
+  <L href="https://webkit.org/continuum/11529/introducing-private-click-measurement-pcm/">
     Private Click Measurement
   </L>
   . Chromium ships{" "}

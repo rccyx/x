@@ -167,5 +167,5 @@ resource "aws_s3_object" "other_folder" {
 
   bucket  = each.value.id
   key     = "other/"
-  content = ""  # things that aren't for my blog, can be any other blob
+  content = ""  # things that aren't for my continuum, can be any other blob
 }

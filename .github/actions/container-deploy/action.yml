@@ -8,7 +8,7 @@ inputs:
     required: true
     default: "preview"
   app:
-    description: "App name, either 'blog' or 'www' or whatever app you're running"
+    description: "App name, either 'continuum' or 'www' or whatever app you're running"
     required: true
   X_API_KEY:
     description: "Notify token"

@@ -7,7 +7,7 @@ inputs:
     description: "Environment: 'production' or 'preview'"
     required: true
   app:
-    description: "App dir / project name, e.g. 'www' or 'blog'"
+    description: "App dir / project name, e.g. 'www' or 'continuum'"
     required: true
   GITHUB_TOKEN:
     description: "GitHub token"

@@ -187,36 +187,36 @@ const ItemList = memo(function ItemListComponent<T>({
   );
 }) as <T>(props: ItemListProps<T>) => React.ReactElement;
 
-// Blog-specific configuration factory
+// Continuum-specific configuration factory
 export const createBlogListConfig = (
-  onEdit: (blog: PostArticleRo) => void,
-  onDelete: (blog: PostArticleRo) => void,
+  onEdit: (continuum: PostArticleRo) => void,
+  onDelete: (continuum: PostArticleRo) => void,
 ): BaseItemListConfig<PostArticleRo> => ({
   title: "Posts",
   emptyMessage:
-    'No posts found. Create your first post by clicking "New Blog".',
-  getItemKey: (blog) => blog.slug,
-  getItemTitle: (blog) => blog.title,
-  renderMetadata: (blog) => (
+    'No posts found. Create your first post by clicking "New Continuum".',
+  getItemKey: (continuum) => continuum.slug,
+  getItemTitle: (continuum) => continuum.title,
+  renderMetadata: (continuum) => (
     <>
       <span className="mr-2 font-semibold">
-        {blog.isReleased ? "Released" : "Draft"}
+        {continuum.isReleased ? "Released" : "Draft"}
       </span>
       <span className="font-semibold">
-        {new Date(blog.lastModDate).toLocaleDateString()}
+        {new Date(continuum.lastModDate).toLocaleDateString()}
       </span>
     </>
   ),
-  getActions: (blog) => [
+  getActions: (continuum) => [
     {
       label: "Edit",
       variant: "outline",
-      onClick: () => onEdit(blog),
+      onClick: () => onEdit(continuum),
     },
     {
       label: "Delete",
       variant: "destructive:outline",
-      onClick: () => onDelete(blog),
+      onClick: () => onDelete(continuum),
     },
   ],
 });
@@ -258,8 +258,8 @@ export const BlogList = ({
   errorMessage,
 }: {
   blogs: PostArticleRo[];
-  onEdit: (blog: PostArticleRo) => void;
-  onDelete: (blog: PostArticleRo) => void;
+  onEdit: (continuum: PostArticleRo) => void;
+  onDelete: (continuum: PostArticleRo) => void;
   isLoading?: boolean;
   errorMessage?: string;
 }) => {

@@ -1,4 +1,4 @@
-# IAM user for blog content operations
+# IAM user for continuum content operations
 resource "aws_iam_user" "blog_uploader" {
   name = "${var.environment}-${var.project_name}-uploader"
   path = "/system/"
@@ -9,10 +9,10 @@ resource "aws_iam_access_key" "blog_uploader" {
   user = aws_iam_user.blog_uploader.name
 }
 
-# IAM policy for blog content operations
+# IAM policy for continuum content operations
 resource "aws_iam_policy" "blog_uploader_policy" {
   name        = "${var.environment}-${var.project_name}-uploader-policy"
-  description = "Policy for uploading/managing blog content"
+  description = "Policy for uploading/managing continuum content"
   
   policy = jsonencode({
     Version = "2012-10-17"

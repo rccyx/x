@@ -24,7 +24,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
 
   const createPost = rpcClient.post.createPost.useMutation({
     onSuccess: () => {
-      toast.success("Blog post created successfully");
+      toast.success("Continuum post created successfully");
       void data.utils.post.getAllAdminPosts.invalidate();
       _resetToNewBlog();
     },
@@ -36,7 +36,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
 
   const updatePost = rpcClient.post.updatePost.useMutation({
     onSuccess: () => {
-      toast.success("Blog post updated successfully");
+      toast.success("Continuum post updated successfully");
       void data.utils.post.getAllAdminPosts.invalidate();
       _resetToNewBlog();
     },
@@ -48,7 +48,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
 
   const trashPost = rpcClient.post.trashPost.useMutation({
     onSuccess: (_, variables) => {
-      toast.success("Blog post deleted successfully");
+      toast.success("Continuum post deleted successfully");
       store.editor.movePostToTrash(variables.slug);
       void data.utils.post.getAllAdminPosts.invalidate();
       void data.utils.post.getTrashedPosts.invalidate();
@@ -94,7 +94,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     ui.closeEditModal();
     form.resetToEmpty();
     const url = new URL(window.location.href);
-    url.searchParams.delete("blog");
+    url.searchParams.delete("continuum");
     window.history.replaceState({}, "", url.toString());
   }, [form, ui]);
 
@@ -103,19 +103,19 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   }, [_resetToNewBlog]);
 
   const editBlog = useCallback(
-    (blog: PostArticleRo) => {
+    (continuum: PostArticleRo) => {
       if (ui.isTrashingBlog) return;
-      ui.setSelectedBlog(blog);
-      ui.openEditModal(blog);
-      form.loadFromBlog(blog);
-      logger.info("Editing blog", { slug: blog.slug });
+      ui.setSelectedBlog(continuum);
+      ui.openEditModal(continuum);
+      form.loadFromBlog(continuum);
+      logger.info("Editing continuum", { slug: continuum.slug });
     },
     [form, ui],
   );
 
   const deleteBlog = useCallback(
-    (blog: PostArticleRo) => {
-      ui.openDeleteModal(blog);
+    (continuum: PostArticleRo) => {
+      ui.openDeleteModal(continuum);
     },
     [ui],
   );

@@ -14,7 +14,7 @@ export function useEditorData() {
   const searchParams = useSearchParams();
   const { user } = useAuth();
 
-  const blogSlug = searchParams.get("blog");
+  const blogSlug = searchParams.get("continuum");
 
   const isLoggedIn = !!user;
   const isAdmin = user?.role === UserRoleEnum.ADMIN;

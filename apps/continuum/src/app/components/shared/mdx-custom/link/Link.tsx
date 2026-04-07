@@ -5,11 +5,11 @@ import { cn } from "@rccyx/design/ui";
 
 export function BlogLink({
   href,
-  origin = "blog",
+  origin = "continuum",
   ...props
 }: {
   href: string;
-  origin?: "blog" | "www";
+  origin?: "continuum" | "www";
   children: React.ReactNode;
 }) {
   const SITE_URL =

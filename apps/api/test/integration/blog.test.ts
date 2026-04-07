@@ -48,7 +48,7 @@ function createTestContext() {
   });
 }
 
-test("load and validate all blog posts", async () => {
+test("load and validate all continuum posts", async () => {
   const ctx = createTestContext();
   const caller = createCallerFactory(appRouter)(ctx);
   const posts = await caller.post.getPublicPostCards();
@@ -58,7 +58,7 @@ test("load and validate all blog posts", async () => {
   }
 });
 
-test("load and validate a single blog post", async () => {
+test("load and validate a single continuum post", async () => {
   const ctx = createTestContext();
   const caller = createCallerFactory(appRouter)(ctx);
 

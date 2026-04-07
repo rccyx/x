@@ -8,14 +8,14 @@ import { ModalShell } from "./ModalShell";
 import type { PostArticleRo } from "@rccyx/api/rpc-models";
 
 export function ConfirmBlogDeleteModal(props: {
-  blog: PostArticleRo;
+  continuum: PostArticleRo;
   onConfirm: () => void;
   onCancel: () => void;
   isDeleting?: boolean;
 }) {
   const [confirmation, setConfirmation] = useState("");
 
-  const isMatch = confirmation.trim() === props.blog.title;
+  const isMatch = confirmation.trim() === props.continuum.title;
 
   return (
     <ModalShell onClose={props.onCancel}>
@@ -25,7 +25,7 @@ export function ConfirmBlogDeleteModal(props: {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        Delete Blog
+        Delete Continuum
       </motion.h3>
 
       <motion.p
@@ -35,14 +35,14 @@ export function ConfirmBlogDeleteModal(props: {
         transition={{ delay: 0.2 }}
       >
         To confirm deletion of{" "}
-        <span className="font-semibold">{props.blog.title}</span>, please type
-        the blog title exactly below.
+        <span className="font-semibold">{props.continuum.title}</span>, please
+        type the continuum title exactly below.
         <br />
       </motion.p>
       <Input
         value={confirmation}
         onChange={(e) => setConfirmation(e.target.value)}
-        placeholder="Type blog title here"
+        placeholder="Type continuum title here"
         className="mb-4 w-full"
         disabled={props.isDeleting}
       />

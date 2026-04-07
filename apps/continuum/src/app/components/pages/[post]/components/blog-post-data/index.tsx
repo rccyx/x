@@ -6,7 +6,7 @@ import { DateService } from "@rccyx/cross-runtime";
 import { Badge } from "@rccyx/design/ui";
 import { Views } from "~/app/components/shared/views";
 
-import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/blog";
+import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/continuum";
 import { ScrollUp } from "~/app/components/pages/home/components/postCards/components/ScrollUp";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { MDX } from "../../../../shared/mdx-custom/mdx";
@@ -26,8 +26,8 @@ export function BlogPostData({ postData }: BlogPostProps) {
       <div className="flex items-center justify-between">
         <H1 id={postData.title}>{postData.title}</H1>
         <Link
-          href={`/editor?blog=${postData.slug}`}
-          aria-label={`Edit blog post: ${postData.title}`}
+          href={`/editor?continuum=${postData.slug}`}
+          aria-label={`Edit continuum post: ${postData.title}`}
           className="ml-2 transition-duration-100 text-muted-foreground hover:text-foreground transition-colors"
         >
           <Edit className="h-4 w-4" />
