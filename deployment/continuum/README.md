@@ -1,9 +1,3 @@
-### (from root)
+# Continuum Docker Deployment
 
-```bash
-# Build the image
-./deployment/continuum/build \
-      --env production \
-      --service continuum \
-      --image mysite
-```
+TODO: make this work
