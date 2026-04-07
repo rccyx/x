@@ -9,7 +9,7 @@ Each `page.tsx` file inside `app/(pages)/` should be minimal and declarative. It
 
 Responsibilities of a `page.tsx` file:
 
-- Import `Metadata` and define `generateMetadata` (or export `metadata`) using the dedictated seo package
+- Import `Metadata` and define `generateMetadata` (or export `metadata`) using the dedictated seo package if applies.
 - Configure static/dynamic generation if applies
 - Do server side fetching if applies
 - Return a single root component from `components/pages/{route}/index.tsx`
@@ -79,6 +79,8 @@ apps/
               components/
                 MajorHeading.tsx
                 MinorHeading.tsx
+              /misc/
+                Shared.tsx <- for things that are shared within the about/ directory alone.
           misc/
             layout/
               components

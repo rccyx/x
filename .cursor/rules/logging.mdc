@@ -14,4 +14,4 @@ Always import the logger from the package:
 import { logger } from "@rccyx/logger";
 ```
 
-NEVER EVER USE `console.log`
+NEVER EVER USE `console.log` or any other logger. There's only one.
