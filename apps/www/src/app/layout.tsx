@@ -11,7 +11,6 @@ import { AnalyticsProvider } from "@rccyx/analytics/client";
 import { DesignSystemProvider } from "@rccyx/design/provider";
 
 import { env } from "@rccyx/env";
-import { RestProvider } from "@rccyx/api/rest-client";
 
 const description = "Modern renaissance spirit.";
 
@@ -29,9 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <JsonLdScript code={organizationJsonLd(siteUrl)} />
       <JsonLdScript code={websiteJsonLd(siteUrl)} />
       <DesignSystemProvider>
-        <AnalyticsProvider>
-          <RestProvider>{children}</RestProvider>
-        </AnalyticsProvider>
+        <AnalyticsProvider>{children}</AnalyticsProvider>
       </DesignSystemProvider>
     </>
   );

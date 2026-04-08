@@ -3,14 +3,7 @@
 import { useEffect } from "react";
 import { motion } from "@rccyx/design/motion";
 import { Button, Badge } from "@rccyx/design/ui";
-import {
-  ArrowUpRight,
-  GitBranch,
-  XIcon,
-  Braces,
-  Code2,
-  Terminal,
-} from "@rccyx/design/icons";
+import { ArrowUpRight, GitBranch, XIcon, Braces } from "@rccyx/design/icons";
 import { links } from "@rccyx/constants";
 import { env } from "@rccyx/env";
 import Link from "next/link";
@@ -29,7 +22,7 @@ export function HomePage() {
     };
   }, []);
 
-  const primaryCtaHref = env.NEXT_PUBLIC_BLOG_URL;
+  const primaryCtaHref = env.NEXT_PUBLIC_CONTINUUM_URL;
 
   return (
     <div

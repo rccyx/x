@@ -7,7 +7,7 @@ export const analytics = usePostHog();
 
 // TODO: add typed client here that makes sense
 
-export const useAnalytics = () => {
+export const analyticsTyped = () => {
   return {
     capture: <T extends keyof AnalyticsEventBus>(
       eventName: T,

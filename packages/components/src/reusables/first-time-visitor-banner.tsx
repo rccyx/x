@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Banner, cn, Button } from "@rccyx/design/ui";
-import { useAnalytics } from "@rccyx/analytics/client";
+import { analytics } from "@rccyx/analytics/client";
 
 type Stage =
   | "init"
@@ -48,7 +48,6 @@ function Kbd({
 }
 
 export function FirstTimeVisitorBanner({ className }: Props) {
-  const analytics = useAnalytics();
   const [stage, setStage] = useState<Stage>("init");
   const [hasKeyboard, setHasKeyboard] = useState<boolean | null>(null);
 
@@ -80,7 +79,9 @@ export function FirstTimeVisitorBanner({ className }: Props) {
       }
     };
 
-    void detectKeyboard();
+    detectKeyboard().catch(() => {
+      setHasKeyboard(false);
+    });
   }, []);
 
   // On mount: read consent, rehydrate analytics, then resolve stage
@@ -110,7 +111,6 @@ export function FirstTimeVisitorBanner({ className }: Props) {
     }
   }, [analytics, hasKeyboard]);
 
-  // Keep consent in sync across tabs
   useEffect(() => {
     if (hasKeyboard !== true) return;
 
