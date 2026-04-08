@@ -37,4 +37,4 @@ jobs:
           app: ${{ inputs.app }}
           CONTAINER_SERVICE_TOKEN: ${{ secrets.CONTAINER_SERVICE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_CI: ${{ secrets.X_API_KEY_CI }}

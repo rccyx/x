@@ -1,11 +1,6 @@
 import { env } from "@rccyx/env";
 
 export const email = {
-  oss: {
-    address: "oss@rccyx.com",
-    from: "rccyx <oss@rccyx.com>",
-  },
-
   bot: {
     address: "no-reply@notify.rccyx.com",
     from: "rccyx[bot] <no-reply@notify.rccyx.com>",

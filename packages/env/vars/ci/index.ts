@@ -34,14 +34,12 @@ export const ciVars = {
         "Depending on the environment (development, production, etc), thou shall not fuckup with this one",
       ),
   ),
-  INTERNAL_NOTIFICATION_TOKEN: ci(
+  X_API_KEY_CI: ci(
     z
       .string()
       .min(1)
       .max(64)
-      .describe(
-        "Hit my endpoints to notify me @see https://github.com/rccyx/notify/",
-      ),
+      .describe("CI only token to interact with the platform"),
   ),
   // doppler
   VERCEL_TOKEN: ci(z.string().min(1).max(64)).describe(
@@ -63,7 +61,7 @@ export const ciVars = {
     .describe(
       "the only manual thing you have to do is set the root directory to apps/www on the www project on Vercel dashboard",
     ),
-  VERCEL_BLOG_PROJECT_ID: ci(
+  VERCEL_CONTINUUM_PROJECT_ID: ci(
     z
       .string()
       .min(1)
@@ -88,18 +86,6 @@ export const ciVars = {
     .describe("just run: npx turbo login, they'll guide through"),
   TURBO_TEAM: ci(z.string().min(1).max(64)),
 
-  OPENAI_PR_SUMMARIZER_TOKEN: ci(
-    z
-      .string()
-      .min(1)
-      .max(255)
-      .startsWith("sk-")
-      .describe(
-        "Used to summarize PRs @see https://github.com/rccyx/pr-summarizer",
-      ),
-  ).describe(
-    "this is just for the pr-summarizer action, @see https://github.com/rccyx/pr-summarizer",
-  ),
   CONTAINER_SERVICE_TOKEN: ci(
     z
       .string()

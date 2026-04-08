@@ -62,7 +62,7 @@ jobs:
         with:
           environment: ${{ inputs.environment }}
           app: ${{ inputs.app }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_CI: ${{ secrets.X_API_KEY_CI }}
           VERCEL_TOKEN: ${{ steps.vercel-secrets.outputs.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ steps.vercel-secrets.outputs.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ steps.vercel-secrets.outputs.VERCEL_PROJECT_ID }}

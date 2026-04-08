@@ -24,7 +24,7 @@ jobs:
         if: success()
         uses: rccyx/notify@main
         with:
-          token: ${{ secrets.X_API_KEY }}
+          token: ${{ secrets.X_API_KEY_CI }}
 
           title: "Cron Succeeded"
           message: >-
@@ -38,7 +38,7 @@ jobs:
         if: failure()
         uses: rccyx/notify@main
         with:
-          token: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
+          token: ${{ secrets.X_API_KEY_CI }}
 
           title: "Cron Failed"
           message: >-

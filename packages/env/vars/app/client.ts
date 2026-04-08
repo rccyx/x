@@ -9,7 +9,7 @@ export const clientVars = {
   SENTRY_DSN: z.string().url(),
   WWW_URL: z.string().url(),
   API_URL: z.string().url(),
-  BLOG_URL: z.string().url(),
+  CONTINUUM_URL: z.string().url(),
   POSTHOG_KEY: z.string().min(20).startsWith("phc_"),
   POSTHOG_HOST: z.string().url(),
   LOGTAIL_INGESTION_TOKEN: z.string().min(20).max(255),

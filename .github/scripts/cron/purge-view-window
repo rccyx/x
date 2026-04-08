@@ -4,12 +4,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/_utils"
 
 require_env "NEXT_PUBLIC_API_URL"
-require_env "X_API_KEY"
+require_env "X_API_KEY_CI"
 
 echo "→ Purging view window from $NEXT_PUBLIC_API_URL"
 curl -fsSL -X DELETE \
   "$NEXT_PUBLIC_API_URL/v1/purge-view-window" \
-  -H "x-api-token: $X_API_KEY" \
+  -H "x-api-token: $X_API_KEY_CI" \
   --connect-timeout 5 --max-time 30 \
   --retry 3 --retry-delay 2 --retry-connrefused
 

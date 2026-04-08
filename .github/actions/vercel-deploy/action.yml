@@ -12,7 +12,7 @@ inputs:
   GITHUB_TOKEN:
     description: "GitHub token"
     required: true
-  X_API_KEY:
+  X_API_KEY_CI:
     description: "Internal ops token"
     required: true
   VERCEL_TOKEN:
@@ -115,7 +115,7 @@ runs:
       if: success()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.X_API_KEY }}
+        token: ${{ inputs.X_API_KEY_CI }}
         title: "YX Deployment Succeeded"
         message: |
           ### Details
@@ -136,7 +136,7 @@ runs:
       if: failure()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.INTERNAL_NOTIFICATION_TOKEN }}
+        token: ${{ inputs.X_API_KEY_CI }}
         title: "YX Deployment Failed"
         message: |
           ### Details

@@ -5,13 +5,13 @@ source "$SCRIPT_DIR/_utils"
 
 # Validate required env vars
 require_env "NEXT_PUBLIC_API_URL"
-require_env "X_API_KEY"
+require_env "X_API_KEY_CI"
 
 # Perform request
 echo "→ Purging trash posts from $NEXT_PUBLIC_API_URL"
 curl -fsSL -X DELETE \
   "$NEXT_PUBLIC_API_URL/v1/purge-trash-posts" \
-  -H "x-api-token: $X_API_KEY" \
+  -H "x-api-token: $X_API_KEY_CI" \
   --connect-timeout 5 --max-time 30 \
   --retry 3 --retry-delay 2 --retry-connrefused
 

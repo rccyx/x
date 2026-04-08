@@ -10,7 +10,7 @@ const databaseUrlSchema = z
     if (env === "production" && !url.includes("supabase")) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "In production, databse must be Supabase'",
+        message: "In production, database must be Supabase'",
       });
     }
 
@@ -33,7 +33,7 @@ export const serverVars = {
   NODE_ENV: z
     .enum(["production", "development", "test"])
     .optional()
-    .describe("NextJS is taking care of this basically"),
+    .describe("NextJS is taking care of this"),
   SENTRY_ORG: z.string().min(2).max(255),
   X_API_KEY: z.string().length(32).max(255),
   SENTRY_PROJECT: z.string().min(2).max(255),
@@ -45,7 +45,7 @@ export const serverVars = {
       "This is used to has the IP with other fingerprinting info to see if the user is spamming my continuum or nah",
     ),
   DATABASE_URL: databaseUrlSchema,
-  DIRECT_URL: databaseUrlSchema,
+  DIRECT_URL: databaseUrlSchema.describe("The direct URL to the database"),
   S3_BUCKET_NAME: z
     .string()
     .min(3, "Bucket name too short")
@@ -55,7 +55,7 @@ export const serverVars = {
     .enum(["us-east-1", "us-west-1", "us-west-2", "eu-west-1"], {
       errorMap: () => ({ message: "Invalid AWS region" }),
     })
-    .describe("I dont deploy anywhere else really"),
+    .describe("Add more regions as needed"),
   S3_BUCKET_ACCESS_KEY_ID: z
     .string()
     .length(20, { message: "Access Key ID must be 20 chars" }),

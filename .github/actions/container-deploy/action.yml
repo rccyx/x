@@ -10,7 +10,7 @@ inputs:
   app:
     description: "App name, either 'continuum' or 'www' or whatever app you're running"
     required: true
-  X_API_KEY:
+  X_API_KEY_CI:
     description: "Notify token"
     required: true
   CONTAINER_SERVICE_TOKEN:
@@ -133,7 +133,7 @@ runs:
       if: success()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.X_API_KEY }}
+        token: ${{ inputs.X_API_KEY_CI }}
         title: "Deployment Succeeded"
         message: |
           ### Details
@@ -151,7 +151,7 @@ runs:
       if: failure()
       uses: rccyx/notify@main
       with:
-        token: ${{ inputs.X_API_KEY }}
+        token: ${{ inputs.X_API_KEY_CI }}
         title: "Deployment Failed"
         message: |
           ### Details

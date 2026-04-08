@@ -1,3 +1,6 @@
 {
-  "extends": "@rccyx/tsconfig/base.json"
+  "extends": "@rccyx/tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  }
 }
