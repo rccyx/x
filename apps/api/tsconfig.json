@@ -1,7 +1,6 @@
 {
   "extends": "@rccyx/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "module": "esnext",
     "paths": {
       "@ts-rest/core": ["./node_modules/@ts-rest/core"], // checkout http://github.com/pnpm/pnpm/issues/5176
