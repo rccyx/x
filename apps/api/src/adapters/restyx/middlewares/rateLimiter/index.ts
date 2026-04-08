@@ -1,4 +1,7 @@
-import { response, middlewareFn } from "@restyx/next/core";
+import {
+  response,
+  middlewareFn,
+} from "../../../../adapters/restyx/framework/src/core";
 import { createLimiter } from "limico";
 import type { RlWindow } from "limico";
 import type { RestyxContext } from "../../context";

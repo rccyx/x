@@ -1,8 +1,8 @@
 import { db } from "@rccyx/db";
 import type { RestyxContext } from "../context";
 import { logger } from "@rccyx/logger";
-import { responseHandlersFn } from "@restyx/next/core";
-import { createGlobalRequestMiddleware } from "@restyx/next/next";
+import { responseHandlersFn } from "../../../adapters/restyx/framework/src/core";
+import { createGlobalRequestMiddleware } from "../../../adapters/restyx/framework/src/next";
 
 const createGlobalContext = createGlobalRequestMiddleware<RestyxContext>(
   (request) => {

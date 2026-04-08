@@ -1,7 +1,10 @@
 import { z } from "zod";
 import { c } from "../../../../adapters/restyx/root";
-import { createSchemaResponses, httpErrorSchema } from "@restyx/next/core";
-import type { InferResponses } from "@restyx/next/core";
+import {
+  createSchemaResponses,
+  httpErrorSchema,
+} from "../../../../adapters/restyx/framework/src/core";
+import type { InferResponses } from "../../../../adapters/restyx/framework/src/core";
 import { internalErrorSchemaResponse } from "../_shared";
 
 // ========== Schemas ==========

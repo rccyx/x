@@ -1,8 +1,8 @@
-import { createSdkClient } from "restyx/sdk";
+import { createSdkClient } from "../../../../adapters/restyx/framework/src/sdk";
 import { env } from "@rccyx/env";
 import { contract } from "../../../../boundary/v1/contract";
 import { root } from "../../../../root-uris";
-import type { CreateClientArgs } from "restyx/core";
+import type { CreateClientArgs } from "../../../../adapters/restyx/framework/src/core";
 
 // Centralized client options per latest docs
 // Prefer passing credentials via fetchOptions when needed; keep baseHeaders pure

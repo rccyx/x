@@ -1,6 +1,6 @@
 import type { z } from "zod";
-import type { InferResponses } from "@restyx/next/core";
-import { createSchemaResponses } from "@restyx/next/core";
+import type { InferResponses } from "../../../../adapters/restyx/framework/src/core";
+import { createSchemaResponses } from "../../../../adapters/restyx/framework/src/core";
 import {
   tokenAuthMiddlewareSchemaResponse,
   internalErrorSchemaResponse,

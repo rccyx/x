@@ -1,5 +1,5 @@
 import type { DatabaseClient } from "@rccyx/db";
-import type { GlobalContext as Base } from "@restyx/next/core";
+import type { GlobalContext as Base } from "../../adapters/restyx/framework/src/core";
 
 export interface RestyxContext extends Base {
   ctx: {

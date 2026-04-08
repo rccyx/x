@@ -1,6 +1,9 @@
 import { env } from "@rccyx/env";
 import type { EmptyObject } from "typyx";
-import { response, middlewareFn } from "@restyx/next/core";
+import {
+  response,
+  middlewareFn,
+} from "../../../../adapters/restyx/framework/src/core";
 import type { RestyxContext } from "../../context";
 
 export function authed() {
