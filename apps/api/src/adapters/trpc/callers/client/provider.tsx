@@ -4,7 +4,7 @@ import { useState } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-import { getOptimizedQueryClient, rpcClient } from "./client";
+import { getOptimizedQueryClient, rpc } from "./client";
 import { transformer } from "../../transformer";
 import { getTrpcUrl } from "../trpc-url";
 
@@ -13,21 +13,25 @@ export function RPCProvider(
     children: React.ReactNode;
   }>,
 ) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there ais no boundary
+  // we grab the query client (the cache).
+  // no usestate here because if the app hits a loading state (suspense),
+  // react might throw away the client and reset your whole cache.
   const queryClientInstance = getOptimizedQueryClient();
+
+  // we initialize the trpc messenger once and keep it in state.
   const [trpcClientInstance] = useState(() =>
-    rpcClient.createClient({
+    rpc.createClient({
       links: [
+        // batchlink takes multiple api calls and squashes them into one
+        // single request so you don't murder your network tab.
         httpBatchLink({
-          url: getTrpcUrl(),
-          transformer,
+          url: getTrpcUrl(), // from env, re-usable
+          transformer, // superjson
           fetch(url, options) {
             return fetch(url, {
               ...options,
-              // CORS & cookies included
+              // sends your cookies and session info with every request
+              // otherwise you'd be logged out on every api call.
               credentials: "include",
             });
           },
@@ -37,13 +41,12 @@ export function RPCProvider(
   );
 
   return (
-    <rpcClient.Provider
-      client={trpcClientInstance}
-      queryClient={queryClientInstance}
-    >
+    // wraps the app so you can use trpc hooks like useQuery everywhere.
+    <rpc.Provider client={trpcClientInstance} queryClient={queryClientInstance}>
+      {/* wraps the app so the cache manager actually has a place to live. */}
       <QueryClientProvider client={queryClientInstance}>
         {props.children}
       </QueryClientProvider>
-    </rpcClient.Provider>
+    </rpc.Provider>
   );
 }
