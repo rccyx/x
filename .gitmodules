@@ -1,7 +1,3 @@
-[submodule "@restyx/next"]
-	path = packages/@restyx/next
-	url = git@github.com:rccyx/@restyx/next.git
-
 [submodule "design"]
 	path = packages/design
 	url = git@github.com:rccyx/design.git
