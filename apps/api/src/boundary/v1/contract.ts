@@ -1,4 +1,4 @@
-import { createContract } from "@restyx/next/core";
+import { createContract } from "../../adapters/restyx/framework/src/core";
 import {
   healthSchemaResponses,
   gpgQuerySchemaRequest,

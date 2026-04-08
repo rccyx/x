@@ -1,7 +1,6 @@
 {
   "extends": "@rccyx/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "module": "esnext",
     "paths": {
       "~/*": ["./src/*"],
