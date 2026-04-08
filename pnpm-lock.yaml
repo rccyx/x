@@ -188,6 +188,18 @@ importers:
       '@trpc/server':
         specifier: catalog:trpc11
         version: 11.0.2(typescript@5.6.3)
+      '@ts-rest/core':
+        specifier: 3.52.1
+        version: 3.52.1(@types/node@20.16.15)(zod@3.23.8)
+      '@ts-rest/open-api':
+        specifier: 3.52.1
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)
+      '@ts-rest/react-query':
+        specifier: 3.52.1
+        version: 3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)
+      '@ts-rest/serverless':
+        specifier: 3.52.1
+        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)
       limico:
         specifier: 'catalog:'
         version: 2.0.9
@@ -203,15 +215,15 @@ importers:
       react-hook-form:
         specifier: catalog:rhf
         version: 7.53.0(react@18.3.1)
-      restyx:
-        specifier: workspace:*
-        version: link:../../packages/restyx
       sharp:
         specifier: 'catalog:'
         version: 0.33.2
       superjson:
         specifier: 'catalog:'
         version: 2.2.1
+      testyx:
+        specifier: 'catalog:'
+        version: 1.6.3
       zod:
         specifier: 'catalog:'
         version: 3.23.8
@@ -493,9 +505,6 @@ importers:
       react-hook-form:
         specifier: catalog:rhf
         version: 7.53.0(react@18.3.1)
-      restyx:
-        specifier: workspace:*
-        version: link:../../packages/restyx
       sharp:
         specifier: 'catalog:'
         version: 0.33.2
@@ -1150,37 +1159,6 @@ importers:
       '@rccyx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
-      typescript:
-        specifier: 'catalog:'
-        version: 5.6.3
-      typyx:
-        specifier: 'catalog:'
-        version: 3.1.0
-
-  packages/restyx:
-    dependencies:
-      '@ts-rest/core':
-        specifier: 3.52.1
-        version: 3.52.1(@types/node@25.5.2)(zod@4.1.11)
-      '@ts-rest/open-api':
-        specifier: 3.52.1
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(zod@4.1.11)
-      '@ts-rest/react-query':
-        specifier: 3.52.1
-        version: 3.52.1(@tanstack/react-query@5.71.10(react@19.1.0))(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(react@19.1.0)(zod@4.1.11)
-      '@ts-rest/serverless':
-        specifier: 3.52.1
-        version: 3.52.1(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@19.0.0(react@19.1.0))(react@19.1.0))(zod@4.1.11)
-    devDependencies:
-      '@rccyx/eslint-config':
-        specifier: workspace:*
-        version: link:../../tooling/eslint
-      '@rccyx/tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/typescript
-      testyx:
-        specifier: 'catalog:'
-        version: 1.6.3
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -10853,11 +10831,11 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@anatine/zod-openapi@1.14.2(openapi3-ts@2.0.2)(zod@4.1.11)':
+  '@anatine/zod-openapi@1.14.2(openapi3-ts@2.0.2)(zod@3.23.8)':
     dependencies:
       openapi3-ts: 2.0.2
       ts-deepmerge: 6.2.1
-      zod: 4.1.11
+      zod: 3.23.8
 
   '@anthonyhagi/kit-node-sdk@0.2.3': {}
 
@@ -15318,11 +15296,6 @@ snapshots:
       '@tanstack/query-core': 5.71.10
       react: 18.3.1
 
-  '@tanstack/react-query@5.71.10(react@19.1.0)':
-    dependencies:
-      '@tanstack/query-core': 5.71.10
-      react: 19.1.0
-
   '@tootallnate/once@2.0.0': {}
 
   '@trpc/client@11.0.2(@trpc/server@11.0.2(typescript@5.6.3))(typescript@5.6.3)':
@@ -15362,33 +15335,33 @@ snapshots:
       mkdirp: 1.0.4
       path-browserify: 1.0.1
 
-  '@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11)':
+  '@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8)':
     optionalDependencies:
-      '@types/node': 25.5.2
-      zod: 4.1.11
+      '@types/node': 20.16.15
+      zod: 3.23.8
 
-  '@ts-rest/open-api@3.52.1(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(zod@4.1.11)':
+  '@ts-rest/open-api@3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
-      '@anatine/zod-openapi': 1.14.2(openapi3-ts@2.0.2)(zod@4.1.11)
-      '@ts-rest/core': 3.52.1(@types/node@25.5.2)(zod@4.1.11)
+      '@anatine/zod-openapi': 1.14.2(openapi3-ts@2.0.2)(zod@3.23.8)
+      '@ts-rest/core': 3.52.1(@types/node@20.16.15)(zod@3.23.8)
       openapi3-ts: 2.0.2
-      zod: 4.1.11
+      zod: 3.23.8
 
-  '@ts-rest/react-query@3.52.1(@tanstack/react-query@5.71.10(react@19.1.0))(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(react@19.1.0)(zod@4.1.11)':
+  '@ts-rest/react-query@3.52.1(@tanstack/react-query@5.71.10(react@18.3.1))(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(react@18.3.1)(zod@3.23.8)':
     dependencies:
-      '@tanstack/react-query': 5.71.10(react@19.1.0)
-      '@ts-rest/core': 3.52.1(@types/node@25.5.2)(zod@4.1.11)
-      react: 19.1.0
+      '@tanstack/react-query': 5.71.10(react@18.3.1)
+      '@ts-rest/core': 3.52.1(@types/node@20.16.15)(zod@3.23.8)
+      react: 18.3.1
     optionalDependencies:
-      zod: 4.1.11
+      zod: 3.23.8
 
-  '@ts-rest/serverless@3.52.1(@ts-rest/core@3.52.1(@types/node@25.5.2)(zod@4.1.11))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@19.0.0(react@19.1.0))(react@19.1.0))(zod@4.1.11)':
+  '@ts-rest/serverless@3.52.1(@ts-rest/core@3.52.1(@types/node@20.16.15)(zod@3.23.8))(next@14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(zod@3.23.8)':
     dependencies:
-      '@ts-rest/core': 3.52.1(@types/node@25.5.2)(zod@4.1.11)
+      '@ts-rest/core': 3.52.1(@types/node@20.16.15)(zod@3.23.8)
       itty-router: 5.0.22
     optionalDependencies:
-      next: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@19.0.0(react@19.1.0))(react@19.1.0)
-      zod: 4.1.11
+      next: 14.2.3(@opentelemetry/api@1.9.0)(@playwright/test@1.48.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zod: 3.23.8
 
   '@tsconfig/node10@1.0.11': {}
 

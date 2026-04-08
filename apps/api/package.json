@@ -47,7 +47,6 @@
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
     "react-hook-form": "catalog:rhf",
-    "restyx": "workspace:*",
     "testyx": "catalog:",
     "sharp": "catalog:",
     "superjson": "catalog:",
