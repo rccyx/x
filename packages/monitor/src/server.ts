@@ -2,14 +2,11 @@ import type { NextRequest } from "next/server";
 import { logger } from "@rccyx/logger";
 import { env } from "@rccyx/env";
 import { z } from "zod";
-import { init as sentryInit } from "@sentry/nextjs";
+import { init as sentryInit } from "./init";
 
 export const initializeServer = () => {
   return sentryInit({
-    dsn: env.NEXT_PUBLIC_SENTRY_DSN,
-    environment: env.NEXT_PUBLIC_CURRENT_ENV,
-    enabled: env.NEXT_PUBLIC_CURRENT_ENV !== "development",
-    tracesSampleRate: env.NEXT_PUBLIC_CURRENT_ENV === "production" ? 0.1 : 1.0,
+    runtime: "server",
   });
 };
 

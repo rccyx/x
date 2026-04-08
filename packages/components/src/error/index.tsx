@@ -3,7 +3,7 @@
 import type NextError from "next/error";
 import { useEffect } from "react";
 
-import { monitor } from "@rccyx/monitor";
+import { captureException } from "@rccyx/monitor/client";
 import { Button, toast } from "@rccyx/design/ui";
 
 export interface GlobalErrorProperties {
@@ -14,7 +14,7 @@ export interface GlobalErrorProperties {
 export const ErrorBoundary = ({ error, reset }: GlobalErrorProperties) => {
   useEffect(() => {
     toast.message(
-      monitor.next.captureException({
+      captureException({
         error,
       }),
     );

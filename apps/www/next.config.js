@@ -10,10 +10,11 @@ const jiti = createJiti(import.meta.url);
 
 const baseConfig = jiti("@rccyx/next/config");
 
+const { withConfig } = jiti("@rccyx/monitor/next");
 // validate at build
 jiti("@rccyx/env");
 
-const config = withMonitorConfig({
+const config = withConfig({
   /** @type {import('next').NextConfig} */
   nextConfig: {
     ...baseConfig,
