@@ -1,7 +1,13 @@
 import { readdirSync, readFileSync, statSync } from "fs";
-import { join, resolve } from "path";
+import { dirname, join, resolve } from "path";
+
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const ROOT_PATH = resolve(__dirname, "../..");
+
 const SEARCH_DIRS = ["apps", "packages", "tooling"];
 
 function isPackageDir(path: string): boolean {

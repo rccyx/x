@@ -9,12 +9,11 @@ const monorepoRoot = path.join(__dirname, "../../"); // repo root
 const jiti = createJiti(import.meta.url);
 
 const baseConfig = jiti("@rccyx/next/config");
-const { monitor } = jiti("@rccyx/monitor");
 
 // validate at build
 jiti("@rccyx/env");
 
-const config = monitor.next.withConfig({
+const config = withMonitorConfig({
   /** @type {import('next').NextConfig} */
   nextConfig: {
     ...baseConfig,

@@ -18,7 +18,9 @@
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./src/index.ts"
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./next": "./src/next.ts"
   },
   "type": "module"
 }

@@ -68,6 +68,7 @@
     "CI",
     "VALIDATE_CI",
     "NODE_ENV",
+    "NEXT_RUNTIME",
     "KIT_API_KEY",
     "DATABASE_URL",
     "DIRECT_URL",

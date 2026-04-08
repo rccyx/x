@@ -59,7 +59,6 @@ export const init = ({
       "Non-Error promise rejection captured",
       /network\s?error/i,
     ],
-
     integrations: [
       // Only include Replay in the browser runtime
       ...(runtime === "browser"
