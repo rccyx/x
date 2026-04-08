@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateOpenApi } from "restyx/openapi";
+import { generateOpenApi } from "../../../adapters/restyx/framework/src/openapi";
 import { contract } from "../../../boundary/v1/contract";
 import { env } from "@rccyx/env";
 import { root } from "../../../root-uris";
@@ -16,7 +16,7 @@ export function GET() {
         title: "API",
         version: "1.0.0",
         description: "REST",
-        contact: { email: email.personal.address },
+        contact: { email: email.oss.address },
       },
       openapi: "3.1.0",
       servers: [{ url: new URL(root.v1, env.NEXT_PUBLIC_API_URL).toString() }],

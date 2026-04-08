@@ -1,4 +1,4 @@
-import { createHandler } from "restyx/next";
+import { createHandler } from "../../../adapters/restyx/framework/src/next";
 import { contract } from "../../../boundary/v1/contract";
 import { router } from "../../../boundary/v1/router";
 import {
