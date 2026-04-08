@@ -1,2 +1,2 @@
 export { RPCProvider } from "./provider";
-export { rpc as rpcClient } from "./client";
+export { rpc } from "./client";

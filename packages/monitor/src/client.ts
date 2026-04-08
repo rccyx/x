@@ -6,4 +6,4 @@ export const initializeClient = () => {
   });
 };
 
-export { captureException } from "./shared/capture";
+export { captureException } from "./exception";

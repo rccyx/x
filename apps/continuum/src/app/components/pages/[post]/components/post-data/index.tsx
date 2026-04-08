@@ -6,7 +6,7 @@ import { DateService } from "@rccyx/cross-runtime";
 import { Badge } from "@rccyx/design/ui";
 import { Views } from "~/app/components/shared/views";
 
-import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/continuum";
+import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/posts";
 import { ScrollUp } from "~/app/components/pages/home/components/postCards/components/ScrollUp";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { MDX } from "../../../../shared/mdx-custom/mdx";

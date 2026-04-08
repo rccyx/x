@@ -13,7 +13,7 @@ export function BlogLink({
   children: React.ReactNode;
 }) {
   const SITE_URL =
-    origin === "www" ? env.NEXT_PUBLIC_WWW_URL : env.NEXT_PUBLIC_BLOG_URL;
+    origin === "www" ? env.NEXT_PUBLIC_WWW_URL : env.NEXT_PUBLIC_CONTINUUM_URL;
 
   const LINK_CLASS_NAME = cn(
     "transition-duration-200",

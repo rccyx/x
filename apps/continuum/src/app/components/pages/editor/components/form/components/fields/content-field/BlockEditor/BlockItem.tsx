@@ -92,9 +92,9 @@ export function BlockItem({
           <Trash2 className="h-4 w-4" />
         </Button>
         <Button
-          role="secondary"
           {...attributes}
           {...listeners}
+          role="secondary"
           title="Drag to reorder"
           type="button"
         >

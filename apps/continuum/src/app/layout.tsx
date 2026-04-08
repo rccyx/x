@@ -17,7 +17,7 @@ import { StoreProvider } from "./stores";
 import { siteName } from "@rccyx/constants";
 import { FirstTimeVisitorBanner } from "@rccyx/components";
 
-const siteUrl = env.NEXT_PUBLIC_BLOG_URL;
+const siteUrl = env.NEXT_PUBLIC_CONTINUUM_URL;
 
 export const metadata: Metadata = createMetadata({
   metadataBase: new URL(siteUrl),

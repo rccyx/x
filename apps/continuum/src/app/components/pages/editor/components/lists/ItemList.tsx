@@ -4,12 +4,12 @@ import React, { memo } from "react";
 import { motion, useReducedMotion } from "@rccyx/design/motion";
 
 import { Button, ScrollArea, Skeleton } from "@rccyx/design/ui";
-
+import type { ButtonRole } from "@rccyx/design/ui";
 import type { PostArticleRo, PostTrashArticleRo } from "@rccyx/api/rpc-models";
 
 interface BaseAction {
   label: string;
-  variant?: "destructive:outline" | "outline" | "default";
+  role?: ButtonRole;
   onClick: () => void;
 }
 
@@ -82,7 +82,7 @@ const ListItem = memo(function ListItemComponent<T>({
           {actions.map((action, actionIndex) => (
             <Button
               key={actionIndex}
-              variant={action.variant ?? "default"}
+              role={action.role ?? "primary"}
               onClick={action.onClick}
             >
               {action.label}

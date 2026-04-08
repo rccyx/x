@@ -1,2 +1,2 @@
-export { rpcHttp as rpcServer } from "./server";
+export { rpcHttp, rpcBare } from "./server";
 export { HydrateRpcClient } from "./server";

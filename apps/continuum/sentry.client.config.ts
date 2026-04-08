@@ -1,4 +1,6 @@
-import { monitor } from "@rccyx/monitor";
+import { init } from "@rccyx/monitor/init";
 
 // Browser-side Sentry init for the continuum app. Auto-loaded by Next.
-monitor.next.initializeClient();
+init({
+  runtime: "browser",
+});

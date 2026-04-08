@@ -10,8 +10,6 @@ export const initializeServer = () => {
   });
 };
 
-export { captureException } from "./shared/capture";
-
 /**
  * Generic Next.js App Router handler for Sentry tunneling.
  * Can be re-used across apps to avoid duplicating logic.

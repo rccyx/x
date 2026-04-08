@@ -7,7 +7,7 @@ import { DateService } from "@rccyx/cross-runtime";
 import { Badge, Skeleton } from "@rccyx/design/ui";
 
 import type { PostEditorDto } from "@rccyx/api/rpc-models";
-import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/continuum";
+import { featuredComponents } from "~/app/components/shared/mdx-custom/featured/posts";
 import { H1 } from "../../../../shared/mdx-custom/headers";
 import { ClientMDX } from "../../../../shared/mdx-custom/mdx/client";
 

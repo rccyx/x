@@ -24,12 +24,12 @@ import {
 import type { UserLoginDto } from "@rccyx/api/rpc-models";
 import { userLoginSchemaDto } from "@rccyx/api/rpc-models";
 import { useAuth } from "~/app/hooks/auth";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 export function LoginPage() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
-  const utils = rpcClient.useUtils();
+  const utils = rpc.useUtils();
 
   // If already logged in, redirect to editor
   useEffect(() => {
@@ -47,9 +47,9 @@ export function LoginPage() {
     },
   });
 
-  const loginMutation = rpcClient.user.login.useMutation({
-    onSuccess: () => {
-      void utils.user.me.invalidate();
+  const loginMutation = rpc.user.login.useMutation({
+    onSuccess: async () => {
+      await utils.user.me.invalidate();
       toast.success("Successfully logged in", {
         description: "You can now create and edit continuum posts.",
       });

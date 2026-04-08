@@ -6,7 +6,7 @@ import { toast } from "@rccyx/design/ui";
 
 import { logger } from "@rccyx/logger";
 import type { PostArticleRo, PostEditorDto } from "@rccyx/api/rpc-models";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 import { useStore } from "~/app/stores";
 
 import type { useEditorData } from "./useEditorData";
@@ -22,10 +22,10 @@ interface UseEditorActionsParams {
 export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   const { store } = useStore();
 
-  const createPost = rpcClient.post.createPost.useMutation({
+  const createPost = rpc.post.createPost.useMutation({
     onSuccess: () => {
       toast.success("Continuum post created successfully");
-      void data.utils.post.getAllAdminPosts.invalidate();
+      void data.utils.post.getAllAdminPosts();
       _resetToNewBlog();
     },
     onError: (error) => {
@@ -34,7 +34,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     },
   });
 
-  const updatePost = rpcClient.post.updatePost.useMutation({
+  const updatePost = rpc.post.updatePost.useMutation({
     onSuccess: () => {
       toast.success("Continuum post updated successfully");
       void data.utils.post.getAllAdminPosts.invalidate();
@@ -46,7 +46,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     },
   });
 
-  const trashPost = rpcClient.post.trashPost.useMutation({
+  const trashPost = rpc.post.trashPost.useMutation({
     onSuccess: (_, variables) => {
       toast.success("Continuum post deleted successfully");
       store.editor.movePostToTrash(variables.slug);
@@ -64,7 +64,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     },
   });
 
-  const restorePost = rpcClient.post.restoreFromTrash.useMutation({
+  const restorePost = rpc.post.restoreFromTrash.useMutation({
     onSuccess: (_, variables) => {
       toast.success("Post restored successfully");
       store.editor.restorePostFromTrash(variables.trashId);
@@ -77,7 +77,7 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
     },
   });
 
-  const purgePost = rpcClient.post.purgeTrashPost.useMutation({
+  const purgePost = rpc.post.purgeTrashPost.useMutation({
     onSuccess: (_, variables) => {
       toast.success("Post permanently deleted");
       store.editor.purgePostFromTrash(variables.trashId);
