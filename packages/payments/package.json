@@ -11,7 +11,7 @@
     "@rccyx/logger": "workspace:*",
     "@rccyx/runner": "workspace:*",
     "@whop/api": "0.0.51",
-    "stripe": "^16.12.0"
+    "stripe": "16.12.0"
   },
   "devDependencies": {
     "@rccyx/eslint-config": "workspace:*",

@@ -1,5 +1,8 @@
 import { c } from "../../../../adapters/restyx/root";
-import { createSchemaResponses, httpErrorSchema } from "@restyx/next/core";
+import {
+  createSchemaResponses,
+  httpErrorSchema,
+} from "../../../../adapters/restyx/framework/src/core";
 
 export const okSchemaResponse = createSchemaResponses({
   200: c.noBody(),
