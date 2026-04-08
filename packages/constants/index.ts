@@ -5,6 +5,10 @@ export const email = {
     address: "no-reply@notify.rccyx.com",
     from: "rccyx[bot] <no-reply@notify.rccyx.com>",
   },
+  oss: {
+    address: "oss@rccyx.com",
+    from: "rccyx oss@rccyx.com>",
+  },
 } as const;
 
 export type EmailSender = keyof typeof email;
@@ -36,5 +40,5 @@ export const siteName = "rccyx";
 export const origins = [
   env.NEXT_PUBLIC_WWW_URL,
   env.NEXT_PUBLIC_API_URL,
-  env.NEXT_PUBLIC_BLOG_URL,
+  env.NEXT_PUBLIC_CONTINUUM_URL,
 ];

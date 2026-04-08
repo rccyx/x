@@ -30,7 +30,7 @@ observer((err) => {
 async function main(): Promise<void> {
   await send.auth
     .verifyEmail({
-      to: email.personal.address,
+      to: email.oss.address,
       verifyUrl: `https://example.com/verify?token=example`,
       userName: "John Doe",
     })
