@@ -1,15 +1,3 @@
 {
-  "extends": "@rccyx/tsconfig/base.json",
-  "compilerOptions": {
-    "paths": {
-      "~/*": ["./src/*"]
-    },
-    "module": "esnext",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]
+  "extends": "@rccyx/tsconfig/base.json"
 }
