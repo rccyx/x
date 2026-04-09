@@ -9,3 +9,7 @@
 [submodule "api"]
 	path = apps/api
 	url = git@github.com:rccyx/rccyx-api.git
+
+[submodule ".cursor"]
+	path = .cursor
+	url = git@github.com:rccyx/rccyx-.cursor.git
