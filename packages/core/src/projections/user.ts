@@ -1,9 +1,0 @@
-import type { api } from "@rccyx/auth";
-
-type ExtractUser<T> = T extends { response: { user: infer U } }
-  ? U
-  : T extends { user: infer U }
-    ? U
-    : never;
-
-export type UserRaw = ExtractUser<Awaited<ReturnType<typeof api.getSession>>>;
