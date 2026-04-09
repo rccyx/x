@@ -1,4 +1,8 @@
-[submodule "core"]
+[submodule "db"]
+	path = packages/db
+	url = git@github.com:rccyx/rccyx-db.git
+	
+	[submodule "core"]
 	path = packages/core
 	url = git@github.com:rccyx/rccyx-core.git
 
