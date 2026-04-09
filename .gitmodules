@@ -1,6 +1,6 @@
-[submodule "design"]
-	path = packages/design
-	url = git@github.com:rccyx/rccyx-design.git
+[submodule "core"]
+	path = packages/core
+	url = git@github.com:rccyx/rccyx-core.git
 
 [submodule "design"]
 	path = packages/design

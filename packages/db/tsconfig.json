@@ -1,5 +1,0 @@
-{
-  "extends": "@rccyx/tsconfig/base.json",
-  "include": ["src"],
-  "exclude": ["src/generated/**"]
-}
