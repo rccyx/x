@@ -2,6 +2,10 @@
 	path = packages/logger
 	url = git@github.com:rccyx/rccyx-logger.git
 
+[submodule "runner"]
+	path = packages/runner
+	url = git@github.com:rccyx/rccyx-runner.git
+
 [submodule "payments"]
 	path = packages/payments
 	url = git@github.com:rccyx/rccyx-payments.git
