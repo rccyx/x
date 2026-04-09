@@ -18,7 +18,7 @@ import {
 
 import type { NewsletterSubscribeDto } from "@rccyx/api/rpc-models";
 import { newsletterSubscribeSchemaDto } from "@rccyx/api/rpc-models";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 export function Newsletter() {
   const form = useForm<NewsletterSubscribeDto>({
@@ -26,7 +26,7 @@ export function Newsletter() {
     mode: "onSubmit",
   });
 
-  const subscribeMutation = rpcClient.newsletter.subscribe.useMutation({
+  const subscribeMutation = rpc.newsletter.subscribe.useMutation({
     onSuccess: () => {
       toast.success("You're in!", {
         description: "Welcome aboard!",

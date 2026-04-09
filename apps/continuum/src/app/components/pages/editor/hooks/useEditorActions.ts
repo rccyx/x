@@ -23,9 +23,9 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   const { store } = useStore();
 
   const createPost = rpc.post.createPost.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Continuum post created successfully");
-      void data.utils.post.getAllAdminPosts();
+      await data.utils.post.getAllAdminPosts.invalidate();
       _resetToNewBlog();
     },
     onError: (error) => {
@@ -35,9 +35,9 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   });
 
   const updatePost = rpc.post.updatePost.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Continuum post updated successfully");
-      void data.utils.post.getAllAdminPosts.invalidate();
+      await data.utils.post.getAllAdminPosts.invalidate();
       _resetToNewBlog();
     },
     onError: (error) => {
@@ -47,11 +47,11 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   });
 
   const trashPost = rpc.post.trashPost.useMutation({
-    onSuccess: (_, variables) => {
+    onSuccess: async (_, variables) => {
       toast.success("Continuum post deleted successfully");
       store.editor.movePostToTrash(variables.slug);
-      void data.utils.post.getAllAdminPosts.invalidate();
-      void data.utils.post.getTrashedPosts.invalidate();
+      await data.utils.post.getAllAdminPosts.invalidate();
+      await data.utils.post.getTrashedPosts.invalidate();
       ui.closeDeleteModal();
       if (ui.editModal.visible && ui.editModal.entity.slug === variables.slug) {
         _resetToNewBlog();
@@ -65,11 +65,11 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   });
 
   const restorePost = rpc.post.restoreFromTrash.useMutation({
-    onSuccess: (_, variables) => {
+    onSuccess: async (_, variables) => {
       toast.success("Post restored successfully");
       store.editor.restorePostFromTrash(variables.trashId);
-      void data.utils.post.getTrashedPosts.invalidate();
-      void data.utils.post.getAllAdminPosts.invalidate();
+      await data.utils.post.getTrashedPosts.invalidate();
+      await data.utils.post.getAllAdminPosts.invalidate();
     },
     onError: (error) => {
       logger.error("Failed to restore post", { error });
@@ -78,10 +78,10 @@ export function useEditorActions({ data, form, ui }: UseEditorActionsParams) {
   });
 
   const purgePost = rpc.post.purgeTrashPost.useMutation({
-    onSuccess: (_, variables) => {
+    onSuccess: async (_, variables) => {
       toast.success("Post permanently deleted");
       store.editor.purgePostFromTrash(variables.trashId);
-      void data.utils.post.getTrashedPosts.invalidate();
+      await data.utils.post.getTrashedPosts.invalidate();
     },
     onError: (error) => {
       logger.error("Failed to purge post", { error });

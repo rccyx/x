@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { NotFound } from "@rccyx/components";
 import { createMetadata } from "@rccyx/seo";
 import { BlogPostPage } from "~/app/components/pages/[post]";
-import { HydrateRpcClient, rpcHttp } from "@rccyx/api/rpc-server";
+import { HydrateRpcClient, rpc } from "@rccyx/api/rpc-server";
 
 const getPostCached = cache((slug: string) =>
-  rpcHttp.post.getDetailedPublicPost.query({ slug }),
+  rpc.post.getDetailedPublicPost({ slug }),
 );
 
 export async function generateMetadata({

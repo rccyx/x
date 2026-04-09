@@ -1,5 +1,5 @@
 import { logger } from "@rccyx/logger";
-import { captureException } from "@rccyx/monitor/server";
+import { captureException } from "@rccyx/monitor/exception";
 import { init } from "@rccyx/monitor/init";
 import { observer } from "runyx";
 
