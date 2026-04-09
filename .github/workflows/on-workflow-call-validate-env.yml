@@ -9,14 +9,14 @@ jobs:
     env:
       ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      SUBMODULE_SYNC_PAT: ${{ secrets.SUBMODULE_SYNC_PAT }}
+      SUB_SYNC: ${{ secrets.SUB_SYNC }}
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_SYNC_PAT }}
+          token: ${{ secrets.SUB_SYNC }}
 
       - name: Validate env
         uses: ./.github/actions/pnpm-install

@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_SYNC_PAT }}
+          token: ${{ secrets.SUB_SYNC }}
 
       - uses: ./.github/actions/setup-env
         with:
