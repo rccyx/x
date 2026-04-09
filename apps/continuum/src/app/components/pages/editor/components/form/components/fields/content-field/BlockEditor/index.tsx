@@ -137,21 +137,87 @@ function parseBlock(blockStr: string): Block | null {
   }
 }
 
-// New: robust top-level parser that extracts ONLY outermost blocks.
+// Extracted Helper: Read the tag name to reduce complexity
+function readTagName(content: string, startIndex: number): string {
+  let j = startIndex;
+  while (j < content.length && /[A-Za-z0-9_]/.test(content.charAt(j))) {
+    j += 1;
+  }
+  return content.slice(startIndex, j);
+}
+
+// Extracted Helper: Find the matching close tag block to reduce nested loops (max-depth fix)
+function findCompleteBlock(
+  content: string,
+  tagName: string,
+  startIdx: number,
+  startTagEnd: number,
+): { blockStr: string; nextIdx: number } | null {
+  interface StackItem {
+    name: string;
+  }
+  const stack: StackItem[] = [{ name: tagName }];
+
+  let p = startTagEnd + 1;
+  const tagOpenRe =
+    /<([A-Za-z][\w-]*)(\s[^>]*?)?>|<\/([A-Za-z][\w-]*)\s*>|<([A-Za-z][\w-]*)(\s[^>]*?)?\/>/g;
+  tagOpenRe.lastIndex = p;
+
+  while (true) {
+    const m = tagOpenRe.exec(content);
+    if (!m) {
+      return null; // no closing tag found
+    }
+
+    const [full, openName1, _openAttrs, closeName, selfName] = m;
+    const matchEnd = m.index + full.length;
+
+    if (selfName) {
+      // self-closing tag: does not affect stack
+      p = matchEnd;
+      tagOpenRe.lastIndex = p;
+      continue;
+    }
+
+    if (closeName) {
+      // closing tag
+      const top = stack[stack.length - 1];
+      if (top && top.name === closeName) {
+        stack.pop();
+        if (stack.length === 0) {
+          // Found the matching close for our top-level tag
+          return {
+            blockStr: content.slice(startIdx, matchEnd),
+            nextIdx: matchEnd,
+          };
+        }
+      }
+      p = matchEnd;
+      tagOpenRe.lastIndex = p;
+      continue;
+    }
+
+    if (openName1) {
+      // opening tag (non-self-closing)
+      stack.push({ name: openName1 });
+      p = matchEnd;
+      tagOpenRe.lastIndex = p;
+      continue;
+    }
+  }
+}
+
+// Refactored: robust top-level parser that extracts ONLY outermost blocks
 function parseTopLevelBlocks(mdx: string): string[] {
   if (!mdx) return [];
 
   const content = mdx.replace(/^\ufeff/, "");
-
-  // All known block tags from the registry
   const knownTags = new Set(Object.keys(blockRegistry));
 
   const blocks: string[] = [];
   let i = 0;
   let lastEmittedIndex = 0;
   const len = content.length;
-
-  const isAlphaNum = (ch: string) => /[A-Za-z0-9_]/.test(ch);
 
   while (i < len) {
     const ch = content[i];
@@ -160,31 +226,19 @@ function parseTopLevelBlocks(mdx: string): string[] {
       continue;
     }
 
-    // Attempt to read a tag name
-    let j = i + 1;
-    // skip possible '/'
+    const j = i + 1;
     if (content[j] === "/") {
-      // a closing tag at top-level is unexpected here; treat as text
       i += 1;
       continue;
     }
 
-    const nameStart = j;
-    while (j < len) {
-      const ch2 = content.charAt(j);
-      if (!isAlphaNum(ch2)) break;
-      j += 1;
-    }
-    const tagName = content.slice(nameStart, j);
+    const tagName = readTagName(content, j);
 
     if (!tagName || !knownTags.has(tagName)) {
-      // Not a known top-level block open tag; skip '<'
       i += 1;
       continue;
     }
 
-    // We found a top-level opening for a known tag at index i
-    // Emit any text before this tag as a paragraph block (C), preserving spacing
     if (lastEmittedIndex < i) {
       const preText = content.slice(lastEmittedIndex, i);
       if (preText.trim()) {
@@ -192,90 +246,37 @@ function parseTopLevelBlocks(mdx: string): string[] {
       }
     }
 
-    // Find the end of this element (self-closing or matching close), respecting nested tags generically
-    // First, advance to end of start tag '>' and determine if self-closing
-    let k = j;
-    // advance until '>'
+    let k = j + tagName.length;
     while (k < len && content[k] !== ">") k += 1;
     if (k >= len) {
-      // malformed, bail out
       blocks.push(content.slice(i));
       return blocks;
     }
 
-    const startTagEnd = k; // index of '>'
+    const startTagEnd = k;
     const startTagContent = content.slice(i, startTagEnd + 1);
     const selfClosing = /\/>\s*$/.test(startTagContent);
 
     if (selfClosing) {
-      // Simple self-closing block
       blocks.push(content.slice(i, startTagEnd + 1));
       i = startTagEnd + 1;
       lastEmittedIndex = i;
       continue;
     }
 
-    // Not self-closing: walk until we find the matching closing tag for tagName
-    // Generic stack to handle nested tags without caring about which are known
-    interface StackItem {
-      name: string;
+    const blockMatch = findCompleteBlock(content, tagName, i, startTagEnd);
+
+    if (!blockMatch) {
+      // no closing tag found, treat rest as part of this block
+      blocks.push(content.slice(i));
+      return blocks;
     }
-    const stack: StackItem[] = [{ name: tagName }];
 
-    let p = startTagEnd + 1;
-    const tagOpenRe =
-      /<([A-Za-z][\w-]*)(\s[^>]*?)?>|<\/([A-Za-z][\w-]*)\s*>|<([A-Za-z][\w-]*)(\s[^>]*?)?\/>/g;
-    tagOpenRe.lastIndex = p;
-
-    while (true) {
-      const m = tagOpenRe.exec(content);
-      if (!m) {
-        // no closing tag found, treat rest as part of this block
-        blocks.push(content.slice(i));
-        return blocks;
-      }
-
-      const [full, openName1, _openAttrs, closeName, selfName] = m;
-      const matchIndex = m.index;
-      const matchEnd = matchIndex + full.length;
-
-      if (selfName) {
-        // self-closing tag: does not affect stack
-        p = matchEnd;
-        tagOpenRe.lastIndex = p;
-        continue;
-      }
-
-      if (closeName) {
-        // closing tag
-        const top = stack[stack.length - 1];
-        if (top && top.name === closeName) {
-          stack.pop();
-          if (stack.length === 0) {
-            // Found the matching close for our top-level tag
-            const blockStr = content.slice(i, matchEnd);
-            blocks.push(blockStr);
-            i = matchEnd;
-            lastEmittedIndex = i;
-            break;
-          }
-        }
-        p = matchEnd;
-        tagOpenRe.lastIndex = p;
-        continue;
-      }
-
-      if (openName1) {
-        // opening tag (non-self-closing)
-        stack.push({ name: openName1 });
-        p = matchEnd;
-        tagOpenRe.lastIndex = p;
-        continue;
-      }
-    }
+    blocks.push(blockMatch.blockStr);
+    i = blockMatch.nextIdx;
+    lastEmittedIndex = i;
   }
 
-  // Emit any remaining text after the last block
   if (lastEmittedIndex < len) {
     const tail = content.slice(lastEmittedIndex);
     if (tail.trim()) blocks.push(tail);
