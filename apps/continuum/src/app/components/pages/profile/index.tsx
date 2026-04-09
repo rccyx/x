@@ -18,7 +18,7 @@ import {
 } from "@rccyx/design/ui";
 
 import { useAuth } from "~/app/hooks/auth";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 import { ChangePasswordForm } from "./components/ChangePasswordForm";
 import { SessionsList } from "./components/SessionsList";
 import { UserInfo } from "./components/UserInfo";
@@ -34,7 +34,7 @@ import {
 export function ProfilePage() {
   const router = useRouter();
   const { user, isLoading, logout } = useAuth();
-  const utils = rpcClient.useUtils();
+  const utils = rpc.useUtils();
 
   // Perform redirect as a side effect, not during render
   useEffect(() => {
