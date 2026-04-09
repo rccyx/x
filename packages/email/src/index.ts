@@ -1,1 +1,0 @@
-export { send } from "./senders";
