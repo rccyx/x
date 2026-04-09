@@ -3,122 +3,44 @@ globs: *.tsx
 alwaysApply: false
 ---
 
-### Page Structure
+## Structure
 
-Each `page.tsx` file inside `app/(pages)/` should be minimal and declarative. It must not contain inline JSX or any logic unrelated to routing or metadata. It should always be a server component so SEO works.
+In this ecosystem, every `page.tsx` file located within `app/(pages)/` is strictly a declarative shell. It is the gatekeeper of routing and SEO, not the place for implementation logic. Its responsibilities are limited to importing `Metadata`, defining `generateMetadata` through the dedicated `@rccyx/seo` package, and configuring static or dynamic generation parameters. Most importantly, it must perform any necessary server-side pre-fetching via the server-side caller before returning a single, high-level page component from the implementation directory. A `page.tsx` file should never contain inline JSX beyond the root component and its necessary providers; it is a server component by default to ensure maximum SEO efficiency and initial load performance.
 
-Responsibilities of a `page.tsx` file:
+The component directory is the heart of the frontend architecture, governed by a recursive and strictly scoped hierarchy. Every route has a corresponding folder in `src/app/components/pages/[route]/`, where the entry point is always `index.tsx`. Components that are exclusive to a specific page must reside in a `components/` sub-folder within that page's directory. If a component is shared by multiple elements within that specific page scope but isn't quite a sub-component, it lives in a local  `/shared` directory.
 
-- Import `Metadata` and define `generateMetadata` (or export `metadata`) using the dedictated seo package if applies.
-- Configure static/dynamic generation if applies
-- Do server side fetching if applies
-- Return a single root component from `components/pages/{route}/index.tsx`
+This logic scales upward: components shared across the entire application live in the root-level `shared` directory, while components intended for use across multiple apps in the monorepo must be promoted to the `@rccyx/components` package. There is an unforgivable rule of one component per file. If you find yourself writing a second component, you create a new file. Period. This ensures that every piece of the UI is modular, testable, and easy for a refactor without side effects.
 
-Example:
+To maintain sanity in a monorepo, we utilize a rigorous import aliasing system that eliminates the need for brittle relative paths. The `@` symbol is reserved exclusively for monorepo-level internal packages such as `@rccyx/design`, `@rccyx/api`, and `@rccyx/seo`, or for specifically approved third-party packages. Local application files are addressed using the `~` alias, starting from the `src` root. You are strictly forbidden from using `../` to escape a component's scope; if a component or utility is needed outside its current directory, it must be moved to the appropriate shared level in the hierarchy. Furthermore, all TypeScript imports must use the `import type` syntax for interfaces and types to keep the generated JavaScript clean and avoid circular dependency hell.
 
-```ts
-import type { Metadata } from "next";
-import { createMetadata } from "@rccyx/seo";
-import { AboutPage } from "~/app/components/pages/about";
+The way we write functions is designed for clarity and future-proofing. Any function that accepts more than a single input must receive its arguments as a single, destructured object. This removes the ambiguity of positional arguments and makes the code self-documenting. For example, a function creating a post must take an object containing the title, slug, and content rather than a string-heavy list of arguments. Within these functions, we prefer `interface` for defining the shape of simple objects and `type` for more complex logic like unions, intersections, or utility types.
 
-export const metadata: Metadata = createMetadata({
-  title: "About",
-  description: "About me.",
-});
+Exports are the public API of your modules, and we do not use default exports unless NextJS or the framework requires it. Every component, hook, or utility must be a named export. This prevents naming collisions and makes the "Find All References" tool actually useful. Filenames for React components must use PascalCase to match their exported names, while hooks use camelCase. Folder names are strictly kebab-case to ensure cross-platform file system compatibility. When building UI, always check the `@rccyx/design/ui` package before creating a custom element; we rely on a standardized set of Radix-based components.
 
-export default function Page() {
-  return <AboutPage />;
-}
+Global UI state is managed via MobX, utilizing the `observer` pattern from `mobx-react-lite` and a centralized `useStore` hook that has access to all stores within a single app. Do not pollute components with complex local state if it belongs in a store. For animations, we use `framer-motion` (via `@rccyx/design/motion`). All visibility toggles and layout transitions should be wrapped in `AnimatePresence` and utilize the `motion` prefix. For forms, the standard is `React Hook Form` combined with `Zod` for schema validation, ensuring that data is validated on the client and server using the exact same type  definitions from the RPC layer.
+
+Example Folder Mapping:
+
+```text
+apps/my-cool-blog/src/app/
+├── (pages)/
+│   └── [post]/
+│       └── page.tsx           <-- Thin shell, SEO, Server Fetching
+└── components/
+    └── pages/
+        └── [post]/
+            ├── index.tsx      <-- Named export, Root Implementation
+            ├── components/
+            │   └── PostData.tsx <-- Local sub-component
+            ├── hooks/
+            │   └── useTracker.ts <-- Local hook
+            └── shared/
+                └── SharedIcon.tsx <-- Local shared asset
 ```
 
----
+You are to act as a senior architect. When asked to create a new feature, you must first determine the correct scope (local page, app-level misc, or package-level). You will never export more than one component per file and will never use default exports. If you are generating a new route, start with the declarative `page.tsx` and move the heavy lifting to `components/pages/`.
 
-### Component Directory Convention
 
-Each app must have a `components/` directory structured as follows:
-
-- `components/pages/{route}/index.tsx` → root component for the route
-- `components/pages/{route}/components/` → subcomponents used exclusively by that page
-- `components/misc/` → shared components within the app (e.g., layouts, wrappers, animations, providers)
-
-Rules:
-
-- Route-specific components live only under their own `pages/{route}` scope, not reused outside.
-- Shared app-level components go under `misc/`, do not cross apps.
-- If one component is used across apps, then insert it under the `packages/components` directory. The same structure applies.
-- Do **NOT** place more than one React component per file.
-- Components with subcomponents must use a `components/` folder beside `index.tsx`.
-- Avoid `../` imports that escape component scope. If it needs to be shared make it shared.
-
----
-
-### Import Style Rules
-
-Use clear, predictable import aliases:
-
-- `@` → monorepo-level internal packages (`@rccyx/seo`, `@rccyx/design`, etc.) or installed packages e.g `@sentry/nextjs`
-- `~` → app-local files (`~/app/components/pages/about`)
-- Avoid `../` everywhere.
-
----
-
-### Example Structure (Simple App)
-
-```
-apps/
-  my-app/
-    src/
-      app/
-        (pages)/
-          about/
-            page.tsx
-        components/
-          pages/
-            about/
-              index.tsx
-              components/
-                MajorHeading.tsx
-                MinorHeading.tsx
-              /misc/
-                Shared.tsx <- for things that are shared within the about/ directory alone.
-          misc/
-            layout/
-              components
-                LayoutWrapper.tsx
-                Providers.tsx
-              index.tsx
-```
-
----
-
-### Function Rules
-
-- Do **NOT** use positional args if function takes 2+ inputs, use objects instead.
-- Always wrap inputs in a single object:
-
-```ts
-// Good
-function createPrompt({
-  prompt,
-  userId,
-  sectionId,
-}: {
-  prompt: string;
-  userId: string;
-  sectionId: string;
-}) {}
-
-// Bad
-function createPrompt(prompt, userId, sectionId) {}
-```
-
-- ✅ Prefer `interface` for simple objects.
-- ✅ Use `type` for unions/intersections or more complex shapes.
-
-### Naming & Exports
-
-- ✅ React components must use **PascalCase** filenames.
-- ❌ **Never** use `export default`. Always use **named exports**.
 
 ### Third-Party Rules
 
