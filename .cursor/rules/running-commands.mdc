@@ -5,5 +5,5 @@ alwaysApply: false
 All commands in the monorepo should be executed from the root of the monorepo. For example, installing packages for the `@rccyx/continuum` app:
 
 ```
-pnpm --filter @rccyx/continuum add @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query zod
+pnpm --filter @rccyx/my-package add @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query zod
 ```
