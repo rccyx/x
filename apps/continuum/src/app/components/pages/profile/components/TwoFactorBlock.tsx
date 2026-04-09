@@ -35,7 +35,7 @@ import type {
   TwoFactorVerifyBackupCodeDto,
 } from "@rccyx/api/rpc-models";
 
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 /* utils */
 function parseTotpSecret(totpURI: string): string | null {
@@ -56,8 +56,8 @@ function CopyableRow({ value }: { value: string }) {
       <Button
         type="button"
         role="secondary"
-        onClick={() => {
-          void navigator.clipboard.writeText(value);
+        onClick={async () => {
+          await navigator.clipboard.writeText(value);
           toast.success("Copied");
         }}
       >
@@ -77,7 +77,7 @@ export function TwoFactorEnableCard() {
   const [secret, setSecret] = React.useState<string | null>(null);
   const [backupCodes, setBackupCodes] = React.useState<string[] | null>(null);
 
-  const enable = rpcClient.user.enableTwoFactor.useMutation({
+  const enable = rpc.user.enableTwoFactor.useMutation({
     onSuccess: (data) => {
       const s = parseTotpSecret(data.totpURI);
       setSecret(s);
@@ -144,8 +144,8 @@ export function TwoFactorEnableCard() {
             <Button
               type="button"
               role="secondary"
-              onClick={() => {
-                void navigator.clipboard.writeText(backupCodes.join("\n"));
+              onClick={async () => {
+                await navigator.clipboard.writeText(backupCodes.join("\n"));
                 toast.success("Backup codes copied");
               }}
             >
@@ -184,7 +184,7 @@ export function TwoFactorRevealSecretCard() {
   });
   const [secret, setSecret] = React.useState<string | null>(null);
 
-  const query = rpcClient.user.getTwoFactorTotpUri.useQuery(form.getValues(), {
+  const query = rpc.user.getTwoFactorTotpUri.useQuery(form.getValues(), {
     enabled: false,
   });
 
@@ -213,9 +213,9 @@ export function TwoFactorRevealSecretCard() {
       </p>
       <Form {...form}>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            void runIt();
+            await runIt();
           }}
           className="space-y-4"
           autoComplete="off"
@@ -256,7 +256,7 @@ export function TwoFactorVerifyTotpCard() {
     mode: "onChange",
   });
 
-  const verify = rpcClient.user.verifyTwoFactorTotp.useMutation({
+  const verify = rpc.user.verifyTwoFactorTotp.useMutation({
     onSuccess: () => {
       toast.success("TOTP verified");
       form.reset({ code: "", trustDevice: false });
@@ -328,7 +328,7 @@ export function TwoFactorBackupCodesCard() {
   });
   const [codes, setCodes] = React.useState<string[] | null>(null);
 
-  const generate = rpcClient.user.generateTwoFactorBackupCodes.useMutation({
+  const generate = rpc.user.generateTwoFactorBackupCodes.useMutation({
     onSuccess: (data) => {
       setCodes(data.backupCodes);
       toast.success("New backup codes generated");
@@ -342,7 +342,7 @@ export function TwoFactorBackupCodesCard() {
     defaultValues: { code: "", trustDevice: false, disableSession: false },
     mode: "onChange",
   });
-  const verify = rpcClient.user.verifyTwoFactorBackupCode.useMutation({
+  const verify = rpc.user.verifyTwoFactorBackupCode.useMutation({
     onSuccess: () => {
       toast.success("Backup code accepted");
       verifyForm.reset({ code: "", trustDevice: false, disableSession: false });
@@ -403,8 +403,8 @@ export function TwoFactorBackupCodesCard() {
                 <Button
                   type="button"
                   role="secondary"
-                  onClick={() => {
-                    void navigator.clipboard.writeText(codes.join("\n"));
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(codes.join("\n"));
                     toast.success("Backup codes copied");
                   }}
                 >
@@ -509,7 +509,7 @@ export function TwoFactorDisableCard() {
     mode: "onChange",
   });
 
-  const disable = rpcClient.user.disableTwoFactor.useMutation({
+  const disable = rpc.user.disableTwoFactor.useMutation({
     onSuccess: () => {
       toast.success("Two factor disabled");
       form.reset({ password: "" });

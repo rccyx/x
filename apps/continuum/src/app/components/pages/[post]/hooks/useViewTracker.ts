@@ -3,7 +3,7 @@
 import type { Optional } from "typyx";
 import { useEffect, useRef } from "react";
 import { logger } from "@rccyx/logger";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 import { useStore } from "~/app/stores";
 
 interface UseViewTrackerProps {
@@ -20,7 +20,7 @@ export function useViewTracker({
   const firedRef = useRef(false);
   const timeoutRef = useRef<Optional<ReturnType<typeof setTimeout>>>(null);
   const { store } = useStore();
-  const trackView = rpcClient.view.trackView.useMutation({
+  const trackView = rpc.view.trackView.useMutation({
     onMutate: () => logger.debug("trackView start", { postSlug }),
     onError: (error) =>
       logger.error("trackView error", { postSlug, error: error.message }),

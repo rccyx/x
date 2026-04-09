@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@rccyx/design/ui";
 
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 interface SessionsListProps {
   currentSessionId: string;
@@ -29,12 +29,12 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
   const [terminatingAllSessions, setTerminatingAllSessions] = useState(false);
 
   const router = useRouter();
-  const utils = rpcClient.useUtils();
+  const utils = rpc.useUtils();
 
   const { data: sessions = [], isLoading } =
-    rpcClient.user.listAllSessions.useQuery();
+    rpc.user.listAllSessions.useQuery();
 
-  const logoutMutation = rpcClient.user.logout.useMutation();
+  const logoutMutation = rpc.user.logout.useMutation();
 
   const hardLogout = async () => {
     try {
@@ -58,7 +58,7 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
   };
 
   const terminateAllSessionsMutation =
-    rpcClient.user.terminateAllActiveSessions.useMutation({
+    rpc.user.terminateAllActiveSessions.useMutation({
       onMutate: () => setTerminatingAllSessions(true),
       onSuccess: async () => {
         toast.success("All sessions terminated");
@@ -74,7 +74,7 @@ export function SessionsList({ currentSessionId }: SessionsListProps) {
     });
 
   const terminateSpecificSessionMutation =
-    rpcClient.user.terminateSpecificSession.useMutation({
+    rpc.user.terminateSpecificSession.useMutation({
       onMutate: ({ sessionId }) => setSessionLoading(sessionId, true),
       onSuccess: async (_data, { sessionId }) => {
         toast.success("Session terminated");

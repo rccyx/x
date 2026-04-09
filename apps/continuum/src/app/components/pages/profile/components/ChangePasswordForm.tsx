@@ -18,7 +18,7 @@ import {
 
 import type { UserChangePasswordDto } from "@rccyx/api/rpc-models";
 import { userChangePasswordSchemaDto } from "@rccyx/api/rpc-models";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 export function ChangePasswordForm() {
   const form = useForm<UserChangePasswordDto>({
@@ -31,7 +31,7 @@ export function ChangePasswordForm() {
     },
   });
 
-  const changePasswordMutation = rpcClient.user.changePassword.useMutation({
+  const changePasswordMutation = rpc.user.changePassword.useMutation({
     onSuccess: () => {
       toast.success("Password changed");
       form.reset();

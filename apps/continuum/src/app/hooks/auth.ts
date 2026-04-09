@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import type { UserRo } from "@rccyx/api/rpc-models";
-import { rpcClient } from "@rccyx/api/rpc-client";
+import { rpc } from "@rccyx/api/rpc-client";
 
 export function useAuth(): {
   user: Optional<UserRo>;
@@ -11,9 +11,9 @@ export function useAuth(): {
   logout: () => Promise<void>;
 } {
   const router = useRouter();
-  const { data: user, isLoading } = rpcClient.user.me.useQuery();
-  const utils = rpcClient.useUtils();
-  const logoutMutation = rpcClient.user.logout.useMutation();
+  const { data: user, isLoading } = rpc.user.me.useQuery();
+  const utils = rpc.useUtils();
+  const logoutMutation = rpc.user.logout.useMutation();
 
   const logout = useCallback(async () => {
     await logoutMutation.mutateAsync();
