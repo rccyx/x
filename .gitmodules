@@ -1,7 +1,11 @@
 [submodule "design"]
 	path = packages/design
-	url = git@github.com:rccyx/design.git
+	url = git@github.com:rccyx/rccyx-design.git
 
 [submodule "auth"]
 	path = packages/auth
-	url = git@github.com:rccyx/auth.git
+	url = git@github.com:rccyx/rccyx-auth.git
+
+[submodule "api"]
+	path = apps/api
+	url = git@github.com:rccyx/rccyx-api.git
