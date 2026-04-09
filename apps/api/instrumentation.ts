@@ -1,9 +1,12 @@
 import { logger } from "@rccyx/logger";
-import { monitor } from "@rccyx/monitor";
+import { init } from "@rccyx/monitor/init";
+import { captureException } from "@rccyx/monitor/exception";
 import { observer } from "runyx";
 
 export function register() {
-  monitor.next.initializeServer();
+  init({
+    runtime: "server",
+  });
   observer((error) => {
     const severity = error.meta?.severity;
 
@@ -22,7 +25,7 @@ export function register() {
         meta: error.meta,
         cause: error.cause,
       });
-      monitor.next.captureException({ error });
+      captureException({ error });
       return;
     }
 
@@ -32,6 +35,6 @@ export function register() {
       cause: error.cause,
     });
 
-    monitor.next.captureException({ error });
+    captureException({ error });
   });
 }

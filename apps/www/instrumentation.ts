@@ -1,9 +1,12 @@
 import { logger } from "@rccyx/logger";
-import { initializeServer, captureException } from "@rccyx/monitor/server";
+import { captureException } from "@rccyx/monitor/exception";
+import { init } from "@rccyx/monitor/init";
 import { observer } from "runyx";
 
 export function register() {
-  initializeServer();
+  init({
+    runtime: "server",
+  });
   observer((error) => {
     // Skip if the error is a retry error, only log the last attempt
     if ((error.meta?.retryAttempt ?? 0) < (error.meta?.retryMaxAttempts ?? 0))

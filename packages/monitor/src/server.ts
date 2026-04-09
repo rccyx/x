@@ -2,13 +2,6 @@ import type { NextRequest } from "next/server";
 import { logger } from "@rccyx/logger";
 import { env } from "@rccyx/env";
 import { z } from "zod";
-import { init as sentryInit } from "./init";
-
-export const initializeServer = () => {
-  return sentryInit({
-    runtime: "server",
-  });
-};
 
 /**
  * Generic Next.js App Router handler for Sentry tunneling.

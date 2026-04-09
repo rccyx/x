@@ -8,7 +8,7 @@ import { createHydrationHelpers } from "@trpc/react-query/rsc";
 // and your entire logic layer.
 import { db } from "@rccyx/db";
 import { appRouter } from "../../../../boundary/rpc/router";
-import { AppRouter } from "../../../../boundary/rpc/router";
+import type { AppRouter } from "../../../../boundary/rpc/router";
 
 import { createCallerFactory } from "../../root";
 import { createTRPCContext } from "../../context";
@@ -31,7 +31,7 @@ const _bridge = createCallerFactory(appRouter)(_bridgeCtx);
 const _getQueryClient = cache(makeQueryClient);
 
 // main bridge export.
-// rpcBridge: use inside async Server Components for direct DB access.
+// rpc: use inside async Server Components for direct DB access.
 // HydrateRpcClient: passes that direct data to the client-side cache.
-export const { trpc: rpcBridge, HydrateClient: HydrateRpcClient } =
+export const { trpc: rpc, HydrateClient: HydrateRpcClient } =
   createHydrationHelpers<AppRouter>(_bridge, _getQueryClient);

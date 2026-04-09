@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { db } from "@rccyx/db";
-import { monitor } from "@rccyx/monitor";
+import { captureException } from "@rccyx/monitor/exception";
 import { logger } from "@rccyx/logger";
 
 import { createTRPCContext } from "../../../adapters/trpc/context";
@@ -27,7 +27,7 @@ const handler = async (req: NextRequest) => {
         db,
       }),
     onError({ error, path }) {
-      monitor.next.captureException({
+      captureException({
         error,
         hint: {
           extra: {
