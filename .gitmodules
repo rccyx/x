@@ -1,3 +1,7 @@
+[submodule "storage"]
+	path = packages/storage
+	url = git@github.com:rccyx/rccyx-storage.git
+
 [submodule "db"]
 	path = packages/db
 	url = git@github.com:rccyx/rccyx-db.git
