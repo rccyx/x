@@ -1,3 +1,7 @@
+[submodule "payments"]
+	path = packages/payments
+	url = git@github.com:rccyx/rccyx-payments.git
+
 [submodule "storage"]
 	path = packages/storage
 	url = git@github.com:rccyx/rccyx-storage.git
