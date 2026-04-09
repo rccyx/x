@@ -17,3 +17,7 @@
 [submodule "actions"]
 	path = .github/actions
 	url = git@github.com:rccyx/rccyx-actions.git
+
+[submodule "infrastructure"]
+	path = infrastructure
+	url = git@github.com:rccyx/rccyx-infrastructure.git
