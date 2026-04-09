@@ -3,29 +3,29 @@ name: Trigger Deployment
 on:
   workflow_call:
     inputs:
-      deployment_environment:
+      environment:
         required: true
         type: string
         description: "Environment to deploy to (preview or production)"
 
 jobs:
   deploy:
-    environment: ${{ inputs.deployment_environment }}
-    name: Trigger ${{ inputs.deployment_environment }} Deployment
+    environment: ${{ inputs.environment }}
+    name: Trigger ${{ inputs.environment }} Deployment
     runs-on: ubuntu-latest
     timeout-minutes: 1
     concurrency:
-      group: ${{ inputs.deployment_environment }}-deploy
+      group: ${{ inputs.environment }}-deploy
       cancel-in-progress: false
     steps:
       - name: Send Notification
         uses: actions/github-script@v7
         with:
           script: |
-            const environment = "${{ inputs.deployment_environment }}";
+            const environment = "${{ inputs.environment }}";
             core.info(`Deploying to ${environment}`);
 
       - name: Success
         run: |
-          echo "::notice title=${{ inputs.deployment_environment }} Deploy::Deployment started by @${{ github.actor }} at $(date)"
+          echo "::notice title=${{ inputs.environment }} Deploy::Deployment started by @${{ github.actor }} at $(date)"
           echo "Deployment triggered successfully"

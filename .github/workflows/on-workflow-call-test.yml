@@ -22,7 +22,7 @@ jobs:
       - uses: ./.github/actions/setup-env
         with:
           ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
-      - uses: ./.github/actions/setup-ephermal-db
+      - uses: ./.github/actions/db-migrate-ephermal
       - name: Running code tests
         run: |
           pnpm test:unit-integration
