@@ -1,3 +1,7 @@
+[submodule "constants"]
+	path = packages/constants
+	url = git@github.com:rccyx/rccyx-constants.git
+
 [submodule "email"]
 	path = packages/email
 	url = git@github.com:rccyx/rccyx-email.git
