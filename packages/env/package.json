@@ -1,23 +1,24 @@
 {
-  "name": "@ashgw/env",
+  "name": "@rccyx/env",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "prettier . --write",
-    "lint": "tsc --noEmit; eslint .",
     "env:validate:app": "pnpm tsx index.ts",
-    "env:validate:ci": "export VALIDATE_CI=true && pnpm tsx index.ts"
+    "env:validate:ci": "export VALIDATE_CI=true && pnpm tsx index.ts",
+    "format": "prettier . --write",
+    "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
-    "@ashgw/ts-env": "catalog:",
+    "envyx": "1.4.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
-    "ts-roids": "catalog:",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "tsx": "^4.19.4",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typyx": "catalog:"
   },
   "exports": {
     ".": "./index.ts"

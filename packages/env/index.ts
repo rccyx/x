@@ -1,11 +1,7 @@
-import { createEnv } from "@ashgw/ts-env";
-import { colors } from "./colors";
-
-import { envTuple } from "./env-tuple";
-import { ciVars, clientVars, serverVars } from "./vars";
-
-const serverVarsTuple = envTuple(serverVars);
-const ciVarsTuple = envTuple(ciVars);
+import { createEnv, tuple } from "envyx";
+import { serverVars } from "./vars";
+import { ciVars } from "./vars";
+import { clientVars } from "./vars";
 
 export const env = createEnv({
   vars: {
@@ -13,13 +9,24 @@ export const env = createEnv({
     ...ciVars,
     ...clientVars,
   },
-  disablePrefix: [...serverVarsTuple, ...ciVarsTuple],
+  disablePrefix: [...tuple(serverVars), ...tuple(ciVars)],
   prefix: "NEXT_PUBLIC",
   runtimeEnv: {
+    // client vars
+    NEXT_PUBLIC_CURRENT_ENV: process.env.NEXT_PUBLIC_CURRENT_ENV,
+    NEXT_PUBLIC_WWW_URL: process.env.NEXT_PUBLIC_WWW_URL,
+    NEXT_PUBLIC_CONTINUUM_URL: process.env.NEXT_PUBLIC_CONTINUUM_URL,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    NEXT_PUBLIC_DISABLE_SENTRY_TUNNELING:
+      process.env.NEXT_PUBLIC_DISABLE_SENTRY_TUNNELING,
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN:
+      process.env.NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     // server vars
     QSTASH_TOKEN: process.env.QSTASH_TOKEN,
-    X_API_TOKEN: process.env.X_API_TOKEN,
-    PERSONAL_EMAIL: process.env.PERSONAL_EMAIL,
+    X_API_KEY: process.env.X_API_KEY,
     IP_HASH_SALT: process.env.IP_HASH_SALT,
     KIT_API_KEY: process.env.KIT_API_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
@@ -35,37 +42,25 @@ export const env = createEnv({
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     SENTRY_PROJECT: process.env.SENTRY_PROJECT,
     AUTH_ENCRYPTION_KEY: process.env.AUTH_ENCRYPTION_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    WHOP_APP_API_KEY: process.env.WHOP_APP_API_KEY,
+    WHOP_APP_ID: process.env.WHOP_APP_ID,
+    WHOP_WEBHOOK_SECRET: process.env.WHOP_WEBHOOK_SECRET,
     // ci vars
+    X_API_KEY_CI: process.env.X_API_KEY_CI,
     VERCEL_TOKEN: process.env.VERCEL_TOKEN,
     VERCEL_ORG_ID: process.env.VERCEL_ORG_ID,
-    INTERNAL_NOTIFICATION_TOKEN: process.env.INTERNAL_NOTIFICATION_TOKEN,
     TURBO_TEAM: process.env.TURBO_TEAM,
     TURBO_TOKEN: process.env.TURBO_TOKEN,
     VERCEL_WWW_PROJECT_ID: process.env.VERCEL_WWW_PROJECT_ID,
-    VERCEL_BLOG_PROJECT_ID: process.env.VERCEL_BLOG_PROJECT_ID,
-    OPENAI_PR_SUMMARIZER_TOKEN: process.env.OPENAI_PR_SUMMARIZER_TOKEN,
+    VERCEL_CONTINUUM_PROJECT_ID: process.env.VERCEL_CONTINUUM_PROJECT_ID,
+    VERCEL_API_PROJECT_ID: process.env.VERCEL_API_PROJECT_ID,
     ENV_SERVICE_TOKEN: process.env.ENV_SERVICE_TOKEN,
     SUBMODULE_SYNC_PAT: process.env.SUBMODULE_SYNC_PAT,
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     CONTAINER_SERVICE_TOKEN: process.env.CONTAINER_SERVICE_TOKEN,
-    // client vars
-    NEXT_PUBLIC_CURRENT_ENV: process.env.NEXT_PUBLIC_CURRENT_ENV,
-    NEXT_PUBLIC_WWW_URL: process.env.NEXT_PUBLIC_WWW_URL,
-    NEXT_PUBLIC_BLOG_URL: process.env.NEXT_PUBLIC_BLOG_URL,
-    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    NEXT_PUBLIC_DISABLE_SENTRY_TUNNELING:
-      process.env.NEXT_PUBLIC_DISABLE_SENTRY_TUNNELING,
-    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
-    NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN:
-      process.env.NEXT_PUBLIC_LOGTAIL_INGESTION_TOKEN,
-    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
   skipValidation: typeof window !== "undefined", // don't validate on the client, we validate at build time
+  log: true,
 });
-
-// eslint-disable-next-line no-restricted-syntax
-console.log(
-  `${colors.magenta("ENV")} → loaded ${colors.green(
-    String(Object.keys(env).length),
-  )} vars successfully.`,
-);

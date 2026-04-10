@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
-import { siteName } from "@ashgw/constants";
+import { siteName } from "@rccyx/constants";
 import {
   createMetadata,
   organizationJsonLd,
   websiteJsonLd,
   JsonLdScript,
-} from "@ashgw/seo";
-import { AnalyticsProvider } from "@ashgw/analytics/client";
-import { DesignSystemProvider } from "@ashgw/design/provider";
+} from "@rccyx/seo";
+import { AnalyticsProvider } from "@rccyx/analytics/client";
+import { DesignSystemProvider } from "@rccyx/design/provider";
 
-import { env } from "@ashgw/env";
-import { TsrProvider } from "~/ts-rest/provider";
+import { env } from "@rccyx/env";
 
-const description = "Building the future.";
+const description = "Modern renaissance spirit.";
 
 const siteUrl = env.NEXT_PUBLIC_WWW_URL;
 
@@ -29,9 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <JsonLdScript code={organizationJsonLd(siteUrl)} />
       <JsonLdScript code={websiteJsonLd(siteUrl)} />
       <DesignSystemProvider>
-        <AnalyticsProvider>
-          <TsrProvider>{children}</TsrProvider>
-        </AnalyticsProvider>
+        <AnalyticsProvider>{children}</AnalyticsProvider>
       </DesignSystemProvider>
     </>
   );

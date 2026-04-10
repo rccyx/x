@@ -8,13 +8,13 @@ const monorepoRoot = path.join(__dirname, "../../"); // repo root
 
 const jiti = createJiti(import.meta.url);
 
-const baseConfig = jiti("@ashgw/next-config/base.js");
-const { monitor } = jiti("@ashgw/monitor");
+const baseConfig = jiti("@rccyx/next/config");
 
+const { withConfig } = jiti("@rccyx/monitor/next");
 // validate at build
-jiti("@ashgw/env");
+jiti("@rccyx/env");
 
-const config = monitor.next.withConfig({
+const config = withConfig({
   /** @type {import('next').NextConfig} */
   nextConfig: {
     ...baseConfig,

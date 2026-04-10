@@ -3,8 +3,8 @@
 import type NextError from "next/error";
 import { useEffect } from "react";
 
-import { monitor } from "@ashgw/monitor";
-import { Button, toast } from "@ashgw/design/ui";
+import { captureException } from "@rccyx/monitor/client";
+import { Button, toast } from "@rccyx/design/ui";
 
 export interface GlobalErrorProperties {
   readonly error: NextError & { digest?: string };
@@ -14,7 +14,7 @@ export interface GlobalErrorProperties {
 export const ErrorBoundary = ({ error, reset }: GlobalErrorProperties) => {
   useEffect(() => {
     toast.message(
-      monitor.next.captureException({
+      captureException({
         error,
       }),
     );
@@ -47,9 +47,7 @@ export const ErrorBoundary = ({ error, reset }: GlobalErrorProperties) => {
           I've logged this error and will look into it as soon as possible.
         </p>
       </div>
-      <Button variant="default" onClick={handleReset}>
-        Try again
-      </Button>
+      <Button onClick={handleReset}>Try again</Button>
     </div>
   );
 };

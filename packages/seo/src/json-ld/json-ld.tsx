@@ -6,7 +6,7 @@ import type {
   BlogPosting,
   BreadcrumbList,
 } from "schema-dts";
-import { siteName, creator } from "@ashgw/constants";
+import { siteName, creator } from "@rccyx/constants";
 import Script from "next/script";
 
 interface JsonLdProps {

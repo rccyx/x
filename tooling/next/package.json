@@ -1,14 +1,15 @@
 {
-  "name": "@ashgw/next-config",
+  "name": "@rccyx/next",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ashgw/env": "workspace:*"
+    "headyx": "0.1.1"
   },
   "devDependencies": {
     "next": "catalog:"
   },
-  "files": [
-    "base.js"
-  ]
+  "exports": {
+    "./middlewares": "./middlewares/index.ts",
+    "./config": "./config.js"
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/vitest-config",
+  "name": "@rccyx/vitest-config",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,8 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "@vitest/ui": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

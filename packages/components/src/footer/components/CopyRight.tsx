@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "@ashgw/design/motion";
+import { motion } from "@rccyx/design/motion";
 
-import { creator } from "@ashgw/constants";
+import { creator } from "@rccyx/constants";
 
 export function CopyRight() {
   return (

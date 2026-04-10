@@ -14,80 +14,277 @@ tags:
 ---
 
 <C>
-  Bounce tracking is a technique widely used by advertisers, marketers, and
-  analytics platforms to track user behavior across different websites and
-  gather detailed data on your online activity. This method involves redirecting
-  your request through one or more intermediary domains before you reach your
-  intended destination. Instead of going directly to a webpage, your request
-  might pass through a server, such as` ads-tracker.com`, where your data is
-  collected (all the time, without your consent). This could include your IP
-  address, browser type, operating system, cookies, session information, and
-  more.
+  You think you left the ad network anon? Think again. Third party cookies are
+  dying, but you’re still being tracked. Trackers just found new pipes to pour
+  data through.
+</C>
+<C>
+  This is part one of a two part breakdown of how modern tracking survived
+  extinction. Today it’s bounce tracking. Next time it’s{" "}
+  <L href="/browser-fingerprinting">fingerprinting</L>.
 </C>
 
 <C>
-  The main purpose of bounce tracking is to bypass restrictions on third-party
-  cookies. As modern web browsers become more privacy-conscious, they are
-  increasingly restricting the use of third-party cookies, which are going to be
-  dead by the end of 2024. Bounce tracking circumvents this by storing tracking
-  data in first-party cookies on the target websites. First-party cookies are
-  not subject to the same restrictions as third-party cookies which enables
-  advertisers and analytics platforms to continue monitoring user behavior and
-  linking actions across multiple domains, even when the user attempts to block
-  third-party tracking.
-</C>
-<C>
-  This method offers significant benefits to marketers by providing them with
-  valuable insights into user behavior, but it raises serious concerns about
-  user privacy. Many users are unaware that their clicks are being silently
-  rerouted through intermediary tracking servers, without their knowledge or
-  consent. This effectively undermines privacy efforts, including using
-  privacy-focused browsers, VPNs, or extensions designed to block tracking. For
-  users who attempt to limit online surveillance, bounce tracking represents a
-  significant challenge because it works behind the scenes to evade detection.
+  Bounce tracking basically works like this: You click a link. Instead of going
+  straight to the destination, you pass through a middle origin that runs in{" "}
+  <L href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context">
+    top level context
+  </L>
+  , writes first party state for itself, tags the redirect, then sends you on.
+  Classic third party cookies got squeezed, so vendors pivoted. They take the
+  brief moment where the hop is first party, set state, and let the server side
+  graph stitch everything later. One hop. Set state. Forward. You carry the tag.
 </C>
 
-<H2>
-How Bounce Tracking Works
-</H2>
 <C>
-When you click a link, the process generally involves these steps:
-<S/>
-**Request** 
-<S/>
-Your request is routed through a tracking server. Instead of directly accessing `https://example.com`, you might first be redirected to `https://ads-tracker.com/ref?id=partner123&target=https://example.com`. 
-The tracker server records your visit, assigns you a unique ID, and stores this data. Here's how it works: 
+  The only reason this works is that a top level page load unlocks full storage.
+  That hop can touch <code>document.cookie</code>, <code>localStorage</code>,{" "}
+  <code>sessionStorage</code>, <code>IndexedDB</code>,{" "}
+  <code>StorageManager</code>, <code>CacheStorage</code>, and it can even
+  register <L href="https://www.w3.org/TR/service-workers/">service workers</L>.
+  After that it throws a{" "}
+  <L href="https://www.rfc-editor.org/rfc/rfc9110.html#name-302-found">
+    <code>302</code>
+  </L>{" "}
+  with link decoration so the target can read a partner id or a handoff token.
+  No third party cookie needed. The state lived where the hop was first party.
+  The correlation happens off site.
+</C>
+
+<C>A real hop looks like this on the way in:</C>
+
 <Code
-  code={`GET /ref?id=partner123&target=https://example.com. HTTP/1.1
-Host: affiliate-tracker.com
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
-Cookie: tracking_id=partner123
-`}
   language="http"
   showLineNumbers={false}
-/> 
-**Redirect** 
-<S/>
+  code={`GET /ref?pid=net_42&target=https://store.example/p/sku123 HTTP/1.1
+Host: t.example-redirect.net
+User-Agent: Mozilla/5.0 (...)
+Sec-Fetch-Dest: document
+Accept-Language: en-US,en;q=0.9
+`}
+/>
+
+<C>And like this on the way out:</C>
 
 <Code
+  language="http"
+  showLineNumbers={false}
   code={`HTTP/1.1 302 Found
-Location: https://store.com/product
-Set-Cookie: affiliate_id=partner123; Path=/; HttpOnly; Secure
+Set-Cookie: rid=aa7c.169983; Path=/; Secure; HttpOnly; SameSite=Lax
+Set-Cookie: src=net_42; Path=/; Secure; HttpOnly; SameSite=Lax
+Location: https://store.example/p/sku123?aff=net_42&rid=aa7c.169983
 `}
-  language="http"
-  showLineNumbers={false}
-/> 
-The affiliate tracker collects your data, and the destination site may use JavaScript to read the cookie or query parameters for further tracking.
-</C>
-<H2>
-Mitigation Techniques
-</H2>
+/>
+
 <C>
-**Browsers** 
-<S/>
-Modern browsers have implemented several features to combat bounce tracking and strip tracking parameters. For example, Safari's <L href='https://clearcode.cc/blog/intelligent-tracking-prevention-faq/'>Intelligent Tracking Prevention (ITP)</L> limits first-party cookies from trackers to a 24-hour lifespan and automatically blocks tracking scripts and cross-site cookies. Similarly, Firefox's <L href='https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop'>Enhanced Tracking Protection (ETP)</L> detects bounce tracking patterns, prevents redirects, and removes known tracking parameters like `affiliate_id` and `utm_source`. On top of that, Brave Browser's <L href='https://brave.com/privacy-updates/18-de-amp/'>De-AMP</L> feature bypasses intermediary servers, such as those used by Google AMP, and navigates directly to the original content, further limiting tracking capabilities.
-<S/>
-**Extensions** 
-<S/>
-Privacy tools like <L href='https://pclosmag.com/html/Issues/201907/page06.html'>uBlock Origin</L> and <L href='https://privacybadger.org/'>Privacy Badger</L> block tracking servers and scripts. These tools analyze URL query strings and redirection behaviors to prevent tracking.
+  Now the merchant sees decoration in the URL and may also call the hop’s first
+  party endpoint server to server. The user graph lives there, not on the page
+  you’re looking at. You can’t clear what never landed as a third party cookie
+  on the merchant domain. The trick was the short top level window that allowed
+  the hop to write.
+</C>
+
+<C>
+  How do they make it sticky. First, link decoration. <code>gclid</code>,{" "}
+  <code>fbclid</code>, <code>utm_*</code>, internal click ids. The hop appends
+  or rotates values per partner. Some browsers strip common junk on copy or on
+  navigation, but plenty still land if the target whitelists keys. Second,
+  bounced first party storage. The hop sets <code>rid</code>, <code>src</code>,
+  or a short lived <code>sid</code> in cookies or localStorage. The target loads
+  a tiny SDK that calls back to the hop’s origin, hands over decoration, and
+  gets back a normalized id or attribution window. Third,{" "}
+  <L href="https://webkit.org/tracking-prevention/">CNAME cloaking</L>.
+  Publishers map <code>trk.publisher.com</code> to{" "}
+  <code>tracker.vendor.net</code>. To naive filters it looks first party.
+  Engines fight this with{" "}
+  <L href="https://privacycg.github.io/storage-partitioning/">
+    storage partitioning
+  </L>{" "}
+  and CNAME resolution, but stacks still miss it.
+</C>
+
+<C>
+  They also seed long lived paths. Short pages that exist for a few hundred
+  milliseconds run inline JS, persist identifiers, maybe prime{" "}
+  <code>CacheStorage</code> with a versioned key, then 302. Some abuse{" "}
+  <L href="https://continuum.mozilla.org/security/2021/04/19/firefox-88-combats-window-name-privacy-abuses/">
+    <code>window.name</code>
+  </L>{" "}
+  as a cross load scratch pad. Good engines scrub that across sites. Weaker ones
+  leak it. The aggressive ones register a{" "}
+  <L href="https://www.w3.org/TR/service-workers/">service worker</L> on their
+  own origin during the bounce so later embedded resources can talk to it
+  without a visible page. The worker holds state and reconciles in the
+  background. Even before JS runs, the hop sees TLS fingerprints like{" "}
+  <L href="https://github.com/salesforce/ja3">JA3</L> or{" "}
+  <L href="https://foxio.io/ja4">JA4</L>, ALPN order, HTTP/2 priority, and
+  timing. Mix that with decoration and you get correlation that survives little
+  client tweaks.
+</C>
+
+<C>
+  This is why basic defenses feel good but fail in practice. VPN hides IP. The
+  bounce still runs top level and writes first party state. Incognito clears
+  storage on close. The redirect sets fresh ids on the next click. Content
+  blockers that only target third party frames miss top level bounces entirely.
+  Partitioned cookies help a lot, but CNAME tricks and server side joins still
+  stitch the path. Killing third party cookies slowed lazy tracking. Bounce
+  tracking moved the write to a first party window where old defenses do
+  nothing.
+</C>
+
+<C>
+  Browsers are not asleep though. <strong>Safari and WebKit</strong> ship{" "}
+  <L href="https://webkit.org/tracking-prevention/">
+    Intelligent Tracking Prevention
+  </L>{" "}
+  with bounce defenses,{" "}
+  <L href="https://webkit.org/continuum/8613/intelligent-tracking-prevention-2-1/">
+    storage partitioning
+  </L>
+  , storage culling for suspected bouncers, and link decoration stripping in a
+  bunch of flows. <strong>Firefox</strong> ships{" "}
+  <L href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Redirect_tracking_protection">
+    Redirect Tracking Protection
+  </L>{" "}
+  and{" "}
+  <L href="https://firefox-source-docs.mozilla.org/toolkit/components/antitracking/anti-tracking/bounce-tracking-protection/">
+    Bounce Tracking Protection
+  </L>{" "}
+  that purge storage for short lived top level loads that only exist to set
+  state. <strong>Chromium family</strong> ships{" "}
+  <L href="https://privacysandbox.google.com/protections/bounce-tracking-mitigations">
+    Bounce Tracking Mitigations
+  </L>{" "}
+  that delete state for suspected bouncers after brief visits, plus partitioned
+  cookie options like{" "}
+  <L href="https://developer.chrome.com/docs/privacy-sandbox/chips">CHIPS</L>{" "}
+  and{" "}
+  <L href="https://wicg.github.io/attribution-reporting-api">
+    Attribution Reporting
+  </L>{" "}
+  so ad stacks have a path that doesn’t need raw cross site ids.{" "}
+  <strong>Brave</strong> adds{" "}
+  <L href="https://brave.com/privacy-features/#de-amp">De AMP</L>, aggressive
+  param stripping, and per session randomization for some API outputs{" "}
+  <L href="https://github.com/brave/brave-browser/wiki/Fingerprinting-Protections">
+    {" "}
+    (fingerprinting protections){" "}
+  </L>
+  .
+</C>
+
+<C>
+  If you want to spot bounce behavior yourself, watch for fast 3xx chains in
+  navigation, unknown middle domains in referrers, sub second pages that set
+  cookies then vanish, repeated <code>rid</code> or <code>click_id</code> style
+  params crossing unrelated origins, and service worker registrations on domains
+  that never host content. Instrument your edge with redirect timing and
+  referrer diffs. Anything that chains you through domains you don’t own for
+  less than a second deserves review.
+</C>
+
+<C>
+  Users can harden without turning the web into a science project. Pick a
+  hardened browser. Firefox Strict, Safari with cross site tracking prevention
+  on, Brave. Kill{" "}
+  <L href="https://www.w3.org/TR/webrtc/">
+    <code>WebRTC</code>
+  </L>{" "}
+  IP leaks. Use copy clean link features so decoration doesn’t spread{" "}
+  <L href="https://www.macrumors.com/how-to/remove-tracking-information-urls-safari/">
+    (Safari)
+  </L>
+  <L href="https://github.com/brave/brave-browser/wiki/Overview-of-URL-modifying-features-in-Brave-Browsers#url-clean-copy">
+    , (Brave){" "}
+  </L>
+  . Don’t stack ten privacy extensions that make your setup unique. Entropy
+  still matters from the fingerprinting side.
+</C>
+
+<C>
+  Builders have real levers. First, stop the bounce. Link directly. If you need
+  a redirect, keep it first party and keep storage minimal. Second, strip junk
+  at the edge. Drop tracking params before routing. Keep only what your app
+  needs. Here’s an NGINX sketch that cleans common noise:
+</C>
+
+<Code
+  language="nginx"
+  showLineNumbers={false}
+  code={`map $args $clean_args {
+    default $args;     ~*(^|&)(utm_[^=]+|fbclid|gclid|dclid|msclkid|yclid|igshid|vero_id|si)=[^&]*&? "";
+}
+server {
+    if ($clean_args != $args) {
+        return 301 $scheme://$host$uri$is_args$clean_args;
+    }
+}
+`}
+/>
+
+<C>Same idea in Next.js middleware with a tight allowlist:</C>
+
+<Code
+language="ts"
+showLineNumbers={false}
+code={`// middleware.ts
+import { NextRequest, NextResponse } from 'next/server'
+
+const BAD = new Set(['fbclid','gclid','dclid','msclkid','vero_id','igshid','si'])
+
+export function middleware(req: NextRequest) {
+const url = new URL(req.url)
+let dirty = false
+for (const [k] of url.searchParams) {
+if (k.startsWith('utm_') || BAD.has(k)) {
+url.searchParams.delete(k)
+dirty = true
+}
+}
+return dirty ? NextResponse.redirect(url, 301) : NextResponse.next()
+}
+`}
+/>
+
+<C>
+  Harden referrers. Set{" "}
+  <L href="https://www.w3.org/TR/referrer-policy/">Referrer Policy</L> to{" "}
+  <code>strict-origin-when-cross-origin</code> so you don’t leak path and query.
+  Detect redirect abuse. Log every 3xx during navigation with timing and
+  destination. Anything that 302s through unknown domains in under one second is
+  suspect. Quarantine or drop. Kill decoration at source. If you must pass
+  state, sign a short lived token bound to your own origin and endpoint. Verify
+  server side. No raw user ids in query strings. Prefer partitioned and first
+  party options for embeds so vendor state can’t follow users across top level
+  sites. Keep analytics first party. Aggregate before storage.
+</C>
+
+<C>
+  You still need attribution. Use privacy preserving paths. WebKit ships{" "}
+  <L href="https://webkit.org/continuum/11529/introducing-private-click-measurement-pcm/">
+    Private Click Measurement
+  </L>
+  . Chromium ships{" "}
+  <L href="https://wicg.github.io/attribution-reporting-api">
+    Attribution Reporting
+  </L>
+  . Both deliver campaign signal without raw cross site ids or bounce hacks. If
+  a vendor insists they can’t measure without full cross site identity, the
+  vendor is lying or addicted.
+</C>
+
+<C>
+  You’ll hear excuses. “We need the bounce for AMP.” No.{" "}
+  <L href="https://brave.com/privacy-features/#de-amp">De AMP</L> proves users
+  can hit origins directly. If your analytics breaks when the hop dies, your
+  analytics is broken. “We can’t do this without third party cookies.” Wrong.
+  Use the attribution APIs. Use first party analytics. Respect partitioning. If
+  you keep shipping bounces, you’re choosing correlation over trust.
+</C>
+
+<C>
+  Bounce tracking is basically paperwork fraud at HTTP speed. A short top level
+  window creates a first party storage opportunity, then a forward carries the
+  tag.
 </C>

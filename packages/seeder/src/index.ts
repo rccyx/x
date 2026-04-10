@@ -1,7 +1,7 @@
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 import { seedPosts } from "./seeds/posts";
 import { seedUser } from "./seeds/user";
-import { db } from "@ashgw/db";
+import { db } from "@rccyx/db";
 
 async function seed() {
   await seedPosts();
@@ -9,4 +9,4 @@ async function seed() {
   await db.$disconnect();
 }
 
-seed().catch((error) => logger.error("Error happned while seeding", error));
+seed().catch((error) => logger.error("Error happened while seeding", error));

@@ -1,4 +1,4 @@
-import { cn } from "@ashgw/design/ui";
+import { cn } from "@rccyx/design/ui";
 
 import { CopyRight } from "./components/CopyRight";
 

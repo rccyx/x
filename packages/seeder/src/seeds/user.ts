@@ -1,7 +1,7 @@
-import { db } from "@ashgw/db";
-import { hash } from "@ashgw/security";
+import { db } from "@rccyx/db";
+import { hash } from "@rccyx/security";
 import crypto from "crypto";
-import { logger } from "@ashgw/logger";
+import { logger } from "@rccyx/logger";
 
 const SESSION_EXPIRY_SECONDS = 60 * 60 * 24 * 14; // 14 days
 
@@ -23,7 +23,7 @@ export async function seedUser() {
     },
   });
 
-  const adminHash = await hash(adminPlainPassword);
+  const adminHash = await hash({ plaintext: adminPlainPassword });
 
   // IMPORTANT: providerId = "credential", accountId = user.id
   await db.account.upsert({
@@ -73,7 +73,11 @@ export async function seedUser() {
       role: "VISITOR",
     },
   });
-  const visitorHash = await hash(visitorPassword);
+
+  const visitorHash = await hash({
+    plaintext: visitorPassword,
+  });
+
   await db.account.upsert({
     where: {
       providerId_accountId: {

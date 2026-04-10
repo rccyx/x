@@ -2,33 +2,29 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
   pull_request:
-    types:
-      - opened
-      - synchronize
+    types: [opened, synchronize]
 
   workflow_dispatch:
     inputs:
       app:
-        description: "App to deploy (manual runs only)"
+        description: "Which app to deploy?"
         required: true
+        default: "both"
         type: choice
         options:
-          - both
           - www
-          - blog
-        default: both
+          - continuum
+          - both
       environment:
-        description: "Target environment (manual runs only)"
+        description: "Target environment"
         required: true
+        default: "preview"
         type: choice
         options:
           - preview
           - production
-        default: preview
 
 permissions:
   contents: write
@@ -40,17 +36,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-pr:
-    if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/on-workflow-call-pr-validate-title.yml
-    secrets: inherit
-
-  summarize-pr:
-    if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/on-workflow-call-pr-summarize.yml
+  secrets-leaks:
+    uses: ./.github/workflows/on-workflow-call-secrets-leaks.yml
     secrets: inherit
 
   validate-env:
+    needs: [secrets-leaks]
     uses: ./.github/workflows/on-workflow-call-validate-env.yml
     secrets: inherit
 
@@ -66,24 +57,22 @@ jobs:
     uses: ./.github/workflows/on-workflow-call-lint.yml
     secrets: inherit
 
-  secrets-leaks:
-    uses: ./.github/workflows/on-workflow-call-secrets-leaks.yml
-    secrets: inherit
-
   build:
+    needs: [validate-env]
     uses: ./.github/workflows/on-workflow-call-build.yml
     secrets: inherit
 
   test:
+    needs: [validate-env]
     uses: ./.github/workflows/on-workflow-call-test.yml
     secrets: inherit
 
-  db-fresh-migration:
-    uses: ./.github/workflows/on-workflow-call-ephermal-db-migrate.yml
+  db-migrate-ephermal:
+    needs: [validate-env]
+    uses: ./.github/workflows/on-workflow-call-db-migrate-ephermal.yml
     secrets: inherit
 
   mergeable:
-    if: always()
     needs:
       - validate-env
       - format
@@ -92,7 +81,7 @@ jobs:
       - secrets-leaks
       - build
       - dependencies-check
-      - db-fresh-migration
+      - db-migrate-ephermal
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@release/v1
@@ -100,13 +89,14 @@ jobs:
         with:
           jobs: ${{ toJSON(needs) }}
 
-  # trigger preview gate
+  #### PREVIEW
+  # requires manual trigger by the owner
   preview-deployment:
     needs: [mergeable]
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'preview')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
-      deployment_environment: preview
+      environment: preview
     secrets: inherit
 
   www-preview-deployment:
@@ -114,25 +104,36 @@ jobs:
     if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'www' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-serverless-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: www
+      environment: preview
+      app: www
     secrets: inherit
 
-  blog-preview-deployment:
+  continuum-preview-deployment:
     needs: [preview-deployment]
-    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'blog' || inputs.app == 'both')
+    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-container-deployment.yml
     with:
-      deployment_environment: preview
-      app_name: blog
+      environment: preview
+      app: continuum
     secrets: inherit
 
+  api-preview-deployment:
+    needs: [preview-deployment]
+    if: needs.preview-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
+    uses: ./.github/workflows/on-workflow-call-container-deployment.yml
+    with:
+      environment: preview
+      app: api
+    secrets: inherit
+
+  ##### PRODUCTION
+  # requires manual trigger by the owner
   production-deployment:
     needs: [mergeable]
     if: (github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.environment == 'production')
     uses: ./.github/workflows/on-workflow-call-trigger-deployment.yml
     with:
-      deployment_environment: production
+      environment: production
     secrets: inherit
 
   www-production-deployment:
@@ -140,15 +141,24 @@ jobs:
     if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'www' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-serverless-deployment.yml
     with:
-      deployment_environment: production
-      app_name: www
+      environment: production
+      app: www
     secrets: inherit
 
-  blog-production-deployment:
+  continuum-production-deployment:
     needs: [production-deployment]
-    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'blog' || inputs.app == 'both')
+    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
     uses: ./.github/workflows/on-workflow-call-container-deployment.yml
     with:
-      deployment_environment: production
-      app_name: blog
+      environment: production
+      app: continuum
+    secrets: inherit
+
+  api-production-deployment:
+    needs: [production-deployment]
+    if: needs.production-deployment.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.app == 'continuum' || inputs.app == 'both')
+    uses: ./.github/workflows/on-workflow-call-container-deployment.yml
+    with:
+      environment: production
+      app: api
     secrets: inherit

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import merge from "lodash.merge";
-import { creator, links, siteName } from "@ashgw/constants";
+import { creator, links, siteName } from "@rccyx/constants";
 
 interface MetadataInput extends Omit<Metadata, "description" | "title"> {
   title: string;

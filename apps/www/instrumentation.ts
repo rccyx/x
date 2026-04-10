@@ -1,10 +1,43 @@
-import { monitor } from "@ashgw/monitor";
+import { logger } from "@rccyx/logger";
+import { captureException } from "@rccyx/monitor/exception";
+import { init } from "@rccyx/monitor/init";
+import { observer } from "runyx";
 
-// Only export Sentry's request-error hook here. We let Next auto-init Sentry
-// via sentry.server.config.ts and sentry.client.config.ts to avoid double init.
-export const onRequestError = monitor.next.SentryLib.captureRequestError;
-
-// Server-side Sentry init for this app. Loaded by Next at startup.
 export function register() {
-  monitor.next.initializeServer();
+  init({
+    runtime: "server",
+  });
+  observer((error) => {
+    // Skip if the error is a retry error, only log the last attempt
+    if ((error.meta?.retryAttempt ?? 0) < (error.meta?.retryMaxAttempts ?? 0))
+      return;
+
+    const severity = error.meta?.severity;
+    if (severity === "warn") {
+      logger.warn(error.message, {
+        tag: error.tag,
+        meta: error.meta,
+        cause: error.cause,
+      });
+      return;
+    }
+
+    if (severity === "fatal") {
+      logger.fatal(error.message, {
+        tag: error.tag,
+        meta: error.meta,
+        cause: error.cause,
+      });
+      captureException({ error });
+      return;
+    }
+
+    logger.error(error.message, {
+      tag: error.tag,
+      meta: error.meta,
+      cause: error.cause,
+    });
+
+    captureException({ error });
+  });
 }

@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_SYNC_PAT }}
+          token: ${{ secrets.SUB_SYNC }}
 
       - uses: ./.github/actions/pnpm-install
         with:
@@ -22,7 +22,7 @@ jobs:
       - uses: ./.github/actions/setup-env
         with:
           ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
-      - uses: ./.github/actions/setup-ephermal-db
+      - uses: ./.github/actions/db-migrate-ephermal
       - name: Running code tests
         run: |
           pnpm test:unit-integration
@@ -35,7 +35,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_SYNC_PAT }}
+          token: ${{ secrets.SUB_SYNC }}
 
       - uses: ./.github/actions/pnpm-install
       - uses: ./.github/actions/setup-env

@@ -1,15 +1,55 @@
-[submodule "ts-rest-kit"]
-	path = packages/ts-rest-kit
-	url = git@github.com:ashgw/ts-rest-kit.git
+[submodule "constants"]
+	path = packages/constants
+	url = git@github.com:rccyx/rccyx-constants.git
+
+[submodule "email"]
+	path = packages/email
+	url = git@github.com:rccyx/rccyx-email.git
+
+[submodule "logger"]
+	path = packages/logger
+	url = git@github.com:rccyx/rccyx-logger.git
+
+[submodule "runner"]
+	path = packages/runner
+	url = git@github.com:rccyx/rccyx-runner.git
+
+[submodule "payments"]
+	path = packages/payments
+	url = git@github.com:rccyx/rccyx-payments.git
+
+[submodule "storage"]
+	path = packages/storage
+	url = git@github.com:rccyx/rccyx-storage.git
+
+[submodule "db"]
+	path = packages/db
+	url = git@github.com:rccyx/rccyx-db.git
+	
+	[submodule "core"]
+	path = packages/core
+	url = git@github.com:rccyx/rccyx-core.git
 
 [submodule "design"]
 	path = packages/design
-	url = git@github.com:ashgw/design.git
-
-[submodule "security"]
-	path = packages/security
-	url = git@github.com:ashgw/security.git
+	url = git@github.com:rccyx/rccyx-design.git
 
 [submodule "auth"]
 	path = packages/auth
-	url = git@github.com:ashgw/auth.git
+	url = git@github.com:rccyx/rccyx-auth.git
+
+[submodule "api"]
+	path = apps/api
+	url = git@github.com:rccyx/rccyx-api.git
+
+[submodule ".cursor"]
+	path = .cursor
+	url = git@github.com:rccyx/rccyx-.cursor.git
+
+[submodule "actions"]
+	path = .github/actions
+	url = git@github.com:rccyx/rccyx-actions.git
+
+[submodule "infrastructure"]
+	path = infrastructure
+	url = git@github.com:rccyx/rccyx-infrastructure.git

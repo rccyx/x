@@ -1,5 +1,5 @@
 {
-  "name": "AG monorepo development container",
+  "name": "Monorepo development container",
   "dockerFile": "Dockerfile",
   "postCreateCommand": "pnpm hooks && pnpm install && pnpm exec playwright install",
   "runArgs": [

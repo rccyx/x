@@ -1,0 +1,24 @@
+{
+  "name": "@rccyx/newsletter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "tsc --noEmit; eslint ."
+  },
+  "dependencies": {
+    "@anthonyhagi/kit-node-sdk": "0.2.3",
+    "@rccyx/env": "workspace:*",
+    "@rccyx/logger": "workspace:*",
+    "@rccyx/runner": "workspace:*"
+  },
+  "devDependencies": {
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "type": "module"
+}

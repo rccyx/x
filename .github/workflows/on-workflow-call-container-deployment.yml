@@ -3,24 +3,24 @@ name: CD / Docker App Deployment
 on:
   workflow_call:
     inputs:
-      deployment_environment:
+      environment:
         required: true
         type: string
-      app_name:
+      app:
         required: true
         type: string
-        description: blog or www or whatever, basically the app
+        description: basically the app under ../../packages
 
 jobs:
   deploy:
-    environment: ${{ inputs.deployment_environment }}
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_SYNC_PAT }}
+          token: ${{ secrets.SUB_SYNC }}
 
       - uses: ./.github/actions/setup-env
         with:
@@ -33,8 +33,8 @@ jobs:
 
       - uses: ./.github/actions/container-deploy
         with:
-          deployment_environment: ${{ inputs.deployment_environment }}
-          app_name: ${{ inputs.app_name}} # only blog for now
-          CONTAINER_SERVICE_TOKEN: ${{ env.CONTAINER_SERVICE_TOKEN }}
+          environment: ${{ inputs.environment }}
+          app: ${{ inputs.app }}
+          CONTAINER_SERVICE_TOKEN: ${{ secrets.CONTAINER_SERVICE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INTERNAL_NOTIFICATION_TOKEN: ${{ secrets.INTERNAL_NOTIFICATION_TOKEN }}
+          X_API_KEY_CI: ${{ secrets.X_API_KEY_CI }}

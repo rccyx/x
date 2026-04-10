@@ -1,0 +1,20 @@
+name: Dispatch
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+permissions:
+  pull-requests: write
+  contents: read
+  issues: write
+
+jobs:
+  continuum-deploy-preview:
+    if: github.event.label.name == 'deploy-preview'
+    uses: ./.github/workflows/on-workflow-call-container-deployment.yml
+    with:
+      environment: preview
+      app: continuum
+    secrets: inherit

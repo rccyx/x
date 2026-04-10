@@ -3,40 +3,37 @@ packages:
   - packages/*
   - tooling/*
 
+linkWorkspacePackages: true
+
 catalog:
   next:
     14.2.3
-    # using this for ths blog because of an irritiating bug
+    # using this for this because of an irritiating bug
     # @see https://github.com/hashicorp/next-mdx-remote/issues/467
   prettier: 3.3.3
   tailwindcss: 3.4.14
   autoprefixer: 10.0.1
   typescript: 5.6.3
-  ts-roids: 2.0.0 # always update this btw
+  typyx: 3.1.0 # always update this btw
+  testyx: 1.6.3 # always update this btw
   "@vitest/ui": 2.1.8
   vitest: "2.1.8"
   # There's a bug with the latest version as of 01.25
   # @see https://github.com/vercel/vercel/issues/11097
   vercel: "33.2.0"
   "@playwright/test": ^1.40.1
-  # used to load env TS files, like @ashgw/env since next 14 only supoorts js files
+  # used to load env TS files, like @rccyx/env since next 14 only supoorts js files
   "jiti": "^2.3.3"
   "@types/node": ^20.11.17
-  "@ashgw/ts-env": 1.5.3
   zod: 3.23.8
   superjson: "2.2.1"
   react-hook-form: "7.53.0"
   limico: 2.0.9
-  sharp: 0.33.2 # neede for nextJS
+  sharp: 0.33.2 # needed for nextJS
 
 catalogs:
   react-query5:
     "@tanstack/react-query": "5.71.10"
-  ts-rest3:
-    "@ts-rest/core": "3.52.1"
-    "@ts-rest/open-api": "3.52.1"
-    "@ts-rest/react-query": "3.52.1"
-    "@ts-rest/serverless": "3.52.1"
   trpc11:
     "@trpc/client": "11.0.2"
     "@trpc/next": "11.0.2"

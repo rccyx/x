@@ -1,26 +1,25 @@
 {
-  "name": "@ashgw/seeder",
+  "name": "@rccyx/seeder",
   "version": "0.1.1",
   "private": true,
   "scripts": {
     "format": "prettier . --write",
     "lint": "tsc --noEmit && eslint .",
-    "seed": "pnpm --filter @ashgw/db migrate:reset --force && tsx src/index.ts"
+    "seed": "pnpm --filter @rccyx/db migrate:reset --force && tsx src/index.ts"
   },
   "dependencies": {
-    "@ashgw/db": "workspace:*",
-    "@ashgw/env": "workspace:*",
-    "@ashgw/logger": "workspace:*",
-    "@ashgw/security": "workspace:*",
-    "@ashgw/ts-env": "catalog:",
+    "@rccyx/db": "workspace:*",
+    "@rccyx/env": "workspace:*",
+    "@rccyx/logger": "workspace:*",
+    "@rccyx/security": "workspace:*",
     "aws-sdk": "2.1692.0"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
-    "ts-roids": "catalog:",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "tsx": "^4.19.4",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typyx": "catalog:"
   },
   "exports": {
     ".": {

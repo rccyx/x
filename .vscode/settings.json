@@ -5,6 +5,5 @@
   "spellright.documentTypes": ["markdown", "typescript", "typescriptreact"],
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  "mdx.server.formatting.enabled": false
+  ]
 }

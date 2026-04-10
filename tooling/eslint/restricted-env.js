@@ -1,7 +1,7 @@
 import tseslint from "typescript-eslint";
 
 /**
- * Whenever`@ashgw/ts-env` is used, apply this rule
+ * Whenever`envyx` is used, apply this rule
  */
 export default tseslint.config(
   { ignores: ["**/env.ts"] },
@@ -14,7 +14,7 @@ export default tseslint.config(
           object: "process",
           property: "env",
           message:
-            "Use `import { env } from '~/env'` or '@ashgw/env' instead to ensure validated types.",
+            "Use `import { env } from '~/env'` or '@rccyx/env' instead to ensure validated types.",
         },
       ],
       "no-restricted-imports": [
@@ -23,7 +23,7 @@ export default tseslint.config(
           name: "process",
           importNames: ["env"],
           message:
-            "Use `import { env } from '~/env'` or '@ashgw/env' instead to ensure validated types.",
+            "Use `import { env } from '~/env'` or '@rccyx/env' instead to ensure validated types.",
         },
       ],
     },

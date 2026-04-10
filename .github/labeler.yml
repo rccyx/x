@@ -1,6 +1,12 @@
 feat:
   - head-branch: ["^feature", "feature", "feat"]
 
+fix:
+  - head-branch: ["^fix", "fixed"]
+
+test:
+  - head-branch: ["^test", "test", "tests"]
+
 docs:
   - head-branch: ["^documentation", "documentation", "^docs", "docs"]
   - changed-files:
@@ -12,8 +18,29 @@ db:
       - any-glob-to-any-file:
           - packages/db/**
 
-fix:
-  - head-branch: ["^fix", "fixed"]
+components:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/components/**
+
+constants:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/constants/**
+
+core:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/core/**
+
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/security/**
+api:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/api/**
 
 tooling:
   - changed-files:
@@ -25,6 +52,11 @@ ci:
       - any-glob-to-any-file:
           - .github/**
 
+monitor:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/monitor/**
+
 infra:
   - changed-files:
       - any-glob-to-any-file:
@@ -34,40 +66,30 @@ env:
   - changed-files:
       - any-glob-to-any-file:
           - packages/env/*
-blog:
+continuum:
   - changed-files:
       - any-glob-to-any-file:
-          - apps/blog/*
+          - apps/continuum/*
 
 www:
   - changed-files:
       - any-glob-to-any-file:
           - apps/www/*
 
-ui:
+design:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/ui/*
+          - packages/design/*
 
 seo:
   - changed-files:
       - any-glob-to-any-file:
           - packages/seo/*
 
-observability:
-  - changed-files:
-      - any-glob-to-any-file:
-          - packages/observability/*
-
 analytics:
   - changed-files:
       - any-glob-to-any-file:
           - packages/analytics/*
-
-build:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "**/package.json"
 
 logger:
   - changed-files:
@@ -89,8 +111,7 @@ rate-limiter:
       - any-glob-to-any-file:
           - packages/rate-limiter/*
 
-scheuler:
+scheduler:
   - changed-files:
       - any-glob-to-any-file:
           - packages/scheduler/**
-

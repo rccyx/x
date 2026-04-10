@@ -1,0 +1,17 @@
+{
+  "extends": "@rccyx/tsconfig/base.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "module": "esnext",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]
+}

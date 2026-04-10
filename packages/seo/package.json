@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/seo",
+  "name": "@rccyx/seo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,15 +7,15 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
-    "@ashgw/constants": "workspace:*",
-    "@ashgw/env": "workspace:*",
+    "@rccyx/constants": "workspace:*",
+    "@rccyx/env": "workspace:*",
     "lodash.merge": "4.6.2",
     "next": "catalog:",
     "schema-dts": "1.1.5"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "@types/lodash.merge": "^4.6.9",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",

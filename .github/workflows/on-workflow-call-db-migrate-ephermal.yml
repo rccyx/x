@@ -1,0 +1,21 @@
+name: CI / Database Fresh Migration On Ephermal DB
+
+on:
+  workflow_call:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          token: ${{ secrets.SUB_SYNC }}
+
+      - uses: ./.github/actions/pnpm-install
+      - uses: ./.github/actions/setup-env
+        with:
+          ENV_SERVICE_TOKEN: ${{ secrets.ENV_SERVICE_TOKEN }}
+
+      - uses: ./.github/actions/db-migrate-ephermal

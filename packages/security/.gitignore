@@ -1,0 +1,64 @@
+
+**/.cache/
+**test-results**
+**/dist/
+**/pnpm-store/
+**/.turbo
+**/.next
+
+# dependencies
+**/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+
+*boss_moves.txt
+
+# For Rust
+*target/
+
+# For Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+
+# hushhh
+.env.all
+.env.local
+.env*
+
+*playground
+**/.terraform/
+*.tfstate.backup
+*.tfstate*
+*.tfvars
+*.tfvars.json
+

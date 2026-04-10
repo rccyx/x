@@ -1,58 +1,46 @@
 {
-  "name": "ashgw",
+  "name": "rccyx",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "changelog": "changeset",
-    "changelog:version": "changeset version",
-    "clean": "git clean -xdf node_modules",
+    "clean": "git clean -xdf node_modules .vercel .turbo .next .cache",
     "deps:check": "syncpack list-mismatches",
     "deps:fix": "syncpack fix-mismatches",
     "deps:format": "syncpack format",
     "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F @ashgw/nextjs...",
+    "dev:next": "turbo watch dev -F @rccyx/nextjs...",
+    "env:validate:app": "turbo run env:validate:app",
+    "env:validate:ci": "turbo run env:validate:ci",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
-    "hooks": "husky install",
     "knip": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "postinstall": "pnpm dlx sherif@latest",
-    "env:validate:app": "turbo run env:validate:app",
-    "env:validate:ci": "turbo run env:validate:ci",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e",
     "test:unit-integration": "turbo run test:unit-integration"
   },
   "author": {
-    "name": "@ashgw",
-    "url": "https://ashgw.me"
+    "name": "@rccyx",
+    "url": "https://rccyx.me"
   },
   "description": "Building.",
   "devDependencies": {
-    "@ashgw/prettier-config": "workspace:*",
-    "@changesets/cli": "^2.29.2",
-    "@commitlint/cli": "^18.2.0",
-    "@commitlint/config-conventional": "^18.1.0",
-    "@turbo/gen": "^2.1.3",
-    "@types/cookie": "^1.0.0",
-    "@vitest/ui": "catalog:",
-    "auto-changelog": "^2.4.0",
+    "@rccyx/prettier-config": "workspace:*",
     "cspell": "^8.3.2",
-    "husky": "^8.0.3",
     "knip": "^5.0.0",
     "markdownlint-cli": "^0.38.0",
     "prettier": "catalog:",
     "syncpack": "^13.0.0",
-    "turbo": "^2.1.3",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "turbo": "^2.1.3"
   },
   "engines": {
     "node": "20.x",
     "pnpm": "^9.12.2"
   },
-  "homepage": "https://ashgw.me",
+  "homepage": "https://rccyx.me",
   "packageManager": "pnpm@9.12.2",
-  "prettier": "@ashgw/prettier-config",
-  "repository": "ashgw/x"
+  "prettier": "@rccyx/prettier-config",
+  "repository": "rccyx/x"
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { env } from "@rccyx/env";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import posthog from "posthog-js";
@@ -8,8 +9,6 @@ import {
   PostHogProvider as PostHogProviderRaw,
   usePostHog,
 } from "posthog-js/react";
-
-import { env } from "@ashgw/env";
 
 export const PostHogProvider = (
   properties: Omit<PropsWithChildren<NonNullable<unknown>>, "client">,

@@ -1,5 +1,5 @@
 {
-  "name": "@ashgw/monitor",
+  "name": "@rccyx/monitor",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,19 +7,22 @@
     "lint": "tsc --noEmit; eslint ."
   },
   "dependencies": {
-    "@ashgw/env": "workspace:*",
-    "@ashgw/error": "workspace:*",
-    "@ashgw/logger": "workspace:*",
+    "@rccyx/env": "workspace:*",
+    "@rccyx/logger": "workspace:*",
     "@sentry/nextjs": "9.8.0",
     "next": "catalog:"
   },
   "devDependencies": {
-    "@ashgw/eslint-config": "workspace:*",
-    "@ashgw/tsconfig": "workspace:*",
+    "@rccyx/eslint-config": "workspace:*",
+    "@rccyx/tsconfig": "workspace:*",
     "typescript": "catalog:"
   },
   "exports": {
-    ".": "./src/index.ts"
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./init": "./src/init.ts",
+    "./next": "./src/next.ts",
+    "./exception": "./src/exception.ts"
   },
   "type": "module"
 }
