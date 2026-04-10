@@ -83,3 +83,7 @@ NGROK_DOMAIN := "saved-duckling-subtle.ngrok-free.app"
     echo 'done cleaning up..'
     echo 'reincarnating..'
     just setup
+
+
+@clone:
+    git submodule update --init --recursive
