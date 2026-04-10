@@ -15,7 +15,7 @@ jobs:
     if: github.repository_owner == 'rccyx' && github.event.pull_request.head.repo.fork == false
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/labeler@v5
+      - uses: actions/labeler@v6
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           sync-labels: true
